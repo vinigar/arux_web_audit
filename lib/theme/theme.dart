@@ -163,6 +163,7 @@ extension TextStyleHelper on TextStyle {
     double? fontSize,
     FontWeight? fontWeight,
     FontStyle? fontStyle,
+    double? letterSpacing,
     bool useGoogleFonts = true,
     TextDecoration? decoration,
     double? lineHeight,
@@ -174,6 +175,7 @@ extension TextStyleHelper on TextStyle {
               fontSize: fontSize ?? this.fontSize,
               fontWeight: fontWeight ?? this.fontWeight,
               fontStyle: fontStyle ?? this.fontStyle,
+              letterSpacing: letterSpacing ?? this.letterSpacing,
               decoration: decoration,
               height: lineHeight,
             )
@@ -182,6 +184,7 @@ extension TextStyleHelper on TextStyle {
               color: color,
               fontSize: fontSize,
               fontWeight: fontWeight,
+              letterSpacing: letterSpacing,
               fontStyle: fontStyle,
               decoration: decoration,
               height: lineHeight,
