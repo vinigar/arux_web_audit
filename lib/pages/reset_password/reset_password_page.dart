@@ -169,12 +169,16 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 final baseUrl =
                                     window.location.href.split('/#')[0];
 
+                                final redirectUrl =
+                                    '$baseUrl/#/change-password/token';
+
+                                print('Redirect URL: $redirectUrl');
+
                                 final res = await supabase.auth.api
                                     .resetPasswordForEmail(
                                   emailAddressController.text,
                                   options: AuthOptions(
-                                    redirectTo:
-                                        '$baseUrl/#/change-password/token',
+                                    redirectTo: redirectUrl,
                                   ),
                                 );
 
