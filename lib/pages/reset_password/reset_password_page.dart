@@ -173,7 +173,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     .resetPasswordForEmail(
                                   emailAddressController.text,
                                   options: AuthOptions(
-                                    redirectTo: '$baseUrl/#/change-password/',
+                                    redirectTo:
+                                        '$baseUrl/#/change-password/token',
                                   ),
                                 );
 
