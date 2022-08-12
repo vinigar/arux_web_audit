@@ -1,3 +1,4 @@
+export 'package:arux/pages/usuarios_page/alta_usuario_page.dart';
 export 'package:arux/pages/reset_password/reset_password_page.dart';
 export 'package:arux/pages/page_not_found.dart';
 export 'package:arux/pages/home_page/home_page.dart';

@@ -9,6 +9,8 @@ class Flurorouter {
 
   static String resetPassword = '/reset-password';
 
+  static String altaUsuario = 'alta-usuario';
+
   static void configureRoutes() {
     // Auth Routes
     router.define(
@@ -20,6 +22,12 @@ class Flurorouter {
     router.define(
       resetPassword,
       handler: AdminHandlers.resetPassword,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      altaUsuario,
+      handler: AdminHandlers.altaUsuario,
       transitionType: TransitionType.none,
     );
 

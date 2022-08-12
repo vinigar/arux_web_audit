@@ -1,11 +1,11 @@
-import 'package:arux/helpers/globals.dart';
-import 'package:arux/pages/home_page/home_page.dart';
-import 'package:arux/router/router.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'package:arux/helpers/globals.dart';
+import 'package:arux/pages/home_page/home_page.dart';
+import 'package:arux/router/router.dart';
 import 'package:arux/pages/widgets/custom_button.dart';
 import 'package:arux/pages/widgets/toggle_icon.dart';
 import 'package:arux/providers/providers.dart';

@@ -166,13 +166,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   return;
                                 }
 
-                                final baseUrl =
-                                    window.location.href.split('/#')[0];
-
-                                final redirectUrl =
-                                    '$baseUrl/#/change-password/token';
-
-                                print('Redirect URL: $redirectUrl');
+                                const redirectUrl =
+                                    'https://supabase.cbluna-dev.com/arux-change-pass/#/change-password/token';
 
                                 final res = await supabase.auth.api
                                     .resetPasswordForEmail(

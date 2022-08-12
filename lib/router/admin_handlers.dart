@@ -17,10 +17,11 @@ class AdminHandlers {
   });
 
   static Handler resetPassword = Handler(handlerFunc: (context, params) {
-    print('Entered changePassword handler');
-    print('URL: ${window.location.href}');
-    print('Params: $params');
     return const ResetPasswordPage();
+  });
+
+  static Handler altaUsuario = Handler(handlerFunc: (context, params) {
+    return const AltaUsuarioPage();
   });
 
   static String parseParams(String params) {
