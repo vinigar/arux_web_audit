@@ -96,6 +96,11 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: InputDecoration(
                             labelText: 'Usuario',
                             hintText: 'Usuario',
+                            labelStyle: AppTheme.of(context).bodyText2.override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                ),
                             hintStyle: AppTheme.of(context).bodyText2.override(
                                   fontFamily: 'Poppins',
                                   color: Colors.white,
@@ -154,6 +159,12 @@ class _LoginPageState extends State<LoginPage> {
                               labelText: 'Contraseña',
                               hintText: 'Contraseña',
                               hintStyle:
+                                  AppTheme.of(context).bodyText2.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                              labelStyle:
                                   AppTheme.of(context).bodyText2.override(
                                         fontFamily: 'Poppins',
                                         color: Colors.white,

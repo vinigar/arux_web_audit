@@ -7,18 +7,7 @@ class Flurorouter {
 
   static String rootRoute = '/';
 
-  // static String homeRoute = 'home';
-
   static String resetPassword = '/reset-password';
-
-  static String changePassword = '/change-password/:token';
-
-  //TODO: quitar
-  // static String prefillRoute = 'prefill/:address';
-
-  // static String repRouteTemp = 'rep';
-
-  // static String repRoute = 'rep/:rep';
 
   static void configureRoutes() {
     // Auth Routes
@@ -31,12 +20,6 @@ class Flurorouter {
     router.define(
       resetPassword,
       handler: AdminHandlers.resetPassword,
-      transitionType: TransitionType.none,
-    );
-
-    router.define(
-      changePassword,
-      handler: AdminHandlers.changePassword,
       transitionType: TransitionType.none,
     );
 
