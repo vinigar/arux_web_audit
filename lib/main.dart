@@ -30,6 +30,10 @@ void main() async {
           create: (_) => UserState(),
           lazy: false,
         ),
+        ChangeNotifierProvider(
+          create: (_) => CrudUsuarios(),
+          lazy: false,
+        ),
       ],
       child: const MyApp(),
     ),

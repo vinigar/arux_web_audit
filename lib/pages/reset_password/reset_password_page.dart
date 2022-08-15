@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:arux/helpers/constants.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/theme/theme.dart';
 import 'package:email_validator/email_validator.dart';
@@ -165,9 +166,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 if (!formKey.currentState!.validate()) {
                                   return;
                                 }
-
-                                const redirectUrl =
-                                    'https://supabase.cbluna-dev.com/arux-change-pass/#/change-password/token';
 
                                 final res = await supabase.auth.api
                                     .resetPasswordForEmail(

@@ -1,18 +1,8 @@
-import 'dart:html';
-
 import 'package:fluro/fluro.dart';
 import 'package:arux/pages/pages.dart';
 
 class AdminHandlers {
   static Handler homePage = Handler(handlerFunc: (context, params) {
-    // The root route is always pushed at the start of the app (even if the route
-    // is different). We have to avoid creating the same layout twice to preserve
-    // the state
-    print('Entered homePage handler');
-    print('URL: ${Uri.base}');
-    print('Params: $params');
-
-    //no query parameters
     return const SplashPage();
   });
 
