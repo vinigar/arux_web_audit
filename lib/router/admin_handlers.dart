@@ -10,21 +10,11 @@ class AdminHandlers {
     return const ResetPasswordPage();
   });
 
+  static Handler usuarios = Handler(handlerFunc: (context, params) {
+    return const UsuariosPage();
+  });
+
   static Handler altaUsuario = Handler(handlerFunc: (context, params) {
     return const AltaUsuarioPage();
   });
-
-  static String parseParams(String params) {
-    if (params.contains('#access_token=')) {
-      const start = 'access_token=';
-      const end = '&';
-
-      final startIndex = params.indexOf(start);
-      final endIndex = params.indexOf(end, startIndex + start.length);
-
-      return params.substring(startIndex + start.length, endIndex);
-    } else {
-      return '';
-    }
-  }
 }

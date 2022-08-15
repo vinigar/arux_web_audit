@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ import 'package:arux/pages/widgets/get_image_widget.dart';
 import 'package:arux/providers/providers.dart';
 import 'package:arux/helpers/constants.dart';
 import 'package:arux/helpers/globals.dart';
-import 'package:arux/pages/alta_usuario_page/widgets/header.dart';
+import 'package:arux/pages/widgets/header/header.dart';
 import 'package:arux/pages/alta_usuario_page/widgets/pais_dropdown.dart';
 import 'package:arux/pages/widgets/custom_button.dart';
 import 'package:arux/pages/widgets/drop_down.dart';
@@ -71,7 +70,7 @@ class _AltaUsuarioPageState extends State<AltaUsuarioPage> {
                 ),
 
                 //HEADER ALTA DE USUARIOS
-                const AltaUsuarioHeader(),
+                const PageHeader(headerName: 'Alta de Usuarios'),
 
                 //Formulario
                 Padding(
@@ -761,10 +760,9 @@ class _AltaUsuarioPageState extends State<AltaUsuarioPage> {
                                   }
 
                                   final res = await supabase.auth.signUp(
-                                      correoController.text, 'default',
-                                      userMetadata: {
-                                        'phone': telefonoController.text,
-                                      });
+                                    correoController.text,
+                                    'default',
+                                  );
 
                                   if (res.error != null) {
                                     print('Error al realizar la petición');
@@ -786,6 +784,7 @@ class _AltaUsuarioPageState extends State<AltaUsuarioPage> {
                                       'id_rol_fk': usuarios.rolId,
                                       'id_proveedor_fk': usuarios.proveedorId,
                                       'cuentas': cuentasDropValue,
+                                      'telefono': telefonoController.text,
                                       'imagen': '',
                                     },
                                   ).execute();

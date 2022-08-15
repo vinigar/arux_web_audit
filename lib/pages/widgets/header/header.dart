@@ -7,14 +7,21 @@ import 'package:arux/pages/widgets/drop_down.dart';
 import 'package:arux/providers/providers.dart';
 import 'package:arux/theme/theme.dart';
 
-class AltaUsuarioHeader extends StatefulWidget {
-  const AltaUsuarioHeader({Key? key}) : super(key: key);
+class PageHeader extends StatefulWidget {
+  const PageHeader({
+    Key? key,
+    required this.headerName,
+    this.spacer = false,
+  }) : super(key: key);
+
+  final String headerName;
+  final bool spacer;
 
   @override
-  State<AltaUsuarioHeader> createState() => _AltaUsuarioHeaderState();
+  State<PageHeader> createState() => _PageHeaderState();
 }
 
-class _AltaUsuarioHeaderState extends State<AltaUsuarioHeader> {
+class _PageHeaderState extends State<PageHeader> {
   TextEditingController searchController = TextEditingController();
   String? currPaisDropValue = '';
   @override
@@ -36,7 +43,7 @@ class _AltaUsuarioHeaderState extends State<AltaUsuarioHeader> {
                 ),
               ),
               Text(
-                'Alta de Usuarios',
+                widget.headerName,
                 style: AppTheme.of(context).bodyText1.override(
                       fontFamily: 'Gotham',
                       color: const Color(0xFF09A963),
@@ -47,6 +54,7 @@ class _AltaUsuarioHeaderState extends State<AltaUsuarioHeader> {
               ),
             ],
           ),
+          widget.spacer == true ? const Spacer() : Container(),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

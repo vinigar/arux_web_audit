@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
           child: CustomButton(
             onPressed: () async {
+              //TODO: handle errors
               final res = await supabase.auth.signOut();
               // if(res.statusCode);
               if (!mounted) return;

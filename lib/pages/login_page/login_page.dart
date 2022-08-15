@@ -313,11 +313,9 @@ class _LoginPageState extends State<LoginPage> {
                             }
 
                             if (!mounted) return;
-                            await Navigator.pushReplacement(
+                            await Navigator.pushReplacementNamed(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ),
+                              '/usuarios',
                             );
                           },
                           text: 'Ingresar',

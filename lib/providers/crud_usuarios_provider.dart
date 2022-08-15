@@ -11,9 +11,15 @@ class CrudUsuarios extends ChangeNotifier {
       supabase.from('paises').select('nombre_pais, id_pais_pk').execute();
   final rolesQuery =
       supabase.from('roles').select('nombre_rol, id_rol_pk').execute();
+  final usuariosQuery = supabase
+      .from('users')
+      .select(
+          'id, email, nombre, apellidos, paises!perfil_usuario (id_pais_pk, nombre_pais), roles!perfil_usuario (id_rol_pk, nombre_rol), telefono')
+      .execute();
 
   List<Pais> paises = [];
   List<RolApi> roles = [];
+  List<Usuario> usuarios = [];
 
   //Informacion del usuario
   String paisId = '';
@@ -75,6 +81,14 @@ class CrudUsuarios extends ChangeNotifier {
         .map((e) => e['nombre_rol'] as String)
         .toList();
     return nombresRoles;
+  }
+
+  Future<List<Usuario>> getUsuarios() async {
+    final PostgrestResponse<dynamic> res = await usuariosQuery;
+    final List<Usuario> usuarios = (res.data as List<dynamic>)
+        .map((usuario) => Usuario.fromJson(jsonEncode(usuario)))
+        .toList();
+    return usuarios;
   }
 
   // @override
