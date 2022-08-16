@@ -157,19 +157,16 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                         snapshot.data!;
                                     return RefreshIndicator(
                                       onRefresh: () async {
-                                        //TODO: ad
-                                        // setState(() =>
-                                        //     _apiRequestCompleter = null);
-                                        // await waitForApiRequestCompleter();
+                                        //TODO: revisar funcionalidad
+                                        setState(() {});
                                       },
                                       child: ListView.builder(
                                         padding: EdgeInsets.zero,
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
                                         itemCount: usuarios.length,
-                                        itemBuilder: (context, partidasIndex) {
-                                          final usuario =
-                                              usuarios[partidasIndex];
+                                        itemBuilder: (context, index) {
+                                          final usuario = usuarios[index];
                                           return Padding(
                                             padding: const EdgeInsetsDirectional
                                                 .fromSTEB(0, 10, 0, 0),

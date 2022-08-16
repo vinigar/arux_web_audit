@@ -1,10 +1,10 @@
-import 'package:arux/services/api_error_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'package:arux/services/api_error_handler.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/router/router.dart';
 import 'package:arux/pages/widgets/custom_button.dart';
@@ -22,15 +22,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool passwordVisibility = false;
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final UserState userState = Provider.of<UserState>(context);
     return Scaffold(
-      key: scaffoldKey,
+      key: globalKey,
       backgroundColor: AppTheme.of(context).primaryBackground,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -145,15 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                             controller: userState.passwordController,
                             obscureText: !passwordVisibility,
                             validator: (value) {
-                              //TODO: revisar validacion
-                              // final RegExp regex = RegExp(
-                              //     r"^(?=.*[A-Z])(?=.*\d)(?=.*\d)[A-Za-z\d!#\$%&/\(\)=?¡¿+\*\.-_:,;]{8,50}$");
                               if (value == null || value.isEmpty) {
                                 return 'La contraseña es requerida';
                               }
-                              //  else if (!regex.hasMatch(value)) {
-                              //   return 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y dos números.\nLos caracteres especiales válidos son: !#\$%&/()=?¡¿+*.-_:,; y no se permite el uso de\nespacios, tildes o acentos.';
-                              // }
                               return null;
                             },
                             decoration: InputDecoration(
@@ -297,12 +289,13 @@ class _LoginPageState extends State<LoginPage> {
                               final msg = ApiErrorHandler.translateErrorMsg(
                                   res.error!.message);
                               Fluttertoast.showToast(
-                                  msg: msg,
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  webBgColor: "#e74c3c",
-                                  textColor: Colors.black,
-                                  timeInSecForIosWeb: 5,
-                                  webPosition: 'center');
+                                msg: msg,
+                                toastLength: Toast.LENGTH_SHORT,
+                                webBgColor: "#e74c3c",
+                                textColor: Colors.black,
+                                timeInSecForIosWeb: 5,
+                                webPosition: 'center',
+                              );
                               return;
                             }
 

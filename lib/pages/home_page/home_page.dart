@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/pages/pages.dart';
 import 'package:arux/pages/widgets/custom_button.dart';
+import 'package:arux/services/api_error_handler.dart';
 import 'package:arux/theme/theme.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,9 +24,22 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
           child: CustomButton(
             onPressed: () async {
-              //TODO: handle errors
               final res = await supabase.auth.signOut();
-              // if(res.statusCode);
+
+              if (res.error != null) {
+                final msg =
+                    ApiErrorHandler.translateErrorMsg(res.error!.message);
+                Fluttertoast.showToast(
+                  msg: msg,
+                  toastLength: Toast.LENGTH_SHORT,
+                  webBgColor: "#e74c3c",
+                  textColor: Colors.black,
+                  timeInSecForIosWeb: 5,
+                  webPosition: 'center',
+                );
+                return;
+              }
+
               if (!mounted) return;
               await Navigator.pushReplacement(
                 context,

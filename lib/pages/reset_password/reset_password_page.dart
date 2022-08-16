@@ -1,3 +1,4 @@
+import 'package:arux/pages/widgets/toasts/success_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,13 +18,20 @@ class ResetPasswordPage extends StatefulWidget {
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   TextEditingController emailAddressController = TextEditingController();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
+
+  FToast fToast = FToast();
+
+  @override
+  void initState() {
+    fToast.init(globalKey.currentState!.context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: globalKey,
       backgroundColor: AppTheme.of(context).primaryBackground,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -193,13 +201,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   }
 
                                   if (!mounted) return;
-                                  //TODO: change page
-                                  // await Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => const PasswordEmailSentScreen(),
-                                  //   ),
-                                  // );
+                                  fToast.showToast(
+                                    child: const SuccessToast(
+                                      message: 'Correo enviado',
+                                    ),
+                                    gravity: ToastGravity.BOTTOM,
+                                    toastDuration: const Duration(seconds: 2),
+                                  );
                                 },
                                 child: const Icon(
                                   Icons.arrow_forward,

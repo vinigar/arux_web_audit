@@ -740,7 +740,6 @@ class _AltaUsuarioPageState extends State<AltaUsuarioPage> {
                                   //TODO: add validations
 
                                   if (webImage != null) {
-                                    print(supabase.auth.session()?.user?.email);
                                     final storageResponse = await supabase
                                         .storage
                                         .from('avatars')
