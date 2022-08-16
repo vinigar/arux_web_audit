@@ -26,50 +26,7 @@ class TopMenuWidget extends StatelessWidget {
               height: 40,
               fit: BoxFit.cover,
             ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    'Nuestro Trabajo',
-                    style: AppTheme.of(context).bodyText1.override(
-                          fontFamily: 'Gotham',
-                          color: AppTheme.of(context).primaryText,
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                          useGoogleFonts: false,
-                        ),
-                  ),
-                  Text(
-                    'Reseñas',
-                    style: AppTheme.of(context).bodyText1.override(
-                          fontFamily: 'Gotham',
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                          useGoogleFonts: false,
-                        ),
-                  ),
-                  Text(
-                    'Proveedores',
-                    style: AppTheme.of(context).bodyText1.override(
-                          fontFamily: 'Gotham',
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                          useGoogleFonts: false,
-                        ),
-                  ),
-                  Text(
-                    'Conócenos',
-                    style: AppTheme.of(context).bodyText1.override(
-                          fontFamily: 'Gotham',
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                          useGoogleFonts: false,
-                        ),
-                  ),
-                ],
-              ),
-            ),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

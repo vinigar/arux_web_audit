@@ -9,6 +9,16 @@ class Flurorouter {
 
   static String resetPassword = '/reset-password';
 
+  static String gestorPartidasPull = '/gestor-partidas-pull';
+
+  static String gestoPartidasPush = '/gestor-partidas.push';
+
+  static String proveedores = '/proveedores';
+
+  static String reporteSeguimientoFacturas = '/reporte-seguimiento-facturas';
+
+  static String seguimientoFacturas = '/seguimiento-facturas';
+
   static String usuarios = '/usuarios';
 
   static String altaUsuario = '/alta-usuario';
@@ -30,6 +40,36 @@ class Flurorouter {
     router.define(
       usuarios,
       handler: AdminHandlers.usuarios,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      gestoPartidasPush,
+      handler: AdminHandlers.gestorPartidasPush,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      gestorPartidasPull,
+      handler: AdminHandlers.gestorPartidasPull,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      proveedores,
+      handler: AdminHandlers.proveedores,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      reporteSeguimientoFacturas,
+      handler: AdminHandlers.reporteSeguimientoFacturas,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      seguimientoFacturas,
+      handler: AdminHandlers.seguimientoFacturas,
       transitionType: TransitionType.none,
     );
 

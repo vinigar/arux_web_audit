@@ -14,6 +14,27 @@ class AdminHandlers {
     return const UsuariosPage();
   });
 
+  static Handler gestorPartidasPull = Handler(handlerFunc: (context, params) {
+    return const GestorPartidasPull();
+  });
+
+  static Handler gestorPartidasPush = Handler(handlerFunc: (context, params) {
+    return const GestorPartidasPush();
+  });
+
+  static Handler proveedores = Handler(handlerFunc: (context, params) {
+    return const Proveedores();
+  });
+
+  static Handler reporteSeguimientoFacturas =
+      Handler(handlerFunc: (context, params) {
+    return const ReporteSeguimientoDeFacturas();
+  });
+
+  static Handler seguimientoFacturas = Handler(handlerFunc: (context, params) {
+    return const SeguimientoDeFacturas();
+  });
+
   static Handler altaUsuario = Handler(handlerFunc: (context, params) {
     return const AltaUsuarioPage();
   });

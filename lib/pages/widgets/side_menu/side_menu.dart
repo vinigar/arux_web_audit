@@ -1,4 +1,5 @@
 import 'package:arux/helpers/globals.dart';
+import 'package:arux/pages/pages.dart';
 import 'package:arux/pages/widgets/custom_icon_button.dart';
 import 'package:arux/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -84,8 +85,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                 type: PageTransitionType.fade,
                 duration: const Duration(milliseconds: 0),
                 reverseDuration: const Duration(milliseconds: 0),
-                child: Container(),
-                // child: GestorDePartidasPullWidget(),
+                child: const GestorPartidasPush(),
               ),
             );
           },
@@ -108,8 +108,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                 type: PageTransitionType.fade,
                 duration: const Duration(milliseconds: 0),
                 reverseDuration: const Duration(milliseconds: 0),
-                child: Container(),
-                // child: GestorDePartidasPullWidget(),
+                child: const GestorPartidasPull(),
               ),
             );
           },
@@ -187,8 +186,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   type: PageTransitionType.fade,
                   duration: const Duration(milliseconds: 0),
                   reverseDuration: const Duration(milliseconds: 0),
-                  child: Container(),
-                  // child: SeguimientoDePartidasListWidget(),
+                  child: const AltaUsuarioPage(),
                 ),
               );
             },
@@ -228,8 +226,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                       type: PageTransitionType.fade,
                       duration: const Duration(milliseconds: 0),
                       reverseDuration: const Duration(milliseconds: 0),
-                      child: Container(),
-                      // child: SeguimientoDePartidasListWidget(),
+                      child: const UsuariosPage(),
                     ),
                   );
                 },

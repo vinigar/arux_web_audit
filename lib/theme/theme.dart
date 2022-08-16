@@ -1,5 +1,3 @@
-// ignore_for_file: overridden_fields, annotate_overrides
-
 import 'package:arux/helpers/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,16 +54,26 @@ abstract class AppTheme {
 }
 
 class LightModeTheme extends AppTheme {
+  @override
   Color primaryColor = const Color(0xFF4B39EF);
+  @override
   Color secondaryColor = const Color(0xFF39D2C0);
+  @override
   Color tertiaryColor = const Color(0xFFEE8B60);
+  @override
   Color alternate = const Color(0xFFFF5963);
+  @override
   Color primaryBackground = const Color(0xFFF1F4F8);
+  @override
   Color secondaryBackground = const Color(0xFFFFFFFF);
+  @override
   Color primaryText = const Color(0xFF101213);
+  @override
   Color secondaryText = const Color(0xFF57636C);
 
+  @override
   Color primaryBtnText = const Color(0xFFFFFFFF);
+  @override
   Color lineColor = const Color(0xFFE0E3E7);
 }
 
@@ -91,49 +99,63 @@ class ThemeTypography extends Typography {
 
   final AppTheme theme;
 
+  @override
   String get title1Family => 'Poppins';
+  @override
   TextStyle get title1 => GoogleFonts.getFont(
         'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 24,
       );
+  @override
   String get title2Family => 'Poppins';
+  @override
   TextStyle get title2 => GoogleFonts.getFont(
         'Poppins',
         color: theme.secondaryText,
         fontWeight: FontWeight.w600,
         fontSize: 22,
       );
+  @override
   String get title3Family => 'Poppins';
+  @override
   TextStyle get title3 => GoogleFonts.getFont(
         'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 20,
       );
+  @override
   String get subtitle1Family => 'Poppins';
+  @override
   TextStyle get subtitle1 => GoogleFonts.getFont(
         'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 18,
       );
+  @override
   String get subtitle2Family => 'Poppins';
+  @override
   TextStyle get subtitle2 => GoogleFonts.getFont(
         'Poppins',
         color: theme.secondaryText,
         fontWeight: FontWeight.w600,
         fontSize: 16,
       );
+  @override
   String get bodyText1Family => 'Poppins';
+  @override
   TextStyle get bodyText1 => GoogleFonts.getFont(
         'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 14,
       );
+  @override
   String get bodyText2Family => 'Poppins';
+  @override
   TextStyle get bodyText2 => GoogleFonts.getFont(
         'Poppins',
         color: theme.secondaryText,
@@ -143,16 +165,26 @@ class ThemeTypography extends Typography {
 }
 
 class DarkModeTheme extends AppTheme {
+  @override
   Color primaryColor = const Color(0xFF4B39EF);
+  @override
   Color secondaryColor = const Color(0xFF39D2C0);
+  @override
   Color tertiaryColor = const Color(0xFFEE8B60);
+  @override
   Color alternate = const Color(0xFFFF5963);
+  @override
   Color primaryBackground = const Color(0xFF1A1F24);
+  @override
   Color secondaryBackground = const Color(0xFF101213);
+  @override
   Color primaryText = const Color(0xFFFFFFFF);
+  @override
   Color secondaryText = const Color(0xFF95A1AC);
 
+  @override
   Color primaryBtnText = const Color(0xFFFFFFFF);
+  @override
   Color lineColor = const Color(0xFF22282F);
 }
 

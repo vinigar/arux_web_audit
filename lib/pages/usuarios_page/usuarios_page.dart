@@ -209,7 +209,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                               .subtitle1
                                                               .override(
                                                                 fontFamily:
-                                                                    'Gotham',
+                                                                    'Gotham-Light',
                                                                 color: AppTheme.of(
                                                                         context)
                                                                     .primaryText,
@@ -231,7 +231,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                               .subtitle1
                                                               .override(
                                                                 fontFamily:
-                                                                    'Gotham',
+                                                                    'Gotham-Light',
                                                                 color: AppTheme.of(
                                                                         context)
                                                                     .primaryText,
@@ -253,7 +253,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                               .subtitle1
                                                               .override(
                                                                 fontFamily:
-                                                                    'Gotham',
+                                                                    'Gotham-Light',
                                                                 color: AppTheme.of(
                                                                         context)
                                                                     .primaryText,
@@ -275,7 +275,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                               .subtitle1
                                                               .override(
                                                                 fontFamily:
-                                                                    'Gotham',
+                                                                    'Gotham-Light',
                                                                 color: AppTheme.of(
                                                                         context)
                                                                     .primaryText,
@@ -297,7 +297,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                               .subtitle1
                                                               .override(
                                                                 fontFamily:
-                                                                    'Gotham',
+                                                                    'Gotham-Light',
                                                                 color: AppTheme.of(
                                                                         context)
                                                                     .primaryText,
@@ -320,7 +320,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                               .subtitle1
                                                               .override(
                                                                 fontFamily:
-                                                                    'Gotham',
+                                                                    'Gotham-Light',
                                                                 color: AppTheme.of(
                                                                         context)
                                                                     .primaryText,
@@ -348,7 +348,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                               .subtitle1
                                                               .override(
                                                                 fontFamily:
-                                                                    'Gotham',
+                                                                    'Gotham-Light',
                                                                 color: AppTheme.of(
                                                                         context)
                                                                     .primaryText,
@@ -404,7 +404,7 @@ class TableColumnName extends StatelessWidget {
           nombre,
           textAlign: TextAlign.center,
           style: AppTheme.of(context).subtitle1.override(
-                fontFamily: 'Gotham',
+                fontFamily: 'Bicyclette-Bold',
                 color: Colors.white,
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
