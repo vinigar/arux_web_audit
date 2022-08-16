@@ -50,9 +50,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
     "\$DPP",
     "\$ Pronto Pago"
   ];
-  List<String?> selectedDDEnc_transf = [""];
   List<String?> listDDOpe = ["=", ">", ">=", "<", "<=", "!="];
-  List<String?> parametro_filt = [""];
+  List<String> comDDDOpe = ["Y", "Ó"];
   final controller_busqueda_filtro = TextEditingController();
   bool filtro_avanzado = false;
   String query = "";
