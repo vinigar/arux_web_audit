@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+
 import 'package:arux/pages/pages.dart';
 import 'package:arux/providers/providers.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:arux/theme/theme.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({
@@ -16,13 +19,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  // late Future<void> displaySplashImage;
-  // @override
-  // void initState() {
-  //   displaySplashImage = Future.delayed(Duration(seconds: widget.splashTimer));
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final UserState userState = Provider.of<UserState>(context, listen: false);
@@ -37,10 +33,14 @@ class _SplashPageState extends State<SplashPage> {
             if (!snapshot.hasData) {
               return Container(
                 color: Colors.transparent,
-                child: Builder(
-                  builder: (context) => Image.asset(
-                    'assets/images/Final_Comp.gif',
-                    fit: BoxFit.cover,
+                child: Center(
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: SpinKitCircle(
+                      color: AppTheme.of(context).secondaryColor,
+                      size: 50,
+                    ),
                   ),
                 ),
               );

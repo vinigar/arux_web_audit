@@ -1,11 +1,12 @@
-import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:arux/helpers/constants.dart';
 import 'package:arux/helpers/globals.dart';
+import 'package:arux/services/api_error_handler.dart';
 import 'package:arux/theme/theme.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -161,40 +162,50 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 0, 15, 0),
-                            child: InkWell(
-                              onTap: () async {
-                                if (!formKey.currentState!.validate()) {
-                                  return;
-                                }
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () async {
+                                  if (!formKey.currentState!.validate()) {
+                                    return;
+                                  }
 
-                                final res = await supabase.auth.api
-                                    .resetPasswordForEmail(
-                                  emailAddressController.text,
-                                  options: AuthOptions(
-                                    redirectTo: redirectUrl,
-                                  ),
-                                );
+                                  final res = await supabase.auth.api
+                                      .resetPasswordForEmail(
+                                    emailAddressController.text,
+                                    options: AuthOptions(
+                                      redirectTo: redirectUrl,
+                                    ),
+                                  );
 
-                                //TODO: handle errors
-                                if (res.error != null) {
-                                  print('Error al realizar la petición');
-                                  print(res.error!.message);
-                                  return;
-                                }
+                                  if (res.error != null) {
+                                    final msg =
+                                        ApiErrorHandler.translateErrorMsg(
+                                            res.error!.message);
+                                    Fluttertoast.showToast(
+                                        msg: msg,
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        webBgColor: "#e74c3c",
+                                        textColor: Colors.black,
+                                        timeInSecForIosWeb: 5,
+                                        webPosition: 'center');
+                                    return;
+                                  }
 
-                                if (!mounted) return;
-                                //TODO: change page
-                                // await Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => const PasswordEmailSentScreen(),
-                                //   ),
-                                // );
-                              },
-                              child: const Icon(
-                                Icons.arrow_forward,
-                                color: Color(0xFF09A963),
-                                size: 50,
+                                  if (!mounted) return;
+                                  //TODO: change page
+                                  // await Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => const PasswordEmailSentScreen(),
+                                  //   ),
+                                  // );
+                                },
+                                child: const Icon(
+                                  Icons.arrow_forward,
+                                  color: Color(0xFF09A963),
+                                  size: 50,
+                                ),
                               ),
                             ),
                           ),

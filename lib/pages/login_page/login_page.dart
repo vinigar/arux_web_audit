@@ -1,10 +1,11 @@
+import 'package:arux/services/api_error_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:arux/helpers/globals.dart';
-import 'package:arux/pages/home_page/home_page.dart';
 import 'package:arux/router/router.dart';
 import 'package:arux/pages/widgets/custom_button.dart';
 import 'package:arux/pages/widgets/toggle_icon.dart';
@@ -285,25 +286,28 @@ class _LoginPageState extends State<LoginPage> {
                             if (!formKey.currentState!.validate()) {
                               return;
                             }
-                            //Login
 
+                            //Login
                             final res = await supabase.auth.signIn(
                               email: userState.emailController.text,
                               password: userState.passwordController.text,
                             );
 
-                            //TODO: handle errors
-                            if (res.error != null || res.user == null) {
-                              print('Error al realizar la petición');
-                              print(res.error!.message);
+                            if (res.error != null) {
+                              final msg = ApiErrorHandler.translateErrorMsg(
+                                  res.error!.message);
+                              Fluttertoast.showToast(
+                                  msg: msg,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  webBgColor: "#e74c3c",
+                                  textColor: Colors.black,
+                                  timeInSecForIosWeb: 5,
+                                  webPosition: 'center');
                               return;
                             }
 
-                            print(res.user!.email);
-
                             if (userState.recuerdame == true) {
                               await userState.setEmail();
-                              //TODO: quitar?
                               await userState.setPassword();
                             } else {
                               userState.emailController.text = '';

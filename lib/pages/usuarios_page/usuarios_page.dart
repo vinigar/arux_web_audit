@@ -1,4 +1,5 @@
 import 'package:arux/models/models.dart';
+import 'package:arux/pages/usuarios_page/widgets/switch_list_tile.dart';
 import 'package:arux/pages/widgets/header/header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as provider;
@@ -17,7 +18,6 @@ class UsuariosPage extends StatefulWidget {
 }
 
 class _UsuariosPageState extends State<UsuariosPage> {
-  bool switchListTileValue = true;
   TextEditingController searchController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,19 +35,9 @@ class _UsuariosPageState extends State<UsuariosPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               const TopMenuWidget(),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(50, 10, 50, 0),
-                child: Container(
-                  width: double.infinity,
-                  height: 2,
-                  decoration: BoxDecoration(
-                    color: AppTheme.of(context).secondaryBackground,
-                    border: Border.all(
-                      color: const Color(0xFFB7B7B7),
-                      width: 1,
-                    ),
-                  ),
-                ),
+              const Divider(
+                height: 2,
+                color: Color(0xFFB7B7B7),
               ),
               Expanded(
                 child: Row(
@@ -96,230 +86,45 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                             0, 5, 0, 5),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
-                                      children: [
+                                      children: const [
                                         Expanded(
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'ID Usuario',
-                                                textAlign: TextAlign.center,
-                                                style: AppTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Gotham',
-                                                      color: Colors.white,
-                                                      fontSize: 22,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Colors.white,
-                                                  size: 24,
-                                                ),
-                                              ),
-                                            ],
+                                          child: TableColumnName(
+                                            nombre: 'ID Usuario',
                                           ),
                                         ),
                                         Expanded(
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Rol',
-                                                textAlign: TextAlign.center,
-                                                style: AppTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Gotham',
-                                                      color: Colors.white,
-                                                      fontSize: 22,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Colors.white,
-                                                  size: 24,
-                                                ),
-                                              ),
-                                            ],
+                                          child: TableColumnName(
+                                            nombre: 'Nombre',
                                           ),
                                         ),
                                         Expanded(
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Correo',
-                                                textAlign: TextAlign.center,
-                                                style: AppTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Gotham',
-                                                      color: Colors.white,
-                                                      fontSize: 22,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Colors.white,
-                                                  size: 24,
-                                                ),
-                                              ),
-                                            ],
+                                          child: TableColumnName(
+                                            nombre: 'Rol',
                                           ),
                                         ),
                                         Expanded(
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Teléfono',
-                                                textAlign: TextAlign.center,
-                                                style: AppTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Gotham',
-                                                      color: Colors.white,
-                                                      fontSize: 22,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Colors.white,
-                                                  size: 24,
-                                                ),
-                                              ),
-                                            ],
+                                          child: TableColumnName(
+                                            nombre: 'Correo',
                                           ),
                                         ),
                                         Expanded(
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'País',
-                                                textAlign: TextAlign.center,
-                                                style: AppTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Gotham',
-                                                      color: Colors.white,
-                                                      fontSize: 22,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Colors.white,
-                                                  size: 24,
-                                                ),
-                                              ),
-                                            ],
+                                          child: TableColumnName(
+                                            nombre: 'Teléfono',
                                           ),
                                         ),
                                         Expanded(
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Ausencia',
-                                                textAlign: TextAlign.center,
-                                                style: AppTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Gotham',
-                                                      color: Colors.white,
-                                                      fontSize: 22,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Colors.white,
-                                                  size: 24,
-                                                ),
-                                              ),
-                                            ],
+                                          child: TableColumnName(
+                                            nombre: 'País',
                                           ),
                                         ),
                                         Expanded(
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Acciones',
-                                                textAlign: TextAlign.center,
-                                                maxLines: 2,
-                                                style: AppTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Gotham',
-                                                      color: Colors.white,
-                                                      fontSize: 22,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Colors.white,
-                                                  size: 24,
-                                                ),
-                                              ),
-                                            ],
+                                          child: TableColumnName(
+                                            nombre: 'Ausencia',
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: TableColumnName(
+                                            nombre: 'Acciones',
                                           ),
                                         ),
                                       ],
@@ -393,8 +198,6 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                       const EdgeInsetsDirectional
                                                           .fromSTEB(0, 5, 0, 5),
                                                   child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .spaceEvenly,
@@ -402,6 +205,28 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                       Expanded(
                                                         child: Text(
                                                           usuario.id,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: AppTheme.of(
+                                                                  context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Gotham',
+                                                                color: AppTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          '${usuario.nombre} ${usuario.apellidos}',
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: AppTheme.of(
@@ -510,39 +335,12 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                                               ),
                                                         ),
                                                       ),
-                                                      // Expanded(
-                                                      //   child: Padding(
-                                                      //     padding:
-                                                      //         const EdgeInsetsDirectional
-                                                      //                 .fromSTEB(
-                                                      //             90, 0, 0, 0),
-                                                      //     child: SwitchListTile(
-                                                      //       value:
-                                                      //           switchListTileValue,
-                                                      //       onChanged: (newValue) =>
-                                                      //           setState(() =>
-                                                      //               switchListTileValue =
-                                                      //                   newValue),
-                                                      //       activeColor:
-                                                      //           const Color(
-                                                      //               0xFF3B864E),
-                                                      //       activeTrackColor:
-                                                      //           const Color(
-                                                      //               0xFF0DC773),
-                                                      //       dense: false,
-                                                      //       controlAffinity:
-                                                      //           ListTileControlAffinity
-                                                      //               .trailing,
-                                                      //       contentPadding:
-                                                      //           const EdgeInsetsDirectional
-                                                      //                   .fromSTEB(
-                                                      //               0,
-                                                      //               0,
-                                                      //               90,
-                                                      //               0),
-                                                      //     ),
-                                                      //   ),
-                                                      // ),
+                                                      Expanded(
+                                                        child:
+                                                            CustomSwitchListTile(
+                                                          key: UniqueKey(),
+                                                        ),
+                                                      ),
                                                       Expanded(
                                                         child: Text(
                                                           'Acciones',
@@ -587,6 +385,44 @@ class _UsuariosPageState extends State<UsuariosPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TableColumnName extends StatelessWidget {
+  const TableColumnName({
+    Key? key,
+    required this.nombre,
+  }) : super(key: key);
+
+  final String nombre;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          nombre,
+          textAlign: TextAlign.center,
+          style: AppTheme.of(context).subtitle1.override(
+                fontFamily: 'Gotham',
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+                useGoogleFonts: false,
+              ),
+        ),
+        const Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(2, 0, 0, 0),
+          child: Icon(
+            Icons.arrow_drop_down_sharp,
+            color: Colors.white,
+            size: 24,
+          ),
+        ),
+      ],
     );
   }
 }
