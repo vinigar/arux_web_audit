@@ -4,8 +4,7 @@ import 'package:arux/helpers/globalUtility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Reporte_Seguimiento_Facturas_QT.dart';
-import 'package:arux/pages/pages.dart';
-import 'package:arux/pages/widgets/menu_button.dart';
+import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:flutter/material.dart';
 
 class ReporteSeguimientoDeFacturas extends StatefulWidget {
@@ -324,79 +323,7 @@ class _ReporteSeguimientoDeFacturasState
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MenuButton(
-                          icono: Icons.home_outlined,
-                          color: globalUtility.primary,
-                        ),
-                        MenuButton(
-                          icono: Icons.notifications_outlined,
-                          color: globalUtility.primary,
-                        ),
-                        InkWell(
-                          child: MenuButton(
-                            icono: Icons.subtitles_outlined,
-                            color: globalUtility.primary,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const GestorPartidasPull()),
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icono: Icons.podcasts,
-                          color: globalUtility.primary,
-                        ),
-                        MenuButton(
-                          icono: Icons.receipt_long_sharp,
-                          color: globalUtility.primary,
-                        ),
-                        InkWell(
-                            child: MenuButton(
-                              icono: Icons.bar_chart_rounded,
-                              color: globalUtility.primary,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SeguimientoDeFacturas()),
-                              );
-                            }),
-                        InkWell(
-                          child: MenuButton(
-                            icono: Icons.person_add_outlined,
-                            color: globalUtility.primary,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Proveedores()),
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icono: Icons.group_outlined,
-                          color: globalUtility.primary,
-                        ),
-                        const MenuButton(
-                          icono: Icons.power_settings_new_outlined,
-                          color: Color(0xFFFF0003),
-                        ),
-                      ],
-                    ),
-                  ),
+                  const SideMenuWidget(),
                   Expanded(
                     child: Padding(
                       padding:
