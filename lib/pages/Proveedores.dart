@@ -553,307 +553,382 @@ class _ProveedoresState extends State<Proveedores> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          SizedBox(
-            height: 85,
-            child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SizedBox(
+              height: 85,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (Theme.of(context).brightness ==
+                                  Brightness.light)
+                                Image.asset(
+                                  'assets/images/AruxColor.png',
+                                  height: 40,
+                                  fit: BoxFit.cover,
+                                ),
+                              if (Theme.of(context).brightness == Brightness.dark)
+                                Image.asset(
+                                  'assets/images/AruxBlanco.png',
+                                  height: 40,
+                                  fit: BoxFit.cover,
+                                ),
+                            ],
+                          ),
+                          Expanded(child: SizedBox()),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 20, 0),
+                                child: Icon(
+                                  Icons.power_off_outlined,
+                                  color: globalUtility.primary,
+                                  size: 24,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 15, 0),
+                                child: Container(
+                                  width: 60,
+                                  height: 60,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    'https://picsum.photos/seed/607/600',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Align(
+                                    alignment: const AlignmentDirectional(0, 0),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 0, 50, 0),
+                                      child: Text(
+                                        'Luis L.',
+                                        style: globalUtility.textoA(context),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            if (Theme.of(context).brightness ==
-                                Brightness.light)
-                              Image.asset(
-                                'assets/images/AruxColor.png',
-                                height: 40,
-                                fit: BoxFit.cover,
-                              ),
-                            if (Theme.of(context).brightness == Brightness.dark)
-                              Image.asset(
-                                'assets/images/AruxBlanco.png',
-                                height: 40,
-                                fit: BoxFit.cover,
-                              ),
-                          ],
-                        ),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                100, 20, 50, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'Nuestro Trabajo',
-                                  style: globalUtility.textoA(context),
+                                50, 10, 50, 0),
+                            child: Container(
+                              width: 100,
+                              height: 2,
+                              decoration: BoxDecoration(
+                                color: globalUtility.secondaryBg,
+                                border: Border.all(
+                                  color: const Color(0xFFB7B7B7),
+                                  width: 1,
                                 ),
-                                Text(
-                                  'Reseñas',
-                                  style: globalUtility.textoA(context),
-                                ),
-                                Text(
-                                  'Proveedores',
-                                  style: globalUtility.textoA(context),
-                                ),
-                                Text(
-                                  'Conócenos',
-                                  style: globalUtility.textoA(context),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 20, 0),
-                              child: Icon(
-                                Icons.power_off_outlined,
-                                color: globalUtility.primary,
-                                size: 24,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 15, 0),
-                              child: Container(
-                                width: 60,
-                                height: 60,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/607/600',
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Align(
-                                  alignment: const AlignmentDirectional(0, 0),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 50, 0),
-                                    child: Text(
-                                      'Luis L.',
-                                      style: globalUtility.textoA(context),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MenuButton(
+                          icono: Icons.home_outlined,
+                          color: globalUtility.primary,
+                        ),
+                        MenuButton(
+                          icono: Icons.notifications_outlined,
+                          color: globalUtility.primary,
+                        ),
+                        InkWell(
+                          child: MenuButton(
+                            icono: Icons.subtitles_outlined,
+                            color: globalUtility.primary,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const GestorPartidasPush()),
+                            );
+                          },
+                        ),
+                        MenuButton(
+                          icono: Icons.podcasts,
+                          color: globalUtility.primary,
+                        ),
+                        MenuButton(
+                          icono: Icons.receipt_long_sharp,
+                          color: globalUtility.primary,
+                        ),
+                        InkWell(
+                          child: MenuButton(
+                            icono: Icons.bar_chart_rounded,
+                            color: globalUtility.primary,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ReporteSeguimientoDeFacturas()),
+                            );
+                          },
+                        ),
+                        MenuButton(
+                          icono: Icons.person_add_outlined,
+                          color: globalUtility.primary,
+                        ),
+                        MenuButton(
+                          icono: Icons.group_outlined,
+                          color: globalUtility.primary,
+                        ),
+                        const MenuButton(
+                          icono: Icons.power_settings_new_outlined,
+                          color: Color(0xFFFF0003),
                         ),
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              50, 10, 50, 0),
-                          child: Container(
-                            width: 100,
-                            height: 2,
-                            decoration: BoxDecoration(
-                              color: globalUtility.secondaryBg,
-                              border: Border.all(
-                                color: const Color(0xFFB7B7B7),
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      MenuButton(
-                        icono: Icons.home_outlined,
-                        color: globalUtility.primary,
-                      ),
-                      MenuButton(
-                        icono: Icons.notifications_outlined,
-                        color: globalUtility.primary,
-                      ),
-                      InkWell(
-                        child: MenuButton(
-                          icono: Icons.subtitles_outlined,
-                          color: globalUtility.primary,
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const GestorPartidasPush()),
-                          );
-                        },
-                      ),
-                      MenuButton(
-                        icono: Icons.podcasts,
-                        color: globalUtility.primary,
-                      ),
-                      MenuButton(
-                        icono: Icons.receipt_long_sharp,
-                        color: globalUtility.primary,
-                      ),
-                      InkWell(
-                        child: MenuButton(
-                          icono: Icons.bar_chart_rounded,
-                          color: globalUtility.primary,
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ReporteSeguimientoDeFacturas()),
-                          );
-                        },
-                      ),
-                      MenuButton(
-                        icono: Icons.person_add_outlined,
-                        color: globalUtility.primary,
-                      ),
-                      MenuButton(
-                        icono: Icons.group_outlined,
-                        color: globalUtility.primary,
-                      ),
-                      const MenuButton(
-                        icono: Icons.power_settings_new_outlined,
-                        color: Color(0xFFFF0003),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 30, 0),
-                                    child: Icon(
-                                      Icons.arrow_back_outlined,
-                                      color: globalUtility.primary,
-                                      size: 30,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 0, 30, 0),
+                                      child: Icon(
+                                        Icons.arrow_back_outlined,
+                                        color: globalUtility.primary,
+                                        size: 30,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Proveedores',
-                                    style: globalUtility.tituloPagina(context),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 25, 0),
-                                        child: Container(
-                                          width: 45,
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility.primaryBg,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: globalUtility.primary,
-                                              width: 2,
+                                    Text(
+                                      'Proveedores',
+                                      style: globalUtility.tituloPagina(context),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 25, 0),
+                                          child: Container(
+                                            width: 45,
+                                            height: 45,
+                                            decoration: BoxDecoration(
+                                              color: globalUtility.primaryBg,
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: globalUtility.primary,
+                                                width: 2,
+                                              ),
                                             ),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.grid_view,
-                                              color: globalUtility.primary,
-                                              size: 28,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 25, 0),
-                                        child: Container(
-                                          width: 45,
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility.primaryBg,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: globalUtility.primary,
-                                              width: 2,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.person_add_outlined,
-                                              color: globalUtility.primary,
-                                              size: 28,
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.grid_view,
+                                                color: globalUtility.primary,
+                                                size: 28,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 15, 0),
-                                        child: Container(
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 25, 0),
+                                          child: Container(
+                                            width: 45,
+                                            height: 45,
+                                            decoration: BoxDecoration(
+                                              color: globalUtility.primaryBg,
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: globalUtility.primary,
+                                                width: 2,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.person_add_outlined,
+                                                color: globalUtility.primary,
+                                                size: 28,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 15, 0),
+                                          child: Container(
+                                            width: 250,
+                                            height: 51,
+                                            decoration: BoxDecoration(
+                                              color: globalUtility.primaryBg,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              border: Border.all(
+                                                color: globalUtility.primary,
+                                                width: 1.5,
+                                              ),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(10, 0, 0, 0),
+                                                  child: Icon(
+                                                    Icons.search,
+                                                    color: globalUtility.primary,
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: SizedBox(
+                                                    width: 200,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                        horizontal: 5,
+                                                      ),
+                                                      child: TextFormField(
+                                                        controller:
+                                                            controller_busqueda,
+                                                        autofocus: true,
+                                                        obscureText: false,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          hintText: 'Buscar',
+                                                          hintStyle: globalUtility
+                                                              .textoA(context),
+                                                          enabledBorder:
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: globalUtility
+                                                                  .transparente,
+                                                            ),
+                                                          ),
+                                                          focusedBorder:
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: globalUtility
+                                                                  .transparente,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        style: globalUtility
+                                                            .textoA(context),
+                                                        onChanged: (value) {
+                                                          parametro_busqueda =
+                                                              value;
+                                                          if (filtro_avanzado) {
+                                                            switch (selectedDDOpe[
+                                                                0]) {
+                                                              case "=":
+                                                                GetPartidasIgual();
+                                                                break;
+                                                              case "<":
+                                                                GetPartidasMenor();
+                                                                break;
+                                                              case "<=":
+                                                                GetPartidasMenorI();
+                                                                break;
+                                                              case ">":
+                                                                GetPartidasMayor();
+                                                                break;
+                                                              case ">=":
+                                                                GetPartidasMayorI();
+                                                                break;
+                                                              case "!=":
+                                                                GetPartidasDif();
+                                                                break;
+                                                            }
+                                                          } else {
+                                                            GetProveedores();
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
                                           width: 250,
                                           height: 51,
                                           decoration: BoxDecoration(
@@ -867,1371 +942,1274 @@ class _ProveedoresState extends State<Proveedores> {
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(10, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.search,
-                                                  color: globalUtility.primary,
-                                                  size: 24,
-                                                ),
-                                              ),
-                                              Center(
-                                                child: SizedBox(
-                                                  width: 200,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      horizontal: 5,
-                                                    ),
-                                                    child: TextFormField(
-                                                      controller:
-                                                          controller_busqueda,
-                                                      autofocus: true,
-                                                      obscureText: false,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText: 'Buscar',
-                                                        hintStyle: globalUtility
-                                                            .textoA(context),
-                                                        enabledBorder:
-                                                            UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      InkWell(
+                                                        child: Container(
+                                                          width: 25,
+                                                          height: 23.5,
+                                                          decoration:
+                                                              BoxDecoration(
                                                             color: globalUtility
-                                                                .transparente,
+                                                                .primary,
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              bottomLeft:
+                                                                  Radius.circular(
+                                                                      0),
+                                                              bottomRight:
+                                                                  Radius.circular(
+                                                                      0),
+                                                              topLeft:
+                                                                  Radius.circular(
+                                                                      30),
+                                                              topRight:
+                                                                  Radius.circular(
+                                                                      0),
+                                                            ),
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons
+                                                                .arrow_drop_up_sharp,
+                                                            color: Colors.white,
+                                                            size: 18,
                                                           ),
                                                         ),
-                                                        focusedBorder:
-                                                            UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: globalUtility
-                                                                .transparente,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      style: globalUtility
-                                                          .textoA(context),
-                                                      onChanged: (value) {
-                                                        parametro_busqueda =
-                                                            value;
-                                                        if (filtro_avanzado) {
-                                                          switch (selectedDDOpe[
-                                                              0]) {
-                                                            case "=":
-                                                              GetPartidasIgual();
-                                                              break;
-                                                            case "<":
-                                                              GetPartidasMenor();
-                                                              break;
-                                                            case "<=":
-                                                              GetPartidasMenorI();
-                                                              break;
-                                                            case ">":
-                                                              GetPartidasMayor();
-                                                              break;
-                                                            case ">=":
-                                                              GetPartidasMayorI();
-                                                              break;
-                                                            case "!=":
-                                                              GetPartidasDif();
-                                                              break;
+                                                        onTap: () {
+                                                          if (filtro_simple ==
+                                                                  false ||
+                                                              filtro_avanzado ==
+                                                                  false) {
+                                                            count_f++;
+                                                            GetProveedores();
                                                           }
-                                                        } else {
-                                                          GetProveedores();
-                                                        }
-                                                      },
+                                                          setState(() {});
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      InkWell(
+                                                        child: Container(
+                                                          width: 25,
+                                                          height: 23.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: count_f == 0
+                                                                ? globalUtility
+                                                                    .secondary
+                                                                : globalUtility
+                                                                    .primary,
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              bottomLeft:
+                                                                  Radius.circular(
+                                                                      30),
+                                                              bottomRight:
+                                                                  Radius.circular(
+                                                                      0),
+                                                              topLeft:
+                                                                  Radius.circular(
+                                                                      0),
+                                                              topRight:
+                                                                  Radius.circular(
+                                                                      0),
+                                                            ),
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons
+                                                                .arrow_drop_down_sharp,
+                                                            color: Colors.white,
+                                                            size: 18,
+                                                          ),
+                                                        ),
+                                                        onTap: () {
+                                                          if (filtro_simple ==
+                                                                  false ||
+                                                              filtro_avanzado ==
+                                                                  false) {
+                                                            if (count_f >= 1) {
+                                                              count_f--;
+                                                              GetProveedores();
+                                                              setState(() {});
+                                                            }
+                                                          }
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .only(start: 10),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          'Filas: ',
+                                                          style: globalUtility
+                                                              .textoIgual(
+                                                                  context),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 100,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        10),
+                                                            child: TextFormField(
+                                                              initialValue: "20",
+                                                              style: globalUtility
+                                                                  .textoA(
+                                                                      context),
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                      border:
+                                                                          InputBorder
+                                                                              .none),
+                                                              onChanged: (value) {
+                                                                try {
+                                                                  print(
+                                                                      "---Valor: ${value.toString()}");
+                                                                  if (value
+                                                                          .isNotEmpty ||
+                                                                      value !=
+                                                                          "0") {
+                                                                    count_f = int
+                                                                        .parse(value
+                                                                            .toString());
+                                                                    count_f =
+                                                                        count_f -
+                                                                            1;
+                                                                    GetProveedores();
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                } catch (e) {
+                                                                  print(
+                                                                      "---Error: $e");
+                                                                }
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ),
+                                                ],
                                               ),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        width: 250,
-                                        height: 51,
-                                        decoration: BoxDecoration(
-                                          color: globalUtility.primaryBg,
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          border: Border.all(
-                                            color: globalUtility.primary,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    InkWell(
-                                                      child: Container(
-                                                        width: 25,
-                                                        height: 23.5,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: globalUtility
-                                                              .primary,
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                  .only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    0),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    30),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0),
-                                                          ),
-                                                        ),
-                                                        child: const Icon(
-                                                          Icons
-                                                              .arrow_drop_up_sharp,
-                                                          color: Colors.white,
-                                                          size: 18,
-                                                        ),
-                                                      ),
-                                                      onTap: () {
-                                                        if (filtro_simple ==
-                                                                false ||
-                                                            filtro_avanzado ==
-                                                                false) {
-                                                          count_f++;
-                                                          GetProveedores();
-                                                        }
-                                                        setState(() {});
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    InkWell(
-                                                      child: Container(
-                                                        width: 25,
-                                                        height: 23.5,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: count_f == 0
-                                                              ? globalUtility
-                                                                  .secondary
-                                                              : globalUtility
-                                                                  .primary,
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                  .only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    30),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0),
-                                                          ),
-                                                        ),
-                                                        child: const Icon(
-                                                          Icons
-                                                              .arrow_drop_down_sharp,
-                                                          color: Colors.white,
-                                                          size: 18,
-                                                        ),
-                                                      ),
-                                                      onTap: () {
-                                                        if (filtro_simple ==
-                                                                false ||
-                                                            filtro_avanzado ==
-                                                                false) {
-                                                          if (count_f >= 1) {
-                                                            count_f--;
-                                                            GetProveedores();
-                                                            setState(() {});
-                                                          }
-                                                        }
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .only(start: 10),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        'Filas: ',
-                                                        style: globalUtility
-                                                            .textoIgual(
-                                                                context),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 100,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      10),
-                                                          child: TextFormField(
-                                                            initialValue: "20",
-                                                            style: globalUtility
-                                                                .textoA(
-                                                                    context),
-                                                            decoration:
-                                                                const InputDecoration(
-                                                                    border:
-                                                                        InputBorder
-                                                                            .none),
-                                                            onChanged: (value) {
-                                                              try {
-                                                                print(
-                                                                    "---Valor: ${value.toString()}");
-                                                                if (value
-                                                                        .isNotEmpty ||
-                                                                    value !=
-                                                                        "0") {
-                                                                  count_f = int
-                                                                      .parse(value
-                                                                          .toString());
-                                                                  count_f =
-                                                                      count_f -
-                                                                          1;
-                                                                  GetProveedores();
-                                                                  setState(
-                                                                      () {});
-                                                                }
-                                                              } catch (e) {
-                                                                print(
-                                                                    "---Error: $e");
-                                                              }
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.only(top: 20),
-                          child: Material(
-                            color: globalUtility.transparente,
-                            elevation: 10,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(5),
-                                bottomRight: Radius.circular(5),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: globalUtility.primary,
-                                borderRadius: const BorderRadius.only(
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(top: 20),
+                            child: Material(
+                              color: globalUtility.transparente,
+                              elevation: 10,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(5),
                                   bottomRight: Radius.circular(5),
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                 ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 5, 0, 5),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                child: Text(
-                                                  "Proveedor",
-                                                  textAlign: TextAlign.center,
-                                                  style: parametro_proveedor
-                                                          .isNotEmpty
-                                                      ? globalUtility
-                                                          .encabezadoTablasOn(
-                                                              context)
-                                                      : globalUtility
-                                                          .encabezadoTablasOff(
-                                                              context),
-                                                ),
-                                                onTap: () {
-                                                  if (filtro_simple == false) {
-                                                    filtro_avanzado = false;
-                                                    filtro_simple = true;
-                                                  } else {
-                                                    filtro_simple = false;
-                                                    controller_proveedor
-                                                        .clear();
-                                                    parametro_proveedor = "";
-                                                    controller_cuenta_sap
-                                                        .clear();
-                                                    parametro_cuenta_sap = "";
-                                                    controller_esquema.clear();
-                                                    parametro_esquema = "";
-                                                    controller_estado.clear();
-                                                    parametro_estado = "";
-                                                  }
-                                                  GetProveedores();
-                                                  setState(() {});
-                                                },
-                                              ),
-                                              InkWell(
-                                                child: Icon(
-                                                    orden == "proveedor"
-                                                        ? asc == true
-                                                            ? Icons
-                                                                .arrow_drop_down
-                                                            : Icons
-                                                                .arrow_drop_up
-                                                        : Icons.arrow_drop_down,
-                                                    color: orden == "proveedor"
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: globalUtility.primary,
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(5),
+                                    bottomRight: Radius.circular(5),
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 5, 0, 5),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  child: Text(
+                                                    "Proveedor",
+                                                    textAlign: TextAlign.center,
+                                                    style: parametro_proveedor
+                                                            .isNotEmpty
                                                         ? globalUtility
-                                                            .primaryBg
+                                                            .encabezadoTablasOn(
+                                                                context)
                                                         : globalUtility
-                                                            .secondary),
-                                                onTap: () {
-                                                  if (orden != "proveedor") {
-                                                    orden = "proveedor";
-                                                    asc = true;
-                                                  } else {
-                                                    asc == true
-                                                        ? asc = false
-                                                        : asc = true;
-                                                  }
-                                                  if (filtro_avanzado) {
-                                                    switch (selectedDDOpe[0]) {
-                                                      case "=":
-                                                        GetPartidasIgual();
-                                                        break;
-                                                      case "<":
-                                                        GetPartidasMenor();
-                                                        break;
-                                                      case "<=":
-                                                        GetPartidasMenorI();
-                                                        break;
-                                                      case ">":
-                                                        GetPartidasMayor();
-                                                        break;
-                                                      case ">=":
-                                                        GetPartidasMayorI();
-                                                        break;
-                                                      case "!=":
-                                                        GetPartidasDif();
-                                                        break;
+                                                            .encabezadoTablasOff(
+                                                                context),
+                                                  ),
+                                                  onTap: () {
+                                                    if (filtro_simple == false) {
+                                                      filtro_avanzado = false;
+                                                      filtro_simple = true;
+                                                    } else {
+                                                      filtro_simple = false;
+                                                      controller_proveedor
+                                                          .clear();
+                                                      parametro_proveedor = "";
+                                                      controller_cuenta_sap
+                                                          .clear();
+                                                      parametro_cuenta_sap = "";
+                                                      controller_esquema.clear();
+                                                      parametro_esquema = "";
+                                                      controller_estado.clear();
+                                                      parametro_estado = "";
                                                     }
-                                                  } else if (filtro_simple) {
-                                                    GetProveedoresBy__();
-                                                  } else {
                                                     GetProveedores();
-                                                  }
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                child: Text(
-                                                  "Código\nAcreedor",
-                                                  textAlign: TextAlign.center,
-                                                  style: parametro_cuenta_sap
-                                                          .isNotEmpty
-                                                      ? globalUtility
-                                                          .encabezadoTablasOn(
-                                                              context)
-                                                      : globalUtility
-                                                          .encabezadoTablasOff(
-                                                              context),
+                                                    setState(() {});
+                                                  },
                                                 ),
-                                                onTap: () {
-                                                  if (filtro_simple == false) {
-                                                    filtro_avanzado = false;
-                                                    filtro_simple = true;
-                                                  } else {
-                                                    filtro_simple = false;
-                                                    controller_proveedor
-                                                        .clear();
-                                                    parametro_proveedor = "";
-                                                    controller_cuenta_sap
-                                                        .clear();
-                                                    parametro_cuenta_sap = "";
-                                                    controller_esquema.clear();
-                                                    parametro_esquema = "";
-                                                    controller_estado.clear();
-                                                    parametro_estado = "";
-                                                  }
-                                                  GetProveedores();
-                                                  setState(() {});
-                                                },
-                                              ),
-                                              InkWell(
-                                                child: Icon(
-                                                    orden == "cuenta_sap"
-                                                        ? asc == true
-                                                            ? Icons
-                                                                .arrow_drop_down
-                                                            : Icons
-                                                                .arrow_drop_up
-                                                        : Icons.arrow_drop_down,
-                                                    color: orden == "cuenta_sap"
-                                                        ? globalUtility
-                                                            .primaryBg
-                                                        : globalUtility
-                                                            .secondary),
-                                                onTap: () {
-                                                  if (orden != "cuenta_sap") {
-                                                    orden = "cuenta_sap";
-                                                    asc = true;
-                                                  } else {
-                                                    asc == true
-                                                        ? asc = false
-                                                        : asc = true;
-                                                  }
-                                                  if (filtro_avanzado) {
-                                                    switch (selectedDDOpe[0]) {
-                                                      case "=":
-                                                        GetPartidasIgual();
-                                                        break;
-                                                      case "<":
-                                                        GetPartidasMenor();
-                                                        break;
-                                                      case "<=":
-                                                        GetPartidasMenorI();
-                                                        break;
-                                                      case ">":
-                                                        GetPartidasMayor();
-                                                        break;
-                                                      case ">=":
-                                                        GetPartidasMayorI();
-                                                        break;
-                                                      case "!=":
-                                                        GetPartidasDif();
-                                                        break;
+                                                InkWell(
+                                                  child: Icon(
+                                                      orden == "proveedor"
+                                                          ? asc == true
+                                                              ? Icons
+                                                                  .arrow_drop_down
+                                                              : Icons
+                                                                  .arrow_drop_up
+                                                          : Icons.arrow_drop_down,
+                                                      color: orden == "proveedor"
+                                                          ? globalUtility
+                                                              .primaryBg
+                                                          : globalUtility
+                                                              .secondary),
+                                                  onTap: () {
+                                                    if (orden != "proveedor") {
+                                                      orden = "proveedor";
+                                                      asc = true;
+                                                    } else {
+                                                      asc == true
+                                                          ? asc = false
+                                                          : asc = true;
                                                     }
-                                                  } else if (filtro_simple) {
-                                                    GetProveedoresBy__();
-                                                  } else {
-                                                    GetProveedores();
-                                                  }
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                child: Text(
-                                                  "Esquema",
-                                                  textAlign: TextAlign.center,
-                                                  style: parametro_esquema
-                                                          .isNotEmpty
-                                                      ? globalUtility
-                                                          .encabezadoTablasOn(
-                                                              context)
-                                                      : globalUtility
-                                                          .encabezadoTablasOff(
-                                                              context),
+                                                    if (filtro_avanzado) {
+                                                      switch (selectedDDOpe[0]) {
+                                                        case "=":
+                                                          GetPartidasIgual();
+                                                          break;
+                                                        case "<":
+                                                          GetPartidasMenor();
+                                                          break;
+                                                        case "<=":
+                                                          GetPartidasMenorI();
+                                                          break;
+                                                        case ">":
+                                                          GetPartidasMayor();
+                                                          break;
+                                                        case ">=":
+                                                          GetPartidasMayorI();
+                                                          break;
+                                                        case "!=":
+                                                          GetPartidasDif();
+                                                          break;
+                                                      }
+                                                    } else if (filtro_simple) {
+                                                      GetProveedoresBy__();
+                                                    } else {
+                                                      GetProveedores();
+                                                    }
+                                                  },
                                                 ),
-                                                onTap: () {
-                                                  if (filtro_simple == false) {
-                                                    filtro_avanzado = false;
-                                                    filtro_simple = true;
-                                                  } else {
-                                                    filtro_simple = false;
-                                                    controller_proveedor
-                                                        .clear();
-                                                    parametro_proveedor = "";
-                                                    controller_cuenta_sap
-                                                        .clear();
-                                                    parametro_cuenta_sap = "";
-                                                    controller_esquema.clear();
-                                                    parametro_esquema = "";
-                                                    controller_estado.clear();
-                                                    parametro_estado = "";
-                                                  }
-                                                  GetProveedores();
-                                                  setState(() {});
-                                                },
-                                              ),
-                                              InkWell(
-                                                child: Icon(
-                                                    orden == "esquema"
-                                                        ? asc == true
-                                                            ? Icons
-                                                                .arrow_drop_down
-                                                            : Icons
-                                                                .arrow_drop_up
-                                                        : Icons.arrow_drop_down,
-                                                    color: orden == "esquema"
-                                                        ? globalUtility
-                                                            .primaryBg
-                                                        : globalUtility
-                                                            .secondary),
-                                                onTap: () {
-                                                  if (orden != "esquema") {
-                                                    orden = "esquema";
-                                                    asc = true;
-                                                  } else {
-                                                    asc == true
-                                                        ? asc = false
-                                                        : asc = true;
-                                                  }
-                                                  if (filtro_avanzado) {
-                                                    switch (selectedDDOpe[0]) {
-                                                      case "=":
-                                                        GetPartidasIgual();
-                                                        break;
-                                                      case "<":
-                                                        GetPartidasMenor();
-                                                        break;
-                                                      case "<=":
-                                                        GetPartidasMenorI();
-                                                        break;
-                                                      case ">":
-                                                        GetPartidasMayor();
-                                                        break;
-                                                      case ">=":
-                                                        GetPartidasMayorI();
-                                                        break;
-                                                      case "!=":
-                                                        GetPartidasDif();
-                                                        break;
-                                                    }
-                                                  } else if (filtro_simple) {
-                                                    GetProveedoresBy__();
-                                                  } else {
-                                                    GetProveedores();
-                                                  }
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                child: Text(
-                                                  "Estado",
-                                                  textAlign: TextAlign.center,
-                                                  style: parametro_estado
-                                                          .isNotEmpty
-                                                      ? globalUtility
-                                                          .encabezadoTablasOn(
-                                                              context)
-                                                      : globalUtility
-                                                          .encabezadoTablasOff(
-                                                              context),
-                                                ),
-                                                onTap: () {
-                                                  if (filtro_simple == false) {
-                                                    filtro_avanzado = false;
-                                                    filtro_simple = true;
-                                                  } else {
-                                                    filtro_simple = false;
-                                                    controller_proveedor
-                                                        .clear();
-                                                    parametro_proveedor = "";
-                                                    controller_cuenta_sap
-                                                        .clear();
-                                                    parametro_cuenta_sap = "";
-                                                    controller_esquema.clear();
-                                                    parametro_esquema = "";
-                                                    controller_estado.clear();
-                                                    parametro_estado = "";
-                                                  }
-                                                  GetProveedores();
-                                                  setState(() {});
-                                                },
-                                              ),
-                                              InkWell(
-                                                child: Icon(
-                                                    orden == "estado"
-                                                        ? asc == true
-                                                            ? Icons
-                                                                .arrow_drop_down
-                                                            : Icons
-                                                                .arrow_drop_up
-                                                        : Icons.arrow_drop_down,
-                                                    color: orden == "estado"
-                                                        ? globalUtility
-                                                            .primaryBg
-                                                        : globalUtility
-                                                            .secondary),
-                                                onTap: () {
-                                                  if (orden != "estado") {
-                                                    orden = "estado";
-                                                    asc = true;
-                                                  } else {
-                                                    asc == true
-                                                        ? asc = false
-                                                        : asc = true;
-                                                  }
-                                                  if (filtro_avanzado) {
-                                                    switch (selectedDDOpe[0]) {
-                                                      case "=":
-                                                        GetPartidasIgual();
-                                                        break;
-                                                      case "<":
-                                                        GetPartidasMenor();
-                                                        break;
-                                                      case "<=":
-                                                        GetPartidasMenorI();
-                                                        break;
-                                                      case ">":
-                                                        GetPartidasMayor();
-                                                        break;
-                                                      case ">=":
-                                                        GetPartidasMayorI();
-                                                        break;
-                                                      case "!=":
-                                                        GetPartidasDif();
-                                                        break;
-                                                    }
-                                                  } else if (filtro_simple) {
-                                                    GetProveedoresBy__();
-                                                  } else {
-                                                    GetProveedores();
-                                                  }
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Center(
-                                            child: Text(
-                                              "Acciones",
-                                              textAlign: TextAlign.center,
-                                              style: globalUtility
-                                                  .encabezadoTablasOff(context),
+                                              ],
                                             ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child: Center(
-                                            child: Text(
-                                              "Bloqueo\n Temporal",
-                                              textAlign: TextAlign.center,
-                                              style: globalUtility
-                                                  .encabezadoTablasOff(context),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  child: Text(
+                                                    "Código\nAcreedor",
+                                                    textAlign: TextAlign.center,
+                                                    style: parametro_cuenta_sap
+                                                            .isNotEmpty
+                                                        ? globalUtility
+                                                            .encabezadoTablasOn(
+                                                                context)
+                                                        : globalUtility
+                                                            .encabezadoTablasOff(
+                                                                context),
+                                                  ),
+                                                  onTap: () {
+                                                    if (filtro_simple == false) {
+                                                      filtro_avanzado = false;
+                                                      filtro_simple = true;
+                                                    } else {
+                                                      filtro_simple = false;
+                                                      controller_proveedor
+                                                          .clear();
+                                                      parametro_proveedor = "";
+                                                      controller_cuenta_sap
+                                                          .clear();
+                                                      parametro_cuenta_sap = "";
+                                                      controller_esquema.clear();
+                                                      parametro_esquema = "";
+                                                      controller_estado.clear();
+                                                      parametro_estado = "";
+                                                    }
+                                                    GetProveedores();
+                                                    setState(() {});
+                                                  },
+                                                ),
+                                                InkWell(
+                                                  child: Icon(
+                                                      orden == "cuenta_sap"
+                                                          ? asc == true
+                                                              ? Icons
+                                                                  .arrow_drop_down
+                                                              : Icons
+                                                                  .arrow_drop_up
+                                                          : Icons.arrow_drop_down,
+                                                      color: orden == "cuenta_sap"
+                                                          ? globalUtility
+                                                              .primaryBg
+                                                          : globalUtility
+                                                              .secondary),
+                                                  onTap: () {
+                                                    if (orden != "cuenta_sap") {
+                                                      orden = "cuenta_sap";
+                                                      asc = true;
+                                                    } else {
+                                                      asc == true
+                                                          ? asc = false
+                                                          : asc = true;
+                                                    }
+                                                    if (filtro_avanzado) {
+                                                      switch (selectedDDOpe[0]) {
+                                                        case "=":
+                                                          GetPartidasIgual();
+                                                          break;
+                                                        case "<":
+                                                          GetPartidasMenor();
+                                                          break;
+                                                        case "<=":
+                                                          GetPartidasMenorI();
+                                                          break;
+                                                        case ">":
+                                                          GetPartidasMayor();
+                                                          break;
+                                                        case ">=":
+                                                          GetPartidasMayorI();
+                                                          break;
+                                                        case "!=":
+                                                          GetPartidasDif();
+                                                          break;
+                                                      }
+                                                    } else if (filtro_simple) {
+                                                      GetProveedoresBy__();
+                                                    } else {
+                                                      GetProveedores();
+                                                    }
+                                                  },
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    filtro_simple == true
-                                        ? Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(5.0),
-                                                  child: Container(
-                                                    height: 30,
-                                                    width: 85,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                        color: globalUtility
-                                                            .primaryBg,
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  child: Text(
+                                                    "Esquema",
+                                                    textAlign: TextAlign.center,
+                                                    style: parametro_esquema
+                                                            .isNotEmpty
+                                                        ? globalUtility
+                                                            .encabezadoTablasOn(
+                                                                context)
+                                                        : globalUtility
+                                                            .encabezadoTablasOff(
+                                                                context),
+                                                  ),
+                                                  onTap: () {
+                                                    if (filtro_simple == false) {
+                                                      filtro_avanzado = false;
+                                                      filtro_simple = true;
+                                                    } else {
+                                                      filtro_simple = false;
+                                                      controller_proveedor
+                                                          .clear();
+                                                      parametro_proveedor = "";
+                                                      controller_cuenta_sap
+                                                          .clear();
+                                                      parametro_cuenta_sap = "";
+                                                      controller_esquema.clear();
+                                                      parametro_esquema = "";
+                                                      controller_estado.clear();
+                                                      parametro_estado = "";
+                                                    }
+                                                    GetProveedores();
+                                                    setState(() {});
+                                                  },
+                                                ),
+                                                InkWell(
+                                                  child: Icon(
+                                                      orden == "esquema"
+                                                          ? asc == true
+                                                              ? Icons
+                                                                  .arrow_drop_down
+                                                              : Icons
+                                                                  .arrow_drop_up
+                                                          : Icons.arrow_drop_down,
+                                                      color: orden == "esquema"
+                                                          ? globalUtility
+                                                              .primaryBg
+                                                          : globalUtility
+                                                              .secondary),
+                                                  onTap: () {
+                                                    if (orden != "esquema") {
+                                                      orden = "esquema";
+                                                      asc = true;
+                                                    } else {
+                                                      asc == true
+                                                          ? asc = false
+                                                          : asc = true;
+                                                    }
+                                                    if (filtro_avanzado) {
+                                                      switch (selectedDDOpe[0]) {
+                                                        case "=":
+                                                          GetPartidasIgual();
+                                                          break;
+                                                        case "<":
+                                                          GetPartidasMenor();
+                                                          break;
+                                                        case "<=":
+                                                          GetPartidasMenorI();
+                                                          break;
+                                                        case ">":
+                                                          GetPartidasMayor();
+                                                          break;
+                                                        case ">=":
+                                                          GetPartidasMayorI();
+                                                          break;
+                                                        case "!=":
+                                                          GetPartidasDif();
+                                                          break;
+                                                      }
+                                                    } else if (filtro_simple) {
+                                                      GetProveedoresBy__();
+                                                    } else {
+                                                      GetProveedores();
+                                                    }
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  child: Text(
+                                                    "Estado",
+                                                    textAlign: TextAlign.center,
+                                                    style: parametro_estado
+                                                            .isNotEmpty
+                                                        ? globalUtility
+                                                            .encabezadoTablasOn(
+                                                                context)
+                                                        : globalUtility
+                                                            .encabezadoTablasOff(
+                                                                context),
+                                                  ),
+                                                  onTap: () {
+                                                    if (filtro_simple == false) {
+                                                      filtro_avanzado = false;
+                                                      filtro_simple = true;
+                                                    } else {
+                                                      filtro_simple = false;
+                                                      controller_proveedor
+                                                          .clear();
+                                                      parametro_proveedor = "";
+                                                      controller_cuenta_sap
+                                                          .clear();
+                                                      parametro_cuenta_sap = "";
+                                                      controller_esquema.clear();
+                                                      parametro_esquema = "";
+                                                      controller_estado.clear();
+                                                      parametro_estado = "";
+                                                    }
+                                                    GetProveedores();
+                                                    setState(() {});
+                                                  },
+                                                ),
+                                                InkWell(
+                                                  child: Icon(
+                                                      orden == "estado"
+                                                          ? asc == true
+                                                              ? Icons
+                                                                  .arrow_drop_down
+                                                              : Icons
+                                                                  .arrow_drop_up
+                                                          : Icons.arrow_drop_down,
+                                                      color: orden == "estado"
+                                                          ? globalUtility
+                                                              .primaryBg
+                                                          : globalUtility
+                                                              .secondary),
+                                                  onTap: () {
+                                                    if (orden != "estado") {
+                                                      orden = "estado";
+                                                      asc = true;
+                                                    } else {
+                                                      asc == true
+                                                          ? asc = false
+                                                          : asc = true;
+                                                    }
+                                                    if (filtro_avanzado) {
+                                                      switch (selectedDDOpe[0]) {
+                                                        case "=":
+                                                          GetPartidasIgual();
+                                                          break;
+                                                        case "<":
+                                                          GetPartidasMenor();
+                                                          break;
+                                                        case "<=":
+                                                          GetPartidasMenorI();
+                                                          break;
+                                                        case ">":
+                                                          GetPartidasMayor();
+                                                          break;
+                                                        case ">=":
+                                                          GetPartidasMayorI();
+                                                          break;
+                                                        case "!=":
+                                                          GetPartidasDif();
+                                                          break;
+                                                      }
+                                                    } else if (filtro_simple) {
+                                                      GetProveedoresBy__();
+                                                    } else {
+                                                      GetProveedores();
+                                                    }
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Center(
+                                              child: Text(
+                                                "Acciones",
+                                                textAlign: TextAlign.center,
+                                                style: globalUtility
+                                                    .encabezadoTablasOff(context),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Center(
+                                              child: Text(
+                                                "Bloqueo\n Temporal",
+                                                textAlign: TextAlign.center,
+                                                style: globalUtility
+                                                    .encabezadoTablasOff(context),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      filtro_simple == true
+                                          ? Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        vertical: 9,
-                                                        horizontal: 5,
-                                                      ),
-                                                      child: TextField(
-                                                        controller:
-                                                            controller_proveedor,
-                                                        decoration:
-                                                            const InputDecoration(
-                                                                border:
-                                                                    InputBorder
-                                                                        .none),
-                                                        onChanged: (value) {
-                                                          parametro_proveedor =
-                                                              value.toString();
-                                                          GetProveedoresBy__();
-                                                        },
+                                                      child: Padding(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          controller:
+                                                              controller_proveedor,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametro_proveedor =
+                                                                value.toString();
+                                                            GetProveedoresBy__();
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(5.0),
-                                                  child: Container(
-                                                    height: 30,
-                                                    width: 85,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                        color: globalUtility
-                                                            .primaryBg,
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        vertical: 9,
-                                                        horizontal: 5,
-                                                      ),
-                                                      child: TextField(
-                                                        controller:
-                                                            controller_cuenta_sap,
-                                                        decoration:
-                                                            const InputDecoration(
-                                                                border:
-                                                                    InputBorder
-                                                                        .none),
-                                                        onChanged: (value) {
-                                                          parametro_cuenta_sap =
-                                                              value.toString();
-                                                          GetProveedoresBy__();
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(5.0),
-                                                  child: Container(
-                                                    height: 30,
-                                                    width: 85,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                        color: globalUtility
-                                                            .primaryBg,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        vertical: 9,
-                                                        horizontal: 5,
-                                                      ),
-                                                      child: TextField(
-                                                        controller:
-                                                            controller_esquema,
-                                                        decoration:
-                                                            const InputDecoration(
-                                                                border:
-                                                                    InputBorder
-                                                                        .none),
-                                                        onChanged: (value) {
-                                                          parametro_esquema =
-                                                              value.toString();
-                                                          GetProveedoresBy__();
-                                                        },
+                                                      child: Padding(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          controller:
+                                                              controller_cuenta_sap,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametro_cuenta_sap =
+                                                                value.toString();
+                                                            GetProveedoresBy__();
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(5.0),
-                                                  child: Container(
-                                                    height: 30,
-                                                    width: 85,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                        color: globalUtility
-                                                            .primaryBg,
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        vertical: 9,
-                                                        horizontal: 5,
-                                                      ),
-                                                      child: TextField(
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .number,
-                                                        controller:
-                                                            controller_estado,
-                                                        decoration:
-                                                            const InputDecoration(
-                                                                border:
-                                                                    InputBorder
-                                                                        .none),
-                                                        onChanged: (value) {
-                                                          parametro_estado =
-                                                              value.toString();
-                                                          GetProveedoresBy__();
-                                                        },
+                                                      child: Padding(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          controller:
+                                                              controller_esquema,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametro_esquema =
+                                                                value.toString();
+                                                            GetProveedoresBy__();
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              const Expanded(child: SizedBox()),
-                                              const Expanded(child: SizedBox()),
-                                            ],
-                                          )
-                                        : const SizedBox(
-                                            height: 0,
-                                            width: 0,
-                                          )
-                                  ],
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          controller:
+                                                              controller_estado,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametro_estado =
+                                                                value.toString();
+                                                            GetProveedoresBy__();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Expanded(child: SizedBox()),
+                                                const Expanded(child: SizedBox()),
+                                              ],
+                                            )
+                                          : const SizedBox(
+                                              height: 0,
+                                              width: 0,
+                                            )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
-                          child: SizedBox(
-                            height: 720,
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: list_proveedores.length,
-                              itemBuilder: (context, index) {
-                                bool expanded = false;
-                                return Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 0),
-                                  child: ExpandablePanel(
-                                    theme: ExpandableThemeData(
-                                        iconColor: globalUtility.primary),
-                                    header: Material(
-                                      color: Colors.transparent,
-                                      elevation: 5,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          color: globalUtility.primaryBg,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all(
-                                            color: globalUtility.transparente,
-                                            width: 1,
+                          Flexible(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 20),
+                              child: SingleChildScrollView(
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: list_proveedores.length,
+                                  itemBuilder: (context, index) {
+                                    bool expanded = false;
+                                    return Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0, 10, 0, 0),
+                                      child: ExpandablePanel(
+                                        theme: ExpandableThemeData(
+                                            iconColor: globalUtility.primary),
+                                        header: Material(
+                                          color: Colors.transparent,
+                                          elevation: 5,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 55,
+                                            decoration: BoxDecoration(
+                                              color: globalUtility.primaryBg,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                color: globalUtility.transparente,
+                                                width: 1,
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(5, 5, 5, 5),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      list_proveedores[index][1]
+                                                          .toString(),
+                                                      textAlign: TextAlign.start,
+                                                      style: globalUtility
+                                                          .contenidoTablas(context),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Center(
+                                                      child: Text(
+                                                        list_proveedores[index][2]
+                                                            .toString(),
+                                                        textAlign: TextAlign.start,
+                                                        style: globalUtility
+                                                            .contenidoTablas(
+                                                                context),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Center(
+                                                      child: Text(
+                                                        list_proveedores[index][3]
+                                                            .toString(),
+                                                        textAlign: TextAlign.start,
+                                                        style: globalUtility
+                                                            .contenidoTablas(
+                                                                context),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Center(
+                                                      child: Text(
+                                                        list_proveedores[index][4]
+                                                            .toString(),
+                                                        textAlign: TextAlign.start,
+                                                        style: globalUtility
+                                                            .contenidoTablas(
+                                                                context),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Icon(
+                                                      Icons.edit_outlined,
+                                                      color:
+                                                          globalUtility.secondary,
+                                                      size: 30,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Icon(
+                                                      Icons.toggle_off_outlined,
+                                                      color:
+                                                          globalUtility.secondary,
+                                                      size: 30,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(5, 5, 5, 5),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                        collapsed: const SizedBox(
+                                          height: 0,
+                                          width: 0,
+                                        ),
+                                        expanded: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10,
+                                              top: 10,
+                                              right: 50,
+                                              bottom: 10),
+                                          child: Column(
                                             children: [
-                                              Expanded(
-                                                child: Text(
-                                                  list_proveedores[index][1]
-                                                      .toString(),
-                                                  textAlign: TextAlign.start,
-                                                  style: globalUtility
-                                                      .contenidoTablas(context),
+                                              Material(
+                                                color: globalUtility.transparente,
+                                                elevation: 10,
+                                                shape: const RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.only(
+                                                    bottomLeft: Radius.circular(5),
+                                                    bottomRight: Radius.circular(5),
+                                                    topLeft: Radius.circular(10),
+                                                    topRight: Radius.circular(10),
+                                                  ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                    list_proveedores[index][2]
-                                                        .toString(),
-                                                    textAlign: TextAlign.start,
-                                                    style: globalUtility
-                                                        .contenidoTablas(
-                                                            context),
+                                                child: Container(
+                                                  width: double.infinity,
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          globalUtility.primaryBg,
+                                                      borderRadius:
+                                                          const BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(5),
+                                                        bottomRight:
+                                                            Radius.circular(5),
+                                                        topLeft:
+                                                            Radius.circular(10),
+                                                        topRight:
+                                                            Radius.circular(10),
+                                                      ),
+                                                      border: Border.all(
+                                                          color: globalUtility
+                                                              .primary)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0, 5, 0, 5),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    "Sociedad",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: globalUtility
+                                                                        .encabezadoTablasOffAlt(
+                                                                            context),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    "Cuenta",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: globalUtility
+                                                                        .encabezadoTablasOffAlt(
+                                                                            context),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    "Nombre",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: globalUtility
+                                                                        .encabezadoTablasOffAlt(
+                                                                            context),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    "Telefono",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: globalUtility
+                                                                        .encabezadoTablasOffAlt(
+                                                                            context),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Contacto",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: globalUtility
+                                                                      .encabezadoTablasOffAlt(
+                                                                          context),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Con. Pago",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: globalUtility
+                                                                      .encabezadoTablasOffAlt(
+                                                                          context),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Tipo",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: globalUtility
+                                                                      .encabezadoTablasOffAlt(
+                                                                          context),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                    list_proveedores[index][3]
-                                                        .toString(),
-                                                    textAlign: TextAlign.start,
-                                                    style: globalUtility
-                                                        .contenidoTablas(
-                                                            context),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                    list_proveedores[index][4]
-                                                        .toString(),
-                                                    textAlign: TextAlign.start,
-                                                    style: globalUtility
-                                                        .contenidoTablas(
-                                                            context),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Icon(
-                                                  Icons.edit_outlined,
-                                                  color:
-                                                      globalUtility.secondary,
-                                                  size: 30,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Icon(
-                                                  Icons.toggle_off_outlined,
-                                                  color:
-                                                      globalUtility.secondary,
-                                                  size: 30,
-                                                ),
-                                              ),
+                                              ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                shrinkWrap: true,
+                                                scrollDirection: Axis.vertical,
+                                                itemCount: list_proveedores[index]
+                                                        [5]
+                                                    .length,
+                                                itemBuilder: (context, index2) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0, 10, 0, 0),
+                                                    child: Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 5,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10),
+                                                      ),
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        height: 55,
+                                                        decoration: BoxDecoration(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  10),
+                                                          border: Border.all(
+                                                            color:
+                                                                Colors.transparent,
+                                                            width: 1,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                  5, 5, 5, 5),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize.max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    list_proveedores[
+                                                                                index][5]
+                                                                            [
+                                                                            index2][1]
+                                                                        .toString(),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: globalUtility
+                                                                        .contenidoTablas(
+                                                                            context),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    list_proveedores[
+                                                                                index][5]
+                                                                            [
+                                                                            index2][2]
+                                                                        .toString(),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: globalUtility
+                                                                        .contenidoTablas(
+                                                                            context),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Text(
+                                                                  list_proveedores[
+                                                                              index][5]
+                                                                          [
+                                                                          index2][3]
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: globalUtility
+                                                                      .contenidoTablas(
+                                                                          context),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Text(
+                                                                  list_proveedores[
+                                                                              index][5]
+                                                                          [
+                                                                          index2][4]
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: globalUtility
+                                                                      .contenidoTablas(
+                                                                          context),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Text(
+                                                                  list_proveedores[
+                                                                              index][5]
+                                                                          [
+                                                                          index2][5]
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: globalUtility
+                                                                      .contenidoTablas(
+                                                                          context),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    list_proveedores[
+                                                                                index][5]
+                                                                            [
+                                                                            index2][6]
+                                                                        .toString(),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: globalUtility
+                                                                        .contenidoTablas(
+                                                                            context),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    list_proveedores[
+                                                                                index][5]
+                                                                            [
+                                                                            index2][7]
+                                                                        .toString(),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: globalUtility
+                                                                        .contenidoTablas(
+                                                                            context),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              )
                                             ],
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    collapsed: const SizedBox(
-                                      height: 0,
-                                      width: 0,
-                                    ),
-                                    expanded: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10,
-                                          top: 10,
-                                          right: 50,
-                                          bottom: 10),
-                                      child: Column(
-                                        children: [
-                                          Material(
-                                            color: globalUtility.transparente,
-                                            elevation: 10,
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(5),
-                                                bottomRight: Radius.circular(5),
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10),
-                                              ),
-                                            ),
-                                            child: Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  color:
-                                                      globalUtility.primaryBg,
-                                                  borderRadius:
-                                                      const BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(5),
-                                                    bottomRight:
-                                                        Radius.circular(5),
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10),
-                                                  ),
-                                                  border: Border.all(
-                                                      color: globalUtility
-                                                          .primary)),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(0, 5, 0, 5),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                "Sociedad",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: globalUtility
-                                                                    .encabezadoTablasOffAlt(
-                                                                        context),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                "Cuenta",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: globalUtility
-                                                                    .encabezadoTablasOffAlt(
-                                                                        context),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                "Nombre",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: globalUtility
-                                                                    .encabezadoTablasOffAlt(
-                                                                        context),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                "Telefono",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: globalUtility
-                                                                    .encabezadoTablasOffAlt(
-                                                                        context),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text(
-                                                              "Contacto",
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: globalUtility
-                                                                  .encabezadoTablasOffAlt(
-                                                                      context),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text(
-                                                              "Con. Pago",
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: globalUtility
-                                                                  .encabezadoTablasOffAlt(
-                                                                      context),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text(
-                                                              "Tipo",
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: globalUtility
-                                                                  .encabezadoTablasOffAlt(
-                                                                      context),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: list_proveedores[index]
-                                                    [5]
-                                                .length,
-                                            itemBuilder: (context, index2) {
-                                              return Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(0, 10, 0, 0),
-                                                child: Material(
-                                                  color: Colors.transparent,
-                                                  elevation: 5,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  child: Container(
-                                                    width: double.infinity,
-                                                    height: 55,
-                                                    decoration: BoxDecoration(
-                                                      color: globalUtility
-                                                          .primaryBg,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 1,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                              5, 5, 5, 5),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Expanded(
-                                                            child: Center(
-                                                              child: Text(
-                                                                list_proveedores[
-                                                                            index][5]
-                                                                        [
-                                                                        index2][1]
-                                                                    .toString(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style: globalUtility
-                                                                    .contenidoTablas(
-                                                                        context),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Center(
-                                                              child: Text(
-                                                                list_proveedores[
-                                                                            index][5]
-                                                                        [
-                                                                        index2][2]
-                                                                    .toString(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style: globalUtility
-                                                                    .contenidoTablas(
-                                                                        context),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              list_proveedores[
-                                                                          index][5]
-                                                                      [
-                                                                      index2][3]
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: globalUtility
-                                                                  .contenidoTablas(
-                                                                      context),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              list_proveedores[
-                                                                          index][5]
-                                                                      [
-                                                                      index2][4]
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: globalUtility
-                                                                  .contenidoTablas(
-                                                                      context),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              list_proveedores[
-                                                                          index][5]
-                                                                      [
-                                                                      index2][5]
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: globalUtility
-                                                                  .contenidoTablas(
-                                                                      context),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Center(
-                                                              child: Text(
-                                                                list_proveedores[
-                                                                            index][5]
-                                                                        [
-                                                                        index2][6]
-                                                                    .toString(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style: globalUtility
-                                                                    .contenidoTablas(
-                                                                        context),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Center(
-                                                              child: Text(
-                                                                list_proveedores[
-                                                                            index][5]
-                                                                        [
-                                                                        index2][7]
-                                                                    .toString(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style: globalUtility
-                                                                    .contenidoTablas(
-                                                                        context),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

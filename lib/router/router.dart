@@ -11,7 +11,7 @@ class Flurorouter {
 
   static String gestorPartidasPull = '/gestor-partidas-pull';
 
-  static String gestoPartidasPush = '/gestor-partidas.push';
+  static String gestoPartidasPush = '/gestor-partidas-push';
 
   static String proveedores = '/proveedores';
 

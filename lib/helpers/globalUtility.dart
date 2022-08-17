@@ -7,6 +7,7 @@ class GlobalUtility {
   Color alternate = const Color(0XFF173938);
   Color primaryBg = const Color(0XFFFFFFFF);
   Color secondaryBg = const Color(0XFFF7F6F6);
+  Color popubBgFade = const Color(0X65000000);
   Color primaryText = const Color(0XFF141313);
   Color secondaryText = const Color(0XFFB6B6B6);
   Color transparente = const Color(0x00000000);
@@ -21,16 +22,12 @@ class GlobalUtility {
 
   TextStyle encabezadoTablasOff(BuildContext context) {
     return TextStyle(
-        fontSize: 25,
-        fontFamily: 'Bicyclette-Bold',
-        color: primaryBg);
+        fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primaryBg);
   }
 
   TextStyle encabezadoTablasOffAlt(BuildContext context) {
     return TextStyle(
-        fontSize: 25,
-        fontFamily: 'Bicyclette-Bold',
-        color: primary);
+        fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primary);
   }
 
   TextStyle encabezadoTablasOn(BuildContext context) {
@@ -63,6 +60,4 @@ class GlobalUtility {
     return TextStyle(
         fontSize: 18, fontFamily: 'Gotham-Light', color: secondaryText);
   }
-
-
 }
