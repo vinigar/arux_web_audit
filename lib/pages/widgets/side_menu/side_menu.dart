@@ -34,7 +34,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 35,
             ),
             onPressed: () async {
-              await Navigator.push(
+              /* await Navigator.push(
                 context,
                 PageTransition(
                   type: PageTransitionType.fade,
@@ -43,7 +43,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   child: Container(),
                   // child: InicioWidget(),
                 ),
-              );
+              ); */
             },
           ),
           CustomIconButton(
@@ -57,7 +57,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 35,
             ),
             onPressed: () async {
-              await Navigator.push(
+              /* await Navigator.push(
                 context,
                 PageTransition(
                   type: PageTransitionType.fade,
@@ -66,7 +66,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   child: Container(),
                   // child: NotificacionesWidget(),
                 ),
-              );
+              ); */
             },
           ),
           CustomIconButton(
@@ -81,14 +81,9 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 50,
             ),
             onPressed: () async {
-              await Navigator.push(
+              await Navigator.pushReplacementNamed(
                 context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  duration: const Duration(milliseconds: 0),
-                  reverseDuration: const Duration(milliseconds: 0),
-                  child: const GestorPartidasPush(),
-                ),
+                '/gestor-partidas-push',
               );
             },
           ),
@@ -104,7 +99,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 35,
             ),
             onPressed: () async {
-              await Navigator.push(
+              /* await Navigator.push(
                 context,
                 PageTransition(
                   type: PageTransitionType.fade,
@@ -112,10 +107,10 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   reverseDuration: const Duration(milliseconds: 0),
                   child: const GestorPartidasPull(),
                 ),
-              );
+              ); */
             },
           ),
-          Material(
+          /* Material(
             color: Colors.transparent,
             elevation: 10,
             shape: RoundedRectangleBorder(
@@ -131,7 +126,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                 ),
               ),
             ),
-          ),
+          ), */
           CustomIconButton(
             borderColor: Colors.transparent,
             borderRadius: 100,
@@ -143,7 +138,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 35,
             ),
             onPressed: () async {
-              await Navigator.push(
+              /* await Navigator.push(
                 context,
                 PageTransition(
                   type: PageTransitionType.fade,
@@ -152,7 +147,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   child: Container(),
                   // child: PagosWidget(),
                 ),
-              );
+              ); */
             },
           ),
           CustomIconButton(
@@ -166,7 +161,10 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 35,
             ),
             onPressed: () {
-              print('IconButton pressed ...');
+              Navigator.pushReplacementNamed(
+                context,
+                '/reporte-seguimiento-facturas',
+              );
             },
           ),
           Align(

@@ -7,6 +7,7 @@ import 'package:arux/models/GET_Seguimiento_Facturas_QT.dart';
 import 'package:arux/pages/pages.dart';
 import 'package:arux/pages/widgets/menuButton.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SeguimientoDeFacturas extends StatefulWidget {
   const SeguimientoDeFacturas({Key? key}) : super(key: key);
@@ -339,11 +340,9 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                             color: globalUtility.primary,
                           ),
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacementNamed(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const GestorPartidasPull()),
+                              '/gestor-partidas-pull',
                             );
                           },
                         ),
@@ -356,34 +355,40 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                           color: globalUtility.primary,
                         ),
                         InkWell(
-                            child: MenuButton(
-                              icono: Icons.bar_chart_rounded,
-                              color: globalUtility.primary,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ReporteSeguimientoDeFacturas()),
-                              );
-                            }),
+                          child: MenuButton(
+                            icono: Icons.bar_chart_rounded,
+                            color: globalUtility.primary,
+                          ),
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/reporte-seguimiento-facturas',
+                            );
+                          },
+                        ),
                         InkWell(
                           child: MenuButton(
                             icono: Icons.person_add_outlined,
                             color: globalUtility.primary,
                           ),
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacementNamed(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Proveedores()),
+                              '/proveedores',
                             );
                           },
                         ),
-                        MenuButton(
-                          icono: Icons.group_outlined,
-                          color: globalUtility.primary,
+                        InkWell(
+                          child: MenuButton(
+                            icono: Icons.group_outlined,
+                            color: globalUtility.primary,
+                          ),
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/usuarios',
+                            );
+                          },
                         ),
                         const MenuButton(
                           icono: Icons.power_settings_new_outlined,

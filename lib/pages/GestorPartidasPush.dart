@@ -6,6 +6,7 @@ import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/pages/pages.dart';
 import 'package:arux/pages/widgets/menuButton.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class GestorPartidasPush extends StatefulWidget {
   const GestorPartidasPush({Key? key}) : super(key: key);
@@ -384,11 +385,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                 color: globalUtility.primary,
                               ),
                               onTap: () {
-                                Navigator.push(
+                                Navigator.pushReplacementNamed(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const GestorPartidasPull()),
+                                  '/gestor-partidas-pull',
                                 );
                               },
                             ),
@@ -406,11 +405,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                 color: globalUtility.primary,
                               ),
                               onTap: () {
-                                Navigator.push(
+                                Navigator.pushReplacementNamed(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ReporteSeguimientoDeFacturas()),
+                                  '/reporte-seguimiento-facturas',
                                 );
                               },
                             ),
@@ -420,16 +417,23 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                 color: globalUtility.primary,
                               ),
                               onTap: () {
-                                Navigator.push(
+                                Navigator.pushReplacementNamed(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Proveedores()),
+                                  '/proveedores',
                                 );
                               },
                             ),
-                            MenuButton(
-                              icono: Icons.group_outlined,
-                              color: globalUtility.primary,
+                            InkWell(
+                              child: MenuButton(
+                                icono: Icons.group_outlined,
+                                color: globalUtility.primary,
+                              ),
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  '/usuarios',
+                                );
+                              },
                             ),
                             const MenuButton(
                               icono: Icons.power_settings_new_outlined,
