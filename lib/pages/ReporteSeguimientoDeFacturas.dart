@@ -6,7 +6,6 @@ import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Reporte_Seguimiento_Facturas_QT.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 class ReporteSeguimientoDeFacturas extends StatefulWidget {
   const ReporteSeguimientoDeFacturas({Key? key}) : super(key: key);
@@ -324,86 +323,7 @@ class _ReporteSeguimientoDeFacturasState
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-<<<<<<< HEAD
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MenuButton(
-                          icono: Icons.home_outlined,
-                          color: globalUtility.primary,
-                        ),
-                        MenuButton(
-                          icono: Icons.notifications_outlined,
-                          color: globalUtility.primary,
-                        ),
-                        InkWell(
-                          child: MenuButton(
-                            icono: Icons.subtitles_outlined,
-                            color: globalUtility.primary,
-                          ),
-                          onTap: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              '/gestor-partidas-pull',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icono: Icons.podcasts,
-                          color: globalUtility.primary,
-                        ),
-                        MenuButton(
-                          icono: Icons.receipt_long_sharp,
-                          color: globalUtility.primary,
-                        ),
-                        InkWell(
-                            child: MenuButton(
-                              icono: Icons.bar_chart_rounded,
-                              color: globalUtility.primary,
-                            ),
-                            onTap: () {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                '/seguimiento-facturas',
-                              );
-                            }),
-                        InkWell(
-                          child: MenuButton(
-                            icono: Icons.person_add_outlined,
-                            color: globalUtility.primary,
-                          ),
-                          onTap: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              '/proveedores',
-                            );
-                          },
-                        ),
-                        InkWell(
-                          child: MenuButton(
-                            icono: Icons.group_outlined,
-                            color: globalUtility.primary,
-                          ),
-                          onTap: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              '/usuarios',
-                            );
-                          },
-                        ),
-                        const MenuButton(
-                          icono: Icons.power_settings_new_outlined,
-                          color: Color(0xFFFF0003),
-                        ),
-                      ],
-                    ),
-                  ),
-=======
                   const SideMenuWidget(),
->>>>>>> bec96b887b7d907a7fbc5248c18ca8ab88325ca5
                   Expanded(
                     child: Padding(
                       padding:
