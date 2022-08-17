@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class MenuButton extends StatefulWidget {
   const MenuButton({
     Key? key,
-    this.borderColor = Colors.transparent,
     this.borderRadius = 20,
     this.buttonSize = 70,
     this.fillColor = const Color(0XFF04C774),
     required this.icon,
+    this.iconColor = const Color(0XFFB6B6B6),
     required this.onPressed,
     this.isTaped = false,
   }) : super(key: key);
@@ -15,8 +15,8 @@ class MenuButton extends StatefulWidget {
   final double borderRadius;
   final double buttonSize;
   final Color fillColor;
-  final Color borderColor;
   final IconData icon;
+  final Color iconColor;
   final void Function() onPressed;
   final bool isTaped;
 
@@ -54,7 +54,7 @@ class _MenuButtonState extends State<MenuButton> {
                   size: 50,
                   color: hover || widget.isTaped
                       ? const Color(0XFFFFFFFF)
-                      : const Color(0XFFB6B6B6),
+                      : widget.iconColor,
                 ),
               ),
             ),

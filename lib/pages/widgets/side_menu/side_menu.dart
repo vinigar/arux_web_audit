@@ -1,9 +1,9 @@
-import 'package:arux/providers/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'package:arux/providers/providers.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
-import 'package:provider/provider.dart';
 
 class SideMenuWidget extends StatefulWidget {
   const SideMenuWidget({Key? key}) : super(key: key);
@@ -45,7 +45,6 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             },
           ),
           MenuButton(
-            borderColor: Colors.transparent,
             icon: Icons.subtitles_outlined,
             isTaped: visualState.isTaped[2],
             onPressed: () async {
@@ -57,7 +56,6 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             },
           ),
           MenuButton(
-            borderColor: Colors.transparent,
             icon: Icons.podcasts,
             isTaped: visualState.isTaped[3],
             onPressed: () async {
@@ -112,9 +110,10 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
           MenuButton(
             fillColor: const Color(0xFFFF0003),
             icon: Icons.power_settings_new_outlined,
+            iconColor: const Color(0xFFFF0003),
             isTaped: visualState.isTaped[8],
             onPressed: () async {
-              visualState.setTapedOption(8);
+              visualState.setTapedOption(7);
               //TODO: handle errors
               final res = await supabase.auth.signOut();
               // if(res.statusCode);
