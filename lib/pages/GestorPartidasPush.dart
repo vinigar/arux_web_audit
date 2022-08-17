@@ -6,6 +6,8 @@ import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets/side_menu/widgets/menu_button.dart';
+
 class GestorPartidasPush extends StatefulWidget {
   const GestorPartidasPush({Key? key}) : super(key: key);
 
@@ -363,7 +365,71 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      const SideMenuWidget(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            MenuButton(
+                              icon: Icons.home_outlined,
+                              onPressed: () {},
+                            ),
+                            MenuButton(
+                              icon: Icons.notifications_outlined,
+                              onPressed: () {},
+                            ),
+                            MenuButton(
+                              icon: Icons.subtitles_outlined,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/gestor-partidas-pull',
+                                );
+                              },
+                            ),
+                            MenuButton(
+                              icon: Icons.podcasts,
+                              onPressed: () {},
+                            ),
+                            MenuButton(
+                              icon: Icons.receipt_long_sharp,
+                              onPressed: () {},
+                            ),
+                            MenuButton(
+                              icon: Icons.bar_chart_rounded,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/reporte-seguimiento-facturas',
+                                );
+                              },
+                            ),
+                            MenuButton(
+                              icon: Icons.person_add_outlined,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/proveedores',
+                                );
+                              },
+                            ),
+                            MenuButton(
+                              icon: Icons.group_outlined,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/usuarios',
+                                );
+                              },
+                            ),
+                            MenuButton(
+                                icon: Icons.power_settings_new_outlined,
+                                onPressed: () {}),
+                          ],
+                        ),
+                      ),
+                      //const SideMenuWidget(),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
@@ -2438,7 +2504,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             decoration: BoxDecoration(
                                               color: globalUtility.primaryBg,
                                               borderRadius:
-                                                  BorderRadius.circular(30),
+                                                  BorderRadius.circular(20),
                                               border: Border.all(
                                                 color: globalUtility.primary,
                                                 width: 1.5,

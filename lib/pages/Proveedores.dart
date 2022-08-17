@@ -6,6 +6,7 @@ import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Proveedores_QT.dart';
 import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
+import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
@@ -676,7 +677,80 @@ class _ProveedoresState extends State<Proveedores> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const SideMenuWidget(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MenuButton(
+                          icon: Icons.home_outlined,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {},
+                        ),
+                        MenuButton(
+                          icon: Icons.notifications_outlined,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {},
+                        ),
+                        MenuButton(
+                          icon: Icons.subtitles_outlined,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/gestor-partidas-push',
+                            );
+                          },
+                        ),
+                        MenuButton(
+                          icon: Icons.podcasts,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {},
+                        ),
+                        MenuButton(
+                          icon: Icons.receipt_long_sharp,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {},
+                        ),
+                        MenuButton(
+                          icon: Icons.bar_chart_rounded,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/reporte-seguimiento-facturas',
+                            );
+                          },
+                        ),
+                        MenuButton(
+                            icon: Icons.person_add_outlined,
+                            fillColor: globalUtility.primary,
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/proveedores',
+                              );
+                            }),
+                        MenuButton(
+                          icon: Icons.group_outlined,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/usuarios',
+                            );
+                          },
+                        ),
+                        MenuButton(
+                          icon: Icons.power_settings_new_outlined,
+                          fillColor: Color(0xFFFF0003),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                  //const SideMenuWidget(),
                   Expanded(
                     child: Padding(
                       padding:

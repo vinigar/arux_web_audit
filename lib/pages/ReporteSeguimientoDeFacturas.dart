@@ -5,6 +5,7 @@ import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Reporte_Seguimiento_Facturas_QT.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
+import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 
 class ReporteSeguimientoDeFacturas extends StatefulWidget {
@@ -323,7 +324,80 @@ class _ReporteSeguimientoDeFacturasState
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const SideMenuWidget(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MenuButton(
+                          icon: Icons.home_outlined,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {},
+                        ),
+                        MenuButton(
+                          icon: Icons.notifications_outlined,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {},
+                        ),
+                        MenuButton(
+                          icon: Icons.subtitles_outlined,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/gestor-partidas-push',
+                            );
+                          },
+                        ),
+                        MenuButton(
+                          icon: Icons.podcasts,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {},
+                        ),
+                        MenuButton(
+                          icon: Icons.receipt_long_sharp,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {},
+                        ),
+                        MenuButton(
+                          icon: Icons.bar_chart_rounded,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/seguimiento-facturas',
+                            );
+                          },
+                        ),
+                        MenuButton(
+                            icon: Icons.person_add_outlined,
+                            fillColor: globalUtility.primary,
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                '/proveedores',
+                              );
+                            }),
+                        MenuButton(
+                          icon: Icons.group_outlined,
+                          fillColor: globalUtility.primary,
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/usuarios',
+                            );
+                          },
+                        ),
+                        MenuButton(
+                          icon: Icons.power_settings_new_outlined,
+                          fillColor: Color(0xFFFF0003),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                  //const SideMenuWidget(),
                   Expanded(
                     child: Padding(
                       padding:

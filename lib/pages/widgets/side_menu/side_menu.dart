@@ -42,7 +42,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             onPressed: () async {
               await Navigator.pushNamed(
                 context,
-                'gestor-partidas-push',
+                '/gestor-partidas-push',
               );
             },
           ),
@@ -52,7 +52,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             onPressed: () async {
               await Navigator.pushNamed(
                 context,
-                'gestor-partidas-pull',
+                '/gestor-partidas-pull',
               );
             },
           ),
