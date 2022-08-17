@@ -6,7 +6,7 @@ import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Proveedores_QT.dart';
 import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
 import 'package:arux/pages/pages.dart';
-import 'package:arux/pages/widgets/menuButton.dart';
+import 'package:arux/pages/widgets/menu_button.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
@@ -567,7 +567,8 @@ class _ProveedoresState extends State<Proveedores> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -583,7 +584,8 @@ class _ProveedoresState extends State<Proveedores> {
                                   height: 40,
                                   fit: BoxFit.cover,
                                 ),
-                              if (Theme.of(context).brightness == Brightness.dark)
+                              if (Theme.of(context).brightness ==
+                                  Brightness.dark)
                                 Image.asset(
                                   'assets/images/AruxBlanco.png',
                                   height: 40,
@@ -742,13 +744,14 @@ class _ProveedoresState extends State<Proveedores> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 30, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -768,7 +771,8 @@ class _ProveedoresState extends State<Proveedores> {
                                     ),
                                     Text(
                                       'Proveedores',
-                                      style: globalUtility.tituloPagina(context),
+                                      style:
+                                          globalUtility.tituloPagina(context),
                                     ),
                                   ],
                                 ),
@@ -847,10 +851,12 @@ class _ProveedoresState extends State<Proveedores> {
                                                 Padding(
                                                   padding:
                                                       const EdgeInsetsDirectional
-                                                          .fromSTEB(10, 0, 0, 0),
+                                                              .fromSTEB(
+                                                          10, 0, 0, 0),
                                                   child: Icon(
                                                     Icons.search,
-                                                    color: globalUtility.primary,
+                                                    color:
+                                                        globalUtility.primary,
                                                     size: 24,
                                                   ),
                                                 ),
@@ -870,8 +876,10 @@ class _ProveedoresState extends State<Proveedores> {
                                                         decoration:
                                                             InputDecoration(
                                                           hintText: 'Buscar',
-                                                          hintStyle: globalUtility
-                                                              .textoA(context),
+                                                          hintStyle:
+                                                              globalUtility
+                                                                  .textoA(
+                                                                      context),
                                                           enabledBorder:
                                                               UnderlineInputBorder(
                                                             borderSide:
@@ -895,8 +903,9 @@ class _ProveedoresState extends State<Proveedores> {
                                                           parametro_busqueda =
                                                               value;
                                                           if (filtro_avanzado) {
-                                                            switch (selectedDDOpe[
-                                                                0]) {
+                                                            switch (
+                                                                selectedDDOpe[
+                                                                    0]) {
                                                               case "=":
                                                                 GetPartidasIgual();
                                                                 break;
@@ -967,18 +976,16 @@ class _ProveedoresState extends State<Proveedores> {
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .only(
-                                                              bottomLeft:
-                                                                  Radius.circular(
-                                                                      0),
+                                                              bottomLeft: Radius
+                                                                  .circular(0),
                                                               bottomRight:
-                                                                  Radius.circular(
-                                                                      0),
-                                                              topLeft:
-                                                                  Radius.circular(
-                                                                      30),
-                                                              topRight:
-                                                                  Radius.circular(
-                                                                      0),
+                                                                  Radius
+                                                                      .circular(
+                                                                          0),
+                                                              topLeft: Radius
+                                                                  .circular(30),
+                                                              topRight: Radius
+                                                                  .circular(0),
                                                             ),
                                                           ),
                                                           child: const Icon(
@@ -1019,18 +1026,16 @@ class _ProveedoresState extends State<Proveedores> {
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .only(
-                                                              bottomLeft:
-                                                                  Radius.circular(
-                                                                      30),
+                                                              bottomLeft: Radius
+                                                                  .circular(30),
                                                               bottomRight:
-                                                                  Radius.circular(
-                                                                      0),
-                                                              topLeft:
-                                                                  Radius.circular(
-                                                                      0),
-                                                              topRight:
-                                                                  Radius.circular(
-                                                                      0),
+                                                                  Radius
+                                                                      .circular(
+                                                                          0),
+                                                              topLeft: Radius
+                                                                  .circular(0),
+                                                              topRight: Radius
+                                                                  .circular(0),
                                                             ),
                                                           ),
                                                           child: const Icon(
@@ -1082,17 +1087,19 @@ class _ProveedoresState extends State<Proveedores> {
                                                                         .symmetric(
                                                                     horizontal:
                                                                         10),
-                                                            child: TextFormField(
-                                                              initialValue: "20",
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  "20",
                                                               style: globalUtility
                                                                   .textoA(
                                                                       context),
-                                                              decoration:
-                                                                  const InputDecoration(
-                                                                      border:
-                                                                          InputBorder
-                                                                              .none),
-                                                              onChanged: (value) {
+                                                              decoration: const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                              onChanged:
+                                                                  (value) {
                                                                 try {
                                                                   print(
                                                                       "---Valor: ${value.toString()}");
@@ -1184,7 +1191,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1195,7 +1203,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                       controller_cuenta_sap
                                                           .clear();
                                                       parametro_cuenta_sap = "";
-                                                      controller_esquema.clear();
+                                                      controller_esquema
+                                                          .clear();
                                                       parametro_esquema = "";
                                                       controller_estado.clear();
                                                       parametro_estado = "";
@@ -1212,12 +1221,14 @@ class _ProveedoresState extends State<Proveedores> {
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
-                                                      color: orden == "proveedor"
-                                                          ? globalUtility
-                                                              .primaryBg
-                                                          : globalUtility
-                                                              .secondary),
+                                                          : Icons
+                                                              .arrow_drop_down,
+                                                      color:
+                                                          orden == "proveedor"
+                                                              ? globalUtility
+                                                                  .primaryBg
+                                                              : globalUtility
+                                                                  .secondary),
                                                   onTap: () {
                                                     if (orden != "proveedor") {
                                                       orden = "proveedor";
@@ -1228,7 +1239,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           GetPartidasIgual();
                                                           break;
@@ -1277,7 +1289,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1288,7 +1301,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                       controller_cuenta_sap
                                                           .clear();
                                                       parametro_cuenta_sap = "";
-                                                      controller_esquema.clear();
+                                                      controller_esquema
+                                                          .clear();
                                                       parametro_esquema = "";
                                                       controller_estado.clear();
                                                       parametro_estado = "";
@@ -1305,12 +1319,14 @@ class _ProveedoresState extends State<Proveedores> {
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
-                                                      color: orden == "cuenta_sap"
-                                                          ? globalUtility
-                                                              .primaryBg
-                                                          : globalUtility
-                                                              .secondary),
+                                                          : Icons
+                                                              .arrow_drop_down,
+                                                      color:
+                                                          orden == "cuenta_sap"
+                                                              ? globalUtility
+                                                                  .primaryBg
+                                                              : globalUtility
+                                                                  .secondary),
                                                   onTap: () {
                                                     if (orden != "cuenta_sap") {
                                                       orden = "cuenta_sap";
@@ -1321,7 +1337,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           GetPartidasIgual();
                                                           break;
@@ -1370,7 +1387,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1381,7 +1399,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                       controller_cuenta_sap
                                                           .clear();
                                                       parametro_cuenta_sap = "";
-                                                      controller_esquema.clear();
+                                                      controller_esquema
+                                                          .clear();
                                                       parametro_esquema = "";
                                                       controller_estado.clear();
                                                       parametro_estado = "";
@@ -1398,7 +1417,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
+                                                          : Icons
+                                                              .arrow_drop_down,
                                                       color: orden == "esquema"
                                                           ? globalUtility
                                                               .primaryBg
@@ -1414,7 +1434,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           GetPartidasIgual();
                                                           break;
@@ -1463,7 +1484,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1474,7 +1496,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                       controller_cuenta_sap
                                                           .clear();
                                                       parametro_cuenta_sap = "";
-                                                      controller_esquema.clear();
+                                                      controller_esquema
+                                                          .clear();
                                                       parametro_esquema = "";
                                                       controller_estado.clear();
                                                       parametro_estado = "";
@@ -1491,7 +1514,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
+                                                          : Icons
+                                                              .arrow_drop_down,
                                                       color: orden == "estado"
                                                           ? globalUtility
                                                               .primaryBg
@@ -1507,7 +1531,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           GetPartidasIgual();
                                                           break;
@@ -1543,7 +1568,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                 "Acciones",
                                                 textAlign: TextAlign.center,
                                                 style: globalUtility
-                                                    .encabezadoTablasOff(context),
+                                                    .encabezadoTablasOff(
+                                                        context),
                                               ),
                                             ),
                                           ),
@@ -1553,7 +1579,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                 "Bloqueo\n Temporal",
                                                 textAlign: TextAlign.center,
                                                 style: globalUtility
-                                                    .encabezadoTablasOff(context),
+                                                    .encabezadoTablasOff(
+                                                        context),
                                               ),
                                             ),
                                           ),
@@ -1565,23 +1592,25 @@ class _ProveedoresState extends State<Proveedores> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -1595,7 +1624,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_proveedor =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetProveedoresBy__();
                                                           },
                                                         ),
@@ -1606,23 +1636,25 @@ class _ProveedoresState extends State<Proveedores> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -1636,7 +1668,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_cuenta_sap =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetProveedoresBy__();
                                                           },
                                                         ),
@@ -1647,23 +1680,25 @@ class _ProveedoresState extends State<Proveedores> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -1677,7 +1712,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_esquema =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetProveedoresBy__();
                                                           },
                                                         ),
@@ -1688,23 +1724,25 @@ class _ProveedoresState extends State<Proveedores> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -1721,7 +1759,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_estado =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetProveedoresBy__();
                                                           },
                                                         ),
@@ -1729,8 +1768,10 @@ class _ProveedoresState extends State<Proveedores> {
                                                     ),
                                                   ),
                                                 ),
-                                                const Expanded(child: SizedBox()),
-                                                const Expanded(child: SizedBox()),
+                                                const Expanded(
+                                                    child: SizedBox()),
+                                                const Expanded(
+                                                    child: SizedBox()),
                                               ],
                                             )
                                           : const SizedBox(
@@ -1745,8 +1786,7 @@ class _ProveedoresState extends State<Proveedores> {
                           ),
                           Flexible(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 20),
+                              padding: const EdgeInsets.only(bottom: 20),
                               child: SingleChildScrollView(
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,
@@ -1756,8 +1796,9 @@ class _ProveedoresState extends State<Proveedores> {
                                   itemBuilder: (context, index) {
                                     bool expanded = false;
                                     return Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 10, 0, 0),
                                       child: ExpandablePanel(
                                         theme: ExpandableThemeData(
                                             iconColor: globalUtility.primary),
@@ -1765,7 +1806,8 @@ class _ProveedoresState extends State<Proveedores> {
                                           color: Colors.transparent,
                                           elevation: 5,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
                                           child: Container(
                                             width: double.infinity,
@@ -1775,13 +1817,15 @@ class _ProveedoresState extends State<Proveedores> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
-                                                color: globalUtility.transparente,
+                                                color:
+                                                    globalUtility.transparente,
                                                 width: 1,
                                               ),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5, 5, 5, 5),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(5, 5, 5, 5),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -1791,17 +1835,21 @@ class _ProveedoresState extends State<Proveedores> {
                                                     child: Text(
                                                       list_proveedores[index][1]
                                                           .toString(),
-                                                      textAlign: TextAlign.start,
+                                                      textAlign:
+                                                          TextAlign.start,
                                                       style: globalUtility
-                                                          .contenidoTablas(context),
+                                                          .contenidoTablas(
+                                                              context),
                                                     ),
                                                   ),
                                                   Expanded(
                                                     child: Center(
                                                       child: Text(
-                                                        list_proveedores[index][2]
+                                                        list_proveedores[index]
+                                                                [2]
                                                             .toString(),
-                                                        textAlign: TextAlign.start,
+                                                        textAlign:
+                                                            TextAlign.start,
                                                         style: globalUtility
                                                             .contenidoTablas(
                                                                 context),
@@ -1811,9 +1859,11 @@ class _ProveedoresState extends State<Proveedores> {
                                                   Expanded(
                                                     child: Center(
                                                       child: Text(
-                                                        list_proveedores[index][3]
+                                                        list_proveedores[index]
+                                                                [3]
                                                             .toString(),
-                                                        textAlign: TextAlign.start,
+                                                        textAlign:
+                                                            TextAlign.start,
                                                         style: globalUtility
                                                             .contenidoTablas(
                                                                 context),
@@ -1823,9 +1873,11 @@ class _ProveedoresState extends State<Proveedores> {
                                                   Expanded(
                                                     child: Center(
                                                       child: Text(
-                                                        list_proveedores[index][4]
+                                                        list_proveedores[index]
+                                                                [4]
                                                             .toString(),
-                                                        textAlign: TextAlign.start,
+                                                        textAlign:
+                                                            TextAlign.start,
                                                         style: globalUtility
                                                             .contenidoTablas(
                                                                 context),
@@ -1835,16 +1887,16 @@ class _ProveedoresState extends State<Proveedores> {
                                                   Expanded(
                                                     child: Icon(
                                                       Icons.edit_outlined,
-                                                      color:
-                                                          globalUtility.secondary,
+                                                      color: globalUtility
+                                                          .secondary,
                                                       size: 30,
                                                     ),
                                                   ),
                                                   Expanded(
                                                     child: Icon(
                                                       Icons.toggle_off_outlined,
-                                                      color:
-                                                          globalUtility.secondary,
+                                                      color: globalUtility
+                                                          .secondary,
                                                       size: 30,
                                                     ),
                                                   ),
@@ -1866,23 +1918,31 @@ class _ProveedoresState extends State<Proveedores> {
                                           child: Column(
                                             children: [
                                               Material(
-                                                color: globalUtility.transparente,
+                                                color:
+                                                    globalUtility.transparente,
                                                 elevation: 10,
-                                                shape: const RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.only(
-                                                    bottomLeft: Radius.circular(5),
-                                                    bottomRight: Radius.circular(5),
-                                                    topLeft: Radius.circular(10),
-                                                    topRight: Radius.circular(10),
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(5),
+                                                    bottomRight:
+                                                        Radius.circular(5),
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10),
                                                   ),
                                                 ),
                                                 child: Container(
                                                   width: double.infinity,
                                                   decoration: BoxDecoration(
-                                                      color:
-                                                          globalUtility.primaryBg,
+                                                      color: globalUtility
+                                                          .primaryBg,
                                                       borderRadius:
-                                                          const BorderRadius.only(
+                                                          const BorderRadius
+                                                              .only(
                                                         bottomLeft:
                                                             Radius.circular(5),
                                                         bottomRight:
@@ -1898,7 +1958,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                            .fromSTEB(0, 5, 0, 5),
+                                                                .fromSTEB(
+                                                            0, 5, 0, 5),
                                                     child: Column(
                                                       children: [
                                                         Row(
@@ -2027,34 +2088,37 @@ class _ProveedoresState extends State<Proveedores> {
                                                 padding: EdgeInsets.zero,
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
-                                                itemCount: list_proveedores[index]
-                                                        [5]
-                                                    .length,
+                                                itemCount:
+                                                    list_proveedores[index][5]
+                                                        .length,
                                                 itemBuilder: (context, index2) {
                                                   return Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                            .fromSTEB(0, 10, 0, 0),
+                                                                .fromSTEB(
+                                                            0, 10, 0, 0),
                                                     child: Material(
                                                       color: Colors.transparent,
                                                       elevation: 5,
-                                                      shape: RoundedRectangleBorder(
+                                                      shape:
+                                                          RoundedRectangleBorder(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                       ),
                                                       child: Container(
                                                         width: double.infinity,
                                                         height: 55,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: globalUtility
                                                               .primaryBg,
                                                           borderRadius:
-                                                              BorderRadius.circular(
-                                                                  10),
+                                                              BorderRadius
+                                                                  .circular(10),
                                                           border: Border.all(
-                                                            color:
-                                                                Colors.transparent,
+                                                            color: Colors
+                                                                .transparent,
                                                             width: 1,
                                                           ),
                                                         ),
@@ -2065,7 +2129,8 @@ class _ProveedoresState extends State<Proveedores> {
                                                                   5, 5, 5, 5),
                                                           child: Row(
                                                             mainAxisSize:
-                                                                MainAxisSize.max,
+                                                                MainAxisSize
+                                                                    .max,
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
@@ -2073,8 +2138,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               Expanded(
                                                                 child: Center(
                                                                   child: Text(
-                                                                    list_proveedores[
-                                                                                index][5]
+                                                                    list_proveedores[index][5]
                                                                             [
                                                                             index2][1]
                                                                         .toString(),
@@ -2090,8 +2154,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               Expanded(
                                                                 child: Center(
                                                                   child: Text(
-                                                                    list_proveedores[
-                                                                                index][5]
+                                                                    list_proveedores[index][5]
                                                                             [
                                                                             index2][2]
                                                                         .toString(),
@@ -2106,8 +2169,9 @@ class _ProveedoresState extends State<Proveedores> {
                                                               ),
                                                               Expanded(
                                                                 child: Text(
-                                                                  list_proveedores[
-                                                                              index][5]
+                                                                  list_proveedores[index]
+                                                                              [
+                                                                              5]
                                                                           [
                                                                           index2][3]
                                                                       .toString(),
@@ -2121,8 +2185,9 @@ class _ProveedoresState extends State<Proveedores> {
                                                               ),
                                                               Expanded(
                                                                 child: Text(
-                                                                  list_proveedores[
-                                                                              index][5]
+                                                                  list_proveedores[index]
+                                                                              [
+                                                                              5]
                                                                           [
                                                                           index2][4]
                                                                       .toString(),
@@ -2136,8 +2201,9 @@ class _ProveedoresState extends State<Proveedores> {
                                                               ),
                                                               Expanded(
                                                                 child: Text(
-                                                                  list_proveedores[
-                                                                              index][5]
+                                                                  list_proveedores[index]
+                                                                              [
+                                                                              5]
                                                                           [
                                                                           index2][5]
                                                                       .toString(),
@@ -2152,8 +2218,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               Expanded(
                                                                 child: Center(
                                                                   child: Text(
-                                                                    list_proveedores[
-                                                                                index][5]
+                                                                    list_proveedores[index][5]
                                                                             [
                                                                             index2][6]
                                                                         .toString(),
@@ -2169,8 +2234,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               Expanded(
                                                                 child: Center(
                                                                   child: Text(
-                                                                    list_proveedores[
-                                                                                index][5]
+                                                                    list_proveedores[index][5]
                                                                             [
                                                                             index2][7]
                                                                         .toString(),

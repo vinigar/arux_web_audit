@@ -5,7 +5,7 @@ import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Reporte_Seguimiento_Facturas_QT.dart';
 import 'package:arux/pages/pages.dart';
-import 'package:arux/pages/widgets/menuButton.dart';
+import 'package:arux/pages/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 
 class ReporteSeguimientoDeFacturas extends StatefulWidget {
@@ -213,7 +213,8 @@ class _ReporteSeguimientoDeFacturasState
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -229,14 +230,16 @@ class _ReporteSeguimientoDeFacturasState
                                   height: 40,
                                   fit: BoxFit.cover,
                                 ),
-                              if (Theme.of(context).brightness == Brightness.dark)
+                              if (Theme.of(context).brightness ==
+                                  Brightness.dark)
                                 Image.asset(
                                   'assets/images/AruxBlanco.png',
                                   height: 40,
                                   fit: BoxFit.cover,
                                 ),
                             ],
-                          ),Expanded(child: SizedBox()),
+                          ),
+                          Expanded(child: SizedBox()),
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -279,7 +282,8 @@ class _ReporteSeguimientoDeFacturasState
                                               0, 0, 50, 0),
                                       child: Text(
                                         'Luis L.',
-                                        style: globalUtility.textoIgual(context),
+                                        style:
+                                            globalUtility.textoIgual(context),
                                       ),
                                     ),
                                   ),
@@ -395,13 +399,14 @@ class _ReporteSeguimientoDeFacturasState
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 30, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -421,7 +426,8 @@ class _ReporteSeguimientoDeFacturasState
                                     ),
                                     Text(
                                       'Reporte Seguimiento de Facturas',
-                                      style: globalUtility.tituloPagina(context),
+                                      style:
+                                          globalUtility.tituloPagina(context),
                                     ),
                                   ],
                                 ),
@@ -500,10 +506,12 @@ class _ReporteSeguimientoDeFacturasState
                                                 Padding(
                                                   padding:
                                                       const EdgeInsetsDirectional
-                                                          .fromSTEB(10, 0, 0, 0),
+                                                              .fromSTEB(
+                                                          10, 0, 0, 0),
                                                   child: Icon(
                                                     Icons.search,
-                                                    color: globalUtility.primary,
+                                                    color:
+                                                        globalUtility.primary,
                                                     size: 24,
                                                   ),
                                                 ),
@@ -523,8 +531,10 @@ class _ReporteSeguimientoDeFacturasState
                                                         decoration:
                                                             InputDecoration(
                                                           hintText: 'Buscar',
-                                                          hintStyle: globalUtility
-                                                              .hinttxt(context),
+                                                          hintStyle:
+                                                              globalUtility
+                                                                  .hinttxt(
+                                                                      context),
                                                           enabledBorder:
                                                               UnderlineInputBorder(
                                                             borderSide:
@@ -548,8 +558,9 @@ class _ReporteSeguimientoDeFacturasState
                                                           parametro_busqueda =
                                                               value;
                                                           if (filtro_avanzado) {
-                                                            switch (selectedDDOpe[
-                                                                0]) {
+                                                            switch (
+                                                                selectedDDOpe[
+                                                                    0]) {
                                                               case "=":
                                                                 //GetPartidasIgual();
                                                                 break;
@@ -602,7 +613,8 @@ class _ReporteSeguimientoDeFacturasState
                                                   MainAxisAlignment.start,
                                               children: [
                                                 Column(
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   crossAxisAlignment:
@@ -618,27 +630,32 @@ class _ReporteSeguimientoDeFacturasState
                                                             height: 23.5,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: globalUtility
-                                                                  .primary,
+                                                              color:
+                                                                  globalUtility
+                                                                      .primary,
                                                               borderRadius:
                                                                   const BorderRadius
                                                                       .only(
                                                                 bottomLeft: Radius
-                                                                    .circular(0),
+                                                                    .circular(
+                                                                        0),
                                                                 bottomRight:
                                                                     Radius
                                                                         .circular(
                                                                             0),
                                                                 topLeft: Radius
-                                                                    .circular(30),
+                                                                    .circular(
+                                                                        30),
                                                                 topRight: Radius
-                                                                    .circular(0),
+                                                                    .circular(
+                                                                        0),
                                                               ),
                                                             ),
                                                             child: const Icon(
                                                               Icons
                                                                   .arrow_drop_up_sharp,
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               size: 18,
                                                             ),
                                                           ),
@@ -665,7 +682,8 @@ class _ReporteSeguimientoDeFacturasState
                                                             height: 23.5,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: count_f == 0
+                                                              color: count_f ==
+                                                                      0
                                                                   ? globalUtility
                                                                       .secondary
                                                                   : globalUtility
@@ -674,21 +692,25 @@ class _ReporteSeguimientoDeFacturasState
                                                                   const BorderRadius
                                                                       .only(
                                                                 bottomLeft: Radius
-                                                                    .circular(30),
+                                                                    .circular(
+                                                                        30),
                                                                 bottomRight:
                                                                     Radius
                                                                         .circular(
                                                                             0),
                                                                 topLeft: Radius
-                                                                    .circular(0),
+                                                                    .circular(
+                                                                        0),
                                                                 topRight: Radius
-                                                                    .circular(0),
+                                                                    .circular(
+                                                                        0),
                                                               ),
                                                             ),
                                                             child: const Icon(
                                                               Icons
                                                                   .arrow_drop_down_sharp,
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               size: 18,
                                                             ),
                                                           ),
@@ -697,7 +719,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                     false ||
                                                                 filtro_avanzado ==
                                                                     false) {
-                                                              if (count_f >= 1) {
+                                                              if (count_f >=
+                                                                  1) {
                                                                 count_f--;
                                                                 GetFacturas();
                                                                 setState(() {});
@@ -710,7 +733,8 @@ class _ReporteSeguimientoDeFacturasState
                                                   ],
                                                 ),
                                                 Column(
-                                                  mainAxisSize: MainAxisSize.max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
@@ -729,11 +753,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           SizedBox(
                                                             width: 100,
                                                             child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .symmetric(
-                                                                      horizontal:
-                                                                          10),
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      10),
                                                               child:
                                                                   TextFormField(
                                                                 initialValue:
@@ -741,10 +764,10 @@ class _ReporteSeguimientoDeFacturasState
                                                                 style: globalUtility
                                                                     .textoA(
                                                                         context),
-                                                                decoration: const InputDecoration(
-                                                                    border:
-                                                                        InputBorder
-                                                                            .none),
+                                                                decoration:
+                                                                    const InputDecoration(
+                                                                        border:
+                                                                            InputBorder.none),
                                                                 onChanged:
                                                                     (value) {
                                                                   try {
@@ -754,9 +777,9 @@ class _ReporteSeguimientoDeFacturasState
                                                                             .isNotEmpty ||
                                                                         value !=
                                                                             "0") {
-                                                                      count_f = int
-                                                                          .parse(value
-                                                                              .toString());
+                                                                      count_f =
+                                                                          int.parse(
+                                                                              value.toString());
                                                                       count_f =
                                                                           count_f -
                                                                               1;
@@ -813,14 +836,15 @@ class _ReporteSeguimientoDeFacturasState
                                                   "Pronto Pago"
                                                 ]
                                                     .map((item) =>
-                                                        DropdownMenuItem<String>(
+                                                        DropdownMenuItem<
+                                                            String>(
                                                           value: item,
                                                           child: Text(item),
                                                         ))
                                                     .toList(),
                                                 onChanged: (item) => setState(
-                                                    () =>
-                                                        selectedDDEnc[0] = item),
+                                                    () => selectedDDEnc[0] =
+                                                        item),
                                               ),
                                             ),
                                           ),
@@ -883,7 +907,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -895,8 +920,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -913,7 +940,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
+                                                          : Icons
+                                                              .arrow_drop_down,
                                                       color: orden == "idddu"
                                                           ? globalUtility
                                                               .primaryBg
@@ -929,7 +957,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -978,7 +1007,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -990,8 +1020,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1008,12 +1040,14 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
-                                                      color: orden == "proveedor"
-                                                          ? globalUtility
-                                                              .primaryBg
-                                                          : globalUtility
-                                                              .secondary),
+                                                          : Icons
+                                                              .arrow_drop_down,
+                                                      color:
+                                                          orden == "proveedor"
+                                                              ? globalUtility
+                                                                  .primaryBg
+                                                              : globalUtility
+                                                                  .secondary),
                                                   onTap: () {
                                                     if (orden != "proveedor") {
                                                       orden = "proveedor";
@@ -1024,7 +1058,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1073,7 +1108,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1085,8 +1121,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1103,12 +1141,14 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
-                                                      color: orden == "id_partida"
-                                                          ? globalUtility
-                                                              .primaryBg
-                                                          : globalUtility
-                                                              .secondary),
+                                                          : Icons
+                                                              .arrow_drop_down,
+                                                      color:
+                                                          orden == "id_partida"
+                                                              ? globalUtility
+                                                                  .primaryBg
+                                                              : globalUtility
+                                                                  .secondary),
                                                   onTap: () {
                                                     if (orden != "id_partida") {
                                                       orden = "id_partida";
@@ -1119,7 +1159,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1168,7 +1209,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1180,8 +1222,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1198,7 +1242,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
+                                                          : Icons
+                                                              .arrow_drop_down,
                                                       color: orden == "factura"
                                                           ? globalUtility
                                                               .primaryBg
@@ -1214,7 +1259,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1263,7 +1309,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1275,8 +1322,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1293,7 +1342,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
+                                                          : Icons
+                                                              .arrow_drop_down,
                                                       color: orden == "importe"
                                                           ? globalUtility
                                                               .primaryBg
@@ -1309,7 +1359,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1358,7 +1409,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1370,8 +1422,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1388,7 +1442,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
+                                                          : Icons
+                                                              .arrow_drop_down,
                                                       color: orden == "moneda"
                                                           ? globalUtility
                                                               .primaryBg
@@ -1404,7 +1459,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1448,7 +1504,8 @@ class _ReporteSeguimientoDeFacturasState
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1460,8 +1517,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1478,7 +1537,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
+                                                          : Icons
+                                                              .arrow_drop_down,
                                                       color: orden == "nc_sap"
                                                           ? globalUtility
                                                               .primaryBg
@@ -1494,7 +1554,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1538,7 +1599,8 @@ class _ReporteSeguimientoDeFacturasState
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1550,8 +1612,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1568,12 +1632,14 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
-                                                      color: orden == "importe_nc"
-                                                          ? globalUtility
-                                                              .primaryBg
-                                                          : globalUtility
-                                                              .secondary),
+                                                          : Icons
+                                                              .arrow_drop_down,
+                                                      color:
+                                                          orden == "importe_nc"
+                                                              ? globalUtility
+                                                                  .primaryBg
+                                                              : globalUtility
+                                                                  .secondary),
                                                   onTap: () {
                                                     if (orden != "importe_nc") {
                                                       orden = "importe_nc";
@@ -1584,7 +1650,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1628,7 +1695,8 @@ class _ReporteSeguimientoDeFacturasState
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1640,8 +1708,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1658,15 +1728,17 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
-                                                      color:
-                                                          orden == "doc_pago_sap"
-                                                              ? globalUtility
-                                                                  .primaryBg
-                                                              : globalUtility
-                                                                  .secondary),
+                                                          : Icons
+                                                              .arrow_drop_down,
+                                                      color: orden ==
+                                                              "doc_pago_sap"
+                                                          ? globalUtility
+                                                              .primaryBg
+                                                          : globalUtility
+                                                              .secondary),
                                                   onTap: () {
-                                                    if (orden != "doc_pago_sap") {
+                                                    if (orden !=
+                                                        "doc_pago_sap") {
                                                       orden = "doc_pago_sap";
                                                       asc = true;
                                                     } else {
@@ -1675,7 +1747,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1719,7 +1792,8 @@ class _ReporteSeguimientoDeFacturasState
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple == false) {
+                                                    if (filtro_simple ==
+                                                        false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
@@ -1731,8 +1805,10 @@ class _ReporteSeguimientoDeFacturasState
                                                       parametro_proveedor = "";
                                                       controller_registro_sap
                                                           .clear();
-                                                      parametro_registro_sap = "";
-                                                      controller_importe.clear();
+                                                      parametro_registro_sap =
+                                                          "";
+                                                      controller_importe
+                                                          .clear();
                                                       parametro_importe = "";
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
@@ -1749,7 +1825,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                   .arrow_drop_down
                                                               : Icons
                                                                   .arrow_drop_up
-                                                          : Icons.arrow_drop_down,
+                                                          : Icons
+                                                              .arrow_drop_down,
                                                       color: orden == "estatus"
                                                           ? globalUtility
                                                               .primaryBg
@@ -1765,7 +1842,8 @@ class _ReporteSeguimientoDeFacturasState
                                                           : asc = true;
                                                     }
                                                     if (filtro_avanzado) {
-                                                      switch (selectedDDOpe[0]) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
                                                         case "=":
                                                           //GetPartidasIgual();
                                                           break;
@@ -1803,23 +1881,25 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -1833,7 +1913,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_idddu =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -1844,23 +1925,25 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -1874,7 +1957,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_proveedor =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -1885,23 +1969,25 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -1915,7 +2001,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_registro_sap =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -1926,23 +2013,25 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -1959,7 +2048,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_importe =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -1970,29 +2060,32 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
                                                         child: TextField(
                                                           keyboardType:
-                                                              TextInputType.text,
+                                                              TextInputType
+                                                                  .text,
                                                           controller:
                                                               controller_moneda,
                                                           decoration:
@@ -2002,7 +2095,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_moneda =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -2013,23 +2107,25 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -2043,7 +2139,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_moneda =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -2054,23 +2151,25 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -2084,7 +2183,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_nc_sap =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -2095,23 +2195,25 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -2125,7 +2227,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_importe_nc =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -2136,23 +2239,25 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
@@ -2169,7 +2274,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_doc_pago =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -2180,29 +2286,32 @@ class _ReporteSeguimientoDeFacturasState
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(
+                                                            5.0),
                                                     child: Container(
                                                       height: 30,
                                                       width: 85,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10),
+                                                            BorderRadius
+                                                                .circular(10),
                                                         border: Border.all(
                                                           color: globalUtility
                                                               .primaryBg,
                                                         ),
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                           vertical: 9,
                                                           horizontal: 5,
                                                         ),
                                                         child: TextField(
                                                           keyboardType:
-                                                              TextInputType.text,
+                                                              TextInputType
+                                                                  .text,
                                                           controller:
                                                               controller_estatus,
                                                           decoration:
@@ -2212,7 +2321,8 @@ class _ReporteSeguimientoDeFacturasState
                                                                           .none),
                                                           onChanged: (value) {
                                                             parametro_estatus =
-                                                                value.toString();
+                                                                value
+                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -2234,8 +2344,7 @@ class _ReporteSeguimientoDeFacturasState
                           ),
                           Flexible(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 20),
+                              padding: const EdgeInsets.only(bottom: 20),
                               child: SingleChildScrollView(
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,
@@ -2244,20 +2353,23 @@ class _ReporteSeguimientoDeFacturasState
                                   itemCount: list_facturas.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 10, 0, 0),
                                       child: Material(
                                         color: Colors.transparent,
                                         elevation: 5,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Container(
                                           width: double.infinity,
                                           height: 55,
                                           decoration: BoxDecoration(
                                             color: globalUtility.primaryBg,
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             border: Border.all(
                                               color: Colors.transparent,
                                               width: 1,
@@ -2277,7 +2389,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2286,7 +2399,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.start,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2295,7 +2409,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2304,7 +2419,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2313,7 +2429,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2322,7 +2439,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2331,7 +2449,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2340,7 +2459,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2349,7 +2469,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -2358,7 +2479,8 @@ class _ReporteSeguimientoDeFacturasState
                                                         .toString(),
                                                     textAlign: TextAlign.start,
                                                     style: globalUtility
-                                                        .contenidoTablas(context),
+                                                        .contenidoTablas(
+                                                            context),
                                                   ),
                                                 ),
                                               ],

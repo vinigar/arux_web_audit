@@ -5,7 +5,7 @@ import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Seguimiento_Facturas_QT.dart';
 import 'package:arux/pages/pages.dart';
-import 'package:arux/pages/widgets/menuButton.dart';
+import 'package:arux/pages/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 
 class SeguimientoDeFacturas extends StatefulWidget {

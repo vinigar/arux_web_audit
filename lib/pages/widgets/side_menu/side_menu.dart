@@ -19,8 +19,8 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CustomIconButton(
             borderColor: Colors.transparent,
@@ -34,16 +34,16 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 35,
             ),
             onPressed: () async {
-              await Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  duration: const Duration(milliseconds: 0),
-                  reverseDuration: const Duration(milliseconds: 0),
-                  child: Container(),
-                  // child: InicioWidget(),
-                ),
-              );
+              // await Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.fade,
+              //     duration: const Duration(milliseconds: 0),
+              //     reverseDuration: const Duration(milliseconds: 0),
+              //     child: Container(),
+              //     // child: InicioWidget(),
+              //   ),
+              // );
             },
           ),
           CustomIconButton(
@@ -57,16 +57,16 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 35,
             ),
             onPressed: () async {
-              await Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  duration: const Duration(milliseconds: 0),
-                  reverseDuration: const Duration(milliseconds: 0),
-                  child: Container(),
-                  // child: NotificacionesWidget(),
-                ),
-              );
+              // await Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.fade,
+              //     duration: const Duration(milliseconds: 0),
+              //     reverseDuration: const Duration(milliseconds: 0),
+              //     child: Container(),
+              //     // child: NotificacionesWidget(),
+              //   ),
+              // );
             },
           ),
           CustomIconButton(
@@ -115,23 +115,6 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               );
             },
           ),
-          Material(
-            color: Colors.transparent,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF09A963),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 2,
-                ),
-              ),
-            ),
-          ),
           CustomIconButton(
             borderColor: Colors.transparent,
             borderRadius: 100,
@@ -143,16 +126,16 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               size: 35,
             ),
             onPressed: () async {
-              await Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  duration: const Duration(milliseconds: 0),
-                  reverseDuration: const Duration(milliseconds: 0),
-                  child: Container(),
-                  // child: PagosWidget(),
-                ),
-              );
+              // await Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.fade,
+              //     duration: const Duration(milliseconds: 0),
+              //     reverseDuration: const Duration(milliseconds: 0),
+              //     child: Container(),
+              //     // child: PagosWidget(),
+              //   ),
+              // );
             },
           ),
           CustomIconButton(
@@ -169,30 +152,22 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               print('IconButton pressed ...');
             },
           ),
-          Align(
-            alignment: const AlignmentDirectional(0, 0.5),
-            child: CustomIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 100,
-              borderWidth: 1,
-              buttonSize: 70,
-              icon: Icon(
-                Icons.person_add_outlined,
-                color: AppTheme.of(context).secondaryText,
-                size: 35,
-              ),
-              onPressed: () async {
-                await Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    duration: const Duration(milliseconds: 0),
-                    reverseDuration: const Duration(milliseconds: 0),
-                    child: const AltaUsuarioPage(),
-                  ),
-                );
-              },
+          CustomIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 100,
+            borderWidth: 1,
+            buttonSize: 70,
+            icon: Icon(
+              Icons.person_add_outlined,
+              color: AppTheme.of(context).secondaryText,
+              size: 35,
             ),
+            onPressed: () async {
+              await Navigator.pushNamed(
+                context,
+                '/alta-usuario',
+              );
+            },
           ),
           Material(
             color: Colors.transparent,
@@ -209,30 +184,22 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   width: 2,
                 ),
               ),
-              child: Align(
-                alignment: const AlignmentDirectional(0, 0.5),
-                child: CustomIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 100,
-                  borderWidth: 1,
-                  buttonSize: 70,
-                  icon: const Icon(
-                    Icons.group_outlined,
-                    color: Color(0xFFFDFDFD),
-                    size: 35,
-                  ),
-                  onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        duration: const Duration(milliseconds: 0),
-                        reverseDuration: const Duration(milliseconds: 0),
-                        child: const UsuariosPage(),
-                      ),
-                    );
-                  },
+              child: CustomIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 100,
+                borderWidth: 1,
+                buttonSize: 70,
+                icon: const Icon(
+                  Icons.group_outlined,
+                  color: Color(0xFFFDFDFD),
+                  size: 35,
                 ),
+                onPressed: () async {
+                  await Navigator.pushNamed(
+                    context,
+                    '/usuarios',
+                  );
+                },
               ),
             ),
           ),

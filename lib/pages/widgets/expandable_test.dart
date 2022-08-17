@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, avoid_print
-
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableTest extends StatefulWidget {
-  ExpandableTest({Key? key}) : super(key: key);
+  const ExpandableTest({Key? key}) : super(key: key);
 
   @override
   State<ExpandableTest> createState() => _ExpandableTestState();
@@ -22,13 +20,13 @@ class _ExpandableTestState extends State<ExpandableTest> {
           width: 300,
           height: 100,
           child: ExpandablePanel(
-            header: Text("Header"),
-            collapsed: SizedBox(
+            header: const Text("Header"),
+            collapsed: const SizedBox(
               height: 0,
               width: 0,
             ),
             expanded: Row(
-              children: [Text("Expanded")],
+              children: const [Text("Expanded")],
             ),
           ),
         )),
@@ -41,7 +39,7 @@ class _ExpandableTestState extends State<ExpandableTest> {
                 isExpanded: expanded,
                 headerBuilder: (context, isOpen) {
                   return InkWell(
-                    child: SizedBox(
+                    child: const SizedBox(
                         height: 100, width: 100, child: Text("hello closed")),
                     onTap: () {
                       if (expanded) {
@@ -54,7 +52,7 @@ class _ExpandableTestState extends State<ExpandableTest> {
                     },
                   );
                 },
-                body: SizedBox(height: 100, width: 100, child: Text("1")),
+                body: const SizedBox(height: 100, width: 100, child: Text("1")),
               ),
             ],
           ),
