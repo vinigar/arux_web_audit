@@ -54,14 +54,9 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             borderColor: Colors.transparent,
             icon: Icons.subtitles_outlined,
             onPressed: () async {
-              await Navigator.push(
+              await Navigator.pushNamed(
                 context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  duration: const Duration(milliseconds: 0),
-                  reverseDuration: const Duration(milliseconds: 0),
-                  child: const GestorPartidasPush(),
-                ),
+                'gestor-partidas-push',
               );
             },
           ),
@@ -69,14 +64,9 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             borderColor: Colors.transparent,
             icon: Icons.podcasts,
             onPressed: () async {
-              await Navigator.push(
+              await Navigator.pushNamed(
                 context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  duration: const Duration(milliseconds: 0),
-                  reverseDuration: const Duration(milliseconds: 0),
-                  child: const GestorPartidasPull(),
-                ),
+                'gestor-partidas-pull',
               );
             },
           ),
