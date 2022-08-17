@@ -28,7 +28,7 @@ class _PageHeaderState extends State<PageHeader> {
   Widget build(BuildContext context) {
     final CrudUsuarios usuarios = Provider.of<CrudUsuarios>(context);
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -130,7 +130,6 @@ class _PageHeaderState extends State<PageHeader> {
                               const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: TextFormField(
                             controller: searchController,
-                            autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
                               hintText: 'Buscar',

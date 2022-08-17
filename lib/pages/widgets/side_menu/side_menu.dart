@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/pages/pages.dart';
-import 'package:arux/pages/widgets/custom_icon_button.dart';
-import 'package:arux/theme/theme.dart';
+import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
 
 class SideMenuWidget extends StatefulWidget {
   const SideMenuWidget({Key? key}) : super(key: key);
@@ -19,21 +17,13 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CustomIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 100,
-            borderWidth: 0,
-            buttonSize: 70,
-            fillColor: Colors.transparent,
-            icon: Icon(
-              Icons.home_outlined,
-              color: AppTheme.of(context).secondaryText,
-              size: 35,
-            ),
+          MenuButton(
+            icon: Icons.home_outlined,
             onPressed: () async {
+<<<<<<< HEAD
               /* await Navigator.push(
                 context,
                 PageTransition(
@@ -44,19 +34,50 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   // child: InicioWidget(),
                 ),
               ); */
+=======
+              // await Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.fade,
+              //     duration: const Duration(milliseconds: 0),
+              //     reverseDuration: const Duration(milliseconds: 0),
+              //     child: Container(),
+              //     // child: InicioWidget(),
+              //   ),
+              // );
             },
           ),
-          CustomIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 100,
-            borderWidth: 1,
-            buttonSize: 70,
-            icon: Icon(
-              Icons.notifications_outlined,
-              color: AppTheme.of(context).secondaryText,
-              size: 35,
-            ),
+          MenuButton(
+            icon: Icons.notifications_outlined,
             onPressed: () async {
+              // await Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.fade,
+              //     duration: const Duration(milliseconds: 0),
+              //     reverseDuration: const Duration(milliseconds: 0),
+              //     child: Container(),
+              //     // child: NotificacionesWidget(),
+              //   ),
+              // );
+            },
+          ),
+          MenuButton(
+            borderColor: Colors.transparent,
+            icon: Icons.subtitles_outlined,
+            onPressed: () async {
+              await Navigator.pushNamed(
+                context,
+                'gestor-partidas-push',
+              );
+>>>>>>> bec96b887b7d907a7fbc5248c18ca8ab88325ca5
+            },
+          ),
+          MenuButton(
+            borderColor: Colors.transparent,
+            icon: Icons.podcasts,
+            onPressed: () async {
+<<<<<<< HEAD
               /* await Navigator.push(
                 context,
                 PageTransition(
@@ -67,20 +88,18 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   // child: NotificacionesWidget(),
                 ),
               ); */
+=======
+              await Navigator.pushNamed(
+                context,
+                'gestor-partidas-pull',
+              );
+>>>>>>> bec96b887b7d907a7fbc5248c18ca8ab88325ca5
             },
           ),
-          CustomIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 50,
-            borderWidth: 0,
-            buttonSize: 70,
-            fillColor: Colors.transparent,
-            icon: Icon(
-              Icons.subtitles_outlined,
-              color: AppTheme.of(context).secondaryText,
-              size: 50,
-            ),
+          MenuButton(
+            icon: Icons.receipt_long_sharp,
             onPressed: () async {
+<<<<<<< HEAD
               await Navigator.pushReplacementNamed(
                 context,
                 '/gestor-partidas-push',
@@ -160,6 +179,22 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               color: AppTheme.of(context).secondaryText,
               size: 35,
             ),
+=======
+              // await Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.fade,
+              //     duration: const Duration(milliseconds: 0),
+              //     reverseDuration: const Duration(milliseconds: 0),
+              //     child: Container(),
+              //     // child: PagosWidget(),
+              //   ),
+              // );
+            },
+          ),
+          MenuButton(
+            icon: Icons.bar_chart_rounded,
+>>>>>>> bec96b887b7d907a7fbc5248c18ca8ab88325ca5
             onPressed: () {
               Navigator.pushReplacementNamed(
                 context,
@@ -167,83 +202,45 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               );
             },
           ),
-          Align(
-            alignment: const AlignmentDirectional(0, 0.5),
-            child: CustomIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 100,
-              borderWidth: 1,
-              buttonSize: 70,
-              icon: Icon(
-                Icons.person_add_outlined,
-                color: AppTheme.of(context).secondaryText,
-                size: 35,
-              ),
-              onPressed: () async {
-                await Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    duration: const Duration(milliseconds: 0),
-                    reverseDuration: const Duration(milliseconds: 0),
-                    child: const AltaUsuarioPage(),
-                  ),
-                );
-              },
-            ),
+          MenuButton(
+            icon: Icons.person_add_outlined,
+            onPressed: () async {
+              await Navigator.pushNamed(
+                context,
+                '/alta-usuario',
+              );
+            },
           ),
-          Material(
-            color: Colors.transparent,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF09A963),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 2,
-                ),
-              ),
-              child: Align(
-                alignment: const AlignmentDirectional(0, 0.5),
-                child: CustomIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 100,
-                  borderWidth: 1,
-                  buttonSize: 70,
-                  icon: const Icon(
-                    Icons.group_outlined,
-                    color: Color(0xFFFDFDFD),
-                    size: 35,
-                  ),
-                  onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        duration: const Duration(milliseconds: 0),
-                        reverseDuration: const Duration(milliseconds: 0),
-                        child: const UsuariosPage(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
+          MenuButton(
+            icon: Icons.group_outlined,
+            onPressed: () async {
+              await Navigator.pushNamed(
+                context,
+                '/usuarios',
+              );
+            },
           ),
-          CustomIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 100,
-            borderWidth: 1,
-            buttonSize: 100,
-            icon: const Icon(
-              Icons.power_settings_new_outlined,
-              color: Color(0xFFFF0003),
-              size: 35,
-            ),
+          // Material(
+          //   color: Colors.transparent,
+          //   elevation: 10,
+          //   shape: RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.circular(20),
+          //   ),
+          //   child: Container(
+          //     decoration: BoxDecoration(
+          //       color: const Color(0xFF09A963),
+          //       borderRadius: BorderRadius.circular(20),
+          //       border: Border.all(
+          //         color: Colors.white,
+          //         width: 2,
+          //       ),
+          //     ),
+          //     child:
+          //   ),
+          // ),
+          MenuButton(
+            fillColor: const Color(0xFFFF0003),
+            icon: Icons.power_settings_new_outlined,
             onPressed: () async {
               //TODO: handle errors
               final res = await supabase.auth.signOut();

@@ -4,8 +4,7 @@ import 'package:arux/helpers/globalUtility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Seguimiento_Facturas_QT.dart';
-import 'package:arux/pages/pages.dart';
-import 'package:arux/pages/widgets/menuButton.dart';
+import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -320,6 +319,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+<<<<<<< HEAD
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -397,6 +397,9 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                       ],
                     ),
                   ),
+=======
+                  const SideMenuWidget(),
+>>>>>>> bec96b887b7d907a7fbc5248c18ca8ab88325ca5
                   Expanded(
                     child: Padding(
                       padding:
