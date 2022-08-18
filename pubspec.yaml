@@ -28,11 +28,11 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   auto_size_text: ^3.0.0
+  country_icons: ^2.0.2
   cupertino_icons: ^1.0.2
   data_table_2: ^2.3.6
   email_validator: ^2.1.17
   expandable: ^5.0.1
-  flag: ^6.0.0
   fluro: ^2.0.3
   flutter:
     sdk: flutter

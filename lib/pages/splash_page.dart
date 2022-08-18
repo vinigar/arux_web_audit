@@ -21,35 +21,44 @@ class _SplashPageState extends State<SplashPage> {
     final UserState userState = Provider.of<UserState>(context);
 
     return Scaffold(
-      body: Center(
-        child: Builder(
-          builder: (_) {
-            final user = supabase.auth.currentUser;
-            if (user == null) {
-              return const LoginPage();
-            } else {
-              return FutureBuilder<Usuario?>(
-                future: userState.getCurrentUserData(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: SpinKitRipple(
-                          color: AppTheme.of(context).primaryColor,
-                          size: 50,
-                        ),
+      body: Builder(
+        builder: (_) {
+          final user = supabase.auth.currentUser;
+          if (user == null) {
+            return const LoginPage();
+          } else {
+            return FutureBuilder<Usuario?>(
+              future: userState.getCurrentUserData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: SpinKitRipple(
+                        color: AppTheme.of(context).primaryColor,
+                        size: 50,
                       ),
-                    );
-                  } else {
-                    return const UsuariosPage();
-                  }
-                },
-              );
-            }
-          },
-        ),
+                    ),
+                  );
+                } else if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: SpinKitRipple(
+                        color: AppTheme.of(context).primaryColor,
+                        size: 50,
+                      ),
+                    ),
+                  );
+                } else {
+                  return const UsuariosPage();
+                }
+              },
+            );
+          }
+        },
       ),
     );
   }
