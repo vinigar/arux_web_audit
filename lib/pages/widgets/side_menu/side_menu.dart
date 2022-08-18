@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:arux/providers/providers.dart';
-import 'package:arux/helpers/globals.dart';
 import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
 
 class SideMenuWidget extends StatefulWidget {
@@ -17,6 +16,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
   Widget build(BuildContext context) {
     final VisualStateProvider visualState =
         Provider.of<VisualStateProvider>(context);
+    final UserState userState = Provider.of<UserState>(context);
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -114,11 +114,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             isTaped: visualState.isTaped[8],
             onPressed: () async {
               visualState.setTapedOption(7);
-              //TODO: handle errors
-              final res = await supabase.auth.signOut();
-              // if(res.statusCode);
-              if (!mounted) return;
-              await Navigator.pushReplacementNamed(context, '/');
+              await userState.logout();
             },
           ),
         ],

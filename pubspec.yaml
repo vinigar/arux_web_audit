@@ -32,6 +32,7 @@ dependencies:
   data_table_2: ^2.3.6
   email_validator: ^2.1.17
   expandable: ^5.0.1
+  flag: ^6.0.0
   fluro: ^2.0.3
   flutter:
     sdk: flutter
@@ -48,7 +49,6 @@ dependencies:
   jwt_decode: ^0.3.1
   provider: ^6.0.3
   shared_preferences: ^2.0.15
-  supabase: ^0.3.6
   supabase_flutter: ^0.3.3
 
 dev_dependencies:
@@ -100,6 +100,5 @@ flutter:
         - asset: assets/fonts/Gotham-Light.otf
         - asset: assets/fonts/Gotham-Regular.ttf
         - asset: assets/fonts/Gotham-Thin.otf
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

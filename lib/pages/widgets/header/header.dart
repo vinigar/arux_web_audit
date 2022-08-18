@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'package:arux/pages/widgets/drop_down.dart';
 import 'package:arux/providers/providers.dart';
 import 'package:arux/theme/theme.dart';
 
@@ -11,11 +9,9 @@ class PageHeader extends StatefulWidget {
   const PageHeader({
     Key? key,
     required this.headerName,
-    this.spacer = false,
   }) : super(key: key);
 
   final String headerName;
-  final bool spacer;
 
   @override
   State<PageHeader> createState() => _PageHeaderState();
@@ -34,12 +30,15 @@ class _PageHeaderState extends State<PageHeader> {
         children: [
           Row(
             children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 30, 0),
-                child: Icon(
-                  Icons.arrow_back_outlined,
-                  color: Color(0xFF09A963),
-                  size: 30,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 30, 0),
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(
+                    Icons.arrow_back_outlined,
+                    color: Color(0xFF09A963),
+                    size: 30,
+                  ),
                 ),
               ),
               Text(
@@ -54,7 +53,7 @@ class _PageHeaderState extends State<PageHeader> {
               ),
             ],
           ),
-          widget.spacer == true ? const Spacer() : Container(),
+          const Spacer(),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -135,10 +134,11 @@ class _PageHeaderState extends State<PageHeader> {
                               hintText: 'Buscar',
                               hintStyle:
                                   AppTheme.of(context).bodyText2.override(
-                                        fontFamily: 'Roboto',
+                                        fontFamily: 'Gotham-Light',
                                         color: AppTheme.of(context).primaryText,
                                         fontSize: 18,
                                         fontWeight: FontWeight.normal,
+                                        useGoogleFonts: false,
                                       ),
                               enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -162,10 +162,11 @@ class _PageHeaderState extends State<PageHeader> {
                               ),
                             ),
                             style: AppTheme.of(context).bodyText1.override(
-                                  fontFamily: 'Roboto',
+                                  fontFamily: 'Gotham-Light',
                                   color: AppTheme.of(context).primaryText,
                                   fontSize: 18,
                                   fontWeight: FontWeight.normal,
+                                  useGoogleFonts: false,
                                 ),
                           ),
                         ),
@@ -214,8 +215,9 @@ class _PageHeaderState extends State<PageHeader> {
                         child: Text(
                           'Filas: 20',
                           style: AppTheme.of(context).bodyText1.override(
-                                fontFamily: 'Gotham',
-                                color: const Color(0xFF09A963),
+                                fontFamily: 'Gotham-Light',
+                                color: AppTheme.of(context).primaryText,
+                                fontWeight: FontWeight.normal,
                                 fontSize: 18,
                                 useGoogleFonts: false,
                               ),
@@ -224,57 +226,6 @@ class _PageHeaderState extends State<PageHeader> {
                     ],
                   ),
                 ),
-              ),
-              Container(
-                width: 150,
-                height: 45,
-                decoration: BoxDecoration(
-                  color: AppTheme.of(context).primaryBackground,
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(
-                    color: const Color(0xFF09A963),
-                    width: 1.5,
-                  ),
-                ),
-                child: FutureBuilder<List<String>>(
-                    future: usuarios.getPaises(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return CustomDropDown(
-                          options: snapshot.data!,
-                          onChanged: (val) =>
-                              setState(() => currPaisDropValue = val),
-                          width: 180,
-                          height: 50,
-                          textStyle: AppTheme.of(context).bodyText1.override(
-                                fontFamily: 'Gotham',
-                                color: const Color(0xFF09A963),
-                                fontSize: 18,
-                                useGoogleFonts: false,
-                              ),
-                          hintText: 'País',
-                          fillColor: AppTheme.of(context).primaryBackground,
-                          elevation: 2,
-                          borderColor: Colors.transparent,
-                          borderWidth: 0,
-                          borderRadius: 30,
-                          margin: const EdgeInsetsDirectional.fromSTEB(
-                              12, 4, 12, 4),
-                          hidesUnderline: true,
-                        );
-                      } else {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitCircle(
-                              color: AppTheme.of(context).secondaryColor,
-                              size: 50,
-                            ),
-                          ),
-                        );
-                      }
-                    }),
               ),
             ],
           ),

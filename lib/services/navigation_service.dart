@@ -11,8 +11,8 @@ class NavigationService {
     return await navigatorKey.currentState!.pushReplacementNamed(routeName);
   }
 
-  static removeTo(Route newRoute) async {
+  static removeTo(String newRoute) async {
     return await navigatorKey.currentState!
-        .pushAndRemoveUntil(newRoute, ModalRoute.withName('/'));
+        .pushNamedAndRemoveUntil(newRoute, (_) => false);
   }
 }
