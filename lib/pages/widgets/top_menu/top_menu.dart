@@ -1,6 +1,5 @@
 import 'package:arux/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TopMenuWidget extends StatelessWidget {
   const TopMenuWidget({Key? key}) : super(key: key);
@@ -32,14 +31,27 @@ class TopMenuWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-                    child: FaIcon(
-                      FontAwesomeIcons.powerOff,
-                      color: Color(0xFF09A963),
-                      size: 24,
-                    ),
+                  //PAIS
+                  Text(
+                    'Pais: ',
+                    style: AppTheme.of(context).bodyText1.override(
+                          fontFamily: 'Gotham-Light',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          useGoogleFonts: false,
+                        ),
                   ),
+                  //ROL
+                  Text(
+                    'Rol: ',
+                    style: AppTheme.of(context).bodyText1.override(
+                          fontFamily: 'Gotham-Light',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          useGoogleFonts: false,
+                        ),
+                  ),
+                  //FOTO
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                     child: Container(
@@ -53,17 +65,6 @@ class TopMenuWidget extends StatelessWidget {
                         'https://picsum.photos/seed/607/600',
                         fit: BoxFit.fill,
                       ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Text(
-                      'Luis L.',
-                      style: AppTheme.of(context).bodyText1.override(
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                          ),
                     ),
                   ),
                 ],

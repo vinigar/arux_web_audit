@@ -1,12 +1,14 @@
-import 'package:arux/helpers/globals.dart';
-import 'package:arux/pages/pages.dart';
-import 'package:arux/services/navigation_service.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
-import 'package:jwt_decode/jwt_decode.dart';
+import 'package:arux/helpers/globals.dart';
+import 'package:arux/models/models.dart';
+import 'package:arux/pages/pages.dart';
+import 'package:arux/services/navigation_service.dart';
 
-//TODO: agregar roles
-enum Rol { administrador, publico }
+// //TODO: agregar roles
+// enum Rol { administrador, publico }
 
 class UserState extends ChangeNotifier {
   //EMAIL
@@ -35,10 +37,7 @@ class UserState extends ChangeNotifier {
 
   bool recuerdame = false;
 
-  //Variables autenticacion
-  List<String> token = [];
-
-  Rol rol = Rol.administrador;
+  Usuario? currentUser;
 
   //Constructor de provider
   UserState() {
@@ -59,54 +58,44 @@ class UserState extends ChangeNotifier {
     notifyListeners();
   }
 
-  //Funcion que revisa si un jwt ha expirado
-  bool isTokenExpired(String jwt) {
-    DateTime? expiryDate = Jwt.getExpiryDate(jwt);
-    if (expiryDate == null) return false;
-    return expiryDate.isBefore(DateTime.now());
-  }
-
-  //Funciones de autenticacion
-  Future<void> setToken(String jwt) async {
-    token.clear();
-    token.add(jwt);
-    await storage.write(key: 'token', value: jwt);
-    notifyListeners();
-  }
-
-  Future<String> readToken() async {
-    final jwt = await storage.read(key: 'token') ?? '';
-    if (jwt != '') {
-      if (isTokenExpired(jwt)) {
-        await logout(false);
-        return '';
-      }
-      token.add(jwt);
+  Future<Usuario?> getCurrentUserData(String currUserId) async {
+    final user = supabase.auth.currentUser!;
+    print(user.id);
+    final res = await supabase
+        .from('perfil_usuario')
+        .select(
+            'nombre, apellidos, paises (id_pais_pk, nombre_pais), roles (id_rol_pk, nombre_rol), telefono')
+        .eq('perfil_usuario_id', user.id)
+        .execute();
+    if (res.hasError) {
+      return null; //TODO: handle error (retry, send to login)
+    } else if ((res.data as List).isEmpty) {
+      //usuario no tiene perfil
+      return null; //TODO: mandar a login
     }
-    return jwt;
+    final userProfile = res.data[0];
+    userProfile['id'] = user.id;
+    userProfile['email'] = user.email!;
+
+    return Usuario.fromJson(jsonEncode(userProfile));
   }
 
-  Future<void> logout([bool remove = true]) async {
-    await storage.delete(key: 'token');
-    token.clear();
-    if (remove) {
-      await NavigationService.removeTo(MaterialPageRoute(
-        builder: (context) => const SplashPage(
-          splashTimer: 0,
-        ),
-      ));
-    }
+  Future<void> logout() async {
+    final res = await supabase.auth.signOut();
+    //TODO: handle errors
+    // if(res.statusCode);
+    await NavigationService.removeTo('/');
   }
 
-  void setRole(String rol) {
-    switch (rol) {
-      case 'Administrador':
-        this.rol = Rol.administrador;
-        break;
-      default:
-        this.rol = Rol.publico;
-    }
-  }
+  // void setRole(String rol) {
+  //   switch (rol) {
+  //     case 'Administrador':
+  //       this.rol = Rol.administrador;
+  //       break;
+  //     default:
+  //       this.rol = Rol.publico;
+  //   }
+  // }
 
   @override
   void dispose() {

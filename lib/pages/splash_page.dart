@@ -1,18 +1,15 @@
+import 'package:arux/helpers/globals.dart';
+import 'package:arux/models/models.dart';
+import 'package:arux/providers/providers.dart';
+import 'package:arux/theme/theme.dart';
 import 'package:flutter/material.dart';
+
+import 'package:arux/pages/pages.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
-import 'package:arux/pages/pages.dart';
-import 'package:arux/providers/providers.dart';
-import 'package:arux/theme/theme.dart';
-
 class SplashPage extends StatefulWidget {
-  const SplashPage({
-    Key? key,
-    this.splashTimer = 6,
-  }) : super(key: key);
-
-  final int splashTimer;
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -21,35 +18,36 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    final UserState userState = Provider.of<UserState>(context, listen: false);
+    final UserState userState = Provider.of<UserState>(context);
+
     return Scaffold(
       body: Center(
-        child: FutureBuilder(
-          future: Future.wait([
-            userState.readToken(),
-            // displaySplashImage,
-          ]),
-          builder: (_, AsyncSnapshot<List> snapshot) {
-            if (!snapshot.hasData) {
-              return Container(
-                color: Colors.transparent,
-                child: Center(
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: SpinKitCircle(
-                      color: AppTheme.of(context).secondaryColor,
-                      size: 50,
-                    ),
-                  ),
-                ),
-              );
-            }
-            if (snapshot.data![0] == '') {
+        child: Builder(
+          builder: (_) {
+            final user = supabase.auth.currentUser;
+            if (user == null) {
               return const LoginPage();
             } else {
-              return const Text('Home Page');
-              // return const EmprendimientosScreen();
+              return FutureBuilder<Usuario?>(
+                future: userState.getCurrentUserData(user.id),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: SpinKitRipple(
+                          color: AppTheme.of(context).primaryColor,
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  } else {
+                    userState.currentUser = snapshot.data;
+                    return const UsuariosPage();
+                  }
+                },
+              );
             }
           },
         ),
