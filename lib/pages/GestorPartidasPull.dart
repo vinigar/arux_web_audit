@@ -107,312 +107,6 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
     setState(() {});
   }
 
-  Future<void> GetPartidasMenor() async {
-    try {
-      list_partidas = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getGestorPartidasQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importe}");
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
-
-        list_partidas.add(local_list);
-
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
-      }
-
-      //print("Listas : ${list_partidas.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMenorI() async {
-    try {
-      list_partidas = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getGestorPartidasQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importe}");
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
-
-        list_partidas.add(local_list);
-
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
-      }
-
-      //print("Listas : ${list_partidas.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasIgual() async {
-    try {
-      list_partidas = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .match({'${selectedDDEnc_transf[0]}': '${parametro_filt[0]}'})
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getGestorPartidasQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importe}");
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
-
-        list_partidas.add(local_list);
-
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
-      }
-
-      //print("Listas : ${list_partidas.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayor() async {
-    try {
-      list_partidas = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getGestorPartidasQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importe}");
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
-
-        list_partidas.add(local_list);
-
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
-      }
-
-      //print("Listas : ${list_partidas.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayorI() async {
-    try {
-      list_partidas = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getGestorPartidasQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importe}");
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
-
-        list_partidas.add(local_list);
-
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
-      }
-
-      //print("Listas : ${list_partidas.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasDif() async {
-    try {
-      list_partidas = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getGestorPartidasQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importe}");
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
-
-        list_partidas.add(local_list);
-
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
-      }
-
-      //print("Listas : ${list_partidas.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
   ///////////////////////////////////////////////////////////////////////////////////
 
   Future<void> GetPartidasBy__() async {
@@ -840,22 +534,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                 selectedDDOpe[
                                                                     0]) {
                                                               case "=":
-                                                                GetPartidasIgual();
+                                                                //GetPartidasIgual();
                                                                 break;
                                                               case "<":
-                                                                GetPartidasMenor();
+                                                                //GetPartidasMenor();
                                                                 break;
                                                               case "<=":
-                                                                GetPartidasMenorI();
+                                                                //GetPartidasMenorI();
                                                                 break;
                                                               case ">":
-                                                                GetPartidasMayor();
+                                                                //GetPartidasMayor();
                                                                 break;
                                                               case ">=":
-                                                                GetPartidasMayorI();
+                                                                //GetPartidasMayorI();
                                                                 break;
                                                               case "!=":
-                                                                GetPartidasDif();
+                                                                //GetPartidasDif();
                                                                 break;
                                                             }
                                                           } else {
@@ -1460,22 +1154,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1561,22 +1255,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1662,22 +1356,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1762,22 +1456,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1862,22 +1556,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1957,22 +1651,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -2053,22 +1747,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -2148,22 +1842,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -2243,22 +1937,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -2340,22 +2034,22 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {

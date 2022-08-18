@@ -60,4 +60,10 @@ class GlobalUtility {
     return TextStyle(
         fontSize: 18, fontFamily: 'Gotham-Light', color: secondaryText);
   }
+
+  TextStyle textoError(BuildContext context) {
+    return TextStyle(
+        fontSize: 18, fontFamily: 'Gotham-Light', color: 
+        Colors.red);
+  }
 }
