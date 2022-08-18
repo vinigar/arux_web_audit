@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/models.dart';
-import 'package:arux/pages/pages.dart';
 import 'package:arux/services/navigation_service.dart';
 
 // //TODO: agregar roles
@@ -58,13 +57,12 @@ class UserState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Usuario?> getCurrentUserData(String currUserId) async {
+  Future<Usuario?> getCurrentUserData() async {
     final user = supabase.auth.currentUser!;
-    print(user.id);
     final res = await supabase
         .from('perfil_usuario')
         .select(
-            'nombre, apellidos, paises (id_pais_pk, nombre_pais), roles (id_rol_pk, nombre_rol), telefono')
+            'nombre, apellidos, paises (id_pais_pk, nombre_pais, clave), roles (id_rol_pk, nombre_rol), telefono')
         .eq('perfil_usuario_id', user.id)
         .execute();
     if (res.hasError) {
@@ -77,7 +75,11 @@ class UserState extends ChangeNotifier {
     userProfile['id'] = user.id;
     userProfile['email'] = user.email!;
 
-    return Usuario.fromJson(jsonEncode(userProfile));
+    final usuario = Usuario.fromJson(jsonEncode(userProfile));
+
+    currentUser = usuario;
+
+    return usuario;
   }
 
   Future<void> logout() async {

@@ -1,11 +1,16 @@
+import 'package:arux/providers/providers.dart';
 import 'package:arux/theme/theme.dart';
+import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TopMenuWidget extends StatelessWidget {
   const TopMenuWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final UserState userState = Provider.of<UserState>(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
@@ -41,15 +46,24 @@ class TopMenuWidget extends StatelessWidget {
                           useGoogleFonts: false,
                         ),
                   ),
+                  Flag.fromString(
+                    userState.currentUser!.pais.clave,
+                    height: 20,
+                    width: 25,
+                    fit: BoxFit.fill,
+                  ),
                   //ROL
-                  Text(
-                    'Rol: ',
-                    style: AppTheme.of(context).bodyText1.override(
-                          fontFamily: 'Gotham-Light',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          useGoogleFonts: false,
-                        ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'Rol: ${userState.currentUser!.rol.nombreRol}',
+                      style: AppTheme.of(context).bodyText1.override(
+                            fontFamily: 'Gotham-Light',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                            useGoogleFonts: false,
+                          ),
+                    ),
                   ),
                   //FOTO
                   Padding(

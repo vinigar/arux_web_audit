@@ -29,7 +29,7 @@ class _SplashPageState extends State<SplashPage> {
               return const LoginPage();
             } else {
               return FutureBuilder<Usuario?>(
-                future: userState.getCurrentUserData(user.id),
+                future: userState.getCurrentUserData(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
@@ -43,7 +43,6 @@ class _SplashPageState extends State<SplashPage> {
                       ),
                     );
                   } else {
-                    userState.currentUser = snapshot.data;
                     return const UsuariosPage();
                   }
                 },
