@@ -309,6 +309,9 @@ class _LoginPageState extends State<LoginPage> {
                               await prefs.remove('password');
                             }
 
+                            if (supabase.auth.currentUser == null) return;
+                            await userState.getCurrentUserData();
+
                             if (!mounted) return;
                             await Navigator.pushReplacementNamed(
                               context,

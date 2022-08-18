@@ -14,7 +14,7 @@ class CrudUsuarios extends ChangeNotifier {
   final usuariosQuery = supabase
       .from('users')
       .select(
-          'id, email, nombre, apellidos, paises!perfil_usuario (id_pais_pk, nombre_pais), roles!perfil_usuario (id_rol_pk, nombre_rol), telefono')
+          'id, email, nombre, apellidos, paises!perfil_usuario (id_pais_pk, nombre_pais, clave), roles!perfil_usuario (id_rol_pk, nombre_rol), telefono')
       .execute();
 
   List<Pais> paises = [];

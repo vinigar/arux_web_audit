@@ -8,19 +8,21 @@
             "name": "arux",
             "request": "launch",
             "type": "dart",
-            "args": ["-d", "chrome","--web-port", "50120"],
+            "args": ["-d", "chrome","--web-port", "50120", "--web-renderer", "html"],
         },
         {
             "name": "arux (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
-            "args": ["-d", "chrome","--web-port", "50120"],
+            "args": ["-d", "chrome","--web-port", "50120", "--web-renderer", "html"],
         },
         {
             "name": "arux (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"        }
+            "flutterMode": "release",
+            "args": ["--web-renderer", "html"],
+        }
     ]
 }

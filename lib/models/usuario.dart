@@ -26,14 +26,20 @@ class Usuario {
   String toJson() => json.encode(toMap());
 
   factory Usuario.fromMap(Map<String, dynamic> json) {
+    late final dynamic paises;
+    json['paises'] is List
+        ? paises = json['paises'][0]
+        : paises = json['paises'];
+    late final dynamic roles;
+    json['roles'] is List ? roles = json['roles'][0] : roles = json['roles'];
     return Usuario(
       id: json["id"],
       email: json["email"],
       nombre: json["nombre"],
       apellidos: json["apellidos"],
       telefono: json["telefono"],
-      pais: Pais.fromJson(jsonEncode(json['paises'][0])),
-      rol: RolApi.fromJson(jsonEncode(json['roles'][0])),
+      pais: Pais.fromJson(jsonEncode(paises)),
+      rol: RolApi.fromJson(jsonEncode(roles)),
     );
   }
 
