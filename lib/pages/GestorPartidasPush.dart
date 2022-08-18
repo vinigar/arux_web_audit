@@ -64,10 +64,12 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
   String query = "";
 
   final controller_fondo_disp = TextEditingController();
-  int fondo_disponible = 0;
+  double fondo_disponible = 0;
   late int fondo_restante;
   List<dynamic> list_carrito = [];
-  double suma_carrito = 0;
+  double suma_importe = 0;
+  double suma_pp = 0;
+  double suma_dpp = 0;
 
   ///////////////////////////////////////////////////////////////////////////////////
 
@@ -106,11 +108,11 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
         local_list.add(getGestorPartidasQTResponse.data[i].referencia);
         local_list.add(getGestorPartidasQTResponse.data[i].importe);
         local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
+        local_list.add(getGestorPartidasQTResponse.data[i].importeUsd);
         local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
+        local_list.add(getGestorPartidasQTResponse.data[i].porcDpp);
+        local_list.add(getGestorPartidasQTResponse.data[i].cantDpp);
+        local_list.add(getGestorPartidasQTResponse.data[i].prontoPago);
         list_partidas.add(local_list);
 
         //print("Indice $i : ${list_partidas[i]}");
@@ -1079,7 +1081,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     ),
                                                     onChanged: (value) {
                                                       fondo_disponible =
-                                                          int.parse(value);
+                                                          double.parse(value);
                                                       setState(() {});
                                                     },
                                                   ),
@@ -1151,7 +1153,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(10, 0, 0, 0),
                                                 child: Text(
-                                                  '\$24,945,056.50',
+                                                  '\$ $suma_importe',
                                                   style: globalUtility
                                                       .textoA(context),
                                                 ),
@@ -1177,7 +1179,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                               .fromSTEB(
                                                           10, 0, 0, 0),
                                                   child: Text(
-                                                    '\$24,945,056.50',
+                                                    '\$ $suma_dpp',
                                                     style: globalUtility
                                                         .textoA(context),
                                                   ),
@@ -1205,11 +1207,10 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                     ),
                                   ),
                                   Text(
-                                    '\$ ${fondo_disponible - suma_carrito}',
-                                    style:
-                                        (fondo_disponible - suma_carrito) < 0
-                                            ? globalUtility.textoError(context)
-                                            : globalUtility.textoA(context),
+                                    '\$ ${fondo_disponible - suma_pp}',
+                                    style: (fondo_disponible - suma_pp) < 0
+                                        ? globalUtility.textoError(context)
+                                        : globalUtility.textoA(context),
                                   ),
                                   Expanded(
                                     child: Column(
@@ -1218,7 +1219,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           CrossAxisAlignment.end,
                                       children: [
                                         Container(
-                                          width: 350,
+                                          width: 400,
                                           height: 50,
                                           decoration: BoxDecoration(
                                             color: globalUtility.primaryBg,
@@ -1246,7 +1247,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                               .fromSTEB(
                                                           10, 0, 0, 0),
                                                   child: Text(
-                                                    '\$24,000,000.00',
+                                                    '\$ ${suma_importe - suma_dpp}',
                                                     style: globalUtility
                                                         .textoA(context),
                                                   ),
@@ -1268,9 +1269,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                   : Flexible(
                                       child: DataTable2(
                                         showCheckboxColumn: true,
-                                        columnSpacing: 12,
-                                        horizontalMargin: 12,
-                                        minWidth: 600,
+                                        columnSpacing: 20,
+                                        horizontalMargin: 10,
+                                        minWidth: 100,
                                         onSelectAll: (value) {
                                           final isCheck =
                                               value != null && value;
@@ -1288,6 +1289,18 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   .add(list_partidas[i][3]);
                                               _temp_list
                                                   .add(list_partidas[i][4]);
+                                              _temp_list
+                                                  .add(list_partidas[i][5]);
+                                              _temp_list
+                                                  .add(list_partidas[i][6]);
+                                              _temp_list
+                                                  .add(list_partidas[i][7]);
+                                              _temp_list
+                                                  .add(list_partidas[i][8]);
+                                              _temp_list
+                                                  .add(list_partidas[i][9]);
+                                              _temp_list
+                                                  .add(list_partidas[i][10]);
                                               list_carrito.removeWhere((item) {
                                                 return item[1].toString() ==
                                                         _temp_list[1]
@@ -1318,39 +1331,133 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             _temp_list.clear();
                                           }
                                           if (list_carrito.isNotEmpty) {
-                                            suma_carrito = 0;
+                                            suma_importe = 0;
+                                            suma_dpp = 0;
+                                            suma_pp = 0;
                                             for (var i = 0;
                                                 i < list_carrito.length;
                                                 i++) {
-                                              suma_carrito = suma_carrito +
+                                              suma_importe = suma_importe +
                                                   list_carrito[i][3];
+                                              suma_dpp =
+                                                  suma_dpp + list_carrito[i][8];
+                                              suma_pp =
+                                                  suma_pp + list_carrito[i][9];
                                             }
                                           } else {
-                                            suma_carrito = 0;
+                                            suma_importe = 0;
+                                            suma_dpp = 0;
+                                            suma_pp = 0;
                                           }
                                           setState(() {});
                                         },
-                                        columns: const [
+                                        columns: [
                                           DataColumn2(
-                                            label: Text('Estado'),
-                                            size: ColumnSize.L,
+                                            size: ColumnSize.M,
+                                            label: Text(
+                                              'Registro SAP',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
                                           ),
                                           DataColumn2(
-                                            label: Text('Registro SAP'),
                                             size: ColumnSize.L,
+                                            label: Text(
+                                              'Proveedor',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
                                           ),
-                                          DataColumn(
-                                            label: Text('Proveedor'),
-                                          ),
-                                          DataColumn(
-                                            label: Text('Referencia'),
-                                          ),
-                                          DataColumn(
-                                            label: Text('Importe de\nFactura'),
-                                          ),
-                                          DataColumn(
-                                            label: Text('Moneda'),
+                                          DataColumn2(
                                             numeric: true,
+                                            size: ColumnSize.M,
+                                            label: Text(
+                                              'Referencia',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
+                                          ),
+                                          DataColumn2(
+                                            numeric: true,
+                                            size: ColumnSize.M,
+                                            label: Text(
+                                              'Importe\nFactura',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
+                                          ),
+                                          DataColumn2(
+                                            size: ColumnSize.S,
+                                            label: Text(
+                                              'Moneda',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
+                                          ),
+                                          DataColumn2(
+                                            size: ColumnSize.M,
+                                            numeric: true,
+                                            label: Text(
+                                              '\$ Importe\nUSD',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
+                                          ),
+                                          DataColumn2(
+                                            size: ColumnSize.M,
+                                            label: Text(
+                                              'Días para\n Aplicar Pago',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
+                                            numeric: true,
+                                          ),
+                                          DataColumn2(
+                                            size: ColumnSize.S,
+                                            numeric: true,
+                                            label: Text(
+                                              '%DPP',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
+                                          ),
+                                          DataColumn2(
+                                            size: ColumnSize.M,
+                                            numeric: true,
+                                            label: Text(
+                                              '\$DPP',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
+                                          ),
+                                          DataColumn2(
+                                            size: ColumnSize.M,
+                                            numeric: true,
+                                            label: Text(
+                                              '\$ Pronto\nPago',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
+                                            ),
                                           ),
                                         ],
                                         rows: List<DataRow>.generate(
@@ -1378,6 +1485,18 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                       index + count_i][3]);
                                                   _temp_list.add(list_partidas[
                                                       index + count_i][4]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][5]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][6]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][7]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][8]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][9]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][10]);
                                                   list_carrito.add(_temp_list);
                                                 } else {
                                                   list_partidas[index + count_i]
@@ -1390,6 +1509,18 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                       index + count_i][3]);
                                                   _temp_list.add(list_partidas[
                                                       index + count_i][4]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][5]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][6]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][7]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][8]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][9]);
+                                                  _temp_list.add(list_partidas[
+                                                      index + count_i][10]);
                                                   list_carrito
                                                       .removeWhere((item) {
                                                     return item[1].toString() ==
@@ -1400,12 +1531,18 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                 .toString();
                                                   });
                                                 }
-                                                suma_carrito = 0;
+                                                suma_importe = 0;
+                                                suma_dpp = 0;
+                                                suma_pp = 0;
                                                 for (var i = 0;
                                                     i < list_carrito.length;
                                                     i++) {
-                                                  suma_carrito = suma_carrito +
+                                                  suma_importe = suma_importe +
                                                       list_carrito[i][3];
+                                                  suma_dpp = suma_dpp +
+                                                      list_carrito[i][8];
+                                                  suma_pp = suma_pp +
+                                                      list_carrito[i][9];
                                                 }
                                               },
                                             ),
@@ -1413,15 +1550,10 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               DataCell(
                                                 Text(
                                                   list_partidas[index + count_i]
-                                                          [0]
-                                                      .toString(),
-                                                ),
-                                              ),
-                                              DataCell(
-                                                Text(
-                                                  list_partidas[index + count_i]
                                                           [1]
                                                       .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(
@@ -1429,6 +1561,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   list_partidas[index + count_i]
                                                           [2]
                                                       .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(
@@ -1436,11 +1570,15 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   list_partidas[index + count_i]
                                                           [3]
                                                       .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(
                                                 Text(
                                                   '\$ ${list_partidas[index + count_i][4].toString()}',
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(
@@ -1448,6 +1586,53 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   list_partidas[index + count_i]
                                                           [5]
                                                       .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  list_partidas[index + count_i]
+                                                          [6]
+                                                      .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  list_partidas[index + count_i]
+                                                          [7]
+                                                      .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  list_partidas[index + count_i]
+                                                          [8]
+                                                      .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  list_partidas[index + count_i]
+                                                          [9]
+                                                      .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  list_partidas[index + count_i]
+                                                          [10]
+                                                      .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
                                                 ),
                                               ),
                                             ],

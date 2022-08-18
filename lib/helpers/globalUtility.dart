@@ -21,8 +21,11 @@ class GlobalUtility {
   }
 
   TextStyle encabezadoTablasOff(BuildContext context) {
-    return TextStyle(
-        fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primaryBg);
+    return Theme.of(context).brightness == Brightness.light
+        ? TextStyle(
+            fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primaryBg)
+        : TextStyle(
+            fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primary);
   }
 
   TextStyle encabezadoTablasOffAlt(BuildContext context) {
@@ -36,11 +39,17 @@ class GlobalUtility {
   }
 
   TextStyle contenidoTablas(BuildContext context) {
-    return TextStyle(
-        fontSize: 18,
-        fontFamily: 'Gotham-Light',
-        fontWeight: FontWeight.w300,
-        color: primaryText);
+    return Theme.of(context).brightness == Brightness.light
+        ? TextStyle(
+            fontSize: 18,
+            fontFamily: 'Gotham-Light',
+            fontWeight: FontWeight.w300,
+            color: primaryText)
+        : TextStyle(
+            fontSize: 18,
+            fontFamily: 'Gotham-Light',
+            fontWeight: FontWeight.w300,
+            color: primaryBg);
   }
 
   TextStyle textoIgual(BuildContext context) {
@@ -63,7 +72,6 @@ class GlobalUtility {
 
   TextStyle textoError(BuildContext context) {
     return TextStyle(
-        fontSize: 18, fontFamily: 'Gotham-Light', color: 
-        Colors.red);
+        fontSize: 18, fontFamily: 'Gotham-Light', color: Colors.red);
   }
 }
