@@ -321,7 +321,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                   child: Column(
+                    child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -353,7 +353,12 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                         MenuButton(
                           icon: Icons.receipt_long_sharp,
                           fillColor: globalUtility.primary,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/pagos',
+                            );
+                          },
                         ),
                         MenuButton(
                           icon: Icons.bar_chart_rounded,

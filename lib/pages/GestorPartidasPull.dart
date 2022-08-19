@@ -329,7 +329,12 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                         MenuButton(
                           icon: Icons.receipt_long_sharp,
                           fillColor: globalUtility.primary,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/pagos',
+                            );
+                          },
                         ),
                         MenuButton(
                           icon: Icons.bar_chart_rounded,

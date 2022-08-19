@@ -404,7 +404,12 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                             ),
                             MenuButton(
                               icon: Icons.podcasts,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/pagos',
+                                );
+                              },
                             ),
                             MenuButton(
                               icon: Icons.receipt_long_sharp,
