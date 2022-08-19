@@ -102,6 +102,14 @@ class _SeguimientoProveedoresPageState
                                                 ),
                                                 DataCell(
                                                   Text(
+                                                    factura.sociedad,
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
                                                     factura.noDocPartida,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -155,7 +163,7 @@ class _SeguimientoProveedoresPageState
                                                 ),
                                                 DataCell(
                                                   Text(
-                                                    factura.nombreEstado.name,
+                                                    factura.nombreEstatus,
                                                     style: globalUtility
                                                         .contenidoTablas(
                                                             context),
@@ -228,6 +236,14 @@ class _SeguimientoProveedoresPageState
         size: ColumnSize.S,
         label: Text(
           'ID',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        size: ColumnSize.M,
+        label: Text(
+          'Nombre',
           textAlign: TextAlign.center,
           style: globalUtility.encabezadoTablasOffAlt(context),
         ),

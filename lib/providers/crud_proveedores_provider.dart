@@ -15,8 +15,13 @@ class CrudProveedores extends ChangeNotifier {
 
   //TODO: manejar errores
   Future<List<FacturaProveedor>?> getSeguimientoProveedores() async {
+    print('Entra a funcion');
     final PostgrestResponse<dynamic> res = await seguimientoProveedoresQuery;
-    if (res.hasError) return null;
+    if (res.hasError) {
+      print(res.error);
+    }
+
+    print(res.data);
     final List<FacturaProveedor> facturasProveedor = (res.data as List<dynamic>)
         .map((facturaProveedor) =>
             FacturaProveedor.fromJson(jsonEncode(facturaProveedor)))

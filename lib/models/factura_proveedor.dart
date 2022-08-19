@@ -58,6 +58,8 @@ class FacturaProveedor {
     required this.idEstadoPk,
     required this.fechaRegistroEstado,
     required this.nombreEstado,
+    required this.fechaCreacion,
+    required this.nombreEstatus,
   });
 
   int idProveedorPk;
@@ -112,6 +114,8 @@ class FacturaProveedor {
   int idEstadoPk;
   DateTime fechaRegistroEstado;
   NombreEstado nombreEstado;
+  DateTime fechaCreacion;
+  String nombreEstatus;
 
   factory FacturaProveedor.fromJson(String str) =>
       FacturaProveedor.fromMap(json.decode(str));
@@ -173,6 +177,8 @@ class FacturaProveedor {
         idEstadoPk: json["id_estado_pk"],
         fechaRegistroEstado: DateTime.parse(json["fecha_registro_estado"]),
         nombreEstado: nombreEstadoValues.map[json["nombre_estado"]]!,
+        fechaCreacion: DateTime.parse(json["fecha_creacion"]),
+        nombreEstatus: json["nombre_estatus"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -228,6 +234,8 @@ class FacturaProveedor {
         "id_estado_pk": idEstadoPk,
         "fecha_registro_estado": fechaRegistroEstado.toIso8601String(),
         "nombre_estado": nombreEstadoValues.reverse[nombreEstado],
+        "fecha_creacion": fechaCreacion.toIso8601String(),
+        "nombre_estatus": nombreEstatus,
       };
 }
 
