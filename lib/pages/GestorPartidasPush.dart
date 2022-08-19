@@ -45,7 +45,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
 
   bool popup_rise = false;
   List<String?> listDDEnc = [
-    "Registro SAP",
+    "USD",
     "Proveedor",
     "Referencia",
     "Importe Factura",
@@ -57,7 +57,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
   ];
   List<String?> listDOpe = ["=", ">", ">=", "<", "<=", "!="];
   List<String?> listDDCond = ["Y", "Ó"];
-  List<String?> selected_Enc = ["Registro SAP"];
+  List<String?> selected_Enc = ["USD"];
   List<String?> selected_Ope = ["="];
   List<String?> selected_Val = [];
   List<String?> selected_Cond = [];
@@ -107,13 +107,16 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
         local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
         local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
         local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add(getGestorPartidasQTResponse.data[i].importe);
+        local_list.add(double.parse(
+            getGestorPartidasQTResponse.data[i].importe.toStringAsFixed(2)));
         local_list.add(getGestorPartidasQTResponse.data[i].moneda);
         local_list.add(getGestorPartidasQTResponse.data[i].importeUsd);
         local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
         local_list.add(getGestorPartidasQTResponse.data[i].porcDpp);
-        local_list.add(getGestorPartidasQTResponse.data[i].cantDpp);
-        local_list.add(getGestorPartidasQTResponse.data[i].prontoPago);
+        local_list.add(double.parse(
+            getGestorPartidasQTResponse.data[i].cantDpp.toStringAsFixed(2)));
+        local_list.add(double.parse(
+            getGestorPartidasQTResponse.data[i].prontoPago.toStringAsFixed(2)));
         list_partidas.add(local_list);
 
         //print("Indice $i : ${list_partidas[i]}");
@@ -255,12 +258,19 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
         print("-----Error: ${response.error}");
         /* print("-----Response: ${response.toString()}");
         print('Update realizado'); */
+
       }
       var postresponse = await post(
           Uri.parse('https://arux.cbluna-dev.com/arux/api'),
           body: json.encode({"action": "Ejecutar_Partidas"}));
+
       print("-----PostResponseCode: " + postresponse.statusCode.toString());
       print("-----PostResponseBody: " + postresponse.body);
+
+      const snackbarComplete = SnackBar(
+        content: Text('Proceso Realizado con exito'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbarComplete);
     } catch (e) {
       print(e);
     }
@@ -636,7 +646,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 15, 0),
                                           child: Container(
-                                            width: 250,
+                                            width: 150,
                                             height: 51,
                                             decoration: BoxDecoration(
                                               color: globalUtility.primaryBg,
@@ -791,7 +801,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                     context),
                                                           ),
                                                           SizedBox(
-                                                            width: 100,
+                                                            width: 50,
                                                             child: Padding(
                                                               padding: const EdgeInsets
                                                                       .symmetric(
@@ -1169,7 +1179,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             isExpanded: true,
                                             value: listDDEnc[0],
                                             items: <String>[
-                                              "Registro SAP",
+                                              "USD",
                                               "Proveedor",
                                               "Referencia",
                                               "Importe",
@@ -1212,10 +1222,13 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 padding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(10, 0, 0, 0),
-                                                child: Text(
-                                                  '\$ $suma_importe',
-                                                  style: globalUtility
-                                                      .textoA(context),
+                                                child: SizedBox(
+                                                  width: 215,
+                                                  child: Text(
+                                                    '\$ ${suma_importe.toStringAsFixed(2)}',
+                                                    style: globalUtility
+                                                        .textoA(context),
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -1238,10 +1251,13 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                       const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                           10, 0, 0, 0),
-                                                  child: Text(
-                                                    '\$ $suma_dpp',
-                                                    style: globalUtility
-                                                        .textoA(context),
+                                                  child: SizedBox(
+                                                    width: 215,
+                                                    child: Text(
+                                                      '\$ ${suma_dpp.toStringAsFixed(2)}',
+                                                      style: globalUtility
+                                                          .textoA(context),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
@@ -1267,7 +1283,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                     ),
                                   ),
                                   Text(
-                                    '\$ ${fondo_disponible - suma_pp}',
+                                    '\$ ${(fondo_disponible - suma_pp).toStringAsFixed(2)}',
                                     style: (fondo_disponible - suma_pp) < 0
                                         ? globalUtility.textoError(context)
                                         : globalUtility.textoA(context),
@@ -1307,7 +1323,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                               .fromSTEB(
                                                           10, 0, 0, 0),
                                                   child: Text(
-                                                    '\$ ${suma_importe - suma_dpp}',
+                                                    '\$ ${(suma_importe - suma_dpp).toStringAsFixed(2)}',
                                                     style: globalUtility
                                                         .textoA(context),
                                                   ),
@@ -1516,7 +1532,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                         ],
                                         rows: List<DataRow>.generate(
-                                          5,
+                                          20,
                                           (index) => DataRow(
                                             selected:
                                                 list_partidas[index + count_i]
@@ -1768,7 +1784,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   isExpanded: true,
                                                   value: selected_Enc[index],
                                                   items: <String>[
-                                                    "Registro SAP",
+                                                    "USD",
                                                     "Proveedor",
                                                     "Referencia",
                                                     "Importe",
