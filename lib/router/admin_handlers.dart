@@ -1,3 +1,4 @@
+import 'package:arux/pages/pagos.dart';
 import 'package:fluro/fluro.dart';
 import 'package:arux/pages/pages.dart';
 
@@ -37,5 +38,9 @@ class AdminHandlers {
 
   static Handler altaUsuario = Handler(handlerFunc: (context, params) {
     return const AltaUsuarioPage();
+  });
+
+  static Handler pagos = Handler(handlerFunc: (context, params) {
+    return const Pagos();
   });
 }

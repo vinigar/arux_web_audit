@@ -23,6 +23,8 @@ class Flurorouter {
 
   static String altaUsuario = '/alta-usuario';
 
+  static String pagos = '/pagos';
+
   static void configureRoutes() {
     // Auth Routes
     router.define(
@@ -78,6 +80,9 @@ class Flurorouter {
       handler: AdminHandlers.altaUsuario,
       transitionType: TransitionType.none,
     );
+
+    router.define(pagos,
+        handler: AdminHandlers.pagos, transitionType: TransitionType.none);
 
     //404
     router.notFoundHandler = NoPageFoundHandlers.noPageFound;
