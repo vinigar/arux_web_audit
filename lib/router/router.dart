@@ -15,6 +15,8 @@ class Flurorouter {
 
   static String proveedores = '/proveedores';
 
+  static String seguimientoProveedores = '/seguimiento-proveedores';
+
   static String reporteSeguimientoFacturas = '/reporte-seguimiento-facturas';
 
   static String seguimientoFacturas = '/seguimiento-facturas';
@@ -58,6 +60,12 @@ class Flurorouter {
     router.define(
       proveedores,
       handler: AdminHandlers.proveedores,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      seguimientoProveedores,
+      handler: AdminHandlers.seguimientoProveedores,
       transitionType: TransitionType.none,
     );
 

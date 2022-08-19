@@ -22,7 +22,6 @@ class _PageHeaderState extends State<PageHeader> {
   String? currPaisDropValue = '';
   @override
   Widget build(BuildContext context) {
-    final CrudUsuarios usuarios = Provider.of<CrudUsuarios>(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(

@@ -40,7 +40,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               visualState.setTapedOption(1);
               // await Navigator.pushNamed(
               //   context,
-              //   '/notificaiones'
+              //   '/notificaciones'
               // );
             },
           ),
@@ -62,7 +62,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               visualState.setTapedOption(3);
               await Navigator.pushNamed(
                 context,
-                '/gestor-partidas-pull',
+                '/seguimiento-facturas',
               );
             },
           ),
@@ -92,7 +92,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               visualState.setTapedOption(6);
               await Navigator.pushNamed(
                 context,
-                '/alta-usuario',
+                '/seguimiento-proveedores',
               );
             },
           ),

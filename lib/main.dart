@@ -35,6 +35,10 @@ void main() async {
           lazy: false,
         ),
         ChangeNotifierProvider(
+          create: (_) => CrudProveedores(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
           create: (_) => VisualStateProvider(),
           lazy: false,
         ),

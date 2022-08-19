@@ -34,7 +34,7 @@ class TopMenuWidget extends StatelessWidget {
                 children: [
                   //PAIS
                   Text(
-                    'Pais: ',
+                    'País: ',
                     style: AppTheme.of(context).bodyText1.override(
                           fontFamily: 'Gotham-Light',
                           fontSize: 20,
