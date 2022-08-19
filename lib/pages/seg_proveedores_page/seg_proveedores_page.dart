@@ -1,7 +1,10 @@
+import 'package:arux/helpers/globalUtility.dart';
 import 'package:arux/models/models.dart';
 import 'package:arux/pages/widgets/header/header.dart';
 import 'package:arux/pages/widgets/table_column_name.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart' as provider;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -20,6 +23,7 @@ class SeguimientoProveedoresPage extends StatefulWidget {
 
 class _SeguimientoProveedoresPageState
     extends State<SeguimientoProveedoresPage> {
+  GlobalUtility globalUtility = GlobalUtility();
   TextEditingController searchController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -53,356 +57,157 @@ class _SeguimientoProveedoresPageState
                               const PageHeader(
                                 headerName: 'Seguimiento de Proveedores',
                               ),
-                              FutureBuilder(
+                              FutureBuilder<List<FacturaProveedor>?>(
                                   future: proveedorProvider
                                       .getSeguimientoProveedores(),
                                   builder: (context, snapshot) {
-                                    return Container();
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: SpinKitCircle(
+                                            color: AppTheme.of(context)
+                                                .secondaryColor,
+                                            size: 50,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    final List<FacturaProveedor> facturas =
+                                        snapshot.data!;
+                                    return Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                        ),
+                                        child: DataTable2(
+                                          showCheckboxColumn: true,
+                                          columnSpacing: 20,
+                                          horizontalMargin: 10,
+                                          minWidth: 100,
+                                          columns: getColumns(),
+                                          rows: List.generate(facturas.length,
+                                              (index) {
+                                            final factura = facturas[index];
+                                            return DataRow2(
+                                              cells: [
+                                                DataCell(
+                                                  Text(
+                                                    factura.idProveedorPk
+                                                        .toString(),
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    factura.noDocPartida,
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    factura.importe.toString(),
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    factura.moneda,
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    factura.descuentoPorcPp
+                                                        .toString(),
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    factura.descuentoCantPp
+                                                        .toString(),
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    DateFormat('dd-MM-yyyy')
+                                                        .format(
+                                                      factura.fechaDoc,
+                                                    ),
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    factura.nombreEstado.name,
+                                                    style: globalUtility
+                                                        .contenidoTablas(
+                                                            context),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 10),
+                                                        child: InkWell(
+                                                          onTap: () {},
+                                                          child: const Icon(
+                                                            Icons.file_open,
+                                                            color: Color(
+                                                                0xFF09A963),
+                                                            size: 30,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 10),
+                                                        child: InkWell(
+                                                          onTap: () {},
+                                                          child: const Icon(
+                                                            Icons
+                                                                .remove_red_eye,
+                                                            color: Color(
+                                                                0xFF09A963),
+                                                            size: 30,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          }),
+                                        ),
+                                      ),
+                                    );
                                   }),
-                              // Padding(
-                              //   padding: const EdgeInsetsDirectional.fromSTEB(
-                              //       0, 5, 0, 0),
-                              //   child: Material(
-                              //     color: Colors.transparent,
-                              //     elevation: 10,
-                              //     shape: const RoundedRectangleBorder(
-                              //       borderRadius: BorderRadius.only(
-                              //         bottomLeft: Radius.circular(5),
-                              //         bottomRight: Radius.circular(5),
-                              //         topLeft: Radius.circular(10),
-                              //         topRight: Radius.circular(10),
-                              //       ),
-                              //     ),
-                              //     child: Container(
-                              //       width: double.infinity,
-                              //       decoration: const BoxDecoration(
-                              //         color: Color(0xFF09A963),
-                              //         borderRadius: BorderRadius.only(
-                              //           bottomLeft: Radius.circular(5),
-                              //           bottomRight: Radius.circular(5),
-                              //           topLeft: Radius.circular(10),
-                              //           topRight: Radius.circular(10),
-                              //         ),
-                              //       ),
-                              //       child: Padding(
-                              //         padding:
-                              //             const EdgeInsetsDirectional.fromSTEB(
-                              //                 0, 5, 0, 5),
-                              //         child: Row(
-                              //           mainAxisSize: MainAxisSize.max,
-                              //           children: const [
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: 'ID',
-                              //               ),
-                              //             ),
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: 'Factura',
-                              //               ),
-                              //             ),
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: 'Importe',
-                              //               ),
-                              //             ),
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: 'Moneda',
-                              //               ),
-                              //             ),
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: '%DPP',
-                              //               ),
-                              //             ),
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: '\$DPP',
-                              //               ),
-                              //             ),
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: 'Fecha pago',
-                              //               ),
-                              //             ),
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: 'Estátus',
-                              //               ),
-                              //             ),
-                              //             Expanded(
-                              //               child: TableColumnName(
-                              //                 nombre: 'Acciones',
-                              //               ),
-                              //             ),
-                              //           ],
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Flexible(
-                              //   child: Padding(
-                              //     padding: const EdgeInsetsDirectional.fromSTEB(
-                              //         0, 0, 0, 20),
-                              //     child: FutureBuilder<List<Usuario>>(
-                              //         future: usuarios.getUsuarios(),
-                              //         builder: (context, snapshot) {
-                              //           // Customize what your widget looks like when it's loading.
-                              //           if (!snapshot.hasData) {
-                              //             return Center(
-                              //               child: SizedBox(
-                              //                 width: 50,
-                              //                 height: 50,
-                              //                 child: SpinKitCircle(
-                              //                   color: AppTheme.of(context)
-                              //                       .secondaryColor,
-                              //                   size: 50,
-                              //                 ),
-                              //               ),
-                              //             );
-                              //           }
-                              //           final List<Usuario> usuarios =
-                              //               snapshot.data!;
-                              //           return RefreshIndicator(
-                              //             onRefresh: () async {
-                              //               //TODO: revisar funcionalidad
-                              //               setState(() {});
-                              //             },
-                              //             child: SingleChildScrollView(
-                              //               child: ListView.builder(
-                              //                 padding: EdgeInsets.zero,
-                              //                 shrinkWrap: true,
-                              //                 primary: false,
-                              //                 scrollDirection: Axis.vertical,
-                              //                 itemCount: usuarios.length,
-                              //                 itemBuilder: (context, index) {
-                              //                   final usuario = usuarios[index];
-                              //                   return Padding(
-                              //                     padding:
-                              //                         const EdgeInsetsDirectional
-                              //                                 .fromSTEB(
-                              //                             0, 10, 0, 0),
-                              //                     child: Material(
-                              //                       color: Colors.transparent,
-                              //                       elevation: 5,
-                              //                       shape:
-                              //                           RoundedRectangleBorder(
-                              //                         borderRadius:
-                              //                             BorderRadius.circular(
-                              //                                 10),
-                              //                       ),
-                              //                       child: Container(
-                              //                         width: double.infinity,
-                              //                         height: 55,
-                              //                         decoration: BoxDecoration(
-                              //                           color: AppTheme.of(
-                              //                                   context)
-                              //                               .primaryBackground,
-                              //                           borderRadius:
-                              //                               BorderRadius
-                              //                                   .circular(10),
-                              //                           border: Border.all(
-                              //                             color: Colors
-                              //                                 .transparent,
-                              //                             width: 1,
-                              //                           ),
-                              //                         ),
-                              //                         child: Padding(
-                              //                           padding:
-                              //                               const EdgeInsetsDirectional
-                              //                                       .fromSTEB(
-                              //                                   0, 5, 0, 5),
-                              //                           child: Row(
-                              //                             mainAxisAlignment:
-                              //                                 MainAxisAlignment
-                              //                                     .spaceEvenly,
-                              //                             children: [
-                              //                               Expanded(
-                              //                                 child: Text(
-                              //                                   usuario.id,
-                              //                                   textAlign:
-                              //                                       TextAlign
-                              //                                           .center,
-                              //                                   style: AppTheme.of(
-                              //                                           context)
-                              //                                       .subtitle1
-                              //                                       .override(
-                              //                                         fontFamily:
-                              //                                             'Gotham-Light',
-                              //                                         color: AppTheme.of(
-                              //                                                 context)
-                              //                                             .primaryText,
-                              //                                         fontWeight:
-                              //                                             FontWeight
-                              //                                                 .normal,
-                              //                                         useGoogleFonts:
-                              //                                             false,
-                              //                                       ),
-                              //                                 ),
-                              //                               ),
-                              //                               Expanded(
-                              //                                 child: Text(
-                              //                                   '${usuario.nombre} ${usuario.apellidos}',
-                              //                                   textAlign:
-                              //                                       TextAlign
-                              //                                           .center,
-                              //                                   style: AppTheme.of(
-                              //                                           context)
-                              //                                       .subtitle1
-                              //                                       .override(
-                              //                                         fontFamily:
-                              //                                             'Gotham-Light',
-                              //                                         color: AppTheme.of(
-                              //                                                 context)
-                              //                                             .primaryText,
-                              //                                         fontWeight:
-                              //                                             FontWeight
-                              //                                                 .normal,
-                              //                                         useGoogleFonts:
-                              //                                             false,
-                              //                                       ),
-                              //                                 ),
-                              //                               ),
-                              //                               Expanded(
-                              //                                 child: Text(
-                              //                                   usuario.rol
-                              //                                       .nombreRol,
-                              //                                   textAlign:
-                              //                                       TextAlign
-                              //                                           .center,
-                              //                                   style: AppTheme.of(
-                              //                                           context)
-                              //                                       .subtitle1
-                              //                                       .override(
-                              //                                         fontFamily:
-                              //                                             'Gotham-Light',
-                              //                                         color: AppTheme.of(
-                              //                                                 context)
-                              //                                             .primaryText,
-                              //                                         fontWeight:
-                              //                                             FontWeight
-                              //                                                 .normal,
-                              //                                         useGoogleFonts:
-                              //                                             false,
-                              //                                       ),
-                              //                                 ),
-                              //                               ),
-                              //                               Expanded(
-                              //                                 child: Text(
-                              //                                   usuario.email,
-                              //                                   textAlign:
-                              //                                       TextAlign
-                              //                                           .center,
-                              //                                   style: AppTheme.of(
-                              //                                           context)
-                              //                                       .subtitle1
-                              //                                       .override(
-                              //                                         fontFamily:
-                              //                                             'Gotham-Light',
-                              //                                         color: AppTheme.of(
-                              //                                                 context)
-                              //                                             .primaryText,
-                              //                                         fontWeight:
-                              //                                             FontWeight
-                              //                                                 .normal,
-                              //                                         useGoogleFonts:
-                              //                                             false,
-                              //                                       ),
-                              //                                 ),
-                              //                               ),
-                              //                               Expanded(
-                              //                                 child: Text(
-                              //                                   usuario
-                              //                                       .telefono,
-                              //                                   textAlign:
-                              //                                       TextAlign
-                              //                                           .center,
-                              //                                   style: AppTheme.of(
-                              //                                           context)
-                              //                                       .subtitle1
-                              //                                       .override(
-                              //                                         fontFamily:
-                              //                                             'Gotham-Light',
-                              //                                         color: AppTheme.of(
-                              //                                                 context)
-                              //                                             .primaryText,
-                              //                                         fontWeight:
-                              //                                             FontWeight
-                              //                                                 .normal,
-                              //                                         useGoogleFonts:
-                              //                                             false,
-                              //                                       ),
-                              //                                 ),
-                              //                               ),
-                              //                               Expanded(
-                              //                                 child: Text(
-                              //                                   usuario.pais
-                              //                                       .nombrePais,
-                              //                                   textAlign:
-                              //                                       TextAlign
-                              //                                           .center,
-                              //                                   style: AppTheme.of(
-                              //                                           context)
-                              //                                       .subtitle1
-                              //                                       .override(
-                              //                                         fontFamily:
-                              //                                             'Gotham-Light',
-                              //                                         color: AppTheme.of(
-                              //                                                 context)
-                              //                                             .primaryText,
-                              //                                         fontWeight:
-                              //                                             FontWeight
-                              //                                                 .normal,
-                              //                                         useGoogleFonts:
-                              //                                             false,
-                              //                                       ),
-                              //                                 ),
-                              //                               ),
-                              //                               Expanded(
-                              //                                 child:
-                              //                                     CustomSwitchListTile(
-                              //                                   key:
-                              //                                       UniqueKey(),
-                              //                                 ),
-                              //                               ),
-                              //                               Expanded(
-                              //                                 child: Text(
-                              //                                   'Acciones',
-                              //                                   textAlign:
-                              //                                       TextAlign
-                              //                                           .center,
-                              //                                   style: AppTheme.of(
-                              //                                           context)
-                              //                                       .subtitle1
-                              //                                       .override(
-                              //                                         fontFamily:
-                              //                                             'Gotham-Light',
-                              //                                         color: AppTheme.of(
-                              //                                                 context)
-                              //                                             .primaryText,
-                              //                                         fontWeight:
-                              //                                             FontWeight
-                              //                                                 .normal,
-                              //                                         useGoogleFonts:
-                              //                                             false,
-                              //                                       ),
-                              //                                 ),
-                              //                               ),
-                              //                             ],
-                              //                           ),
-                              //                         ),
-                              //                       ),
-                              //                     ),
-                              //                   );
-                              //                 },
-                              //               ),
-                              //             ),
-                              //           );
-                              //         }),
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
@@ -416,5 +221,89 @@ class _SeguimientoProveedoresPageState
         ),
       ),
     );
+  }
+
+  List<DataColumn2> getColumns() {
+    return [
+      DataColumn2(
+        size: ColumnSize.S,
+        label: Text(
+          'ID',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        size: ColumnSize.M,
+        label: Text(
+          'Factura',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        numeric: true,
+        size: ColumnSize.M,
+        label: Text(
+          'Importe',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        numeric: true,
+        size: ColumnSize.S,
+        label: Text(
+          'Moneda',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        size: ColumnSize.M,
+        numeric: true,
+        label: Text(
+          '%DPP',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        size: ColumnSize.M,
+        numeric: true,
+        label: Text(
+          '\$DPP',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        size: ColumnSize.M,
+        numeric: true,
+        label: Text(
+          'Fecha pago',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        size: ColumnSize.M,
+        numeric: true,
+        label: Text(
+          'Estátus',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+      DataColumn2(
+        size: ColumnSize.M,
+        numeric: true,
+        label: Text(
+          'Acciones',
+          textAlign: TextAlign.center,
+          style: globalUtility.encabezadoTablasOffAlt(context),
+        ),
+      ),
+    ];
   }
 }
