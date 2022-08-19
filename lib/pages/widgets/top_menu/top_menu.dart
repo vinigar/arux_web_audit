@@ -1,18 +1,12 @@
-import 'package:arux/providers/providers.dart';
+import 'package:arux/helpers/globals.dart';
 import 'package:arux/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class TopMenuWidget extends StatelessWidget {
   const TopMenuWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final UserState userState = Provider.of<UserState>(
-      context,
-      listen: false,
-    );
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
@@ -40,7 +34,7 @@ class TopMenuWidget extends StatelessWidget {
                 children: [
                   //PAIS
                   Text(
-                    'Pais: ',
+                    'País: ',
                     style: AppTheme.of(context).bodyText1.override(
                           fontFamily: 'Gotham-Light',
                           fontSize: 20,
@@ -49,7 +43,7 @@ class TopMenuWidget extends StatelessWidget {
                         ),
                   ),
                   Image.asset(
-                    'icons/flags/png/${userState.currentUser!.pais.clave.toLowerCase()}.png',
+                    'icons/flags/png/${currentUser!.pais.clave.toLowerCase()}.png',
                     package: 'country_icons',
                     height: 20,
                   ),
@@ -57,7 +51,7 @@ class TopMenuWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'Rol: ${userState.currentUser!.rol.nombreRol}',
+                      'Rol: ${currentUser!.rol.nombreRol}',
                       style: AppTheme.of(context).bodyText1.override(
                             fontFamily: 'Gotham-Light',
                             fontSize: 20,

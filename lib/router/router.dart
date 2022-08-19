@@ -15,6 +15,8 @@ class Flurorouter {
 
   static String proveedores = '/proveedores';
 
+  static String seguimientoProveedores = '/seguimiento-proveedores';
+
   static String reporteSeguimientoFacturas = '/reporte-seguimiento-facturas';
 
   static String seguimientoFacturas = '/seguimiento-facturas';
@@ -29,7 +31,7 @@ class Flurorouter {
     // Auth Routes
     router.define(
       rootRoute,
-      handler: AdminHandlers.homePage,
+      handler: AdminHandlers.rootHandler,
       transitionType: TransitionType.none,
     );
 
@@ -60,6 +62,12 @@ class Flurorouter {
     router.define(
       proveedores,
       handler: AdminHandlers.proveedores,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      seguimientoProveedores,
+      handler: AdminHandlers.seguimientoProveedores,
       transitionType: TransitionType.none,
     );
 

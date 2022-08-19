@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import 'package:arux/helpers/globals.dart';
-import 'package:arux/models/models.dart';
 import 'package:arux/services/navigation_service.dart';
 
 // //TODO: agregar roles
@@ -36,8 +33,6 @@ class UserState extends ChangeNotifier {
 
   bool recuerdame = false;
 
-  Usuario? currentUser;
-
   //Constructor de provider
   UserState() {
     recuerdame = prefs.getBool('recuerdame') ?? false;
@@ -57,35 +52,11 @@ class UserState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Usuario?> getCurrentUserData() async {
-    final user = supabase.auth.currentUser!;
-    final res = await supabase
-        .from('perfil_usuario')
-        .select(
-            'nombre, apellidos, paises (id_pais_pk, nombre_pais, clave), roles (id_rol_pk, nombre_rol), telefono')
-        .eq('perfil_usuario_id', user.id)
-        .execute();
-    if (res.hasError) {
-      return null; //TODO: handle error (retry, send to login)
-    } else if ((res.data as List).isEmpty) {
-      //usuario no tiene perfil
-      return null; //TODO: mandar a login
-    }
-    final userProfile = res.data[0];
-    userProfile['id'] = user.id;
-    userProfile['email'] = user.email!;
-
-    final usuario = Usuario.fromJson(jsonEncode(userProfile));
-
-    currentUser = usuario;
-
-    return usuario;
-  }
-
   Future<void> logout() async {
     final res = await supabase.auth.signOut();
     //TODO: handle errors
     // if(res.statusCode);
+    currentUser = null;
     await NavigationService.removeTo('/');
   }
 

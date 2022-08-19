@@ -11,6 +11,7 @@ class Usuario {
     required this.telefono,
     required this.pais,
     required this.rol,
+    this.idProveedorFk,
   });
 
   String id;
@@ -18,6 +19,7 @@ class Usuario {
   String nombre;
   String apellidos;
   String telefono;
+  int? idProveedorFk;
   Pais pais;
   RolApi rol;
 
@@ -38,6 +40,7 @@ class Usuario {
       nombre: json["nombre"],
       apellidos: json["apellidos"],
       telefono: json["telefono"],
+      idProveedorFk: json["id_proveedor_fk"],
       pais: Pais.fromJson(jsonEncode(paises)),
       rol: RolApi.fromJson(jsonEncode(roles)),
     );
@@ -49,6 +52,7 @@ class Usuario {
         "nombre": nombre,
         "apellidos": apellidos,
         "telefono": telefono,
+        "id_proveedor_fk": idProveedorFk,
         "paises": pais.toMap(),
         "roles": rol.toMap(),
       };
