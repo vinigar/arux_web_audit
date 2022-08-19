@@ -11,6 +11,8 @@ import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
+import '../functions/money_formatter.dart';
+
 class Pagos extends StatefulWidget {
   const Pagos({Key? key}) : super(key: key);
 
@@ -1781,53 +1783,111 @@ class _PagosState extends State<Pagos> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Expanded(
-                                                    child: Text(
-                                                      list_Pagos[index][0]
-                                                          .toString(),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: globalUtility
-                                                          .contenidoTablas(
-                                                              context),
+                                                    child: Center(
+                                                      child: list_Pagos[index]
+                                                                  [0] ==
+                                                              null
+                                                          ? Text(
+                                                              '-',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            )
+                                                          : Text(
+                                                              list_Pagos[index]
+                                                                      [0]
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            ),
                                                     ),
                                                   ),
                                                   Expanded(
                                                     child: Center(
-                                                      child: Text(
-                                                        list_Pagos[index][1]
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: globalUtility
-                                                            .contenidoTablas(
-                                                                context),
-                                                      ),
+                                                      child: list_Pagos[index]
+                                                                  [1] ==
+                                                              null
+                                                          ? Text(
+                                                              '-',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            )
+                                                          : Text(
+                                                              list_Pagos[index]
+                                                                      [1]
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            ),
                                                     ),
                                                   ),
                                                   Expanded(
                                                     child: Center(
-                                                      child: Text(
-                                                        list_Pagos[index][2]
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: globalUtility
-                                                            .contenidoTablas(
-                                                                context),
-                                                      ),
+                                                      child: list_Pagos[index]
+                                                                  [2] ==
+                                                              null
+                                                          ? Text(
+                                                              '-',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            )
+                                                          : Text(
+                                                              list_Pagos[index]
+                                                                      [2]
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            ),
                                                     ),
                                                   ),
                                                   Expanded(
                                                     child: Center(
-                                                      child: Text(
-                                                        list_Pagos[index][3]
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: globalUtility
-                                                            .contenidoTablas(
-                                                                context),
-                                                      ),
+                                                      child: list_Pagos[index]
+                                                                  [3] ==
+                                                              null
+                                                          ? Text(
+                                                              '-',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            )
+                                                          : Text(
+                                                              list_Pagos[index]
+                                                                      [3]
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            ),
                                                     ),
                                                   ),
                                                 ],
@@ -2078,105 +2138,161 @@ class _PagosState extends State<Pagos> {
                                                             children: [
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [7]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              8] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][8]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [4]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              4] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][4]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [5]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              5] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][5]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
-                                                                child: Text(
-                                                                  list_Pagos[index]
-                                                                          [8]
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: globalUtility
-                                                                      .contenidoTablas(
-                                                                          context),
+                                                                child: list_Pagos[index]
+                                                                            [
+                                                                            7] ==
+                                                                        null
+                                                                    ? Text(
+                                                                        '-',
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: globalUtility
+                                                                            .contenidoTablas(context),
+                                                                      )
+                                                                    : Text(
+                                                                        list_Pagos[index][7]
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: globalUtility
+                                                                            .contenidoTablas(context),
+                                                                      ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              9] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.end,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          '\$ ${moneyFormat(list_Pagos[index][9])}',
+                                                                          textAlign:
+                                                                              TextAlign.end,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [9]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              1] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][1]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [1]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                child: Text(
-                                                                  list_Pagos[index]
-                                                                          [3]
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: globalUtility
-                                                                      .contenidoTablas(
-                                                                          context),
-                                                                ),
-                                                              ),
+                                                                  child: Center(
+                                                                child: list_Pagos[index]
+                                                                            [
+                                                                            3] ==
+                                                                        null
+                                                                    ? Text(
+                                                                        '-',
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: globalUtility
+                                                                            .contenidoTablas(context),
+                                                                      )
+                                                                    : Text(
+                                                                        list_Pagos[index][3]
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: globalUtility
+                                                                            .contenidoTablas(context),
+                                                                      ),
+                                                              )),
                                                             ],
                                                           ),
                                                         ),
@@ -2228,103 +2344,161 @@ class _PagosState extends State<Pagos> {
                                                             children: [
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [11]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              11] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][11]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [4]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                child: Text(
-                                                                  list_Pagos[index]
-                                                                          [5]
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: globalUtility
-                                                                      .contenidoTablas(
-                                                                          context),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                child: Text(
-                                                                  list_Pagos[index]
-                                                                          [12]
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: globalUtility
-                                                                      .contenidoTablas(
-                                                                          context),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              4] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][4]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [14]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              5] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][5]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: list_Pagos[index]
+                                                                            [
+                                                                            12] ==
+                                                                        null
+                                                                    ? Text(
+                                                                        '-',
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: globalUtility
+                                                                            .contenidoTablas(context),
+                                                                      )
+                                                                    : Text(
+                                                                        list_Pagos[index][12]
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: globalUtility
+                                                                            .contenidoTablas(context),
+                                                                      ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              14] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.end,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          '\$ ${moneyFormat(list_Pagos[index][14])}',
+                                                                          textAlign:
+                                                                              TextAlign.end,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [1]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              1] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][1]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
-                                                                child: Text(
-                                                                  list_Pagos[index]
-                                                                          [3]
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: globalUtility
-                                                                      .contenidoTablas(
-                                                                          context),
-                                                                ),
-                                                              ),
+                                                                  child: Center(
+                                                                child: list_Pagos[index]
+                                                                            [
+                                                                            3] ==
+                                                                        null
+                                                                    ? Text(
+                                                                        '-',
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: globalUtility
+                                                                            .contenidoTablas(context),
+                                                                      )
+                                                                    : Text(
+                                                                        list_Pagos[index][3]
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: globalUtility
+                                                                            .contenidoTablas(context),
+                                                                      ),
+                                                              )),
                                                             ],
                                                           ),
                                                         ),
@@ -2424,45 +2598,70 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [15]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              15] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.end,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          '\$ ${moneyFormat(list_Pagos[index][15])}',
+                                                                          textAlign:
+                                                                              TextAlign.end,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    list_Pagos[index]
-                                                                            [1]
-                                                                        .toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: globalUtility
-                                                                        .contenidoTablas(
-                                                                            context),
-                                                                  ),
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              1] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][1]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                               Expanded(
-                                                                child: Text(
-                                                                  list_Pagos[index]
-                                                                          [3]
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: globalUtility
-                                                                      .contenidoTablas(
-                                                                          context),
+                                                                child: Center(
+                                                                  child: list_Pagos[index]
+                                                                              [
+                                                                              3] ==
+                                                                          null
+                                                                      ? Text(
+                                                                          '-',
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        )
+                                                                      : Text(
+                                                                          list_Pagos[index][3]
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              globalUtility.contenidoTablas(context),
+                                                                        ),
                                                                 ),
                                                               ),
                                                             ],
