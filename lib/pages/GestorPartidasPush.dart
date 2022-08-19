@@ -472,7 +472,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                         ),
                                         Text(
-                                          'Gestor de Facturas\Pull NC - Pago',
+                                          'Gestor de Facturas\nPull NC - Pago',
                                           style: globalUtility
                                               .tituloPagina(context),
                                         ),
