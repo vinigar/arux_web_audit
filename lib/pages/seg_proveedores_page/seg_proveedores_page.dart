@@ -1,7 +1,6 @@
 import 'package:arux/helpers/globalUtility.dart';
 import 'package:arux/models/models.dart';
 import 'package:arux/pages/widgets/header/header.dart';
-import 'package:arux/pages/widgets/table_column_name.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
