@@ -1324,7 +1324,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                               .fromSTEB(
                                                           10, 0, 0, 0),
                                                   child: Text(
-                                                    '\$ ${(suma_importe - suma_dpp).toStringAsFixed(2)}',
+                                                    '\$ ${moneyFormat(suma_importe - suma_dpp)}',
                                                     style: globalUtility
                                                         .textoA(context),
                                                   ),
