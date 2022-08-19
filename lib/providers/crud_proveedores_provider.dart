@@ -7,13 +7,19 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CrudProveedores extends ChangeNotifier {
   //QUERIES
-  final seguimientoProveedoresQuery =
-      supabase.from('perfil_usuario').select().execute();
+  final seguimientoProveedoresQuery = supabase
+      .from('seguimiento_proveedor')
+      .select()
+      .eq('id_proveedor_fk', currentUser?.idProveedorFk ?? '')
+      .execute();
 
-  Future<List<Usuario>> getSeguimientoProveedores() async {
+  //TODO: manejar errores
+  Future<List<FacturaProveedor>?> getSeguimientoProveedores() async {
     final PostgrestResponse<dynamic> res = await seguimientoProveedoresQuery;
-    final List<Usuario> facturasProveedor = (res.data as List<dynamic>)
-        .map((usuario) => Usuario.fromJson(jsonEncode(usuario)))
+    if (res.hasError) return null;
+    final List<FacturaProveedor> facturasProveedor = (res.data as List<dynamic>)
+        .map((facturaProveedor) =>
+            FacturaProveedor.fromJson(jsonEncode(facturaProveedor)))
         .toList();
     return facturasProveedor;
   }

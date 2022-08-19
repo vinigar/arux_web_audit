@@ -64,7 +64,7 @@ class CrudUsuarios extends ChangeNotifier {
     }
   }
 
-  //TODO: mejorar logica
+  //TODO: mejorar logica, manejar errores
   Future<List<String>> getPaises() async {
     final PostgrestResponse<dynamic> res = await paisesQuery;
     setPaises(res.data as List<dynamic>);

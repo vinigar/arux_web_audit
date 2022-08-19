@@ -10,7 +10,7 @@ class SupabaseQueries {
     final res = await supabase
         .from('perfil_usuario')
         .select(
-            'nombre, apellidos, paises (id_pais_pk, nombre_pais, clave), roles (id_rol_pk, nombre_rol), telefono')
+            'nombre, apellidos, paises (id_pais_pk, nombre_pais, clave), roles (id_rol_pk, nombre_rol), telefono, id_proveedor_fk')
         .eq('perfil_usuario_id', user.id)
         .execute();
     if (res.hasError) {
