@@ -1,9 +1,19 @@
+import 'package:arux/helpers/globals.dart';
 import 'package:fluro/fluro.dart';
 import 'package:arux/pages/pages.dart';
 
 class AdminHandlers {
-  static Handler homePage = Handler(handlerFunc: (context, params) {
-    return const SplashPage();
+  static Handler rootHandler = Handler(handlerFunc: (context, params) {
+    if (currentUser == null) {
+      return const LoginPage();
+    } else {
+      if (Uri.base.hasFragment) {
+        return null;
+      } else {
+        //Return HomePage
+        return const UsuariosPage();
+      }
+    }
   });
 
   static Handler resetPassword = Handler(handlerFunc: (context, params) {
@@ -24,6 +34,11 @@ class AdminHandlers {
 
   static Handler proveedores = Handler(handlerFunc: (context, params) {
     return const Proveedores();
+  });
+
+  static Handler seguimientoProveedores =
+      Handler(handlerFunc: (context, params) {
+    return const SeguimientoProveedoresPage();
   });
 
   static Handler reporteSeguimientoFacturas =

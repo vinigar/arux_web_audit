@@ -33,7 +33,11 @@ class _PageHeaderState extends State<PageHeader> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 30, 0),
                 child: InkWell(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () {
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
                   child: const Icon(
                     Icons.arrow_back_outlined,
                     color: Color(0xFF09A963),

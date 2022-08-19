@@ -1,3 +1,4 @@
+import 'package:arux/helpers/supabase/queries.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -310,7 +311,10 @@ class _LoginPageState extends State<LoginPage> {
                             }
 
                             if (supabase.auth.currentUser == null) return;
-                            await userState.getCurrentUserData();
+                            currentUser =
+                                await SupabaseQueries.getCurrentUserData();
+
+                            if (currentUser == null) return;
 
                             if (!mounted) return;
                             await Navigator.pushReplacementNamed(

@@ -11,14 +11,16 @@ import 'package:arux/pages/widgets/top_menu/top_menu.dart';
 import 'package:arux/providers/providers.dart';
 import 'package:arux/theme/theme.dart';
 
-class UsuariosPage extends StatefulWidget {
-  const UsuariosPage({Key? key}) : super(key: key);
+class SeguimientoProveedoresPage extends StatefulWidget {
+  const SeguimientoProveedoresPage({Key? key}) : super(key: key);
 
   @override
-  State<UsuariosPage> createState() => _UsuariosPageState();
+  State<SeguimientoProveedoresPage> createState() =>
+      _SeguimientoProveedoresPageState();
 }
 
-class _UsuariosPageState extends State<UsuariosPage> {
+class _SeguimientoProveedoresPageState
+    extends State<SeguimientoProveedoresPage> {
   TextEditingController searchController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -49,7 +51,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                           child: Column(
                             children: [
                               const PageHeader(
-                                headerName: 'Usuarios',
+                                headerName: 'Seguimiento de Proveedores',
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
@@ -85,37 +87,42 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                         children: const [
                                           Expanded(
                                             child: TableColumnName(
-                                              nombre: 'ID Usuario',
+                                              nombre: 'ID',
                                             ),
                                           ),
                                           Expanded(
                                             child: TableColumnName(
-                                              nombre: 'Nombre',
+                                              nombre: 'Factura',
                                             ),
                                           ),
                                           Expanded(
                                             child: TableColumnName(
-                                              nombre: 'Rol',
+                                              nombre: 'Importe',
                                             ),
                                           ),
                                           Expanded(
                                             child: TableColumnName(
-                                              nombre: 'Correo',
+                                              nombre: 'Moneda',
                                             ),
                                           ),
                                           Expanded(
                                             child: TableColumnName(
-                                              nombre: 'Teléfono',
+                                              nombre: '%DPP',
                                             ),
                                           ),
                                           Expanded(
                                             child: TableColumnName(
-                                              nombre: 'País',
+                                              nombre: '\$DPP',
                                             ),
                                           ),
                                           Expanded(
                                             child: TableColumnName(
-                                              nombre: 'Ausencia',
+                                              nombre: 'Fecha pago',
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: TableColumnName(
+                                              nombre: 'Estátus',
                                             ),
                                           ),
                                           Expanded(
