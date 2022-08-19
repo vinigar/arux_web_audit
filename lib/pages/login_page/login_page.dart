@@ -28,6 +28,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final UserState userState = Provider.of<UserState>(context);
+    final VisualStateProvider visualState =
+        Provider.of<VisualStateProvider>(context);
     return Scaffold(
       key: globalKey,
       backgroundColor: AppTheme.of(context).primaryBackground,
@@ -315,12 +317,20 @@ class _LoginPageState extends State<LoginPage> {
                                 await SupabaseQueries.getCurrentUserData();
 
                             if (currentUser == null) return;
-
                             if (!mounted) return;
-                            await Navigator.pushReplacementNamed(
-                              context,
-                              '/usuarios',
-                            );
+                            if (currentUser!.rol.nombreRol == 'Proveedor') {
+                              visualState.setTapedOption(6);
+                              await Navigator.pushReplacementNamed(
+                                context,
+                                '/seguimiento-proveedores',
+                              );
+                            } else {
+                              visualState.setTapedOption(7);
+                              await Navigator.pushReplacementNamed(
+                                context,
+                                '/usuarios',
+                              );
+                            }
                           },
                           text: 'Ingresar',
                           options: ButtonOptions(
