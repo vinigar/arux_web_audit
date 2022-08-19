@@ -15,6 +15,8 @@ class Flurorouter {
 
   static String proveedores = '/proveedores';
 
+  static String seguimientoProveedores = '/seguimiento-proveedores';
+
   static String reporteSeguimientoFacturas = '/reporte-seguimiento-facturas';
 
   static String seguimientoFacturas = '/seguimiento-facturas';
@@ -23,11 +25,13 @@ class Flurorouter {
 
   static String altaUsuario = '/alta-usuario';
 
+  static String pagos = '/pagos';
+
   static void configureRoutes() {
     // Auth Routes
     router.define(
       rootRoute,
-      handler: AdminHandlers.homePage,
+      handler: AdminHandlers.rootHandler,
       transitionType: TransitionType.none,
     );
 
@@ -62,6 +66,12 @@ class Flurorouter {
     );
 
     router.define(
+      seguimientoProveedores,
+      handler: AdminHandlers.seguimientoProveedores,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
       reporteSeguimientoFacturas,
       handler: AdminHandlers.reporteSeguimientoFacturas,
       transitionType: TransitionType.none,
@@ -78,6 +88,9 @@ class Flurorouter {
       handler: AdminHandlers.altaUsuario,
       transitionType: TransitionType.none,
     );
+
+    router.define(pagos,
+        handler: AdminHandlers.pagos, transitionType: TransitionType.none);
 
     //404
     router.notFoundHandler = NoPageFoundHandlers.noPageFound;
