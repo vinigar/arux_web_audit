@@ -9,6 +9,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
+import '../functions/money_formatter.dart';
 import 'widgets/side_menu/widgets/menu_button.dart';
 
 class GestorPartidasPush extends StatefulWidget {
@@ -1225,7 +1226,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 child: SizedBox(
                                                   width: 215,
                                                   child: Text(
-                                                    '\$ ${suma_importe.toStringAsFixed(2)}',
+                                                    '\$ ${moneyFormat(suma_importe)}',
                                                     style: globalUtility
                                                         .textoA(context),
                                                   ),
@@ -1254,7 +1255,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   child: SizedBox(
                                                     width: 215,
                                                     child: Text(
-                                                      '\$ ${suma_dpp.toStringAsFixed(2)}',
+                                                      '\$ ${moneyFormat(suma_dpp)}',
                                                       style: globalUtility
                                                           .textoA(context),
                                                     ),
@@ -1283,7 +1284,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                     ),
                                   ),
                                   Text(
-                                    '\$ ${(fondo_disponible - suma_pp).toStringAsFixed(2)}',
+                                    '\$ ${moneyFormat(fondo_disponible - suma_pp)}',
                                     style: (fondo_disponible - suma_pp) < 0
                                         ? globalUtility.textoError(context)
                                         : globalUtility.textoA(context),
