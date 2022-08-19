@@ -7,6 +7,7 @@ import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import 'widgets/side_menu/widgets/menu_button.dart';
 
@@ -148,8 +149,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
       response = jsonEncode(response);
 
       // print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
+      /* print("-----Response: ");
+      print(response.toString()); */
 
       GetGestorPartidasQt getGestorPartidasQTResponse =
           getGestorPartidasQtFromMap(response);
@@ -202,8 +203,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
 
       response = jsonEncode(response);
 
-      print("-----Response: ");
-      print(response.toString());
+      /* print("-----Response: ");
+      print(response.toString()); */
 
       GetGestorPartidasQt getGestorPartidasQTResponse =
           getGestorPartidasQtFromMap(response);
@@ -242,6 +243,28 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
+
+  Future<void> UpdatePartidas_Solicitadas() async {
+    try {
+      for (var i = 0; i < list_carrito.length; i++) {
+        dynamic response = await supabase
+            .from('partidas_sap')
+            .update({'id_estatus_fk': 5}).match(
+                {'id_partidas_pk': '${list_carrito[i][0]}'}).execute();
+
+        print("-----Error: ${response.error}");
+        /* print("-----Response: ${response.toString()}");
+        print('Update realizado'); */
+      }
+      var postresponse = await post(
+          Uri.parse('https://arux.cbluna-dev.com/arux/api'),
+          body: json.encode({"action": "Ejecutar_Partidas"}));
+      print("-----PostResponseCode: " + postresponse.statusCode.toString());
+      print("-----PostResponseBody: " + postresponse.body);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -475,24 +498,53 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                         Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 25, 0),
-                                          child: Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 2,
+                                          child: InkWell(
+                                            child: Container(
+                                              width: 45,
+                                              height: 45,
+                                              decoration: BoxDecoration(
+                                                color: globalUtility.primaryBg,
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                  color: globalUtility.primary,
+                                                  width: 2,
+                                                ),
+                                              ),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.play_arrow_outlined,
+                                                  color: globalUtility.primary,
+                                                  size: 28,
+                                                ),
                                               ),
                                             ),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.person_add_outlined,
-                                                color: globalUtility.primary,
-                                                size: 28,
-                                              ),
-                                            ),
+                                            onTap: () {
+                                              if (list_carrito.isNotEmpty &&
+                                                  (fondo_disponible -
+                                                          suma_pp) >=
+                                                      0) {
+                                                UpdatePartidas_Solicitadas();
+                                              } else if (list_carrito.isEmpty) {
+                                                const snackbarVacio = SnackBar(
+                                                  content: Text(
+                                                      'Debe de seleccion por lo menos una partida para realizar este proceso'),
+                                                );
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        snackbarVacio);
+                                              } else if ((fondo_disponible -
+                                                      suma_pp) <
+                                                  0) {
+                                                const snackbarNegativo =
+                                                    SnackBar(
+                                                  content: Text(
+                                                      'El fondo disponible restante no debe ser menor a 0'),
+                                                );
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        snackbarNegativo);
+                                              }
+                                            },
                                           ),
                                         ),
                                         Padding(
@@ -843,8 +895,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 0, 5, 0),
                                                   child: IconButton(
                                                     onPressed: () {},
                                                     icon: Icon(Icons.arrow_back,
@@ -853,8 +906,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 0, 5, 0),
                                                   child: IconButton(
                                                     onPressed: () {
                                                       if (count_i < 5) {
@@ -873,8 +927,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 0, 5, 0),
                                                   child: Container(
                                                     width: 35,
                                                     height: 35,
@@ -904,8 +959,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 0, 5, 0),
                                                   child: Container(
                                                     width: 35,
                                                     height: 35,
@@ -933,8 +989,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 0, 5, 0),
                                                   child: Container(
                                                     width: 35,
                                                     height: 35,
@@ -966,8 +1023,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                         .encabezadoTablasOffAlt(
                                                             context)),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5, 0, 5, 0),
                                                   child: Container(
                                                     width: 35,
                                                     height: 35,
@@ -995,8 +1053,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5, 0, 0, 0),
                                                   child: IconButton(
                                                       onPressed: () {
                                                         count_i = count_i + 5;
@@ -1010,8 +1069,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                               .primary)),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5, 0, 0, 0),
                                                   child: IconButton(
                                                       onPressed: () {},
                                                       icon: Icon(
@@ -1265,7 +1325,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                 height: 20,
                               ),
                               list_partidas.isEmpty
-                                  ? CircularProgressIndicator()
+                                  ? const CircularProgressIndicator()
                                   : Flexible(
                                       child: DataTable2(
                                         showCheckboxColumn: true,
@@ -1318,11 +1378,6 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 i++) {
                                               list_partidas[i][0] = false;
                                               list_carrito.removeWhere((item) {
-                                                print(item[0].toString() +
-                                                    ' - ' +
-                                                    list_partidas[count_i][1]
-                                                        .toString());
-                                                print(i);
                                                 return item[0].toString() ==
                                                     list_partidas[i][1]
                                                         .toString();
