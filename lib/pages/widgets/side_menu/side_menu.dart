@@ -22,7 +22,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -99,9 +99,12 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               child: MenuButton(
                 icon: Icons.bar_chart_rounded,
                 isTaped: visualState.isTaped[5],
-                onPressed: () {
-                  visualState.setTapedOption(5);
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  /* visualState.setTapedOption(6);
+                  await Navigator.pushNamed(
+                    context,
+                    '/seguimiento-facturas',
+                  ); */
                 },
               ),
             ),

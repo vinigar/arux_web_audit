@@ -8,10 +8,12 @@ import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
 import 'package:arux/models/Get_Pagos_QT.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
+import 'package:arux/pages/widgets/top_menu/top_menu.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
-import '../functions/money_formatter.dart';
+import '../functions/date_format.dart';
+import '../functions/money_format.dart';
 
 class Pagos extends StatefulWidget {
   const Pagos({Key? key}) : super(key: key);
@@ -84,7 +86,7 @@ class _PagosState extends State<Pagos> {
       for (var i = 0; i < getPagosQTResponse.data.length; i++) {
         List<dynamic> local_list = [];
 
-        local_list.add(getPagosQTResponse.data[i].fechaExtraccion);
+        local_list.add(dateFormat(getPagosQTResponse.data[i].fechaExtraccion));
         local_list.add(getPagosQTResponse.data[i].moneda);
         local_list.add(getPagosQTResponse.data[i].esquema);
         local_list.add(getPagosQTResponse.data[i].estatus);
@@ -521,125 +523,12 @@ class _PagosState extends State<Pagos> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            SizedBox(
-              height: 85,
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              if (Theme.of(context).brightness ==
-                                  Brightness.light)
-                                Image.asset(
-                                  'assets/images/AruxColor.png',
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                              if (Theme.of(context).brightness ==
-                                  Brightness.dark)
-                                Image.asset(
-                                  'assets/images/AruxBlanco.png',
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                            ],
-                          ),
-                          Expanded(child: SizedBox()),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 0, 20, 0),
-                                child: Icon(
-                                  Icons.power_off_outlined,
-                                  color: globalUtility.primary,
-                                  size: 24,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 0, 15, 0),
-                                child: Container(
-                                  width: 60,
-                                  height: 60,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/607/600',
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Align(
-                                    alignment: const AlignmentDirectional(0, 0),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 50, 0),
-                                      child: Text(
-                                        'Luis L.',
-                                        style: globalUtility.textoA(context),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                50, 10, 50, 0),
-                            child: Container(
-                              width: 100,
-                              height: 2,
-                              decoration: BoxDecoration(
-                                color: globalUtility.secondaryBg,
-                                border: Border.all(
-                                  color: const Color(0xFFB7B7B7),
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            const TopMenuWidget(),
             Expanded(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
+                  /* Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -716,8 +605,8 @@ class _PagosState extends State<Pagos> {
                         ),
                       ],
                     ),
-                  ),
-                  //const SideMenuWidget(),
+                  ), */
+                  const SideMenuWidget(),
                   Expanded(
                     child: Padding(
                       padding:
@@ -760,7 +649,7 @@ class _PagosState extends State<Pagos> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Padding(
+                                        /* Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 25, 0),
                                           child: Container(
@@ -782,7 +671,7 @@ class _PagosState extends State<Pagos> {
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        ), */
                                         Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 25, 0),

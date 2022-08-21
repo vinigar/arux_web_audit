@@ -8,7 +8,6 @@ import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart';
 
 import '../functions/money_format.dart';
@@ -952,337 +951,169 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                   ],
                                 ),
                               ),
-                              // Generated code for this Row Widget...
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 0, 0, 10),
+                                    0, 20, 0, 5),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 20, 0),
-                                      child: Container(
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                            color: globalUtility.primary,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(10, 0, 20, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                            0, 0, 10, 0),
-                                                    child: Text(
-                                                        'Fondo Disponible ',
-                                                        style: globalUtility
-                                                            .label(context)),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                            0, 0, 15, 0),
-                                                    child: Container(
-                                                      width: 220,
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primary,
-                                                          width: 1.5,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      20),
-                                                          child: SizedBox(
-                                                            width: 170,
-                                                            height: 50,
-                                                            child:
-                                                                TextFormField(
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number,
-                                                              decoration:
-                                                                  InputDecoration(
-                                                                hintStyle:
-                                                                    globalUtility
-                                                                        .hinttxt(
-                                                                            context),
-                                                                border:
-                                                                    InputBorder
-                                                                        .none,
-                                                                hintText:
-                                                                    "Ingrese una cantidad",
-                                                              ),
-                                                              onChanged:
-                                                                  (value) {
-                                                                fondo_disponible =
-                                                                    double.parse(
-                                                                        value);
-                                                                setState(() {});
-                                                              },
-                                                            ),
-                                                          )),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: 100,
-                                                    height: 50,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30),
-                                                      border: Border.all(
-                                                        color: globalUtility
-                                                            .primary,
-                                                        width: 1.5,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 20),
-                                                      child:
-                                                          DropdownButtonHideUnderline(
-                                                        child: DropdownButton<
-                                                            String>(
-                                                          isExpanded: true,
-                                                          value: listDDEnc[0],
-                                                          items: <String>[
-                                                            "USD",
-                                                            "UYU",
-                                                          ]
-                                                              .map((item) =>
-                                                                  DropdownMenuItem<
-                                                                      String>(
-                                                                    value: item,
-                                                                    child: Text(
-                                                                        item),
-                                                                  ))
-                                                              .toList(),
-                                                          onChanged: (item) =>
-                                                              setState(() =>
-                                                                  listDDEnc[0] =
-                                                                      item),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                            30, 0, 0, 0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                            'FONDO DISPONIBLE RESTANTE',
-                                                            style: globalUtility
-                                                                .textoIgual2(
-                                                                    context)),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                  0, 10, 0, 0),
-                                                          child: Text(
-                                                            '\$ ${moneyFormat(fondo_disponible - suma_pp)}',
-                                                            style: (fondo_disponible -
-                                                                        suma_pp) <
-                                                                    0
-                                                                ? globalUtility
-                                                                    .textoError2(
-                                                                        context)
-                                                                : globalUtility
-                                                                    .textoA2(
-                                                                        context),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                              0, 0, 10, 0),
+                                      child: Text(
+                                        'Fondo Disponible ',
+                                        style:
+                                            globalUtility.textoIgual(context),
                                       ),
                                     ),
                                     Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              10, 0, 0, 0),
+                                              0, 0, 15, 0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: globalUtility.primaryBg,
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          border: Border.all(
+                                            color: globalUtility.primary,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20),
+                                                child: SizedBox(
+                                                  width: 170,
+                                                  height: 50,
+                                                  child: TextFormField(
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    decoration: InputDecoration(
+                                                      hintStyle: globalUtility
+                                                          .hinttxt(context),
+                                                      border: InputBorder.none,
+                                                      hintText:
+                                                          "Ingrese una cantidad",
+                                                    ),
+                                                    onChanged: (value) {
+                                                      fondo_disponible =
+                                                          double.parse(value);
+                                                      setState(() {});
+                                                    },
+                                                  ),
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: globalUtility.primaryBg,
+                                        borderRadius: BorderRadius.circular(30),
+                                        border: Border.all(
+                                          color: globalUtility.primary,
+                                          width: 1.5,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton<String>(
+                                            isExpanded: true,
+                                            value: listDDEnc[0],
+                                            items: <String>[
+                                              "USD",
+                                              "Proveedor",
+                                              "Referencia",
+                                              "Importe",
+                                              "Moneda",
+                                              "Importe USD",
+                                              "Dias para Pago",
+                                              "%DPP",
+                                              "\$DPP",
+                                              "Pronto Pago"
+                                            ]
+                                                .map((item) =>
+                                                    DropdownMenuItem<String>(
+                                                      value: item,
+                                                      child: Text(item),
+                                                    ))
+                                                .toList(),
+                                            onChanged: (item) => setState(
+                                                () => listDDEnc[0] = item),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            height: 100,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 1.5,
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                'Selección de pagos: ',
+                                                style: globalUtility
+                                                    .textoIgual(context),
                                               ),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(20, 0, 20, 0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                            10, 0, 10, 0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                  0, 0, 50, 0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                  'TOTAL A PAGAR',
-                                                                  style: globalUtility
-                                                                      .textoIgual2(
-                                                                          context)),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                            .fromSTEB(
-                                                                        0,
-                                                                        10,
-                                                                        0,
-                                                                        0),
-                                                                child: Text(
-                                                                  '\$ ${moneyFormat(suma_importe - suma_dpp)}',
-                                                                  style: globalUtility
-                                                                      .textoA(
-                                                                          context),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsetsDirectional
-                                                                              .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          10,
-                                                                          0),
-                                                                  child: Text(
-                                                                      'Selección de pagos:',
-                                                                      style: globalUtility
-                                                                          .label(
-                                                                              context)),
-                                                                ),
-                                                                Text(
-                                                                  '\$ ${moneyFormat(suma_importe)}',
-                                                                  style: globalUtility
-                                                                      .textoA(
-                                                                          context),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsetsDirectional
-                                                                              .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          10,
-                                                                          0),
-                                                                  child: Text(
-                                                                      ' Beneficio  DPP  . . .  :',
-                                                                      style: globalUtility
-                                                                          .label(
-                                                                              context)),
-                                                                ),
-                                                                Text(
-                                                                  '\$ ${moneyFormat(suma_dpp)}',
-                                                                  style: globalUtility
-                                                                      .textoA(
-                                                                          context),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(10, 0, 0, 0),
+                                                child: SizedBox(
+                                                  width: 215,
+                                                  child: Text(
+                                                    '\$ ${moneyFormat(suma_importe)}',
+                                                    style: globalUtility
+                                                        .textoA(context),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 10, 0, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  'Beneficio DPP: ',
+                                                  style: globalUtility
+                                                      .textoIgual(context),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                          10, 0, 0, 0),
+                                                  child: SizedBox(
+                                                    width: 215,
+                                                    child: Text(
+                                                      '\$ ${moneyFormat(suma_dpp)}',
+                                                      style: globalUtility
+                                                          .textoA(context),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -1290,6 +1121,74 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                     ),
                                   ],
                                 ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 10, 0),
+                                    child: Text(
+                                      'Fondo Disponible Restante: ',
+                                      style: globalUtility.textoIgual(context),
+                                    ),
+                                  ),
+                                  Text(
+                                    '\$ ${moneyFormat(fondo_disponible - suma_pp)}',
+                                    style: (fondo_disponible - suma_pp) < 0
+                                        ? globalUtility.textoError(context)
+                                        : globalUtility.textoA(context),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          width: 400,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            color: globalUtility.primaryBg,
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            border: Border.all(
+                                              color: globalUtility.primary,
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10, 0, 10, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'TOTAL A PAGAR: ',
+                                                  style: globalUtility
+                                                      .textoIgual(context),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                          10, 0, 0, 0),
+                                                  child: Text(
+                                                    '\$ ${moneyFormat(suma_importe - suma_dpp)}',
+                                                    style: globalUtility
+                                                        .textoA(context),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                               const SizedBox(
                                 height: 20,
@@ -1400,13 +1299,12 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           DataColumn2(
                                             numeric: true,
                                             size: ColumnSize.M,
-                                            label: Center(
-                                              child: Text(
-                                                'Referencia',
-                                                style: globalUtility
-                                                    .encabezadoTablasOffAlt(
-                                                        context),
-                                              ),
+                                            label: Text(
+                                              'Referencia',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
                                             ),
                                           ),
                                           DataColumn2(
@@ -1422,13 +1320,12 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                           DataColumn2(
                                             size: ColumnSize.S,
-                                            label: Center(
-                                              child: Text(
-                                                'Moneda',
-                                                style: globalUtility
-                                                    .encabezadoTablasOffAlt(
-                                                        context),
-                                              ),
+                                            label: Text(
+                                              'Moneda',
+                                              textAlign: TextAlign.center,
+                                              style: globalUtility
+                                                  .encabezadoTablasOffAlt(
+                                                      context),
                                             ),
                                           ),
                                           DataColumn2(
@@ -1593,14 +1490,12 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 ),
                                               ),
                                               DataCell(
-                                                Center(
-                                                  child: Text(
-                                                    list_partidas[index + count_i]
-                                                            [3]
-                                                        .toString(),
-                                                    style: globalUtility
-                                                        .contenidoTablas(context),
-                                                  ),
+                                                Text(
+                                                  list_partidas[index + count_i]
+                                                          [3]
+                                                      .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(
@@ -1611,14 +1506,12 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 ),
                                               ),
                                               DataCell(
-                                                Center(
-                                                  child: Text(
-                                                    list_partidas[index + count_i]
-                                                            [5]
-                                                        .toString(),
-                                                    style: globalUtility
-                                                        .contenidoTablas(context),
-                                                  ),
+                                                Text(
+                                                  list_partidas[index + count_i]
+                                                          [5]
+                                                      .toString(),
+                                                  style: globalUtility
+                                                      .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(

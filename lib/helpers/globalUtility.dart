@@ -52,6 +52,11 @@ class GlobalUtility {
             color: primaryBg);
   }
 
+  TextStyle label(BuildContext context) {
+    return TextStyle(
+        fontSize: 18, fontFamily: 'Gotham-Light', color: primary);
+  }
+
   TextStyle textoIgual(BuildContext context) {
     return TextStyle(
         fontSize: 18,
@@ -66,12 +71,25 @@ class GlobalUtility {
   }
 
   TextStyle hinttxt(BuildContext context) {
+    return TextStyle(fontSize: 18, fontFamily: 'Gotham-Light', color: primary);
+  }
+
+  TextStyle textoIgual2(BuildContext context) {
+    return TextStyle(fontSize: 20, fontFamily: 'Gotham-Light', color: primary);
+  }
+
+  TextStyle textoA2(BuildContext context) {
     return TextStyle(
-        fontSize: 18, fontFamily: 'Gotham-Light', color: secondaryText);
+        fontSize: 18, fontFamily: 'Gotham-Bold', color: primaryText);
   }
 
   TextStyle textoError(BuildContext context) {
     return TextStyle(
         fontSize: 18, fontFamily: 'Gotham-Light', color: Colors.red);
+  }
+
+  TextStyle textoError2(BuildContext context) {
+    return TextStyle(
+        fontSize: 18, fontFamily: 'Gotham-Bold', color: Colors.red);
   }
 }
