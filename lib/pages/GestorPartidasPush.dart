@@ -308,41 +308,62 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 10, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 30, 0),
-                                          child: Icon(
-                                            Icons.arrow_back_outlined,
-                                            color: globalUtility.primary,
-                                            size: 30,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 30, 0),
+                                        child: Icon(
+                                          Icons.arrow_back_outlined,
+                                          color: globalUtility.primary,
+                                          size: 30,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Gestor de Facturas Pull NC - Pago',
+                                        style: globalUtility
+                                            .tituloPagina(context),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      /* Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 25, 0),
+                                        child: Container(
+                                          width: 45,
+                                          height: 45,
+                                          decoration: BoxDecoration(
+                                            color: globalUtility.primaryBg,
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                              color: globalUtility.primary,
+                                              width: 2,
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.grid_view,
+                                              color: globalUtility.primary,
+                                              size: 28,
+                                            ),
                                           ),
                                         ),
-                                        Text(
-                                          'Gestor de Facturas Pull NC - Pago',
-                                          style: globalUtility
-                                              .tituloPagina(context),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        /* Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 25, 0),
+                                      ), */
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 25, 0),
+                                        child: InkWell(
                                           child: Container(
                                             width: 45,
                                             height: 45,
@@ -356,368 +377,50 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             ),
                                             child: Center(
                                               child: Icon(
-                                                Icons.grid_view,
+                                                Icons.play_arrow_outlined,
                                                 color: globalUtility.primary,
                                                 size: 28,
                                               ),
                                             ),
                                           ),
-                                        ), */
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 25, 0),
-                                          child: InkWell(
-                                            child: Container(
-                                              width: 45,
-                                              height: 45,
-                                              decoration: BoxDecoration(
-                                                color: globalUtility.primaryBg,
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                  color: globalUtility.primary,
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              child: Center(
-                                                child: Icon(
-                                                  Icons.play_arrow_outlined,
-                                                  color: globalUtility.primary,
-                                                  size: 28,
-                                                ),
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              if (list_carrito.isNotEmpty &&
-                                                  (fondo_disponible -
-                                                          suma_pp) >=
-                                                      0) {
-                                                UpdatePartidas_Solicitadas();
-                                              } else if (list_carrito.isEmpty) {
-                                                const snackbarVacio = SnackBar(
-                                                  content: Text(
-                                                      'Debe de seleccion por lo menos una partida para realizar este proceso'),
-                                                );
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                        snackbarVacio);
-                                              } else if ((fondo_disponible -
-                                                      suma_pp) <
-                                                  0) {
-                                                fondo_insuficiente_popup =
-                                                    false;
-                                                setState(() {});
-                                                /* const snackbarNegativo =
-                                                    SnackBar(
-                                                  content: Text(
-                                                      'El fondo disponible restante no debe ser menor a 0'),
-                                                );
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                        snackbarNegativo); */
-                                              }
-                                            },
-                                          ),
+                                          onTap: () {
+                                            if (list_carrito.isNotEmpty &&
+                                                (fondo_disponible -
+                                                        suma_pp) >=
+                                                    0) {
+                                              UpdatePartidas_Solicitadas();
+                                            } else if (list_carrito.isEmpty) {
+                                              const snackbarVacio = SnackBar(
+                                                content: Text(
+                                                    'Debe de seleccion por lo menos una partida para realizar este proceso'),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                      snackbarVacio);
+                                            } else if ((fondo_disponible -
+                                                    suma_pp) <
+                                                0) {
+                                              fondo_insuficiente_popup =
+                                                  false;
+                                              setState(() {});
+                                              /* const snackbarNegativo =
+                                                  SnackBar(
+                                                content: Text(
+                                                    'El fondo disponible restante no debe ser menor a 0'),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                      snackbarNegativo); */
+                                            }
+                                          },
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 15, 0),
-                                          child: Container(
-                                            width: 250,
-                                            height: 51,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 1.5,
-                                              ),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                          10, 0, 0, 0),
-                                                  child: Icon(
-                                                    Icons.search,
-                                                    color:
-                                                        globalUtility.primary,
-                                                    size: 24,
-                                                  ),
-                                                ),
-                                                Center(
-                                                  child: SizedBox(
-                                                    width: 200,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        horizontal: 5,
-                                                      ),
-                                                      child: TextFormField(
-                                                        controller:
-                                                            controller_busqueda,
-                                                        autofocus: true,
-                                                        obscureText: false,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          hintText: 'Buscar',
-                                                          hintStyle:
-                                                              globalUtility
-                                                                  .hinttxt(
-                                                                      context),
-                                                          enabledBorder:
-                                                              UnderlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: globalUtility
-                                                                  .transparente,
-                                                            ),
-                                                          ),
-                                                          focusedBorder:
-                                                              UnderlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: globalUtility
-                                                                  .transparente,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        style: globalUtility
-                                                            .textoA(context),
-                                                        onChanged: (value) {
-                                                          parametro_busqueda =
-                                                              value;
-                                                          if (filtro_avanzado) {
-                                                          } else {
-                                                            GetPartidasPush();
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 15, 0),
-                                          child: Container(
-                                            width: 150,
-                                            height: 51,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 1.5,
-                                              ),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        InkWell(
-                                                          child: Container(
-                                                            width: 25,
-                                                            height: 23.5,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  globalUtility
-                                                                      .primary,
-                                                              borderRadius:
-                                                                  const BorderRadius
-                                                                      .only(
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                        0),
-                                                                bottomRight:
-                                                                    Radius
-                                                                        .circular(
-                                                                            0),
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        30),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        0),
-                                                              ),
-                                                            ),
-                                                            child: const Icon(
-                                                              Icons
-                                                                  .arrow_drop_up_sharp,
-                                                              color:
-                                                                  Colors.white,
-                                                              size: 18,
-                                                            ),
-                                                          ),
-                                                          onTap: () {
-                                                            if (filtro_simple ==
-                                                                    false ||
-                                                                filtro_avanzado ==
-                                                                    false) {
-                                                              count_f++;
-                                                              GetPartidasPush();
-                                                            }
-                                                            setState(() {});
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        InkWell(
-                                                          child: Container(
-                                                            width: 25,
-                                                            height: 23.5,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: count_f ==
-                                                                      0
-                                                                  ? globalUtility
-                                                                      .secondary
-                                                                  : globalUtility
-                                                                      .primary,
-                                                              borderRadius:
-                                                                  const BorderRadius
-                                                                      .only(
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                        30),
-                                                                bottomRight:
-                                                                    Radius
-                                                                        .circular(
-                                                                            0),
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        0),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        0),
-                                                              ),
-                                                            ),
-                                                            child: const Icon(
-                                                              Icons
-                                                                  .arrow_drop_down_sharp,
-                                                              color:
-                                                                  Colors.white,
-                                                              size: 18,
-                                                            ),
-                                                          ),
-                                                          onTap: () {
-                                                            if (filtro_simple ==
-                                                                    false ||
-                                                                filtro_avanzado ==
-                                                                    false) {
-                                                              if (count_f >=
-                                                                  1) {
-                                                                count_f--;
-                                                                GetPartidasPush();
-                                                                setState(() {});
-                                                              }
-                                                            }
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .only(start: 10),
-                                                      child: Row(
-                                                        children: [
-                                                          Text(
-                                                            'Filas: ',
-                                                            style: globalUtility
-                                                                .textoIgual(
-                                                                    context),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 50,
-                                                            child: Padding(
-                                                              padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      10),
-                                                              child:
-                                                                  TextFormField(
-                                                                initialValue:
-                                                                    "20",
-                                                                style: globalUtility
-                                                                    .textoA(
-                                                                        context),
-                                                                decoration:
-                                                                    const InputDecoration(
-                                                                        border:
-                                                                            InputBorder.none),
-                                                                onChanged:
-                                                                    (value) {
-                                                                  try {
-                                                                    print(
-                                                                        "---Valor: ${value.toString()}");
-                                                                    if (value
-                                                                            .isNotEmpty ||
-                                                                        value !=
-                                                                            "0") {
-                                                                      count_f =
-                                                                          int.parse(
-                                                                              value.toString());
-                                                                      count_f =
-                                                                          count_f -
-                                                                              1;
-                                                                      GetPartidasPush();
-                                                                      setState(
-                                                                          () {});
-                                                                    }
-                                                                  } catch (e) {
-                                                                    print(
-                                                                        "---Error: $e");
-                                                                  }
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 150,
-                                          height: 50,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 15, 0),
+                                        child: Container(
+                                          width: 250,
+                                          height: 51,
                                           decoration: BoxDecoration(
                                             color: globalUtility.primaryBg,
                                             borderRadius:
@@ -727,238 +430,531 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               width: 1.5,
                                             ),
                                           ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5),
-                                            child: InkWell(
-                                                child: Expanded(
-                                                  child: Row(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                        10, 0, 0, 0),
+                                                child: Icon(
+                                                  Icons.search,
+                                                  color:
+                                                      globalUtility.primary,
+                                                  size: 24,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: SizedBox(
+                                                  width: 200,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 5,
+                                                    ),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          controller_busqueda,
+                                                      autofocus: true,
+                                                      obscureText: false,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        hintText: 'Buscar',
+                                                        hintStyle:
+                                                            globalUtility
+                                                                .hinttxt(
+                                                                    context),
+                                                        enabledBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: globalUtility
+                                                                .transparente,
+                                                          ),
+                                                        ),
+                                                        focusedBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: globalUtility
+                                                                .transparente,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      style: globalUtility
+                                                          .textoA(context),
+                                                      onChanged: (value) {
+                                                        parametro_busqueda =
+                                                            value;
+                                                        if (filtro_avanzado) {
+                                                        } else {
+                                                          GetPartidasPush();
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 15, 0),
+                                        child: Container(
+                                          width: 150,
+                                          height: 51,
+                                          decoration: BoxDecoration(
+                                            color: globalUtility.primaryBg,
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            border: Border.all(
+                                              color: globalUtility.primary,
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Column(
+                                                mainAxisSize:
+                                                    MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      InkWell(
+                                                        child: Container(
+                                                          width: 25,
+                                                          height: 23.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color:
+                                                                globalUtility
+                                                                    .primary,
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              bottomLeft: Radius
+                                                                  .circular(
+                                                                      0),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          0),
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      30),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      0),
+                                                            ),
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons
+                                                                .arrow_drop_up_sharp,
+                                                            color:
+                                                                Colors.white,
+                                                            size: 18,
+                                                          ),
+                                                        ),
+                                                        onTap: () {
+                                                          if (filtro_simple ==
+                                                                  false ||
+                                                              filtro_avanzado ==
+                                                                  false) {
+                                                            count_f++;
+                                                            GetPartidasPush();
+                                                          }
+                                                          setState(() {});
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      InkWell(
+                                                        child: Container(
+                                                          width: 25,
+                                                          height: 23.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: count_f ==
+                                                                    0
+                                                                ? globalUtility
+                                                                    .secondary
+                                                                : globalUtility
+                                                                    .primary,
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              bottomLeft: Radius
+                                                                  .circular(
+                                                                      30),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          0),
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      0),
+                                                            ),
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons
+                                                                .arrow_drop_down_sharp,
+                                                            color:
+                                                                Colors.white,
+                                                            size: 18,
+                                                          ),
+                                                        ),
+                                                        onTap: () {
+                                                          if (filtro_simple ==
+                                                                  false ||
+                                                              filtro_avanzado ==
+                                                                  false) {
+                                                            if (count_f >=
+                                                                1) {
+                                                              count_f--;
+                                                              GetPartidasPush();
+                                                              setState(() {});
+                                                            }
+                                                          }
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisSize:
+                                                    MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .only(start: 10),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          'Filas: ',
+                                                          style: globalUtility
+                                                              .textoIgual(
+                                                                  context),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 50,
+                                                          child: Padding(
+                                                            padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    10),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  "20",
+                                                              style: globalUtility
+                                                                  .textoA(
+                                                                      context),
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                      border:
+                                                                          InputBorder.none),
+                                                              onChanged:
+                                                                  (value) {
+                                                                try {
+                                                                  print(
+                                                                      "---Valor: ${value.toString()}");
+                                                                  if (value
+                                                                          .isNotEmpty ||
+                                                                      value !=
+                                                                          "0") {
+                                                                    count_f =
+                                                                        int.parse(
+                                                                            value.toString());
+                                                                    count_f =
+                                                                        count_f -
+                                                                            1;
+                                                                    GetPartidasPush();
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+                                                                } catch (e) {
+                                                                  print(
+                                                                      "---Error: $e");
+                                                                }
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 150,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: globalUtility.primaryBg,
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          border: Border.all(
+                                            color: globalUtility.primary,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          child: InkWell(
+                                              child: Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Text(
+                                                      "Filtrar",
+                                                      style: globalUtility
+                                                          .encabezadoTablasOffAlt(
+                                                              context),
+                                                    ),
+                                                    Icon(
+                                                        Icons
+                                                            .filter_alt_outlined,
+                                                        color: globalUtility
+                                                            .primary)
+                                                  ],
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                popup_rise = true;
+                                                setState(() {});
+                                              }),
+                                        ),
+                                      ),
+                                      /*  Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 5, 0),
+                                                child: IconButton(
+                                                  onPressed: () {},
+                                                  icon: Icon(Icons.arrow_back,
+                                                      color: globalUtility
+                                                          .primary),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 5, 0),
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    if (count_i < 5) {
+                                                      count_i = 0;
+                                                      count_f = 5;
+                                                    } else {
+                                                      count_i = count_i - 5;
+                                                      count_f = count_f - 5;
+                                                    }
+                                                    setState(() {});
+                                                  },
+                                                  icon: Icon(
+                                                      Icons.arrow_back_ios,
+                                                      color: globalUtility
+                                                          .primary),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 5, 0),
+                                                child: Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        globalUtility.primary,
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: globalUtility
+                                                          .primary,
+                                                      width: 2,
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceAround,
+                                                            .center,
                                                     children: [
-                                                      Text(
-                                                        "Filtrar",
-                                                        style: globalUtility
-                                                            .encabezadoTablasOffAlt(
-                                                                context),
-                                                      ),
-                                                      Icon(
-                                                          Icons
-                                                              .filter_alt_outlined,
-                                                          color: globalUtility
-                                                              .primary)
+                                                      Text('1',
+                                                          style: globalUtility
+                                                              .encabezadoTablasOffAlt(
+                                                                  context)),
                                                     ],
                                                   ),
                                                 ),
-                                                onTap: () {
-                                                  popup_rise = true;
-                                                  setState(() {});
-                                                }),
-                                          ),
-                                        ),
-                                        /*  Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 5, 0),
-                                                  child: IconButton(
-                                                    onPressed: () {},
-                                                    icon: Icon(Icons.arrow_back,
-                                                        color: globalUtility
-                                                            .primary),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 5, 0),
+                                                child: Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: globalUtility
+                                                          .primary,
+                                                      width: 2,
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text('1',
+                                                          style: globalUtility
+                                                              .encabezadoTablasOffAlt(
+                                                                  context)),
+                                                    ],
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 5, 0),
-                                                  child: IconButton(
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 5, 0),
+                                                child: Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: globalUtility
+                                                          .primary,
+                                                      width: 2,
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text('1',
+                                                          style: globalUtility
+                                                              .encabezadoTablasOffAlt(
+                                                                  context)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Text('...',
+                                                  style: globalUtility
+                                                      .encabezadoTablasOffAlt(
+                                                          context)),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(5, 0, 5, 0),
+                                                child: Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: globalUtility
+                                                          .primary,
+                                                      width: 2,
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text('1',
+                                                          style: globalUtility
+                                                              .encabezadoTablasOffAlt(
+                                                                  context)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(5, 0, 0, 0),
+                                                child: IconButton(
                                                     onPressed: () {
-                                                      if (count_i < 5) {
-                                                        count_i = 0;
-                                                        count_f = 5;
-                                                      } else {
-                                                        count_i = count_i - 5;
-                                                        count_f = count_f - 5;
-                                                      }
+                                                      count_i = count_i + 5;
+                                                      count_f = count_f + 5;
                                                       setState(() {});
                                                     },
                                                     icon: Icon(
-                                                        Icons.arrow_back_ios,
+                                                        Icons
+                                                            .arrow_forward_ios,
                                                         color: globalUtility
-                                                            .primary),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 5, 0),
-                                                  child: Container(
-                                                    width: 35,
-                                                    height: 35,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          globalUtility.primary,
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
+                                                            .primary)),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(5, 0, 0, 0),
+                                                child: IconButton(
+                                                    onPressed: () {},
+                                                    icon: Icon(
+                                                        Icons.arrow_forward,
                                                         color: globalUtility
-                                                            .primary,
-                                                        width: 2,
-                                                      ),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text('1',
-                                                            style: globalUtility
-                                                                .encabezadoTablasOffAlt(
-                                                                    context)),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 5, 0),
-                                                  child: Container(
-                                                    width: 35,
-                                                    height: 35,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                        color: globalUtility
-                                                            .primary,
-                                                        width: 2,
-                                                      ),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text('1',
-                                                            style: globalUtility
-                                                                .encabezadoTablasOffAlt(
-                                                                    context)),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 5, 0),
-                                                  child: Container(
-                                                    width: 35,
-                                                    height: 35,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                        color: globalUtility
-                                                            .primary,
-                                                        width: 2,
-                                                      ),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text('1',
-                                                            style: globalUtility
-                                                                .encabezadoTablasOffAlt(
-                                                                    context)),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text('...',
-                                                    style: globalUtility
-                                                        .encabezadoTablasOffAlt(
-                                                            context)),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(5, 0, 5, 0),
-                                                  child: Container(
-                                                    width: 35,
-                                                    height: 35,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                        color: globalUtility
-                                                            .primary,
-                                                        width: 2,
-                                                      ),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text('1',
-                                                            style: globalUtility
-                                                                .encabezadoTablasOffAlt(
-                                                                    context)),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(5, 0, 0, 0),
-                                                  child: IconButton(
-                                                      onPressed: () {
-                                                        count_i = count_i + 5;
-                                                        count_f = count_f + 5;
-                                                        setState(() {});
-                                                      },
-                                                      icon: Icon(
-                                                          Icons
-                                                              .arrow_forward_ios,
-                                                          color: globalUtility
-                                                              .primary)),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(5, 0, 0, 0),
-                                                  child: IconButton(
-                                                      onPressed: () {},
-                                                      icon: Icon(
-                                                          Icons.arrow_forward,
-                                                          color: globalUtility
-                                                              .primary)),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                       */
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                                            .primary)),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                     */
+                                    ],
+                                  ),
+                                ],
                               ),
                               // Generated code for this Row Widget...
                               Padding(
