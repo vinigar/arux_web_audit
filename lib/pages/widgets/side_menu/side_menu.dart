@@ -22,11 +22,10 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
     final userPermissions = currentUser!.rol.permisos;
     return SizedBox(
       width: 130,
-      height: 950,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             MenuButton(
