@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
-import 'package:arux/providers/providers.dart';
 import 'package:arux/theme/theme.dart';
 
 class PageHeader extends StatefulWidget {
@@ -47,8 +45,8 @@ class _PageHeaderState extends State<PageHeader> {
               Text(
                 widget.headerName,
                 style: AppTheme.of(context).bodyText1.override(
-                      fontFamily: 'Gotham',
-                      color: const Color(0xFF09A963),
+                      fontFamily: 'Bicyclette-Light',
+                      color: const Color(0XFF04C774),
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       useGoogleFonts: false,
