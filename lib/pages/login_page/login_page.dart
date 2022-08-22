@@ -23,6 +23,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool passwordVisibility = false;
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     final VisualStateProvider visualState =
         Provider.of<VisualStateProvider>(context);
     return Scaffold(
-      key: globalKey,
+      key: scaffoldKey,
       backgroundColor: AppTheme.of(context).primaryBackground,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
