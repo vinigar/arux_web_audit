@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/services/navigation_service.dart';
 
-// //TODO: agregar roles
-// enum Rol { administrador, publico }
-
 class UserState extends ChangeNotifier {
   //EMAIL
   String _email = '';
@@ -59,16 +56,6 @@ class UserState extends ChangeNotifier {
     currentUser = null;
     await NavigationService.removeTo('/');
   }
-
-  // void setRole(String rol) {
-  //   switch (rol) {
-  //     case 'Administrador':
-  //       this.rol = Rol.administrador;
-  //       break;
-  //     default:
-  //       this.rol = Rol.publico;
-  //   }
-  // }
 
   @override
   void dispose() {
