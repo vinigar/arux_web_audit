@@ -312,7 +312,7 @@ class _LoginPageState extends State<LoginPage> {
                               await prefs.remove('email');
                               await prefs.remove('password');
                             }
-
+                            //TODO: agregar mensajes de error
                             if (supabase.auth.currentUser == null) return;
                             currentUser =
                                 await SupabaseQueries.getCurrentUserData();
