@@ -1719,7 +1719,7 @@ class _PagosState extends State<Pagos> {
                           ),
                           Flexible(
                             child: Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
+                              padding: const EdgeInsets.symmetric(vertical: 20),
                               child: SingleChildScrollView(
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,

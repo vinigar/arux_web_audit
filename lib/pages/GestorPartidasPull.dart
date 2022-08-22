@@ -287,8 +287,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                   ),
                                   Text(
                                     'Gestor de Facturas\nPull NC - Pago',
-                                    style:
-                                        globalUtility.tituloPagina(context),
+                                    style: globalUtility.tituloPagina(context),
                                   ),
                                 ],
                               ),
@@ -367,12 +366,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                               Padding(
                                                 padding:
                                                     const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                        10, 0, 0, 0),
+                                                        .fromSTEB(10, 0, 0, 0),
                                                 child: Icon(
                                                   Icons.search,
-                                                  color:
-                                                      globalUtility.primary,
+                                                  color: globalUtility.primary,
                                                   size: 24,
                                                 ),
                                               ),
@@ -392,10 +389,8 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       decoration:
                                                           InputDecoration(
                                                         hintText: 'Buscar',
-                                                        hintStyle:
-                                                            globalUtility
-                                                                .hinttxt(
-                                                                    context),
+                                                        hintStyle: globalUtility
+                                                            .hinttxt(context),
                                                         enabledBorder:
                                                             UnderlineInputBorder(
                                                           borderSide:
@@ -419,9 +414,8 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                         parametro_busqueda =
                                                             value;
                                                         if (filtro_avanzado) {
-                                                          switch (
-                                                              selectedDDOpe[
-                                                                  0]) {
+                                                          switch (selectedDDOpe[
+                                                              0]) {
                                                             case "=":
                                                               //GetPartidasIgual();
                                                               break;
@@ -474,8 +468,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Column(
-                                                mainAxisSize:
-                                                    MainAxisSize.min,
+                                                mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 crossAxisAlignment:
@@ -491,32 +484,27 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           height: 23.5,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color:
-                                                                globalUtility
-                                                                    .primary,
+                                                            color: globalUtility
+                                                                .primary,
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
-                                                                  .circular(
-                                                                      0),
+                                                                  .circular(0),
                                                               bottomRight:
                                                                   Radius
                                                                       .circular(
                                                                           0),
                                                               topLeft: Radius
-                                                                  .circular(
-                                                                      30),
+                                                                  .circular(30),
                                                               topRight: Radius
-                                                                  .circular(
-                                                                      0),
+                                                                  .circular(0),
                                                             ),
                                                           ),
                                                           child: const Icon(
                                                             Icons
                                                                 .arrow_drop_up_sharp,
-                                                            color:
-                                                                Colors.white,
+                                                            color: Colors.white,
                                                             size: 18,
                                                           ),
                                                         ),
@@ -543,8 +531,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           height: 23.5,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: count_f ==
-                                                                    0
+                                                            color: count_f == 0
                                                                 ? globalUtility
                                                                     .secondary
                                                                 : globalUtility
@@ -553,25 +540,21 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                 const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
-                                                                  .circular(
-                                                                      30),
+                                                                  .circular(30),
                                                               bottomRight:
                                                                   Radius
                                                                       .circular(
                                                                           0),
                                                               topLeft: Radius
-                                                                  .circular(
-                                                                      0),
+                                                                  .circular(0),
                                                               topRight: Radius
-                                                                  .circular(
-                                                                      0),
+                                                                  .circular(0),
                                                             ),
                                                           ),
                                                           child: const Icon(
                                                             Icons
                                                                 .arrow_drop_down_sharp,
-                                                            color:
-                                                                Colors.white,
+                                                            color: Colors.white,
                                                             size: 18,
                                                           ),
                                                         ),
@@ -580,8 +563,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                   false ||
                                                               filtro_avanzado ==
                                                                   false) {
-                                                            if (count_f >=
-                                                                1) {
+                                                            if (count_f >= 1) {
                                                               count_f--;
                                                               GetPartidas();
                                                               setState(() {});
@@ -594,8 +576,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ],
                                               ),
                                               Column(
-                                                mainAxisSize:
-                                                    MainAxisSize.max,
+                                                mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
@@ -614,10 +595,11 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                         SizedBox(
                                                           width: 100,
                                                           child: Padding(
-                                                            padding: const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    10),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        10),
                                                             child:
                                                                 TextFormField(
                                                               initialValue:
@@ -625,10 +607,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                               style: globalUtility
                                                                   .textoA(
                                                                       context),
-                                                              decoration:
-                                                                  const InputDecoration(
-                                                                      border:
-                                                                          InputBorder.none),
+                                                              decoration: const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
                                                               onChanged:
                                                                   (value) {
                                                                 try {
@@ -638,9 +620,9 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                           .isNotEmpty ||
                                                                       value !=
                                                                           "0") {
-                                                                    count_f =
-                                                                        int.parse(
-                                                                            value.toString());
+                                                                    count_f = int
+                                                                        .parse(value
+                                                                            .toString());
                                                                     count_f =
                                                                         count_f -
                                                                             1;
@@ -697,15 +679,14 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 "Pronto Pago"
                                               ]
                                                   .map((item) =>
-                                                      DropdownMenuItem<
-                                                          String>(
+                                                      DropdownMenuItem<String>(
                                                         value: item,
                                                         child: Text(item),
                                                       ))
                                                   .toList(),
                                               onChanged: (item) => setState(
-                                                  () => selectedDDEnc[0] =
-                                                      item),
+                                                  () =>
+                                                      selectedDDEnc[0] = item),
                                             ),
                                           ),
                                         ),
@@ -717,8 +698,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 20, 0, 5),
+                            padding: const EdgeInsetsDirectional.only(top: 20),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -2207,7 +2187,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                           ),
                           Flexible(
                             child: Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
+                              padding: const EdgeInsets.symmetric(vertical: 20),
                               child: SingleChildScrollView(
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,

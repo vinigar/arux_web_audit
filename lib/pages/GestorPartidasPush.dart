@@ -327,8 +327,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                       ),
                                       Text(
                                         'Gestor de Facturas Pull NC - Pago',
-                                        style: globalUtility
-                                            .tituloPagina(context),
+                                        style:
+                                            globalUtility.tituloPagina(context),
                                       ),
                                     ],
                                   ),
@@ -385,8 +385,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                           onTap: () {
                                             if (list_carrito.isNotEmpty &&
-                                                (fondo_disponible -
-                                                        suma_pp) >=
+                                                (fondo_disponible - suma_pp) >=
                                                     0) {
                                               UpdatePartidas_Solicitadas();
                                             } else if (list_carrito.isEmpty) {
@@ -395,13 +394,11 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     'Debe de seleccion por lo menos una partida para realizar este proceso'),
                                               );
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                      snackbarVacio);
+                                                  .showSnackBar(snackbarVacio);
                                             } else if ((fondo_disponible -
                                                     suma_pp) <
                                                 0) {
-                                              fondo_insuficiente_popup =
-                                                  false;
+                                              fondo_insuficiente_popup = false;
                                               setState(() {});
                                               /* const snackbarNegativo =
                                                   SnackBar(
@@ -436,12 +433,10 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               Padding(
                                                 padding:
                                                     const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                        10, 0, 0, 0),
+                                                        .fromSTEB(10, 0, 0, 0),
                                                 child: Icon(
                                                   Icons.search,
-                                                  color:
-                                                      globalUtility.primary,
+                                                  color: globalUtility.primary,
                                                   size: 24,
                                                 ),
                                               ),
@@ -461,10 +456,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                       decoration:
                                                           InputDecoration(
                                                         hintText: 'Buscar',
-                                                        hintStyle:
-                                                            globalUtility
-                                                                .hinttxt(
-                                                                    context),
+                                                        hintStyle: globalUtility
+                                                            .hinttxt(context),
                                                         enabledBorder:
                                                             UnderlineInputBorder(
                                                           borderSide:
@@ -521,8 +514,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Column(
-                                                mainAxisSize:
-                                                    MainAxisSize.min,
+                                                mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 crossAxisAlignment:
@@ -538,32 +530,27 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                           height: 23.5,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color:
-                                                                globalUtility
-                                                                    .primary,
+                                                            color: globalUtility
+                                                                .primary,
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
-                                                                  .circular(
-                                                                      0),
+                                                                  .circular(0),
                                                               bottomRight:
                                                                   Radius
                                                                       .circular(
                                                                           0),
                                                               topLeft: Radius
-                                                                  .circular(
-                                                                      30),
+                                                                  .circular(30),
                                                               topRight: Radius
-                                                                  .circular(
-                                                                      0),
+                                                                  .circular(0),
                                                             ),
                                                           ),
                                                           child: const Icon(
                                                             Icons
                                                                 .arrow_drop_up_sharp,
-                                                            color:
-                                                                Colors.white,
+                                                            color: Colors.white,
                                                             size: 18,
                                                           ),
                                                         ),
@@ -590,8 +577,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                           height: 23.5,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: count_f ==
-                                                                    0
+                                                            color: count_f == 0
                                                                 ? globalUtility
                                                                     .secondary
                                                                 : globalUtility
@@ -600,25 +586,21 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                 const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
-                                                                  .circular(
-                                                                      30),
+                                                                  .circular(30),
                                                               bottomRight:
                                                                   Radius
                                                                       .circular(
                                                                           0),
                                                               topLeft: Radius
-                                                                  .circular(
-                                                                      0),
+                                                                  .circular(0),
                                                               topRight: Radius
-                                                                  .circular(
-                                                                      0),
+                                                                  .circular(0),
                                                             ),
                                                           ),
                                                           child: const Icon(
                                                             Icons
                                                                 .arrow_drop_down_sharp,
-                                                            color:
-                                                                Colors.white,
+                                                            color: Colors.white,
                                                             size: 18,
                                                           ),
                                                         ),
@@ -627,8 +609,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                   false ||
                                                               filtro_avanzado ==
                                                                   false) {
-                                                            if (count_f >=
-                                                                1) {
+                                                            if (count_f >= 1) {
                                                               count_f--;
                                                               GetPartidasPush();
                                                               setState(() {});
@@ -641,8 +622,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 ],
                                               ),
                                               Column(
-                                                mainAxisSize:
-                                                    MainAxisSize.max,
+                                                mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
@@ -661,10 +641,11 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                         SizedBox(
                                                           width: 50,
                                                           child: Padding(
-                                                            padding: const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    10),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        10),
                                                             child:
                                                                 TextFormField(
                                                               initialValue:
@@ -672,10 +653,10 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                               style: globalUtility
                                                                   .textoA(
                                                                       context),
-                                                              decoration:
-                                                                  const InputDecoration(
-                                                                      border:
-                                                                          InputBorder.none),
+                                                              decoration: const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
                                                               onChanged:
                                                                   (value) {
                                                                 try {
@@ -685,9 +666,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                           .isNotEmpty ||
                                                                       value !=
                                                                           "0") {
-                                                                    count_f =
-                                                                        int.parse(
-                                                                            value.toString());
+                                                                    count_f = int
+                                                                        .parse(value
+                                                                            .toString());
                                                                     count_f =
                                                                         count_f -
                                                                             1;
@@ -956,10 +937,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                   ),
                                 ],
                               ),
-                              // Generated code for this Row Widget...
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 0, 0, 10),
+                                    0, 20, 0, 20),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -1298,9 +1278,6 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                     ),
                                   ],
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 20,
                               ),
                               list_partidas.isEmpty
                                   ? const CircularProgressIndicator()
