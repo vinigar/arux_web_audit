@@ -48,6 +48,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
   int count_f = 5;
 
   List<String?> monedas = ["USD", "UYU"];
+  String moneda_selec = "USD";
 
   bool popup_rise = false;
   List<String?> listDDEnc = [
@@ -328,7 +329,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                         ),
                                         Text(
-                                          'Gestor de Facturas\nPull NC - Pago',
+                                          'Gestor de Facturas Pull NC - Pago',
                                           style: globalUtility
                                               .tituloPagina(context),
                                         ),
@@ -1094,10 +1095,13 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                         item),
                                                                   ))
                                                               .toList(),
-                                                          onChanged: (item) =>
-                                                              setState(() =>
-                                                                  monedas[0] =
-                                                                      item),
+                                                          onChanged: (item) {
+                                                            moneda_selec =
+                                                                item.toString();
+                                                            setState(() =>
+                                                                monedas[0] =
+                                                                    item);
+                                                          },
                                                         ),
                                                       ),
                                                     ),
@@ -1443,7 +1447,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             size: ColumnSize.M,
                                             numeric: true,
                                             label: Text(
-                                              '\$ Importe\nUSD',
+                                              '\$ Importe\n$moneda_selec',
                                               textAlign: TextAlign.center,
                                               style: globalUtility
                                                   .encabezadoTablasOffAlt(

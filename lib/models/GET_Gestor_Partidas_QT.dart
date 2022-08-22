@@ -61,7 +61,7 @@ class Datum {
   final String moneda;
   final double importeUsd;
   final int diasPago;
-  final int porcDpp;
+  final double porcDpp;
   final double cantDpp;
   final double prontoPago;
 
