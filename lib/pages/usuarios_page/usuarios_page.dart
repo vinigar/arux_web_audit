@@ -68,7 +68,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
                                   child: Container(
                                     width: double.infinity,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF09A963),
+                                      color: Color(0XFF04C774),
                                       borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(5),
                                         bottomRight: Radius.circular(5),

@@ -54,27 +54,36 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                 : Container(),
             userPermissions.extraccionDeFacturas != null
                 ? MenuButton(
-                  icon: Icons.subtitles_outlined,
-                  isTaped: visualState.isTaped[2],
-                  onPressed: () async {
-                    visualState.setTapedOption(2);
-                    await Navigator.pushNamed(
-                      context,
-                      '/gestor-partidas-push',
-                    );
-                  },
-                )
+                    icon: Icons.subtitles_outlined,
+                    isTaped: visualState.isTaped[2],
+                    onPressed: () async {
+                      visualState.setTapedOption(2);
+                      await Navigator.pushNamed(
+                        context,
+                        '/gestor-partidas-push',
+                      );
+                    },
+                  )
                 : Container(),
-            userPermissions.seguimientoDeFacturas != null
+            userPermissions.seguimientoDeFacturas != null ||
+                    userPermissions.seguimientoProveedor != null
                 ? MenuButton(
                     icon: Icons.podcasts,
                     isTaped: visualState.isTaped[3],
                     onPressed: () async {
-                      visualState.setTapedOption(3);
-                      await Navigator.pushNamed(
-                        context,
-                        '/seguimiento-facturas',
-                      );
+                      if (currentUser!.rol.nombreRol == 'Proveedor') {
+                        visualState.setTapedOption(3);
+                        await Navigator.pushNamed(
+                          context,
+                          '/seguimiento-proveedores',
+                        );
+                      } else {
+                        visualState.setTapedOption(3);
+                        await Navigator.pushNamed(
+                          context,
+                          '/seguimiento-facturas',
+                        );
+                      }
                     },
                   )
                 : Container(),
@@ -99,12 +108,12 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                       /* visualState.setTapedOption(6);
                   await Navigator.pushNamed(
                 context,
-                '/seguimiento-facturas',
+                '/reportes',
                   ); */
                     },
                   )
                 : Container(),
-            userPermissions.seguimientoProveedor != null
+            userPermissions.administracionDeProveedores != null
                 ? MenuButton(
                     icon: Icons.person_add_outlined,
                     isTaped: visualState.isTaped[6],
@@ -112,7 +121,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                       visualState.setTapedOption(6);
                       await Navigator.pushNamed(
                         context,
-                        '/seguimiento-proveedores',
+                        '/proveedores',
                       );
                     },
                   )
