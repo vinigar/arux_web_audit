@@ -20,6 +20,14 @@ class GlobalUtility {
         color: primary);
   }
 
+  TextStyle tituloPopUp(BuildContext context) {
+    return TextStyle(
+        fontSize: 35,
+        fontFamily: 'Gotham',
+        fontWeight: FontWeight.bold,
+        color: primaryBg);
+  }
+
   TextStyle encabezadoTablasOff(BuildContext context) {
     return Theme.of(context).brightness == Brightness.light
         ? TextStyle(
