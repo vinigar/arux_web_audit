@@ -57,30 +57,9 @@ class _PageHeaderState extends State<PageHeader> {
           const Spacer(),
           Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 25, 0),
-                child: Container(
-                  width: 45,
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color: AppTheme.of(context).primaryBackground,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(0xFF09A963),
-                      width: 2,
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.cleaning_services,
-                    color: Color(0XFF04C774),
-                    size: 28,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 50, 0),
                 child: Container(
                   width: 45,
                   height: 45,
