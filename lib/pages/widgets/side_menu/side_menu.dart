@@ -33,10 +33,10 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                 isTaped: visualState.isTaped[0],
                 onPressed: () async {
                   visualState.setTapedOption(0);
-                  // await Navigator.pushNamed(
-                  //   context,
-                  //   '/home',
-                  // );
+                  await Navigator.pushNamed(
+                    context,
+                    '/home',
+                  );
                 },
               ),
             ),

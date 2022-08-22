@@ -7,6 +7,8 @@ class Flurorouter {
 
   static String rootRoute = '/';
 
+  static String home = '/home';
+
   static String resetPassword = '/reset-password';
 
   static String gestorPartidasPull = '/gestor-partidas-pull';
@@ -28,10 +30,15 @@ class Flurorouter {
   static String pagos = '/pagos';
 
   static void configureRoutes() {
-    // Auth Routes
     router.define(
       rootRoute,
       handler: AdminHandlers.rootHandler,
+      transitionType: TransitionType.none,
+    );
+
+    router.define(
+      home,
+      handler: AdminHandlers.homeHandler,
       transitionType: TransitionType.none,
     );
 

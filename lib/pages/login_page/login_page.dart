@@ -326,10 +326,10 @@ class _LoginPageState extends State<LoginPage> {
                                 '/seguimiento-proveedores',
                               );
                             } else {
-                              visualState.setTapedOption(7);
+                              visualState.setTapedOption(0);
                               await Navigator.pushReplacementNamed(
                                 context,
-                                '/usuarios',
+                                '/home',
                               );
                             }
                           },
