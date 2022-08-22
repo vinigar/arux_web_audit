@@ -169,45 +169,45 @@ class _SeguimientoProveedoresPageState
                                                             context),
                                                   ),
                                                 ),
-                                                DataCell(
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 10),
-                                                        child: InkWell(
-                                                          onTap: () {},
-                                                          child: const Icon(
-                                                            Icons.file_open,
-                                                            color: Color(
-                                                                0xFF09A963),
-                                                            size: 30,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 10),
-                                                        child: InkWell(
-                                                          onTap: () {},
-                                                          child: const Icon(
-                                                            Icons
-                                                                .remove_red_eye,
-                                                            color: Color(
-                                                                0xFF09A963),
-                                                            size: 30,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
+                                                // DataCell(
+                                                //   Row(
+                                                //     mainAxisAlignment:
+                                                //         MainAxisAlignment.end,
+                                                //     children: [
+                                                //       Padding(
+                                                //         padding:
+                                                //             const EdgeInsets
+                                                //                     .symmetric(
+                                                //                 horizontal: 10),
+                                                //         child: InkWell(
+                                                //           onTap: () {},
+                                                //           child: const Icon(
+                                                //             Icons.file_open,
+                                                //             color: Color(
+                                                //                 0xFF09A963),
+                                                //             size: 30,
+                                                //           ),
+                                                //         ),
+                                                //       ),
+                                                //       Padding(
+                                                //         padding:
+                                                //             const EdgeInsets
+                                                //                     .symmetric(
+                                                //                 horizontal: 10),
+                                                //         child: InkWell(
+                                                //           onTap: () {},
+                                                //           child: const Icon(
+                                                //             Icons
+                                                //                 .remove_red_eye,
+                                                //             color: Color(
+                                                //                 0xFF09A963),
+                                                //             size: 30,
+                                                //           ),
+                                                //         ),
+                                                //       ),
+                                                //     ],
+                                                //   ),
+                                                // ),
                                               ],
                                             );
                                           }),
@@ -310,15 +310,15 @@ class _SeguimientoProveedoresPageState
           style: globalUtility.encabezadoTablasOffAlt(context),
         ),
       ),
-      DataColumn2(
-        size: ColumnSize.M,
-        numeric: true,
-        label: Text(
-          'Acciones',
-          textAlign: TextAlign.center,
-          style: globalUtility.encabezadoTablasOffAlt(context),
-        ),
-      ),
+      // DataColumn2(
+      //   size: ColumnSize.M,
+      //   numeric: true,
+      //   label: Text(
+      //     'Acciones',
+      //     textAlign: TextAlign.center,
+      //     style: globalUtility.encabezadoTablasOffAlt(context),
+      //   ),
+      // ),
     ];
   }
 }
