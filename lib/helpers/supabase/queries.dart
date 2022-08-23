@@ -72,4 +72,19 @@ class SupabaseQueries {
       return; //TODO: handle error
     }
   }
+
+  static Future<void> actualizarEstatus(int partidaSapId, int idstatus) async {
+    //Update a Completado
+    final res = await supabase
+        .from('partidas_sap')
+        .update({
+          'id_estatus_fk': idstatus,
+        })
+        .eq('id_partidas_pk', partidaSapId)
+        .execute();
+
+    if (res.hasError) {
+      return; //TODO: handle error
+    }
+  }
 }

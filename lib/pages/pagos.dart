@@ -11,6 +11,7 @@ import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:arux/helpers/supabase/queries.dart';
 
 import '../functions/date_format.dart';
 import '../functions/money_format.dart';
@@ -2470,9 +2471,13 @@ class _PagosState extends State<Pagos> {
                                                                       Icons
                                                                           .download),
                                                                   onPressed:
-                                                                      () {
-                                                                    setState(
-                                                                        () {});
+                                                                      () async {
+                                                                    SupabaseQueries.actualizarEstatus(
+                                                                        list_Pagos[index]
+                                                                            [6],
+                                                                        2);
+
+                                                                    initState();
                                                                   },
                                                                 ),
                                                               ),
