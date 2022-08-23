@@ -142,7 +142,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  Future<void> GetPartidasPushBy__() async {
+  Future<void> GetPartidasPushBy__Filtro_Sim() async {
     try {
       dynamic response = await supabase
           .rpc('get_gestor_partidas_push_by__', params: {
@@ -496,7 +496,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 15, 0),
+                                            .fromSTEB(0, 0, 0, 0),
                                         child: Container(
                                           width: 150,
                                           height: 51,
@@ -694,7 +694,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                         ),
                                       ),
-                                      Container(
+                                      /* Container(
                                         width: 150,
                                         height: 50,
                                         decoration: BoxDecoration(
@@ -735,7 +735,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 setState(() {});
                                               }),
                                         ),
-                                      ),
+                                      ), */
                                       /*  Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -1921,6 +1921,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                       ],
                     ),
                   )
+                  
                 : const SizedBox(),
             (fondo_disponible - suma_pp) < 0 &&
                     fondo_insuficiente_popup == false
@@ -1944,7 +1945,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                       ),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: SingleChildScrollView(
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -1956,7 +1957,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                     child: Material(
                                       color: Colors.transparent,
                                       elevation: 5,
-                                      shape: RoundedRectangleBorder(
+                                      shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.only(
                                           bottomLeft:
                                               Radius.circular(0),
@@ -1969,7 +1970,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                       child: Container(
                                         width: 400,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF09A963),
+                                          color: const Color(0xFF09A963),
                                           boxShadow: [
                                             BoxShadow(
                                               color:
@@ -1977,7 +1978,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             )
                                           ],
                                           borderRadius:
-                                              BorderRadius.only(
+                                              const BorderRadius.only(
                                             bottomLeft:
                                                 Radius.circular(0),
                                             bottomRight:
@@ -1989,7 +1990,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                         ),
                                         child: Padding(
-                                          padding: EdgeInsetsDirectional
+                                          padding: const EdgeInsetsDirectional
                                               .fromSTEB(10, 10, 10, 10),
                                           child: Row(
                                             mainAxisSize:
@@ -2026,7 +2027,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 mainAxisSize:
                                                     MainAxisSize.max,
                                                 children: [
-                                                  Padding(
+                                                  const Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
@@ -2052,15 +2053,15 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 20, 0, 0),
                                 child: Container(
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.transparent,
                                   ),
                                   child: Padding(
                                     padding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             40, 0, 40, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -2076,7 +2077,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           children: [
                                             Padding(
                                               padding:
-                                                  EdgeInsetsDirectional
+                                                  const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0, 0, 10, 20),
                                               child: AutoSizeText(
@@ -2096,7 +2097,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           children: [
                                             Padding(
                                               padding:
-                                                  EdgeInsetsDirectional
+                                                  const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0, 0, 10, 0),
                                               child: Text(
@@ -2113,7 +2114,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ],
                                         ),
                                         Padding(
-                                          padding: EdgeInsetsDirectional
+                                          padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 20, 0, 0),
                                           child: Row(
                                             mainAxisSize:
@@ -2124,7 +2125,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             children: [
                                               Padding(
                                                 padding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(0, 0,
                                                             10, 0),
                                                 child: Text(
@@ -2142,7 +2143,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 15, 0, 20),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -2150,7 +2151,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                       MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional
+                                      padding: const EdgeInsetsDirectional
                                           .fromSTEB(0, 0, 50, 0),
                                       child: InkWell(
                                         child: Container(
