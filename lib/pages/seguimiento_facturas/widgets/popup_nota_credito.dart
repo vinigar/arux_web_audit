@@ -1,3 +1,4 @@
+import 'package:arux/helpers/supabase/queries.dart';
 import 'package:arux/pages/widgets/custom_button.dart';
 import 'package:arux/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -31,15 +32,16 @@ class _PopupNotaCreditoState extends State<PopupNotaCredito> {
         ),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.3,
+          height: 275,
           decoration: BoxDecoration(
             color: AppTheme.of(context).primaryBackground,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
+            child: Builder(builder: (context) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Material(
                     color: Colors.transparent,
@@ -53,7 +55,7 @@ class _PopupNotaCreditoState extends State<PopupNotaCredito> {
                       ),
                     ),
                     child: Container(
-                      width: 400,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       decoration: BoxDecoration(
                         color: const Color(0xFF09A963),
                         boxShadow: [
@@ -85,21 +87,20 @@ class _PopupNotaCreditoState extends State<PopupNotaCredito> {
                                       fontSize: 35,
                                       useGoogleFonts: false,
                                     ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: Icon(
-                                    Icons.close,
-                                    color: Colors.white,
-                                    size: 24,
-                                  ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 10, 0),
+                              child: InkWell(
+                                onTap: () => Navigator.of(context).pop(),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 24,
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
@@ -107,96 +108,96 @@ class _PopupNotaCreditoState extends State<PopupNotaCredito> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
-                        child: Column(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0, 0, 10, 20),
+                          child: Text(
+                            'Ingresa el folio de la Nota de Crédito',
+                            style: AppTheme.of(context).bodyText1.override(
+                                  fontFamily: 'Gotham',
+                                  color: AppTheme.of(context).textosVerdes,
+                                  fontSize: 20,
+                                  useGoogleFonts: false,
+                                ),
+                          ),
+                        ),
+                        Row(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 10, 20),
+                                  0, 0, 10, 0),
                               child: Text(
-                                'Ingresa el folio de la Nota de Crédito',
+                                'Nota de Crédito*',
                                 style: AppTheme.of(context).bodyText1.override(
                                       fontFamily: 'Gotham',
                                       color: AppTheme.of(context).textosVerdes,
-                                      fontSize: 20,
                                       useGoogleFonts: false,
                                     ),
                               ),
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: Text(
-                                    'Nota de Crédito*',
-                                    style: AppTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Gotham',
-                                          color:
-                                              AppTheme.of(context).textosVerdes,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: ncFolioController,
-                                    autofocus: true,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color:
-                                              AppTheme.of(context).textosVerdes,
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color:
-                                              AppTheme.of(context).textosVerdes,
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      contentPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              15, 0, 15, 0),
+                            Expanded(
+                              child: TextFormField(
+                                controller: ncFolioController,
+                                autofocus: true,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'El folio es requerido';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppTheme.of(context).textosVerdes,
+                                      width: 2,
                                     ),
-                                    style:
-                                        AppTheme.of(context).bodyText1.override(
-                                              fontFamily: 'Gotham',
-                                              color: AppTheme.of(context)
-                                                  .textoAlternativo,
-                                              useGoogleFonts: false,
-                                            ),
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppTheme.of(context).textosVerdes,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          15, 0, 15, 0),
                                 ),
-                              ],
+                                style: AppTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Gotham',
+                                      color:
+                                          AppTheme.of(context).textoAlternativo,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 10),
                     child: CustomButton(
                       onPressed: () async {
+                        // if (!formKey.currentState!.validate()) {
+                        //   return;
+                        // }
+                        await SupabaseQueries.insertNc(
+                          widget.partidasSapId,
+                          ncFolioController.text,
+                        );
+
+                        if (!mounted) return;
                         Navigator.pop(context);
                       },
                       text: 'Aceptar',
@@ -220,8 +221,8 @@ class _PopupNotaCreditoState extends State<PopupNotaCredito> {
                     ),
                   ),
                 ],
-              ),
-            ),
+              );
+            }),
           ),
         ),
       ),
