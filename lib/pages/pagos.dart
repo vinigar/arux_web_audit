@@ -1142,7 +1142,7 @@ class _PagosState extends State<Pagos> {
                                               children: [
                                                 InkWell(
                                                   child: Text(
-                                                    "Proveedor",
+                                                    "Esquema",
                                                     textAlign: TextAlign.center,
                                                     style: parametro_cuenta_sap
                                                             .isNotEmpty
@@ -1241,104 +1241,6 @@ class _PagosState extends State<Pagos> {
                                                 InkWell(
                                                   child: Text(
                                                     "Moneda",
-                                                    textAlign: TextAlign.center,
-                                                    style: parametro_cuenta_sap
-                                                            .isNotEmpty
-                                                        ? globalUtility
-                                                            .encabezadoTablasOn(
-                                                                context)
-                                                        : globalUtility
-                                                            .encabezadoTablasOff(
-                                                                context),
-                                                  ),
-                                                  onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
-                                                    } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
-                                                          .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
-                                                          .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
-                                                          .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
-                                                    }
-                                                    GetPagos();
-                                                    setState(() {});
-                                                  },
-                                                ),
-                                                InkWell(
-                                                  child: Icon(
-                                                      orden == "cuenta_sap"
-                                                          ? asc == true
-                                                              ? Icons
-                                                                  .arrow_drop_down
-                                                              : Icons
-                                                                  .arrow_drop_up
-                                                          : Icons
-                                                              .arrow_drop_down,
-                                                      color:
-                                                          orden == "cuenta_sap"
-                                                              ? globalUtility
-                                                                  .primaryBg
-                                                              : globalUtility
-                                                                  .secondary),
-                                                  onTap: () {
-                                                    if (orden != "cuenta_sap") {
-                                                      orden = "cuenta_sap";
-                                                      asc = true;
-                                                    } else {
-                                                      asc == true
-                                                          ? asc = false
-                                                          : asc = true;
-                                                    }
-                                                    if (filtro_avanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtro_simple) {
-                                                      GetPagosBy__();
-                                                    } else {
-                                                      GetPagos();
-                                                    }
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                InkWell(
-                                                  child: Text(
-                                                    "Esquema",
                                                     textAlign: TextAlign.center,
                                                     style: parametro_esquema
                                                             .isNotEmpty
@@ -1797,26 +1699,31 @@ class _PagosState extends State<Pagos> {
                                                     ),
                                                   ),
                                                   Expanded(
-                                                    child: list_Pagos[index]
-                                                                [5] ==
-                                                            null
-                                                        ? Text(
-                                                            '-',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: globalUtility
-                                                                .contenidoTablas(
-                                                                    context),
-                                                          )
-                                                        : Text(
-                                                            list_Pagos[index][5]
-                                                                .toString(),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: globalUtility
-                                                                .contenidoTablas(
-                                                                    context),
-                                                          ),
+                                                    child: Center(
+                                                      child: list_Pagos[index]
+                                                                  [2] ==
+                                                              null
+                                                          ? Text(
+                                                              '-',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            )
+                                                          : Text(
+                                                              list_Pagos[index]
+                                                                      [2]
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: globalUtility
+                                                                  .contenidoTablas(
+                                                                      context),
+                                                            ),
+                                                    ),
                                                   ),
                                                   Expanded(
                                                     child: Center(
@@ -1835,33 +1742,6 @@ class _PagosState extends State<Pagos> {
                                                           : Text(
                                                               list_Pagos[index]
                                                                       [1]
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: globalUtility
-                                                                  .contenidoTablas(
-                                                                      context),
-                                                            ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Center(
-                                                      child: list_Pagos[index]
-                                                                  [2] ==
-                                                              null
-                                                          ? Text(
-                                                              '-',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: globalUtility
-                                                                  .contenidoTablas(
-                                                                      context),
-                                                            )
-                                                          : Text(
-                                                              list_Pagos[index]
-                                                                      [2]
                                                                   .toString(),
                                                               textAlign:
                                                                   TextAlign
