@@ -271,9 +271,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
       var postresponse = await post(
           Uri.parse('https://arux.cbluna-dev.com/arux/api'),
           body: json.encode({"action": "Ejecutar_Partidas"}));
-
+/* 
       print("-----PostResponseCode: " + postresponse.statusCode.toString());
-      print("-----PostResponseBody: " + postresponse.body);
+      print("-----PostResponseBody: " + postresponse.body); */
 
       const snackbarComplete = SnackBar(
         content: Text('Proceso Realizado con exito'),
@@ -1924,316 +1924,313 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                 : const SizedBox(),
             (fondo_disponible - suma_pp) < 0 &&
                     fondo_insuficiente_popup == false
-                ? Expanded(
-                    child: // Generated code for this Row Widget...
-                        Stack(
+                ? Stack(
                       children: [
-                        Container(
-                          color: globalUtility.popubBgFade,
-                        ),
-                        Center(
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 50,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.47,
-                              decoration: BoxDecoration(
-                                color: globalUtility.primaryBg,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Material(
-                                              color: Colors.transparent,
-                                              elevation: 5,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(0),
-                                                  bottomRight:
-                                                      Radius.circular(0),
-                                                  topLeft: Radius.circular(15),
-                                                  topRight: Radius.circular(15),
-                                                ),
-                                              ),
-                                              child: Container(
-                                                width: 400,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF09A963),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color:
-                                                          globalUtility.primary,
-                                                    )
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(0),
-                                                    bottomRight:
-                                                        Radius.circular(0),
-                                                    topLeft:
-                                                        Radius.circular(15),
-                                                    topRight:
-                                                        Radius.circular(15),
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(10, 10, 10, 10),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'Fondo Insuficiente',
-                                                                  style: globalUtility
-                                                                      .tituloPopUp(
-                                                                          context),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        10,
-                                                                        0),
-                                                            child: Icon(
-                                                              Icons.close,
-                                                              color:
-                                                                  Colors.white,
-                                                              size: 24,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                Container(
+                  color: globalUtility.popubBgFade,
+                ),
+                Center(
+                  child: Material(
+                    color: Colors.transparent,
+                    elevation: 50,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.47,
+                      decoration: BoxDecoration(
+                        color: globalUtility.primaryBg,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft:
+                                              Radius.circular(0),
+                                          bottomRight:
+                                              Radius.circular(0),
+                                          topLeft: Radius.circular(15),
+                                          topRight: Radius.circular(15),
+                                        ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.transparent,
+                                      child: Container(
+                                        width: 400,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF09A963),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  globalUtility.primary,
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.only(
+                                            bottomLeft:
+                                                Radius.circular(0),
+                                            bottomRight:
+                                                Radius.circular(0),
+                                            topLeft:
+                                                Radius.circular(15),
+                                            topRight:
+                                                Radius.circular(15),
                                           ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    40, 0, 40, 0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsetsDirectional
+                                              .fromSTEB(10, 10, 10, 10),
+                                          child: Row(
+                                            mainAxisSize:
+                                                MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                            children: [
+                                              Expanded(
+                                                child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
                                                   children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 0, 10, 20),
-                                                      child: AutoSizeText(
-                                                        'Para cubir el pago de las facturas seleccionadas es necesario un fondo adicional \nde \$ ${moneyFormat((fondo_disponible - suma_pp) * -1)}',
-                                                        maxLines: 2,
-                                                        style: globalUtility
-                                                            .label(context),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 0, 10, 0),
-                                                      child: Text(
-                                                        'Fondo total necesario:',
-                                                        style: globalUtility
-                                                            .label(context),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '\$ ${moneyFormat(fondo_disponible + ((fondo_disponible - suma_pp) * -1))}',
-                                                      style: globalUtility
-                                                          .textoA2(context),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 20, 0, 0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(0, 0,
-                                                                    10, 0),
-                                                        child: Text(
-                                                          '¿Deseas Continuar?',
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize
+                                                              .max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Fondo Insuficiente',
                                                           style: globalUtility
-                                                              .textoA(context),
+                                                              .tituloPopUp(
+                                                                  context),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              Column(
+                                                mainAxisSize:
+                                                    MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0,
+                                                                0,
+                                                                10,
+                                                                0),
+                                                    child: Icon(
+                                                      Icons.close,
+                                                      color:
+                                                          Colors.white,
+                                                      size: 24,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 15, 0, 20),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0, 20, 0, 0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                  ),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            40, 0, 40, 0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisSize:
+                                              MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceEvenly,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0, 0, 10, 20),
+                                              child: AutoSizeText(
+                                                'Para cubir el pago de las facturas seleccionadas es necesario un fondo adicional \nde \$ ${moneyFormat((fondo_disponible - suma_pp) * -1)}',
+                                                maxLines: 2,
+                                                style: globalUtility
+                                                    .label(context),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisSize:
+                                              MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 50, 0),
-                                              child: InkWell(
-                                                child: Container(
-                                                  width: 60,
-                                                  height: 60,
-                                                  decoration: BoxDecoration(
-                                                    color: globalUtility
-                                                        .secondaryText,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.close,
-                                                        color: globalUtility
-                                                            .primaryBg,
-                                                        size: 30,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                onTap: () {
-                                                  fondo_insuficiente_popup =
-                                                      true;
-                                                  setState(() {});
-                                                },
+                                              padding:
+                                                  EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0, 0, 10, 0),
+                                              child: Text(
+                                                'Fondo total necesario:',
+                                                style: globalUtility
+                                                    .label(context),
                                               ),
                                             ),
-                                            InkWell(
-                                              child: Container(
-                                                width: 60,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  color: globalUtility.primary,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.check_outlined,
-                                                      color: globalUtility
-                                                          .primaryBg,
-                                                      size: 30,
-                                                    ),
-                                                  ],
+                                            Text(
+                                              '\$ ${moneyFormat(fondo_disponible + ((fondo_disponible - suma_pp) * -1))}',
+                                              style: globalUtility
+                                                  .textoA2(context),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsetsDirectional
+                                              .fromSTEB(0, 20, 0, 0),
+                                          child: Row(
+                                            mainAxisSize:
+                                                MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0,
+                                                            10, 0),
+                                                child: Text(
+                                                  '¿Deseas Continuar?',
+                                                  style: globalUtility
+                                                      .textoA(context),
                                                 ),
                                               ),
-                                              onTap: () {
-                                                controller_fondo_disp.text =
-                                                    (fondo_disponible +
-                                                            ((fondo_disponible -
-                                                                    suma_pp) *
-                                                                -1))
-                                                        .toString();
-                                                fondo_disponible = double.parse(
-                                                    controller_fondo_disp.text);
-                                                setState(() {});
-                                              },
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0, 15, 0, 20),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional
+                                          .fromSTEB(0, 0, 50, 0),
+                                      child: InkWell(
+                                        child: Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            color: globalUtility
+                                                .secondaryText,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize:
+                                                MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                            children: [
+                                              Icon(
+                                                Icons.close,
+                                                color: globalUtility
+                                                    .primaryBg,
+                                                size: 30,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          fondo_insuficiente_popup =
+                                              true;
+                                          setState(() {});
+                                        },
+                                      ),
+                                    ),
+                                    InkWell(
+                                      child: Container(
+                                        width: 60,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: globalUtility.primary,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Column(
+                                          mainAxisSize:
+                                              MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.check_outlined,
+                                              color: globalUtility
+                                                  .primaryBg,
+                                              size: 30,
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                      onTap: () {
+                                        controller_fondo_disp.text =
+                                            (fondo_disponible +
+                                                    ((fondo_disponible -
+                                                            suma_pp) *
+                                                        -1))
+                                                .toString();
+                                        fondo_disponible = double.parse(
+                                            controller_fondo_disp.text);
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        )
-                      ],
+                        ),
+                      ),
                     ),
-                  )
+                  ),
+                )
+                      ],
+                    )
                 : const SizedBox(),
           ],
         ),
