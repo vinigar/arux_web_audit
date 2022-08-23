@@ -20,8 +20,8 @@ class AdminHandlers {
           visualState.setTapedOption(6);
           return const SeguimientoProveedoresPage();
         } else {
-          visualState.setTapedOption(7);
-          return const UsuariosPage();
+          visualState.setTapedOption(0);
+          return const HomePage();
         }
       }
     }
@@ -29,6 +29,10 @@ class AdminHandlers {
 
   static Handler resetPassword = Handler(handlerFunc: (context, params) {
     return const ResetPasswordPage();
+  });
+
+  static Handler homeHandler = Handler(handlerFunc: (context, params) {
+    return const HomePage();
   });
 
   static Handler usuarios = Handler(handlerFunc: (context, params) {
@@ -79,7 +83,7 @@ class AdminHandlers {
     final VisualStateProvider visualState =
         Provider.of<VisualStateProvider>(context!);
     visualState.setTapedOption(3);
-    return const SeguimientoDeFacturas();
+    return const SeguimientoDeFacturasPage();
   });
 
   static Handler altaUsuario = Handler(handlerFunc: (context, params) {

@@ -2,7 +2,6 @@
 //
 //     final getSeguimientoFacturasQt = getSeguimientoFacturasQtFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetSeguimientoFacturasQt getSeguimientoFacturasQtFromMap(String str) =>
@@ -43,6 +42,7 @@ class GetSeguimientoFacturasQt {
 class Datum {
   Datum({
     required this.idddu,
+    required this.idPartidasPk,
     required this.proveedor,
     required this.factura,
     required this.esquema,
@@ -55,6 +55,7 @@ class Datum {
   });
 
   final int idddu;
+  final int idPartidasPk;
   final String proveedor;
   final String factura;
   final String esquema;
@@ -67,6 +68,7 @@ class Datum {
 
   factory Datum.fromMap(Map<String, dynamic> json) => Datum(
         idddu: json["idddu"],
+        idPartidasPk: json["id_partidas_pk"],
         proveedor: json["proveedor"],
         factura: json["factura"],
         esquema: json["esquema"],
@@ -86,6 +88,7 @@ class Datum {
 
   Map<String, dynamic> toMap() => {
         "idddu": idddu,
+        "idPartidasPk": idPartidasPk,
         "proveedor": proveedor,
         "factura": factura,
         "esquema": esquema,

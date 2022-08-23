@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class VisualStateProvider extends ChangeNotifier {
   //OPCIONES MENU:
   List<bool> isTaped = [
-    false, //Home
+    true, //Home
     false, //Notificaciones
     false, //GestorPartidasPush
     false, //GestorPartidasPull
     false, //Pagos
     false, //Algo
     false, //Alta Usuario
-    true, //Usuarios
+    false, //Usuarios
     false, //Cerrar sesion
   ];
 

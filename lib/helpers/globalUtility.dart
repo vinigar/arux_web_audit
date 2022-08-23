@@ -14,8 +14,8 @@ class GlobalUtility {
 
   TextStyle tituloPagina(BuildContext context) {
     return TextStyle(
-        fontSize: 60,
-        fontFamily: 'Bicyclette',
+        fontSize: 40,
+        fontFamily: 'Bicyclette-Light',
         fontWeight: FontWeight.bold,
         color: primary);
   }
@@ -61,8 +61,7 @@ class GlobalUtility {
   }
 
   TextStyle label(BuildContext context) {
-    return TextStyle(
-        fontSize: 18, fontFamily: 'Gotham-Light', color: primary);
+    return TextStyle(fontSize: 18, fontFamily: 'Gotham-Light', color: primary);
   }
 
   TextStyle textoIgual(BuildContext context) {

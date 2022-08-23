@@ -19,19 +19,15 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   TextEditingController emailAddressController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   FToast fToast = FToast();
 
   @override
-  void initState() {
-    fToast.init(globalKey.currentState!.context);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    fToast.init(context);
     return Scaffold(
-      key: globalKey,
+      key: scaffoldKey,
       backgroundColor: AppTheme.of(context).primaryBackground,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),

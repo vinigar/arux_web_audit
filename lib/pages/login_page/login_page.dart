@@ -23,6 +23,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool passwordVisibility = false;
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     final VisualStateProvider visualState =
         Provider.of<VisualStateProvider>(context);
     return Scaffold(
-      key: globalKey,
+      key: scaffoldKey,
       backgroundColor: AppTheme.of(context).primaryBackground,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -311,7 +312,7 @@ class _LoginPageState extends State<LoginPage> {
                               await prefs.remove('email');
                               await prefs.remove('password');
                             }
-
+                            //TODO: agregar mensajes de error
                             if (supabase.auth.currentUser == null) return;
                             currentUser =
                                 await SupabaseQueries.getCurrentUserData();
@@ -325,10 +326,10 @@ class _LoginPageState extends State<LoginPage> {
                                 '/seguimiento-proveedores',
                               );
                             } else {
-                              visualState.setTapedOption(7);
+                              visualState.setTapedOption(0);
                               await Navigator.pushReplacementNamed(
                                 context,
-                                '/usuarios',
+                                '/home',
                               );
                             }
                           },

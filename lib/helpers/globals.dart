@@ -14,8 +14,6 @@ final supabase = Supabase.instance.client;
 
 late final SharedPreferences prefs;
 
-GlobalKey globalKey = GlobalKey();
-
 Usuario? currentUser;
 
 Future<void> initGlobals() async {
