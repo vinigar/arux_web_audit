@@ -213,6 +213,7 @@ class _PopupNotaCreditoState extends State<PopupNotaCredito> {
                               useGoogleFonts: false,
                             ),
                         elevation: 2,
+                        width: 150,
                         borderSide: BorderSide(
                           color: AppTheme.of(context).primaryColor,
                         ),

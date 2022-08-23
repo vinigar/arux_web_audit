@@ -2217,6 +2217,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                             10],
                                                                   );
                                                                 });
+                                                            await getFacturas();
                                                           },
                                                           child: Icon(
                                                             Icons.description,
