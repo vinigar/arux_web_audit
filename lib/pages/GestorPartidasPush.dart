@@ -279,6 +279,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
         content: Text('Proceso Realizado con exito'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackbarComplete);
+      initState();
     } catch (e) {
       print(e);
     }
@@ -1473,7 +1474,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                         ],
                                         rows: List<DataRow>.generate(
-                                          20,
+                                          list_partidas.length,
                                           (index) => DataRow(
                                             selected:
                                                 list_partidas[index + count_i]
