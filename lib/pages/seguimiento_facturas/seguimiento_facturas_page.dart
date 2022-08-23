@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:arux/helpers/supabase/queries.dart';
 import 'package:arux/pages/seguimiento_facturas/widgets/popup_nota_credito.dart';
 import 'package:flutter/material.dart';
 
@@ -2203,33 +2204,53 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         MainAxisAlignment
                                                             .spaceEvenly,
                                                     children: [
-                                                      Material(
-                                                        child: InkWell(
-                                                          onTap: () async {
-                                                            if (factura[9] ==
-                                                                'NC Pendiente') {
-                                                              await showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) {
-                                                                    return PopupNotaCredito(
-                                                                      partidasSapId:
-                                                                          factura[
-                                                                              10],
-                                                                    );
-                                                                  });
-                                                              await getFacturas();
-                                                            }
-                                                          },
-                                                          child: Icon(
-                                                            Icons.description,
-                                                            color: globalUtility
-                                                                .secondary,
-                                                            size: 30,
-                                                          ),
-                                                        ),
-                                                      ),
+                                                      factura[9] ==
+                                                              'NC Pendiente'
+                                                          ? Material(
+                                                              child: InkWell(
+                                                                onTap:
+                                                                    () async {
+                                                                  await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (context) {
+                                                                        return PopupNotaCredito(
+                                                                          partidasSapId:
+                                                                              factura[10],
+                                                                        );
+                                                                      });
+                                                                  await getFacturas();
+                                                                },
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .description,
+                                                                  color: globalUtility
+                                                                      .secondary,
+                                                                  size: 30,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : Container(),
+                                                      factura[9] == 'Pagado'
+                                                          ? Material(
+                                                              child: InkWell(
+                                                                onTap:
+                                                                    () async {
+                                                                  await SupabaseQueries
+                                                                      .completarFactura(
+                                                                    factura[10],
+                                                                  );
+                                                                },
+                                                                child: Icon(
+                                                                  Icons.check,
+                                                                  color: globalUtility
+                                                                      .secondary,
+                                                                  size: 30,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : Container(),
                                                       Material(
                                                         child: InkWell(
                                                           onTap: () {},

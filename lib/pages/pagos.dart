@@ -2464,14 +2464,16 @@ class _PagosState extends State<Pagos> {
                                                                 ),
                                                               ),
                                                               Expanded(
-                                                                child: Text(
-                                                                  '',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: globalUtility
-                                                                      .contenidoTablas(
-                                                                          context),
+                                                                child:
+                                                                    IconButton(
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .download),
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {});
+                                                                  },
                                                                 ),
                                                               ),
                                                               Expanded(
