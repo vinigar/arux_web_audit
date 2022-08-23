@@ -14,7 +14,7 @@ class GlobalUtility {
 
   TextStyle tituloPagina(BuildContext context) {
     return TextStyle(
-        fontSize: 40,
+        fontSize: 35,
         fontFamily: 'Bicyclette-Light',
         fontWeight: FontWeight.bold,
         color: primary);
@@ -22,7 +22,7 @@ class GlobalUtility {
 
   TextStyle tituloPopUp(BuildContext context) {
     return TextStyle(
-        fontSize: 35,
+        fontSize: 30,
         fontFamily: 'Gotham',
         fontWeight: FontWeight.bold,
         color: primaryBg);
@@ -31,42 +31,42 @@ class GlobalUtility {
   TextStyle encabezadoTablasOff(BuildContext context) {
     return Theme.of(context).brightness == Brightness.light
         ? TextStyle(
-            fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primaryBg)
+            fontSize: 20, fontFamily: 'Bicyclette-Bold', color: primaryBg)
         : TextStyle(
-            fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primary);
+            fontSize: 20, fontFamily: 'Bicyclette-Bold', color: primary);
   }
 
   TextStyle encabezadoTablasOffAlt(BuildContext context) {
     return TextStyle(
-        fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primary);
+        fontSize: 20, fontFamily: 'Bicyclette-Bold', color: primary);
   }
 
   TextStyle encabezadoTablasOn(BuildContext context) {
     return TextStyle(
-        fontSize: 25, fontFamily: 'Bicyclette-Bold', color: primaryText);
+        fontSize: 20, fontFamily: 'Bicyclette-Bold', color: primaryText);
   }
 
   TextStyle contenidoTablas(BuildContext context) {
     return Theme.of(context).brightness == Brightness.light
         ? TextStyle(
-            fontSize: 18,
+            fontSize: 13,
             fontFamily: 'Gotham-Light',
             fontWeight: FontWeight.w300,
             color: primaryText)
         : TextStyle(
-            fontSize: 18,
+            fontSize: 13,
             fontFamily: 'Gotham-Light',
             fontWeight: FontWeight.w300,
             color: primaryBg);
   }
 
   TextStyle label(BuildContext context) {
-    return TextStyle(fontSize: 18, fontFamily: 'Gotham-Light', color: primary);
+    return TextStyle(fontSize: 13, fontFamily: 'Gotham-Light', color: primary);
   }
 
   TextStyle textoIgual(BuildContext context) {
     return TextStyle(
-        fontSize: 18,
+        fontSize: 13,
         fontFamily: 'Gotham',
         fontWeight: FontWeight.w600,
         color: primaryText);
@@ -74,29 +74,29 @@ class GlobalUtility {
 
   TextStyle textoA(BuildContext context) {
     return TextStyle(
-        fontSize: 18, fontFamily: 'Gotham-Light', color: primaryText);
+        fontSize: 13, fontFamily: 'Gotham-Light', color: primaryText);
   }
 
   TextStyle hinttxt(BuildContext context) {
-    return TextStyle(fontSize: 18, fontFamily: 'Gotham-Light', color: primary);
+    return TextStyle(fontSize: 13, fontFamily: 'Gotham-Light', color: primary);
   }
 
   TextStyle textoIgual2(BuildContext context) {
-    return TextStyle(fontSize: 20, fontFamily: 'Gotham-Light', color: primary);
+    return TextStyle(fontSize: 15, fontFamily: 'Gotham-Light', color: primary);
   }
 
   TextStyle textoA2(BuildContext context) {
     return TextStyle(
-        fontSize: 18, fontFamily: 'Gotham-Bold', color: primaryText);
+        fontSize: 13, fontFamily: 'Gotham-Bold', color: primaryText);
   }
 
   TextStyle textoError(BuildContext context) {
     return TextStyle(
-        fontSize: 18, fontFamily: 'Gotham-Light', color: Colors.red);
+        fontSize: 13, fontFamily: 'Gotham-Light', color: Colors.red);
   }
 
   TextStyle textoError2(BuildContext context) {
     return TextStyle(
-        fontSize: 18, fontFamily: 'Gotham-Bold', color: Colors.red);
+        fontSize: 13, fontFamily: 'Gotham-Bold', color: Colors.red);
   }
 }
