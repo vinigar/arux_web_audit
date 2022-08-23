@@ -320,7 +320,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (currentUser == null) return;
                             if (!mounted) return;
                             if (currentUser!.rol.nombreRol == 'Proveedor') {
-                              visualState.setTapedOption(6);
+                              visualState.setTapedOption(3);
                               await Navigator.pushReplacementNamed(
                                 context,
                                 '/seguimiento-proveedores',
