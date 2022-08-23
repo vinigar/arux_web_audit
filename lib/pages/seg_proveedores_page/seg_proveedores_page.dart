@@ -93,16 +93,8 @@ class _SeguimientoProveedoresPageState
                                               cells: [
                                                 DataCell(
                                                   Text(
-                                                    factura.idProveedorPk
+                                                    factura.idPartidasPk
                                                         .toString(),
-                                                    style: globalUtility
-                                                        .contenidoTablas(
-                                                            context),
-                                                  ),
-                                                ),
-                                                DataCell(
-                                                  Text(
-                                                    factura.sociedad,
                                                     style: globalUtility
                                                         .contenidoTablas(
                                                             context),
@@ -118,7 +110,8 @@ class _SeguimientoProveedoresPageState
                                                 ),
                                                 DataCell(
                                                   Text(
-                                                    factura.importe.toString(),
+                                                    factura.importe
+                                                        .toStringAsFixed(2),
                                                     style: globalUtility
                                                         .contenidoTablas(
                                                             context),
@@ -134,8 +127,7 @@ class _SeguimientoProveedoresPageState
                                                 ),
                                                 DataCell(
                                                   Text(
-                                                    factura.descuentoPorcPp
-                                                        .toString(),
+                                                    '${factura.descuentoPorcPp.toString()} %',
                                                     style: globalUtility
                                                         .contenidoTablas(
                                                             context),
@@ -144,7 +136,7 @@ class _SeguimientoProveedoresPageState
                                                 DataCell(
                                                   Text(
                                                     factura.descuentoCantPp
-                                                        .toString(),
+                                                        .toStringAsFixed(2),
                                                     style: globalUtility
                                                         .contenidoTablas(
                                                             context),
@@ -169,45 +161,6 @@ class _SeguimientoProveedoresPageState
                                                             context),
                                                   ),
                                                 ),
-                                                // DataCell(
-                                                //   Row(
-                                                //     mainAxisAlignment:
-                                                //         MainAxisAlignment.end,
-                                                //     children: [
-                                                //       Padding(
-                                                //         padding:
-                                                //             const EdgeInsets
-                                                //                     .symmetric(
-                                                //                 horizontal: 10),
-                                                //         child: InkWell(
-                                                //           onTap: () {},
-                                                //           child: const Icon(
-                                                //             Icons.file_open,
-                                                //             color: Color(
-                                                //                 0xFF09A963),
-                                                //             size: 30,
-                                                //           ),
-                                                //         ),
-                                                //       ),
-                                                //       Padding(
-                                                //         padding:
-                                                //             const EdgeInsets
-                                                //                     .symmetric(
-                                                //                 horizontal: 10),
-                                                //         child: InkWell(
-                                                //           onTap: () {},
-                                                //           child: const Icon(
-                                                //             Icons
-                                                //                 .remove_red_eye,
-                                                //             color: Color(
-                                                //                 0xFF09A963),
-                                                //             size: 30,
-                                                //           ),
-                                                //         ),
-                                                //       ),
-                                                //     ],
-                                                //   ),
-                                                // ),
                                               ],
                                             );
                                           }),
@@ -240,16 +193,16 @@ class _SeguimientoProveedoresPageState
           style: globalUtility.encabezadoTablasOffAlt(context),
         ),
       ),
+      // DataColumn2(
+      //   size: ColumnSize.M,
+      //   label: Text(
+      //     'Nombre',
+      //     textAlign: TextAlign.center,
+      //     style: globalUtility.encabezadoTablasOffAlt(context),
+      //   ),
+      // ),
       DataColumn2(
-        size: ColumnSize.M,
-        label: Text(
-          'Nombre',
-          textAlign: TextAlign.center,
-          style: globalUtility.encabezadoTablasOffAlt(context),
-        ),
-      ),
-      DataColumn2(
-        size: ColumnSize.M,
+        size: ColumnSize.S,
         label: Text(
           'Factura',
           textAlign: TextAlign.center,
@@ -310,15 +263,6 @@ class _SeguimientoProveedoresPageState
           style: globalUtility.encabezadoTablasOffAlt(context),
         ),
       ),
-      // DataColumn2(
-      //   size: ColumnSize.M,
-      //   numeric: true,
-      //   label: Text(
-      //     'Acciones',
-      //     textAlign: TextAlign.center,
-      //     style: globalUtility.encabezadoTablasOffAlt(context),
-      //   ),
-      // ),
     ];
   }
 }
