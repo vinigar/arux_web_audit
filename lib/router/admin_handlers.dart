@@ -45,7 +45,7 @@ class AdminHandlers {
   static Handler gestorPartidasPull = Handler(handlerFunc: (context, params) {
     final VisualStateProvider visualState =
         Provider.of<VisualStateProvider>(context!);
-    visualState.setTapedOption(3);
+    visualState.setTapedOption(2);
     return const GestorPartidasPull();
   });
 
@@ -57,9 +57,9 @@ class AdminHandlers {
   });
 
   static Handler proveedores = Handler(handlerFunc: (context, params) {
-    // final VisualStateProvider visualState =
-    //     Provider.of<VisualStateProvider>(context!);
-    // visualState.setTapedOption(2);
+    final VisualStateProvider visualState =
+        Provider.of<VisualStateProvider>(context!);
+    visualState.setTapedOption(7);
     return const Proveedores();
   });
 
@@ -67,15 +67,15 @@ class AdminHandlers {
       Handler(handlerFunc: (context, params) {
     final VisualStateProvider visualState =
         Provider.of<VisualStateProvider>(context!);
-    visualState.setTapedOption(6);
+    visualState.setTapedOption(3);
     return const SeguimientoProveedoresPage();
   });
 
   static Handler reporteSeguimientoFacturas =
       Handler(handlerFunc: (context, params) {
-    // final VisualStateProvider visualState =
-    //     Provider.of<VisualStateProvider>(context!);
-    //     visualState.setTapedOption(6);
+    final VisualStateProvider visualState =
+        Provider.of<VisualStateProvider>(context!);
+    visualState.setTapedOption(5);
     return const ReporteSeguimientoDeFacturas();
   });
 
@@ -91,6 +91,9 @@ class AdminHandlers {
   });
 
   static Handler pagos = Handler(handlerFunc: (context, params) {
+    final VisualStateProvider visualState =
+        Provider.of<VisualStateProvider>(context!);
+    visualState.setTapedOption(4);
     return const Pagos();
   });
 }

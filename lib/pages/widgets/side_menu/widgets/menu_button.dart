@@ -10,6 +10,7 @@ class MenuButton extends StatefulWidget {
     this.iconColor = const Color(0XFFB6B6B6),
     required this.onPressed,
     this.isTaped = false,
+    required this.tooltip,
   }) : super(key: key);
 
   final double borderRadius;
@@ -19,6 +20,7 @@ class MenuButton extends StatefulWidget {
   final Color iconColor;
   final void Function() onPressed;
   final bool isTaped;
+  final String tooltip;
 
   @override
   State<MenuButton> createState() => _MenuButtonState();
@@ -47,14 +49,17 @@ class _MenuButtonState extends State<MenuButton> {
                 borderRadius: BorderRadius.circular(20),
                 color: hover || widget.isTaped ? widget.fillColor : null,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Icon(
-                  widget.icon,
-                  size: 50,
-                  color: hover || widget.isTaped
-                      ? const Color(0XFFFFFFFF)
-                      : widget.iconColor,
+              child: Tooltip(
+                message: widget.tooltip,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Icon(
+                    widget.icon,
+                    size: 50,
+                    color: hover || widget.isTaped
+                        ? const Color(0XFFFFFFFF)
+                        : widget.iconColor,
+                  ),
                 ),
               ),
             ),
