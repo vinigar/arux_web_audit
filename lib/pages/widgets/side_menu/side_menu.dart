@@ -28,21 +28,23 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: MenuButton(
-                  tooltip: 'Home',
-                  icon: Icons.home_outlined,
-                  isTaped: visualState.isTaped[0],
-                  onPressed: () async {
-                    visualState.setTapedOption(0);
-                    await Navigator.pushNamed(
-                      context,
-                      '/home',
-                    );
-                  },
-                ),
-              ),
+              userPermissions.home != null
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: MenuButton(
+                        tooltip: 'Home',
+                        icon: Icons.home_outlined,
+                        isTaped: visualState.isTaped[0],
+                        onPressed: () async {
+                          visualState.setTapedOption(0);
+                          await Navigator.pushNamed(
+                            context,
+                            '/home',
+                          );
+                        },
+                      ),
+                    )
+                  : Container(),
               userPermissions.notificaciones != null
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -86,14 +88,13 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                         icon: Icons.podcasts,
                         isTaped: visualState.isTaped[3],
                         onPressed: () async {
+                          visualState.setTapedOption(3);
                           if (currentUser!.rol.nombreRol == 'Proveedor') {
-                            visualState.setTapedOption(3);
                             await Navigator.pushNamed(
                               context,
                               '/seguimiento-proveedores',
                             );
                           } else {
-                            visualState.setTapedOption(3);
                             await Navigator.pushNamed(
                               context,
                               '/seguimiento-facturas',

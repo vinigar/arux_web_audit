@@ -30,6 +30,7 @@ class RolApi {
 
 class Permisos {
   Permisos({
+    required this.home,
     required this.extraccionDeFacturas,
     required this.seguimientoDeFacturas,
     required this.pagos,
@@ -41,6 +42,7 @@ class Permisos {
     required this.perfilDeUsuario,
   });
 
+  dynamic home;
   dynamic extraccionDeFacturas;
   dynamic seguimientoDeFacturas;
   dynamic pagos;
@@ -56,6 +58,7 @@ class Permisos {
   String toJson() => json.encode(toMap());
 
   factory Permisos.fromMap(Map<String, dynamic> json) => Permisos(
+        home: json['Home'],
         extraccionDeFacturas: json["Extraccion de Facturas"],
         seguimientoDeFacturas: json["Seguimiento de Facturas"],
         pagos: json["Pagos"],
@@ -68,6 +71,7 @@ class Permisos {
       );
 
   Map<String, dynamic> toMap() => {
+        "Home": home,
         "Extraccion de Facturas": extraccionDeFacturas,
         "Seguimiento de Facturas": seguimientoDeFacturas,
         "Pagos": pagos,
