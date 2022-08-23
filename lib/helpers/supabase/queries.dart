@@ -57,4 +57,19 @@ class SupabaseQueries {
       return; //TODO: handle error
     }
   }
+
+  static Future<void> completarFactura(int partidaSapId) async {
+    //Update a Completado
+    final res = await supabase
+        .from('partidas_sap')
+        .update({
+          'id_estatus_fk': 8,
+        })
+        .eq('id_partidas_pk', partidaSapId)
+        .execute();
+
+    if (res.hasError) {
+      return; //TODO: handle error
+    }
+  }
 }

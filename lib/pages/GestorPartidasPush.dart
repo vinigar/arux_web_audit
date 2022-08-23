@@ -62,12 +62,13 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
     "\$DPP",
     "\$ Pronto Pago"
   ];
-  List<String?> listDOpe = ["=", ">", ">=", "<", "<=", "!="];
+  List<String?> listDDOpe = ["=", ">", ">=", "<", "<=", "!="];
   List<String?> listDDCond = ["Y", "Ó"];
-  List<String?> selected_Enc = ["Registro SAP"];
-  List<String?> selected_Ope = ["="];
-  List<String?> selected_Val = [];
-  List<String?> selected_Cond = [];
+
+  List<String> selected_Enc = ["Registro SAP"];
+  List<String> selected_Ope = ["="];
+  List<String> selected_Val = [];
+  List<String> selected_Cond = [];
   bool filtro_avanzado = false;
   String query = "";
 
@@ -203,7 +204,43 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
 
   Future<void> GetPartidasPushBy__Filtro_Ava() async {
     try {
-      dynamic response = await supabase
+      query = "";
+      for (var i = 0; i < selected_Enc.length; i++) {
+        String _local_enc = "";
+        String _local_cond = "";
+        switch (selected_Enc[i]) {
+          case "Registro SAP":
+            _local_enc = "id_partidas_pk";
+            break;
+          case "Proveedor":
+            _local_enc = "proveedores.sociedad";
+            break;
+          case "Referencia":
+            _local_enc = "partidas_sap.referencia";
+            break;
+          case "Importe Factura":
+            _local_enc = "partidas_sap.importe_ml";
+            break;
+          case "Moneda":
+            _local_enc = "partidas_sap.ml";
+            break;
+          case "Dias para aplicar pago":
+            _local_enc = "partidas_sap.dias_pago";
+            break;
+          case "%DPP":
+            _local_enc = "partidas_sap.descuento_porc_pp";
+            break;
+          case "\$DPP":
+            _local_enc = "partidas_sap.descuento_cant_pp";
+            break;
+          case "\$ Pronto Pago":
+            _local_enc = "partidas_sap.pronto_pago";
+            break;
+        }
+        query = (query + " " + selected_Enc[i]).toString();
+      }
+
+      /* dynamic response = await supabase
           .rpc('get_partidas_by_filtrado', params: {
             'query': query,
           })
@@ -244,7 +281,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
         //print("Indice $i : ${list_partidas[i].length}");
       }
 
-      //print("Listas : ${list_partidas.length}");
+      //print("Listas : ${list_partidas.length}"); */
 
     } catch (e) {
       print(e);
@@ -365,22 +402,25 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 0, 25, 0),
                                         child: InkWell(
-                                          child: Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 2,
+                                          child: Tooltip(
+                                            message: "Aplicar",
+                                            child: Container(
+                                              width: 45,
+                                              height: 45,
+                                              decoration: BoxDecoration(
+                                                color: globalUtility.primaryBg,
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                  color: globalUtility.primary,
+                                                  width: 2,
+                                                ),
                                               ),
-                                            ),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.play_arrow_outlined,
-                                                color: globalUtility.primary,
-                                                size: 28,
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.play_arrow_outlined,
+                                                  color: globalUtility.primary,
+                                                  size: 28,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -496,7 +536,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 0, 0),
+                                            .fromSTEB(0, 0, 15, 0),
                                         child: Container(
                                           width: 150,
                                           height: 51,
@@ -710,30 +750,30 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 5),
                                           child: InkWell(
-                                              child: Expanded(
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Text(
-                                                      "Filtrar",
-                                                      style: globalUtility
-                                                          .encabezadoTablasOffAlt(
-                                                              context),
-                                                    ),
-                                                    Icon(
-                                                        Icons
-                                                            .filter_alt_outlined,
-                                                        color: globalUtility
-                                                            .primary)
-                                                  ],
-                                                ),
+                                            child: Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Text(
+                                                    "Filtrar",
+                                                    style: globalUtility
+                                                        .encabezadoTablasOffAlt(
+                                                            context),
+                                                  ),
+                                                  Icon(
+                                                      Icons.filter_alt_outlined,
+                                                      color:
+                                                          globalUtility.primary)
+                                                ],
                                               ),
-                                              onTap: () {
-                                                popup_rise = true;
-                                                setState(() {});
-                                              }),
+                                            ),
+                                            onTap: () {
+                                              popup_rise = true;
+                                              setState(() {});
+                                            },
+                                          ),
                                         ),
                                       ), */
                                       /*  Column(
@@ -1062,7 +1102,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                           value: monedas[0],
                                                           items: <String>[
                                                             "USD",
-                                                            "UYU",
+                                                            //"UYU",
                                                           ]
                                                               .map((item) =>
                                                                   DropdownMenuItem<
@@ -1664,474 +1704,453 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
               ],
             ),
             popup_rise
-                ? Expanded(
-                    child: Stack(
-                      children: [
-                        InkWell(
-                          child: Container(
-                            color: globalUtility.popubBgFade,
-                          ),
-                          onTap: () {
-                            popup_rise = false;
-                            setState(() {});
-                          },
+                ? Stack(
+                    children: [
+                      InkWell(
+                        child: Container(
+                          color: globalUtility.popubBgFade,
                         ),
-                        Center(
+                        onTap: () {
+                          popup_rise = false;
+                          setState(() {});
+                        },
+                      ),
+                      Center(
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 50,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                           child: Container(
-                            height: 600,
-                            width: 600,
+                            width: MediaQuery.of(context).size.width * 0.45,
                             decoration: BoxDecoration(
                               color: globalUtility.primaryBg,
-                              border: Border.all(
-                                color: globalUtility.primary,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(15),
                             ),
-                            child: ListView.builder(
-                              itemCount: selected_Enc.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Container(
-                                            width: 200,
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 1.5,
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 10),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            elevation: 5,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight: Radius.circular(0),
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
                                               ),
                                             ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10),
-                                              child:
-                                                  DropdownButtonHideUnderline(
-                                                child: DropdownButton<String>(
-                                                  isExpanded: true,
-                                                  value: selected_Enc[index],
-                                                  items: <String>[
-                                                    "Registro SAP",
-                                                    "Proveedor",
-                                                    "Referencia",
-                                                    "Importe",
-                                                    "Moneda",
-                                                    "Importe USD",
-                                                    "Dias para Pago",
-                                                    "%DPP",
-                                                    "\$DPP",
-                                                    "Pronto Pago"
-                                                  ]
-                                                      .map((item) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                            value: item,
-                                                            child: Text(
-                                                              item,
-                                                              style: globalUtility
-                                                                  .textoIgual(
-                                                                      context),
-                                                            ),
-                                                          ))
-                                                      .toList(),
-                                                  onChanged: (item) => setState(
-                                                      () =>
-                                                          selected_Enc[index] =
-                                                              item),
+                                            child: Container(
+                                              width: 400,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFF09A963),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color:
+                                                        globalUtility.primary,
+                                                  )
+                                                ],
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  topRight: Radius.circular(15),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 80,
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 1.5,
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10),
-                                              child:
-                                                  DropdownButtonHideUnderline(
-                                                child: DropdownButton<String>(
-                                                  isExpanded: true,
-                                                  value: selected_Ope[index],
-                                                  items: <String>[
-                                                    "=",
-                                                    ">",
-                                                    ">=",
-                                                    "<",
-                                                    "<=",
-                                                    "!="
-                                                  ]
-                                                      .map((item) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                            value: item,
-                                                            child: Text(
-                                                              item,
-                                                              style: globalUtility
-                                                                  .textoIgual(
-                                                                      context),
-                                                            ),
-                                                          ))
-                                                      .toList(),
-                                                  onChanged: (item) => setState(
-                                                      () =>
-                                                          selected_Ope[index] =
-                                                              item),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 250,
-                                            height: 51,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 1.5,
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 10,
-                                              ),
-                                              child: TextFormField(
-                                                controller: controller_busqueda,
-                                                autofocus: true,
-                                                obscureText: false,
-                                                decoration: InputDecoration(
-                                                  hintText: 'Parametro',
-                                                  hintStyle: globalUtility
-                                                      .hinttxt(context),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                      color: globalUtility
-                                                          .transparente,
-                                                    ),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                      color: globalUtility
-                                                          .transparente,
-                                                    ),
-                                                  ),
-                                                ),
-                                                style: globalUtility
-                                                    .textoA(context),
-                                                onChanged: (value) {
-                                                  parametro_busqueda = value;
-                                                  if (filtro_avanzado) {
-                                                  } else {
-                                                    GetPartidasPush();
-                                                  }
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 10),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            InkWell(
-                                              child: Container(
-                                                height: 40,
-                                                width: 50,
-                                                decoration: BoxDecoration(
-                                                  color: globalUtility.primary,
-                                                  border: Border.all(
-                                                      color: globalUtility
-                                                          .primary),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Y",
-                                                    style: globalUtility
-                                                        .encabezadoTablasOff(
-                                                            context),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              child: Container(
-                                                height: 40,
-                                                width: 50,
-                                                decoration: BoxDecoration(
-                                                  color: globalUtility.primary,
-                                                  border: Border.all(
-                                                      color: globalUtility
-                                                          .primary),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Ó",
-                                                    style: globalUtility
-                                                        .encabezadoTablasOff(
-                                                            context),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                  
-                : const SizedBox(),
-            (fondo_disponible - suma_pp) < 0 &&
-                    fondo_insuficiente_popup == false
-                ? Stack(
-                      children: [
-                Container(
-                  color: globalUtility.popubBgFade,
-                ),
-                Center(
-                  child: Material(
-                    color: Colors.transparent,
-                    elevation: 50,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.47,
-                      decoration: BoxDecoration(
-                        color: globalUtility.primaryBg,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 5,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft:
-                                              Radius.circular(0),
-                                          bottomRight:
-                                              Radius.circular(0),
-                                          topLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                        ),
-                                      ),
-                                      child: Container(
-                                        width: 400,
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFF09A963),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  globalUtility.primary,
-                                            )
-                                          ],
-                                          borderRadius:
-                                              const BorderRadius.only(
-                                            bottomLeft:
-                                                Radius.circular(0),
-                                            bottomRight:
-                                                Radius.circular(0),
-                                            topLeft:
-                                                Radius.circular(15),
-                                            topRight:
-                                                Radius.circular(15),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(10, 10, 10, 10),
-                                          child: Row(
-                                            mainAxisSize:
-                                                MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .center,
-                                            children: [
-                                              Expanded(
-                                                child: Column(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                        10, 10, 10, 10),
+                                                child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
-                                                    Row(
+                                                    Expanded(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                  'Filtro Avanzado',
+                                                                  style: globalUtility
+                                                                      .tituloPopUp(
+                                                                          context)),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Column(
                                                       mainAxisSize:
-                                                          MainAxisSize
-                                                              .max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          'Fondo Insuficiente',
-                                                          style: globalUtility
-                                                              .tituloPopUp(
-                                                                  context),
+                                                          MainAxisSize.max,
+                                                      children: const [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      0, 10, 0),
+                                                          child: Icon(
+                                                            Icons.close,
+                                                            color: Colors.white,
+                                                            size: 24,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                              Column(
-                                                mainAxisSize:
-                                                    MainAxisSize.max,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: selected_Enc.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 10),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
-                                                  const Padding(
+                                                  Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0,
-                                                                0,
-                                                                10,
-                                                                0),
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      color:
-                                                          Colors.white,
-                                                      size: 24,
+                                                        const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                            0, 0, 15, 0),
+                                                    child: Text('¿Dónde?',
+                                                        style: globalUtility
+                                                            .textoIgual(
+                                                                context)),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                            0, 0, 15, 0),
+                                                    child: Container(
+                                                      width: 250,
+                                                      height: 51,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Colors.transparent,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primary,
+                                                          width: 1.5,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 20),
+                                                        child:
+                                                            DropdownButtonHideUnderline(
+                                                          child: DropdownButton<
+                                                              String>(
+                                                            isExpanded: true,
+                                                            value: selected_Enc[
+                                                                index],
+                                                            items: <String>[
+                                                              "Registro SAP",
+                                                              "Proveedor",
+                                                              "Referencia",
+                                                              "Importe Factura",
+                                                              "Moneda",
+                                                              "Dias para aplicar pago",
+                                                              "%DPP",
+                                                              "\$DPP",
+                                                              "\$ Pronto Pago"
+                                                            ]
+                                                                .map((item) =>
+                                                                    DropdownMenuItem<
+                                                                        String>(
+                                                                      value:
+                                                                          item,
+                                                                      child: Text(
+                                                                          item),
+                                                                    ))
+                                                                .toList(),
+                                                            onChanged: (item) {
+                                                              selected_Enc[
+                                                                      index] =
+                                                                  item.toString();
+                                                              setState(() {});
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                            0, 0, 15, 0),
+                                                    child: Container(
+                                                      width: 90,
+                                                      height: 51,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Colors.transparent,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primary,
+                                                          width: 1.5,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 20),
+                                                        child:
+                                                            DropdownButtonHideUnderline(
+                                                          child: DropdownButton<
+                                                              String>(
+                                                            isExpanded: true,
+                                                            value: selected_Ope[
+                                                                index],
+                                                            items: <String>[
+                                                              "=",
+                                                              "!=",
+                                                              "<",
+                                                              "<=",
+                                                              ">",
+                                                              ">=",
+                                                            ]
+                                                                .map((item) =>
+                                                                    DropdownMenuItem<
+                                                                        String>(
+                                                                      value:
+                                                                          item,
+                                                                      child: Text(
+                                                                          item),
+                                                                    ))
+                                                                .toList(),
+                                                            onChanged: (item) {
+                                                              selected_Ope[
+                                                                      index] =
+                                                                  item.toString();
+                                                              print(index);
+                                                              setState(() {});
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                            0, 0, 15, 0),
+                                                    child: Container(
+                                                      width: 250,
+                                                      height: 51,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Colors.transparent,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primary,
+                                                          width: 1.5,
+                                                        ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Container(
+                                                                width: 200,
+                                                                decoration:
+                                                                    const BoxDecoration(),
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                              .fromSTEB(
+                                                                          10,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    autofocus:
+                                                                        true,
+                                                                    obscureText:
+                                                                        false,
+                                                                    decoration:
+                                                                        InputDecoration(
+                                                                      hintText:
+                                                                          'Valor',
+                                                                      hintStyle:
+                                                                          globalUtility
+                                                                              .hinttxt(context),
+                                                                      enabledBorder:
+                                                                          const UnderlineInputBorder(
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              Color(0x00000000),
+                                                                          width:
+                                                                              1,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.only(
+                                                                          topLeft:
+                                                                              Radius.circular(4.0),
+                                                                          topRight:
+                                                                              Radius.circular(4.0),
+                                                                        ),
+                                                                      ),
+                                                                      focusedBorder:
+                                                                          const UnderlineInputBorder(
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              Color(0x00000000),
+                                                                          width:
+                                                                              1,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.only(
+                                                                          topLeft:
+                                                                              Radius.circular(4.0),
+                                                                          topRight:
+                                                                              Radius.circular(4.0),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    style: globalUtility
+                                                                        .label(
+                                                                            context),
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      selected_Val[
+                                                                              index] =
+                                                                          value;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 20, 0, 0),
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.transparent,
-                                  ),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            40, 0, 40, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisSize:
-                                              MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceEvenly,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0, 0, 10, 20),
-                                              child: AutoSizeText(
-                                                'Para cubir el pago de las facturas seleccionadas es necesario un fondo adicional \nde \$ ${moneyFormat((fondo_disponible - suma_pp) * -1)}',
-                                                maxLines: 2,
-                                                style: globalUtility
-                                                    .label(context),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisSize:
-                                              MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0, 0, 10, 0),
-                                              child: Text(
-                                                'Fondo total necesario:',
-                                                style: globalUtility
-                                                    .label(context),
-                                              ),
-                                            ),
-                                            Text(
-                                              '\$ ${moneyFormat(fondo_disponible + ((fondo_disponible - suma_pp) * -1))}',
-                                              style: globalUtility
-                                                  .textoA2(context),
-                                            ),
-                                          ],
+                                            );
+                                          },
                                         ),
                                         Padding(
                                           padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 20, 0, 0),
+                                              .fromSTEB(0, 20, 0, 5),
                                           child: Row(
-                                            mainAxisSize:
-                                                MainAxisSize.max,
+                                            mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .center,
+                                                MainAxisAlignment.center,
                                             children: [
                                               Padding(
                                                 padding:
                                                     const EdgeInsetsDirectional
-                                                        .fromSTEB(0, 0,
-                                                            10, 0),
+                                                        .fromSTEB(0, 0, 15, 0),
                                                 child: Text(
-                                                  '¿Deseas Continuar?',
-                                                  style: globalUtility
-                                                      .textoA(context),
+                                                    'Añadir filtro nuevo',
+                                                    style: globalUtility
+                                                        .label(context)),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 15, 0),
+                                                child: InkWell(
+                                                  child: Container(
+                                                    width: 50,
+                                                    height: 50,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.transparent,
+                                                      shape: BoxShape.circle,
+                                                      border: Border.all(
+                                                        color: globalUtility
+                                                            .primary,
+                                                        width: 2,
+                                                      ),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.add,
+                                                          color: globalUtility
+                                                              .primary,
+                                                          size: 24,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    selected_Enc
+                                                        .add("Registro SAP");
+                                                    selected_Ope.add("=");
+                                                    selected_Val.add("");
+                                                    setState(() {});
+                                                  },
                                                 ),
                                               ),
                                             ],
@@ -2139,99 +2158,314 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                         ),
                                       ],
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 15, 0, 20),
-                                child: Row(
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox(),
+            (fondo_disponible - suma_pp) < 0 &&
+                    fondo_insuficiente_popup == false
+                ? Stack(
+                    children: [
+                      Container(
+                        color: globalUtility.popubBgFade,
+                      ),
+                      Center(
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 50,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.47,
+                            decoration: BoxDecoration(
+                              color: globalUtility.primaryBg,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 10),
+                              child: SingleChildScrollView(
+                                child: Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional
-                                          .fromSTEB(0, 0, 50, 0),
-                                      child: InkWell(
-                                        child: Container(
-                                          width: 60,
-                                          height: 60,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility
-                                                .secondaryText,
-                                            shape: BoxShape.circle,
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            elevation: 5,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight: Radius.circular(0),
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
+                                              ),
+                                            ),
+                                            child: Container(
+                                              width: 400,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFF09A963),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color:
+                                                        globalUtility.primary,
+                                                  )
+                                                ],
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(0),
+                                                  bottomRight:
+                                                      Radius.circular(0),
+                                                  topLeft: Radius.circular(15),
+                                                  topRight: Radius.circular(15),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                        10, 10, 10, 10),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                'Fondo Insuficiente',
+                                                                style: globalUtility
+                                                                    .tituloPopUp(
+                                                                        context),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        const Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      0, 10, 0),
+                                                          child: Icon(
+                                                            Icons.close,
+                                                            color: Colors.white,
+                                                            size: 24,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
                                           ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 20, 0, 0),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          color: Colors.transparent,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(40, 0, 40, 0),
                                           child: Column(
-                                            mainAxisSize:
-                                                MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .center,
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
-                                              Icon(
-                                                Icons.close,
-                                                color: globalUtility
-                                                    .primaryBg,
-                                                size: 30,
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                            0, 0, 10, 20),
+                                                    child: AutoSizeText(
+                                                      'Para cubir el pago de las facturas seleccionadas es necesario un fondo adicional \nde \$ ${moneyFormat((fondo_disponible - suma_pp) * -1)}',
+                                                      maxLines: 2,
+                                                      style: globalUtility
+                                                          .label(context),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                            0, 0, 10, 0),
+                                                    child: Text(
+                                                      'Fondo total necesario:',
+                                                      style: globalUtility
+                                                          .label(context),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '\$ ${moneyFormat(fondo_disponible + ((fondo_disponible - suma_pp) * -1))}',
+                                                    style: globalUtility
+                                                        .textoA2(context),
+                                                  ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 20, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                              0, 0, 10, 0),
+                                                      child: Text(
+                                                        '¿Deseas Continuar?',
+                                                        style: globalUtility
+                                                            .textoA(context),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        onTap: () {
-                                          fondo_insuficiente_popup =
-                                              true;
-                                          setState(() {});
-                                        },
                                       ),
                                     ),
-                                    InkWell(
-                                      child: Container(
-                                        width: 60,
-                                        height: 60,
-                                        decoration: BoxDecoration(
-                                          color: globalUtility.primary,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize:
-                                              MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.check_outlined,
-                                              color: globalUtility
-                                                  .primaryBg,
-                                              size: 30,
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 15, 0, 20),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 50, 0),
+                                            child: InkWell(
+                                              child: Container(
+                                                width: 60,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  color: globalUtility
+                                                      .secondaryText,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.close,
+                                                      color: globalUtility
+                                                          .primaryBg,
+                                                      size: 30,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                fondo_insuficiente_popup = true;
+                                                setState(() {});
+                                              },
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                          InkWell(
+                                            child: Container(
+                                              width: 60,
+                                              height: 60,
+                                              decoration: BoxDecoration(
+                                                color: globalUtility.primary,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.check_outlined,
+                                                    color:
+                                                        globalUtility.primaryBg,
+                                                    size: 30,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              controller_fondo_disp.text =
+                                                  (fondo_disponible +
+                                                          ((fondo_disponible -
+                                                                  suma_pp) *
+                                                              -1))
+                                                      .toString();
+                                              fondo_disponible = double.parse(
+                                                  controller_fondo_disp.text);
+                                              setState(() {});
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                      onTap: () {
-                                        controller_fondo_disp.text =
-                                            (fondo_disponible +
-                                                    ((fondo_disponible -
-                                                            suma_pp) *
-                                                        -1))
-                                                .toString();
-                                        fondo_disponible = double.parse(
-                                            controller_fondo_disp.text);
-                                        setState(() {});
-                                      },
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                )
-                      ],
-                    )
+                      )
+                    ],
+                  )
                 : const SizedBox(),
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GlobalUtility {
-  Color primary = const Color(0XFF04C774);
+  Color primary = const Color(0XFF09A963);
   Color secondary = const Color(0XFF102047);
   Color tertiary = const Color(0X9A00C774);
   Color alternate = const Color(0XFF173938);

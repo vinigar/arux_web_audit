@@ -54,7 +54,7 @@ class Datum {
     required this.estatus,
   });
 
-  final int idddu;
+  final String idddu;
   final int idPartidasPk;
   final String proveedor;
   final String factura;
