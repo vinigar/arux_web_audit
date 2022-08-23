@@ -76,8 +76,8 @@ class _PagosState extends State<Pagos> {
       response = jsonEncode(response);
 
       // print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
+      /* print("-----Response: ");
+      print(response.toString()); */
 
       GetPagosQt getPagosQTResponse = getPagosQtFromMap(response);
 
