@@ -402,22 +402,25 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 0, 25, 0),
                                         child: InkWell(
-                                          child: Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 2,
+                                          child: Tooltip(
+                                            message: "Aplicar",
+                                            child: Container(
+                                              width: 45,
+                                              height: 45,
+                                              decoration: BoxDecoration(
+                                                color: globalUtility.primaryBg,
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                  color: globalUtility.primary,
+                                                  width: 2,
+                                                ),
                                               ),
-                                            ),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.play_arrow_outlined,
-                                                color: globalUtility.primary,
-                                                size: 28,
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.play_arrow_outlined,
+                                                  color: globalUtility.primary,
+                                                  size: 28,
+                                                ),
                                               ),
                                             ),
                                           ),
