@@ -37,7 +37,7 @@ class _PageHeaderState extends State<PageHeader> {
                   },
                   child: const Icon(
                     Icons.arrow_back_outlined,
-                    color: Color(0XFF04C774),
+                    color: Color(0XFF09A963),
                     size: 30,
                   ),
                 ),
@@ -46,7 +46,7 @@ class _PageHeaderState extends State<PageHeader> {
                 widget.headerName,
                 style: AppTheme.of(context).bodyText1.override(
                       fontFamily: 'Bicyclette-Light',
-                      color: const Color(0XFF04C774),
+                      color: const Color(0XFF09A963),
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       useGoogleFonts: false,
@@ -64,10 +64,10 @@ class _PageHeaderState extends State<PageHeader> {
                   width: 45,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: const Color(0XFF04C774),
+                    color: const Color(0XFF09A963),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: const Color(0XFF04C774),
+                      color: const Color(0XFF09A963),
                       width: 2,
                     ),
                   ),
@@ -87,7 +87,7 @@ class _PageHeaderState extends State<PageHeader> {
                     color: AppTheme.of(context).primaryBackground,
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(
-                      color: const Color(0XFF04C774),
+                      color: const Color(0XFF09A963),
                       width: 1.5,
                     ),
                   ),
@@ -98,7 +98,7 @@ class _PageHeaderState extends State<PageHeader> {
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                         child: Icon(
                           Icons.search,
-                          color: Color(0XFF04C774),
+                          color: Color(0XFF09A963),
                           size: 24,
                         ),
                       ),
@@ -164,7 +164,7 @@ class _PageHeaderState extends State<PageHeader> {
                     color: AppTheme.of(context).primaryBackground,
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(
-                      color: const Color(0XFF04C774),
+                      color: const Color(0XFF09A963),
                       width: 1.5,
                     ),
                   ),
@@ -178,12 +178,12 @@ class _PageHeaderState extends State<PageHeader> {
                           children: const [
                             FaIcon(
                               FontAwesomeIcons.solidSquareCaretUp,
-                              color: Color(0XFF04C774),
+                              color: Color(0XFF09A963),
                               size: 15,
                             ),
                             FaIcon(
                               FontAwesomeIcons.solidSquareCaretDown,
-                              color: Color(0XFF04C774),
+                              color: Color(0XFF09A963),
                               size: 15,
                             ),
                           ],

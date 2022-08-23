@@ -110,8 +110,7 @@ class _SeguimientoProveedoresPageState
                                                 ),
                                                 DataCell(
                                                   Text(
-                                                    factura.importe
-                                                        .toStringAsFixed(2),
+                                                    '\$ ${factura.importe.toStringAsFixed(2)}',
                                                     style: globalUtility
                                                         .contenidoTablas(
                                                             context),

@@ -2206,18 +2206,21 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                       Material(
                                                         child: InkWell(
                                                           onTap: () async {
-                                                            await showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (context) {
-                                                                  return PopupNotaCredito(
-                                                                    partidasSapId:
-                                                                        factura[
-                                                                            10],
-                                                                  );
-                                                                });
-                                                            await getFacturas();
+                                                            if (factura[9] ==
+                                                                'NC Pendiente') {
+                                                              await showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return PopupNotaCredito(
+                                                                      partidasSapId:
+                                                                          factura[
+                                                                              10],
+                                                                    );
+                                                                  });
+                                                              await getFacturas();
+                                                            }
                                                           },
                                                           child: Icon(
                                                             Icons.description,
