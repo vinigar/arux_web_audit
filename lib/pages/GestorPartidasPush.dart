@@ -316,7 +316,10 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
         content: Text('Proceso Realizado con exito'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackbarComplete);
-      initState();
+      Navigator.pushNamed(
+        context,
+        '/gestor-partidas-push',
+      );
     } catch (e) {
       print(e);
     }
