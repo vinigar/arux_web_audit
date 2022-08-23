@@ -12,7 +12,7 @@ import 'package:arux/helpers/globals.dart';
 import 'package:arux/theme/theme.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();  
 
   await Supabase.initialize(
     url: supabaseUrl,

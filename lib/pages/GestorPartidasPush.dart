@@ -1389,7 +1389,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 i < list_carrito.length;
                                                 i++) {
                                               suma_importe = suma_importe +
-                                                  list_carrito[i][3];
+                                                  list_carrito[i][5];
                                               suma_dpp =
                                                   suma_dpp + list_carrito[i][8];
                                               suma_pp =
@@ -1591,7 +1591,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     i < list_carrito.length;
                                                     i++) {
                                                   suma_importe = suma_importe +
-                                                      list_carrito[i][3];
+                                                      list_carrito[i][5];
                                                   suma_dpp = suma_dpp +
                                                       list_carrito[i][8];
                                                   suma_pp = suma_pp +
