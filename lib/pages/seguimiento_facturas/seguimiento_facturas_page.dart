@@ -2241,6 +2241,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       .completarFactura(
                                                                     factura[10],
                                                                   );
+                                                                  getFacturas();
                                                                 },
                                                                 child: Icon(
                                                                   Icons.check,
