@@ -5,7 +5,7 @@ class MenuButton extends StatefulWidget {
     Key? key,
     this.borderRadius = 20,
     this.buttonSize = 70,
-    this.fillColor = const Color(0XFF04C774),
+    this.fillColor = const Color(0XFF09A963),
     required this.icon,
     this.iconColor = const Color(0XFFB6B6B6),
     required this.onPressed,
