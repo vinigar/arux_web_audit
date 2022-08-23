@@ -23,8 +23,6 @@ class SupabaseQueries {
     userProfile['id'] = user.id;
     userProfile['email'] = user.email!;
 
-    print(jsonEncode(userProfile));
-
     final usuario = Usuario.fromJson(jsonEncode(userProfile));
 
     return usuario;

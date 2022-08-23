@@ -3,7 +3,7 @@ export 'package:arux/pages/GestorPartidasPull.dart';
 export 'package:arux/pages/GestorPartidasPush.dart';
 export 'package:arux/pages/proveedores.dart';
 export 'package:arux/pages/ReporteSeguimientoDeFacturas.dart';
-export 'package:arux/pages/SeguimientoFacturas.dart';
+export 'package:arux/pages/seguimiento_facturas/seguimiento_facturas_page.dart';
 export 'package:arux/pages/usuarios_page/usuarios_page.dart';
 export 'package:arux/pages/alta_usuario_page/alta_usuario_page.dart';
 export 'package:arux/pages/reset_password/reset_password_page.dart';

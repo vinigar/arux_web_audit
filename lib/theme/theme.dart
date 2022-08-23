@@ -34,6 +34,9 @@ abstract class AppTheme {
 
   abstract Color primaryBtnText;
   abstract Color lineColor;
+  abstract Color textoAlternativo;
+  abstract Color iconosMenu;
+  abstract Color textosVerdes;
 
   String get title1Family => typography.title1Family;
   TextStyle get title1 => typography.title1;
@@ -75,6 +78,12 @@ class LightModeTheme extends AppTheme {
   Color primaryBtnText = const Color(0xFFFFFFFF);
   @override
   Color lineColor = const Color(0xFFE0E3E7);
+  @override
+  Color textoAlternativo = const Color(0xFF141313);
+  @override
+  Color iconosMenu = const Color(0xFF1E2D56);
+  @override
+  Color textosVerdes = const Color(0xFF09A963);
 }
 
 abstract class Typography {
@@ -186,6 +195,12 @@ class DarkModeTheme extends AppTheme {
   Color primaryBtnText = const Color(0xFFFFFFFF);
   @override
   Color lineColor = const Color(0xFF22282F);
+  @override
+  Color textoAlternativo = const Color(0xFFFFFFFF);
+  @override
+  Color iconosMenu = const Color(0xFF7C7C7C);
+  @override
+  Color textosVerdes = const Color(0xFF03C774);
 }
 
 extension TextStyleHelper on TextStyle {

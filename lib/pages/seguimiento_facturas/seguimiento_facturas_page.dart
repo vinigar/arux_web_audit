@@ -1,24 +1,26 @@
 import 'dart:convert';
 
+import 'package:arux/pages/seguimiento_facturas/widgets/popup_nota_credito.dart';
+import 'package:flutter/material.dart';
+
+import 'package:arux/functions/date_format.dart';
 import 'package:arux/helpers/globalUtility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Seguimiento_Facturas_QT.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
-import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
-import 'package:flutter/material.dart';
+import 'package:arux/pages/widgets/top_menu/top_menu.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../functions/date_format.dart';
-import 'widgets/top_menu/top_menu.dart';
-
-class SeguimientoDeFacturas extends StatefulWidget {
-  const SeguimientoDeFacturas({Key? key}) : super(key: key);
+class SeguimientoDeFacturasPage extends StatefulWidget {
+  const SeguimientoDeFacturasPage({Key? key}) : super(key: key);
 
   @override
-  State<SeguimientoDeFacturas> createState() => _SeguimientoDeFacturasState();
+  State<SeguimientoDeFacturasPage> createState() =>
+      _SeguimientoDeFacturasPageState();
 }
 
-class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
+class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   GlobalUtility globalUtility = GlobalUtility();
 
   final controller_busqueda = TextEditingController();
@@ -65,72 +67,62 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
 
   @override
   void initState() {
-    GetFacturas();
+    getFacturas();
     super.initState();
   }
 
-  Future<void> GetFacturas() async {
+  Future<void> getFacturas() async {
     try {
-      dynamic response = await supabase
+      final res = await supabase
           .rpc('get_seguimiento_factura',
               params: {'busqueda': parametro_busqueda})
           .order(orden, ascending: asc)
           .range(0, count_f)
           .execute();
 
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      //print("-----Parametro de Busqueda: $parametro_busqueda");
-      /* print("-----Response: ");
-      print(response.toString()); */
+      if (res.hasError) {
+        print("-----Error: ${res.error}");
+        return;
+      }
 
       GetSeguimientoFacturasQt getSeguimientoFacturasQt =
-          getSeguimientoFacturasQtFromMap(response);
+          getSeguimientoFacturasQtFromMap(jsonEncode(res));
 
       list_facturas = [];
 
       for (var i = 0; i < getSeguimientoFacturasQt.data.length; i++) {
-        List<dynamic> local_list = [];
+        List<dynamic> localList = [];
 
-        local_list.add(getSeguimientoFacturasQt.data[i].idddu);
-        local_list.add(getSeguimientoFacturasQt.data[i].proveedor);
-        local_list.add(getSeguimientoFacturasQt.data[i].factura);
-        local_list.add(getSeguimientoFacturasQt.data[i].esquema);
-        local_list.add(getSeguimientoFacturasQt.data[i].moneda);
-        local_list
+        localList.add(getSeguimientoFacturasQt.data[i].idddu);
+        localList.add(getSeguimientoFacturasQt.data[i].proveedor);
+        localList.add(getSeguimientoFacturasQt.data[i].factura);
+        localList.add(getSeguimientoFacturasQt.data[i].esquema);
+        localList.add(getSeguimientoFacturasQt.data[i].moneda);
+        localList
             .add(dateFormat(getSeguimientoFacturasQt.data[i].fechaDocumento));
         if (getSeguimientoFacturasQt.data[i].fechaInicio == null) {
-          local_list.add("-");
+          localList.add("-");
         } else {
-          local_list
+          localList
               .add(dateFormat(getSeguimientoFacturasQt.data[i].fechaInicio));
         }
         if (getSeguimientoFacturasQt.data[i].fechaLimite == null) {
-          local_list.add("-");
+          localList.add("-");
         } else {
-          local_list
+          localList
               .add(dateFormat(getSeguimientoFacturasQt.data[i].fechaLimite));
         }
         if (getSeguimientoFacturasQt.data[i].fechaPago == null) {
-          local_list.add("-");
+          localList.add("-");
         } else {
-          local_list
-              .add(dateFormat(getSeguimientoFacturasQt.data[i].fechaPago));
+          localList.add(dateFormat(getSeguimientoFacturasQt.data[i].fechaPago));
         }
 
-        local_list.add(getSeguimientoFacturasQt.data[i].estatus);
+        localList.add(getSeguimientoFacturasQt.data[i].estatus);
+        localList.add(getSeguimientoFacturasQt.data[i].idPartidasPk);
 
-        list_facturas.add(local_list);
-
-        //print("Indice $i : ${list_facturas[i]}");
-        //print("Indice $i : ${list_facturas[i][1]}");
-        //print("Indice $i : ${list_facturas[i].length}");
+        list_facturas.add(localList);
       }
-
-      //print("Listas : ${list_facturas.length}");
-
     } catch (e) {
       print(e);
     }
@@ -139,7 +131,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
-
+  //TODO: agregar pk a consulta
   Future<void> GetFacturasBy_() async {
     try {
       dynamic response = await supabase
@@ -167,28 +159,21 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
       list_facturas = [];
 
       for (var i = 0; i < getSeguimientoFacturasQt.data.length; i++) {
-        List<dynamic> local_list = [];
+        List<dynamic> localList = [];
 
-        local_list.add(getSeguimientoFacturasQt.data[i].idPartidasPk);
-        local_list.add(getSeguimientoFacturasQt.data[i].proveedor);
-        local_list.add(getSeguimientoFacturasQt.data[i].referencia);
-        local_list.add("\$ ${getSeguimientoFacturasQt.data[i].importe}");
-        local_list.add(getSeguimientoFacturasQt.data[i].moneda);
-        local_list.add("\$ ${getSeguimientoFacturasQt.data[i].importeUsd}");
-        local_list.add(getSeguimientoFacturasQt.data[i].diasPago);
-        local_list.add("${getSeguimientoFacturasQt.data[i].porcDpp} %");
-        local_list.add("\$ ${getSeguimientoFacturasQt.data[i].cantDpp}");
-        local_list.add("\$ ${getSeguimientoFacturasQt.data[i].prontoPago}");
+        localList.add(getSeguimientoFacturasQt.data[i].idPartidasPk);
+        localList.add(getSeguimientoFacturasQt.data[i].proveedor);
+        localList.add(getSeguimientoFacturasQt.data[i].referencia);
+        localList.add("\$ ${getSeguimientoFacturasQt.data[i].importe}");
+        localList.add(getSeguimientoFacturasQt.data[i].moneda);
+        localList.add("\$ ${getSeguimientoFacturasQt.data[i].importeUsd}");
+        localList.add(getSeguimientoFacturasQt.data[i].diasPago);
+        localList.add("${getSeguimientoFacturasQt.data[i].porcDpp} %");
+        localList.add("\$ ${getSeguimientoFacturasQt.data[i].cantDpp}");
+        localList.add("\$ ${getSeguimientoFacturasQt.data[i].prontoPago}");
 
-        list_facturas.add(local_list);
-
-        //print("Indice $i : ${list_facturas[i]}");
-        //print("Indice $i : ${list_facturas[i][1]}");
-        //print("Indice $i : ${list_facturas[i].length}");
+        list_facturas.add(localList);
       }
-
-      //print("Listas : ${list_facturas.length}");
-
     } catch (e) {
       print(e);
     }
@@ -212,84 +197,6 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  /* Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MenuButton(
-                          icon: Icons.home_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.notifications_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.subtitles_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/gestor-partidas-push',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.podcasts,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.receipt_long_sharp,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/pagos',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.bar_chart_rounded,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/reporte-seguimiento-facturas',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                            icon: Icons.person_add_outlined,
-                            fillColor: globalUtility.primary,
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                '/proveedores',
-                              );
-                            }),
-                        MenuButton(
-                          icon: Icons.group_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/usuarios',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.power_settings_new_outlined,
-                          fillColor: Color(0xFFFF0003),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ), */
                   const SideMenuWidget(),
                   Expanded(
                     child: Padding(
@@ -317,430 +224,346 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                   ),
                                   Text(
                                     'Seguimiento de Facturas',
-                                    style:
-                                        globalUtility.tituloPagina(context),
+                                    style: globalUtility.tituloPagina(context),
                                   ),
                                 ],
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      /* Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 25, 0),
-                                        child: Container(
-                                          width: 45,
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility.primaryBg,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: globalUtility.primary,
-                                              width: 2,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.grid_view,
-                                              color: globalUtility.primary,
-                                              size: 28,
-                                            ),
-                                          ),
-                                        ),
-                                      ), */
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 25, 0),
-                                        child: Container(
-                                          width: 45,
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility.primaryBg,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: globalUtility.primary,
-                                              width: 2,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.download_outlined,
-                                              color: globalUtility.primary,
-                                              size: 28,
-                                            ),
-                                          ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 25, 0),
+                                    child: Container(
+                                      width: 45,
+                                      height: 45,
+                                      decoration: BoxDecoration(
+                                        color: globalUtility.primaryBg,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: globalUtility.primary,
+                                          width: 2,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 15, 0),
-                                        child: Container(
-                                          width: 250,
-                                          height: 51,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility.primaryBg,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            border: Border.all(
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.download_outlined,
+                                          color: globalUtility.primary,
+                                          size: 28,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 15, 0),
+                                    child: Container(
+                                      width: 250,
+                                      height: 51,
+                                      decoration: BoxDecoration(
+                                        color: globalUtility.primaryBg,
+                                        borderRadius: BorderRadius.circular(30),
+                                        border: Border.all(
+                                          color: globalUtility.primary,
+                                          width: 1.5,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10, 0, 0, 0),
+                                            child: Icon(
+                                              Icons.search,
                                               color: globalUtility.primary,
-                                              width: 1.5,
+                                              size: 24,
                                             ),
                                           ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
+                                          Center(
+                                            child: SizedBox(
+                                              width: 200,
+                                              child: Padding(
                                                 padding:
-                                                    const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                        10, 0, 0, 0),
-                                                child: Icon(
-                                                  Icons.search,
-                                                  color:
-                                                      globalUtility.primary,
-                                                  size: 24,
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 5,
+                                                ),
+                                                child: TextFormField(
+                                                  controller:
+                                                      controller_busqueda,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    hintText: 'Buscar',
+                                                    hintStyle: globalUtility
+                                                        .hinttxt(context),
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color: globalUtility
+                                                            .transparente,
+                                                      ),
+                                                    ),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color: globalUtility
+                                                            .transparente,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  style: globalUtility
+                                                      .textoA(context),
+                                                  onChanged: (value) {
+                                                    parametro_busqueda = value;
+                                                    if (filtro_avanzado) {
+                                                      switch (
+                                                          selectedDDOpe[0]) {
+                                                        case "=":
+                                                          //GetPartidasIgual();
+                                                          break;
+                                                        case "<":
+                                                          //GetPartidasMenor();
+                                                          break;
+                                                        case "<=":
+                                                          //GetPartidasMenorI();
+                                                          break;
+                                                        case ">":
+                                                          //GetPartidasMayor();
+                                                          break;
+                                                        case ">=":
+                                                          //GetPartidasMayorI();
+                                                          break;
+                                                        case "!=":
+                                                          //GetPartidasDif();
+                                                          break;
+                                                      }
+                                                    } else {
+                                                      getFacturas();
+                                                    }
+                                                  },
                                                 ),
                                               ),
-                                              Center(
-                                                child: SizedBox(
-                                                  width: 200,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      horizontal: 5,
-                                                    ),
-                                                    child: TextFormField(
-                                                      controller:
-                                                          controller_busqueda,
-                                                      autofocus: true,
-                                                      obscureText: false,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText: 'Buscar',
-                                                        hintStyle:
-                                                            globalUtility
-                                                                .hinttxt(
-                                                                    context),
-                                                        enabledBorder:
-                                                            UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: globalUtility
-                                                                .transparente,
-                                                          ),
-                                                        ),
-                                                        focusedBorder:
-                                                            UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: globalUtility
-                                                                .transparente,
-                                                          ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 15, 0),
+                                    child: Container(
+                                      width: 250,
+                                      height: 51,
+                                      decoration: BoxDecoration(
+                                        color: globalUtility.primaryBg,
+                                        borderRadius: BorderRadius.circular(30),
+                                        border: Border.all(
+                                          color: globalUtility.primary,
+                                          width: 1.5,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  InkWell(
+                                                    child: Container(
+                                                      width: 25,
+                                                      height: 23.5,
+                                                      decoration: BoxDecoration(
+                                                        color: globalUtility
+                                                            .primary,
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  0),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  0),
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  30),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  0),
                                                         ),
                                                       ),
+                                                      child: const Icon(
+                                                        Icons
+                                                            .arrow_drop_up_sharp,
+                                                        color: Colors.white,
+                                                        size: 18,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      if (filtro_simple ==
+                                                              false ||
+                                                          filtro_avanzado ==
+                                                              false) {
+                                                        count_f++;
+                                                        getFacturas();
+                                                      }
+                                                      setState(() {});
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              InkWell(
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 23.5,
+                                                  decoration: BoxDecoration(
+                                                    color: count_f == 0
+                                                        ? globalUtility
+                                                            .secondary
+                                                        : globalUtility.primary,
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(30),
+                                                      bottomRight:
+                                                          Radius.circular(0),
+                                                      topLeft:
+                                                          Radius.circular(0),
+                                                      topRight:
+                                                          Radius.circular(0),
+                                                    ),
+                                                  ),
+                                                  child: const Icon(
+                                                    Icons.arrow_drop_down_sharp,
+                                                    color: Colors.white,
+                                                    size: 18,
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  if (filtro_simple == false ||
+                                                      filtro_avanzado ==
+                                                          false) {
+                                                    if (count_f >= 1) {
+                                                      count_f--;
+                                                      getFacturas();
+                                                      setState(() {});
+                                                    }
+                                                  }
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .only(start: 10),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  'Filas: ',
+                                                  style: globalUtility
+                                                      .textoIgual(context),
+                                                ),
+                                                SizedBox(
+                                                  width: 100,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 10),
+                                                    child: TextFormField(
+                                                      initialValue: "20",
                                                       style: globalUtility
                                                           .textoA(context),
+                                                      decoration:
+                                                          const InputDecoration(
+                                                              border:
+                                                                  InputBorder
+                                                                      .none),
                                                       onChanged: (value) {
-                                                        parametro_busqueda =
-                                                            value;
-                                                        if (filtro_avanzado) {
-                                                          switch (
-                                                              selectedDDOpe[
-                                                                  0]) {
-                                                            case "=":
-                                                              //GetPartidasIgual();
-                                                              break;
-                                                            case "<":
-                                                              //GetPartidasMenor();
-                                                              break;
-                                                            case "<=":
-                                                              //GetPartidasMenorI();
-                                                              break;
-                                                            case ">":
-                                                              //GetPartidasMayor();
-                                                              break;
-                                                            case ">=":
-                                                              //GetPartidasMayorI();
-                                                              break;
-                                                            case "!=":
-                                                              //GetPartidasDif();
-                                                              break;
+                                                        try {
+                                                          print(
+                                                              "---Valor: ${value.toString()}");
+                                                          if (value
+                                                                  .isNotEmpty ||
+                                                              value != "0") {
+                                                            count_f = int.parse(
+                                                                value
+                                                                    .toString());
+                                                            count_f =
+                                                                count_f - 1;
+                                                            getFacturas();
+                                                            setState(() {});
                                                           }
-                                                        } else {
-                                                          GetFacturas();
+                                                        } catch (e) {
+                                                          print("---Error: $e");
                                                         }
                                                       },
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 15, 0),
-                                        child: Container(
-                                          width: 250,
-                                          height: 51,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility.primaryBg,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            border: Border.all(
-                                              color: globalUtility.primary,
-                                              width: 1.5,
+                                              ],
                                             ),
                                           ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Column(
-                                                mainAxisSize:
-                                                    MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      InkWell(
-                                                        child: Container(
-                                                          width: 25,
-                                                          height: 23.5,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color:
-                                                                globalUtility
-                                                                    .primary,
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .only(
-                                                              bottomLeft: Radius
-                                                                  .circular(
-                                                                      0),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          0),
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                      30),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      0),
-                                                            ),
-                                                          ),
-                                                          child: const Icon(
-                                                            Icons
-                                                                .arrow_drop_up_sharp,
-                                                            color:
-                                                                Colors.white,
-                                                            size: 18,
-                                                          ),
-                                                        ),
-                                                        onTap: () {
-                                                          if (filtro_simple ==
-                                                                  false ||
-                                                              filtro_avanzado ==
-                                                                  false) {
-                                                            count_f++;
-                                                            GetFacturas();
-                                                          }
-                                                          setState(() {});
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      InkWell(
-                                                        child: Container(
-                                                          width: 25,
-                                                          height: 23.5,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: count_f ==
-                                                                    0
-                                                                ? globalUtility
-                                                                    .secondary
-                                                                : globalUtility
-                                                                    .primary,
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .only(
-                                                              bottomLeft: Radius
-                                                                  .circular(
-                                                                      30),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          0),
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                      0),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      0),
-                                                            ),
-                                                          ),
-                                                          child: const Icon(
-                                                            Icons
-                                                                .arrow_drop_down_sharp,
-                                                            color:
-                                                                Colors.white,
-                                                            size: 18,
-                                                          ),
-                                                        ),
-                                                        onTap: () {
-                                                          if (filtro_simple ==
-                                                                  false ||
-                                                              filtro_avanzado ==
-                                                                  false) {
-                                                            if (count_f >=
-                                                                1) {
-                                                              count_f--;
-                                                              GetFacturas();
-                                                              setState(() {});
-                                                            }
-                                                          }
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              Column(
-                                                mainAxisSize:
-                                                    MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .only(start: 10),
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          'Filas: ',
-                                                          style: globalUtility
-                                                              .textoIgual(
-                                                                  context),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 100,
-                                                          child: Padding(
-                                                            padding: const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    10),
-                                                            child:
-                                                                TextFormField(
-                                                              initialValue:
-                                                                  "20",
-                                                              style: globalUtility
-                                                                  .textoA(
-                                                                      context),
-                                                              decoration:
-                                                                  const InputDecoration(
-                                                                      border:
-                                                                          InputBorder.none),
-                                                              onChanged:
-                                                                  (value) {
-                                                                try {
-                                                                  print(
-                                                                      "---Valor: ${value.toString()}");
-                                                                  if (value
-                                                                          .isNotEmpty ||
-                                                                      value !=
-                                                                          "0") {
-                                                                    count_f =
-                                                                        int.parse(
-                                                                            value.toString());
-                                                                    count_f =
-                                                                        count_f -
-                                                                            1;
-                                                                    GetFacturas();
-                                                                    setState(
-                                                                        () {});
-                                                                  }
-                                                                } catch (e) {
-                                                                  print(
-                                                                      "---Error: $e");
-                                                                }
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 150,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: globalUtility.primaryBg,
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(
+                                        color: globalUtility.primary,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<String>(
+                                          isExpanded: true,
+                                          value: selectedDDEnc[0],
+                                          items: <String>[
+                                            "Registro SAP",
+                                            "Proveedor",
+                                            "Referencia",
+                                            "Importe",
+                                            "Moneda",
+                                            "Importe USD",
+                                            "Dias para Pago",
+                                            "%DPP",
+                                            "\$DPP",
+                                            "Pronto Pago"
+                                          ]
+                                              .map((item) =>
+                                                  DropdownMenuItem<String>(
+                                                    value: item,
+                                                    child: Text(item),
+                                                  ))
+                                              .toList(),
+                                          onChanged: (item) => setState(
+                                              () => selectedDDEnc[0] = item),
                                         ),
                                       ),
-                                      Container(
-                                        width: 150,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: globalUtility.primaryBg,
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          border: Border.all(
-                                            color: globalUtility.primary,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton<String>(
-                                              isExpanded: true,
-                                              value: selectedDDEnc[0],
-                                              items: <String>[
-                                                "Registro SAP",
-                                                "Proveedor",
-                                                "Referencia",
-                                                "Importe",
-                                                "Moneda",
-                                                "Importe USD",
-                                                "Dias para Pago",
-                                                "%DPP",
-                                                "\$DPP",
-                                                "Pronto Pago"
-                                              ]
-                                                  .map((item) =>
-                                                      DropdownMenuItem<
-                                                          String>(
-                                                        value: item,
-                                                        child: Text(item),
-                                                      ))
-                                                  .toList(),
-                                              onChanged: (item) => setState(
-                                                  () => selectedDDEnc[0] =
-                                                      item),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -817,7 +640,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -870,7 +693,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -916,7 +739,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -970,7 +793,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1016,7 +839,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1069,7 +892,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1115,7 +938,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1168,7 +991,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1214,7 +1037,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1267,7 +1090,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1313,7 +1136,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1368,7 +1191,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1409,7 +1232,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1464,7 +1287,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1505,7 +1328,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1560,7 +1383,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1601,7 +1424,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1655,7 +1478,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1696,7 +1519,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                       controller_moneda.clear();
                                                       parametro_moneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1749,7 +1572,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -2245,6 +2068,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                   scrollDirection: Axis.vertical,
                                   itemCount: list_facturas.length,
                                   itemBuilder: (context, index) {
+                                    final factura = list_facturas[index];
                                     return Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
@@ -2278,8 +2102,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                               children: [
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][0]
-                                                        .toString(),
+                                                    factura[0].toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2288,8 +2111,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][1]
-                                                        .toString(),
+                                                    factura[1].toString(),
                                                     textAlign: TextAlign.start,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2298,8 +2120,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][2]
-                                                        .toString(),
+                                                    factura[2].toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2308,8 +2129,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][3]
-                                                        .toString(),
+                                                    factura[3].toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2318,8 +2138,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][4]
-                                                        .toString(),
+                                                    factura[4].toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2328,8 +2147,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][5]
-                                                        .toString(),
+                                                    factura[5].toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2338,8 +2156,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][6]
-                                                        .toString(),
+                                                    factura[6].toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2348,19 +2165,14 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Icon(
                                                   Icons.circle,
-                                                  color: list_facturas[index]
-                                                                  [7] !=
-                                                              "-" &&
-                                                          list_facturas[index]
-                                                                  [6] !=
-                                                              "-"
+                                                  color: factura[7] != "-" &&
+                                                          factura[6] != "-"
                                                       ? Colors.green
                                                       : Colors.red,
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][7]
-                                                        .toString(),
+                                                    factura[7].toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2369,8 +2181,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][8]
-                                                        .toString(),
+                                                    factura[8].toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2379,8 +2190,7 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][9]
-                                                        .toString(),
+                                                    factura[9].toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2393,17 +2203,39 @@ class _SeguimientoDeFacturasState extends State<SeguimientoDeFacturas> {
                                                         MainAxisAlignment
                                                             .spaceEvenly,
                                                     children: [
-                                                      Icon(
-                                                        Icons.description,
-                                                        color: globalUtility
-                                                            .secondary,
-                                                        size: 30,
+                                                      Material(
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return PopupNotaCredito(
+                                                                    partidasSapId:
+                                                                        factura[
+                                                                            10],
+                                                                  );
+                                                                });
+                                                          },
+                                                          child: Icon(
+                                                            Icons.description,
+                                                            color: globalUtility
+                                                                .secondary,
+                                                            size: 30,
+                                                          ),
+                                                        ),
                                                       ),
-                                                      Icon(
-                                                        Icons.visibility,
-                                                        color: globalUtility
-                                                            .secondary,
-                                                        size: 30,
+                                                      Material(
+                                                        child: InkWell(
+                                                          onTap: () {},
+                                                          child: Icon(
+                                                            Icons.visibility,
+                                                            color: globalUtility
+                                                                .secondary,
+                                                            size: 30,
+                                                          ),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),

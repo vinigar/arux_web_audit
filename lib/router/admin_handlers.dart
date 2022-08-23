@@ -83,7 +83,7 @@ class AdminHandlers {
     final VisualStateProvider visualState =
         Provider.of<VisualStateProvider>(context!);
     visualState.setTapedOption(3);
-    return const SeguimientoDeFacturas();
+    return const SeguimientoDeFacturasPage();
   });
 
   static Handler altaUsuario = Handler(handlerFunc: (context, params) {
