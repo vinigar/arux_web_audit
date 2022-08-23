@@ -360,7 +360,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 15, 0),
                                     child: Container(
-                                      width: 250,
+                                      width: 130,
                                       height: 51,
                                       decoration: BoxDecoration(
                                         color: globalUtility.primaryBg,
@@ -481,7 +481,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                       .textoIgual(context),
                                                 ),
                                                 SizedBox(
-                                                  width: 100,
+                                                  width: 50,
                                                   child: Padding(
                                                     padding: const EdgeInsets
                                                             .symmetric(
@@ -521,48 +521,6 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                             ),
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 150,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: globalUtility.primaryBg,
-                                      borderRadius: BorderRadius.circular(30),
-                                      border: Border.all(
-                                        color: globalUtility.primary,
-                                        width: 1.5,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
-                                      child: DropdownButtonHideUnderline(
-                                        child: DropdownButton<String>(
-                                          isExpanded: true,
-                                          value: selectedDDEnc[0],
-                                          items: <String>[
-                                            "Registro SAP",
-                                            "Proveedor",
-                                            "Referencia",
-                                            "Importe",
-                                            "Moneda",
-                                            "Importe USD",
-                                            "Dias para Pago",
-                                            "%DPP",
-                                            "\$DPP",
-                                            "Pronto Pago"
-                                          ]
-                                              .map((item) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: item,
-                                                    child: Text(item),
-                                                  ))
-                                              .toList(),
-                                          onChanged: (item) => setState(
-                                              () => selectedDDEnc[0] = item),
-                                        ),
                                       ),
                                     ),
                                   ),
