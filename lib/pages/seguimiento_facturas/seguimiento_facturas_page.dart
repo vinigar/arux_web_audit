@@ -23,6 +23,7 @@ class SeguimientoDeFacturasPage extends StatefulWidget {
 
 class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   GlobalUtility globalUtility = GlobalUtility();
+  final formKey = GlobalKey<FormState>();
 
   final controller_busqueda = TextEditingController();
   String parametro_busqueda = "";
@@ -2176,6 +2177,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                         return PopupNotaCredito(
                                                                           partidasSapId:
                                                                               factura[10],
+                                                                          formKey:
+                                                                              formKey,
                                                                         );
                                                                       });
                                                                   await getFacturas();
