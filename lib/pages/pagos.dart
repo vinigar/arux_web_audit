@@ -115,310 +115,6 @@ class _PagosState extends State<Pagos> {
     setState(() {});
   }
 
-  Future<void> GetPartidasMenor() async {
-    try {
-      list_Pagos = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
-      }
-
-      //print("Listas : ${list_Pagos.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMenorI() async {
-    try {
-      list_Pagos = [];
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
-      }
-
-      //print("Listas : ${list_Pagos.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasIgual() async {
-    try {
-      list_Pagos = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .match({'${selectedDDEnc_transf[0]}': '${parametro_filt[0]}'})
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
-      }
-
-      //print("Listas : ${list_Pagos.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayor() async {
-    try {
-      list_Pagos = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
-      }
-
-      //print("Listas : ${list_Pagos.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayorI() async {
-    try {
-      list_Pagos = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
-      }
-
-      //print("Listas : ${list_Pagos.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasDif() async {
-    try {
-      list_Pagos = [];
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
-      }
-
-      //print("Listas : ${list_Pagos.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
   ///////////////////////////////////////////////////////////////////////////////////
 
   Future<void> GetPagosBy__() async {
@@ -773,22 +469,22 @@ class _PagosState extends State<Pagos> {
                                                                 selectedDDOpe[
                                                                     0]) {
                                                               case "=":
-                                                                GetPartidasIgual();
+                                                                //GetPartidasIgual();
                                                                 break;
                                                               case "<":
-                                                                GetPartidasMenor();
+                                                                //GetPartidasMenor();
                                                                 break;
                                                               case "<=":
-                                                                GetPartidasMenorI();
+                                                                //GetPartidasMenorI();
                                                                 break;
                                                               case ">":
-                                                                GetPartidasMayor();
+                                                                //GetPartidasMayor();
                                                                 break;
                                                               case ">=":
-                                                                GetPartidasMayorI();
+                                                                //GetPartidasMayorI();
                                                                 break;
                                                               case "!=":
-                                                                GetPartidasDif();
+                                                                //GetPartidasDif();
                                                                 break;
                                                             }
                                                           } else {
@@ -1108,22 +804,22 @@ class _PagosState extends State<Pagos> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1206,22 +902,22 @@ class _PagosState extends State<Pagos> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1303,22 +999,22 @@ class _PagosState extends State<Pagos> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1400,22 +1096,22 @@ class _PagosState extends State<Pagos> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {

@@ -149,310 +149,6 @@ class _ProveedoresState extends State<Proveedores> {
     setState(() {});
   }
 
-  Future<void> GetPartidasMenor() async {
-    try {
-      list_proveedores = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMenorI() async {
-    try {
-      list_proveedores = [];
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasIgual() async {
-    try {
-      list_proveedores = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .match({'${selectedDDEnc_transf[0]}': '${parametro_filt[0]}'})
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayor() async {
-    try {
-      list_proveedores = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayorI() async {
-    try {
-      list_proveedores = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasDif() async {
-    try {
-      list_proveedores = [];
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
   ///////////////////////////////////////////////////////////////////////////////////
 
   Future<void> GetProveedoresBy__() async {
@@ -565,84 +261,11 @@ class _ProveedoresState extends State<Proveedores> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  /* Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MenuButton(
-                          icon: Icons.home_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.notifications_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.subtitles_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/gestor-partidas-push',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.podcasts,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.receipt_long_sharp,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.bar_chart_rounded,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/reporte-seguimiento-facturas',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                            icon: Icons.person_add_outlined,
-                            fillColor: globalUtility.primary,
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                '/proveedores',
-                              );
-                            }),
-                        MenuButton(
-                          icon: Icons.group_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/usuarios',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.power_settings_new_outlined,
-                          fillColor: Color(0xFFFF0003),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ), */
                   const SideMenuWidget(),
                   Expanded(
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -681,29 +304,6 @@ class _ProveedoresState extends State<Proveedores> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        /* Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 25, 0),
-                                          child: Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.grid_view,
-                                                color: globalUtility.primary,
-                                                size: 28,
-                                              ),
-                                            ),
-                                          ),
-                                        ), */
                                         Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 25, 0),
@@ -804,22 +404,22 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 selectedDDOpe[
                                                                     0]) {
                                                               case "=":
-                                                                GetPartidasIgual();
+                                                                //GetPartidasIgual();
                                                                 break;
                                                               case "<":
-                                                                GetPartidasMenor();
+                                                                //GetPartidasMenor();
                                                                 break;
                                                               case "<=":
-                                                                GetPartidasMenorI();
+                                                                //GetPartidasMenorI();
                                                                 break;
                                                               case ">":
-                                                                GetPartidasMayor();
+                                                                //GetPartidasMayor();
                                                                 break;
                                                               case ">=":
-                                                                GetPartidasMayorI();
+                                                               //GetPartidasMayorI();
                                                                 break;
                                                               case "!=":
-                                                                GetPartidasDif();
+                                                                //etPartidasDif();
                                                                 break;
                                                             }
                                                           } else {
@@ -1139,22 +739,22 @@ class _ProveedoresState extends State<Proveedores> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                         // GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1237,22 +837,22 @@ class _ProveedoresState extends State<Proveedores> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1334,22 +934,22 @@ class _ProveedoresState extends State<Proveedores> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                         // GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -1431,22 +1031,22 @@ class _ProveedoresState extends State<Proveedores> {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
-                                                          GetPartidasIgual();
+                                                          //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                          GetPartidasMenor();
+                                                          //GetPartidasMenor();
                                                           break;
                                                         case "<=":
-                                                          GetPartidasMenorI();
+                                                          //GetPartidasMenorI();
                                                           break;
                                                         case ">":
-                                                          GetPartidasMayor();
+                                                          //GetPartidasMayor();
                                                           break;
                                                         case ">=":
-                                                          GetPartidasMayorI();
+                                                          //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                          GetPartidasDif();
+                                                          //GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {

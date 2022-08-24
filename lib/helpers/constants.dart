@@ -8,7 +8,7 @@ const String query_partidas_push =
 const String query_partidas_pull =
     "SELECT partidas_sap.id_partidas_pk,proveedores.sociedad ,partidas_sap.referencia,partidas_sap.importe_ml,partidas_sap.ml,partidas_sap.importe ,partidas_sap.dias_pago,partidas_sap.descuento_porc_pp,partidas_sap.descuento_cant_pp,partidas_sap.pronto_pago,esquemas.id_esquema_pk FROM proveedores INNER JOIN partidas_sap ON id_proveedor_pk = id_proveedor_fk INNER JOIN esquemas ON id_esquema_fk = id_esquema_pk WHERE id_esquema_pk = 2 OR id_esquema_pk = 3 ";
 const String query_partidas =
-    "SELECT partidas_sap.id_partidas_pk,proveedores.sociedad ,partidas_sap.referencia,partidas_sap.importe_ml,partidas_sap.ml,partidas_sap.importe ,partidas_sap.dias_pago,partidas_sap.descuento_porc_pp,partidas_sap.descuento_cant_pp,partidas_sap.pronto_pago,esquemas.id_esquema_pk FROM proveedores INNER JOIN partidas_sap ON id_proveedor_pk = id_proveedor_fk INNER JOIN esquemas ON id_esquema_fk = id_esquema_pk WHERE ";
+    "SELECT partidas_sap.id_partidas_pk,proveedores.sociedad ,partidas_sap.no_doc_partida,partidas_sap.importe_ml,partidas_sap.ml,partidas_sap.importe ,partidas_sap.dias_pago,partidas_sap.descuento_porc_pp,partidas_sap.descuento_cant_pp,partidas_sap.pronto_pago,esquemas.id_esquema_pk FROM proveedores INNER JOIN partidas_sap ON id_proveedor_pk = id_proveedor_fk INNER JOIN esquemas ON id_esquema_fk = id_esquema_pk WHERE ";
 const String query_proveedores = "";
 const String query_registro_facturas = "";
 const String query_seguimiento_facturas = "";

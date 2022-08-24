@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:arux/helpers/constants.dart';
 import 'package:arux/helpers/globalUtility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
@@ -67,7 +68,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
 
   List<String> selected_Enc = ["Registro SAP"];
   List<String> selected_Ope = ["="];
-  List<String> selected_Val = [];
+  List<String> selected_Val = [""];
   List<String> selected_Cond = [];
   bool filtro_avanzado = false;
   String query = "";
@@ -205,44 +206,74 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
   Future<void> GetPartidasPushBy__Filtro_Ava() async {
     try {
       query = "";
-      for (var i = 0; i < selected_Enc.length; i++) {
+      print(selected_Val.length);
+      for (var i = 0; i < selected_Val.length; i++) {
         String _local_enc = "";
+        String _local_val = "";
         String _local_cond = "";
         switch (selected_Enc[i]) {
           case "Registro SAP":
             _local_enc = "id_partidas_pk";
+            _local_val = selected_Val[i];
             break;
           case "Proveedor":
             _local_enc = "proveedores.sociedad";
+            _local_val = "'${selected_Val[i]}'";
             break;
           case "Referencia":
-            _local_enc = "partidas_sap.referencia";
+            _local_enc = "partidas_sap.no_doc_partida";
+            _local_val = "'${selected_Val[i]}'";
             break;
           case "Importe Factura":
             _local_enc = "partidas_sap.importe_ml";
+            _local_val = selected_Val[i];
             break;
           case "Moneda":
             _local_enc = "partidas_sap.ml";
+            _local_val = "'${selected_Val[i]}'";
             break;
           case "Dias para aplicar pago":
             _local_enc = "partidas_sap.dias_pago";
+            _local_val = selected_Val[i];
             break;
           case "%DPP":
             _local_enc = "partidas_sap.descuento_porc_pp";
+            _local_val = selected_Val[i];
             break;
           case "\$DPP":
             _local_enc = "partidas_sap.descuento_cant_pp";
+            _local_val = selected_Val[i];
             break;
           case "\$ Pronto Pago":
             _local_enc = "partidas_sap.pronto_pago";
+            _local_val = selected_Val[i];
             break;
         }
-        query = (query + " " + selected_Enc[i]).toString();
+        if (i == selected_Val.length - 1) {
+          query = (query +
+                  " " +
+                  _local_enc +
+                  " " +
+                  selected_Ope[i] +
+                  " " +
+                  _local_val)
+              .toString();
+        } else {
+          query = (query +
+                  " " +
+                  _local_enc +
+                  " " +
+                  selected_Ope[i] +
+                  " " +
+                  _local_val +
+                  " AND")
+              .toString();
+        }
       }
-
-      /* dynamic response = await supabase
+      print("----Query: $query");
+      dynamic response = await supabase
           .rpc('get_partidas_by_filtrado', params: {
-            'query': query,
+            'query': query_partidas + query,
           })
           .order(orden, ascending: asc)
           .execute();
@@ -266,14 +297,16 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
         local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
         local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
         local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add(getGestorPartidasQTResponse.data[i].importe);
+        local_list.add(double.parse(
+            getGestorPartidasQTResponse.data[i].importe.toStringAsFixed(2)));
         local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
+        local_list.add(getGestorPartidasQTResponse.data[i].importeUsd);
         local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
-
+        local_list.add(getGestorPartidasQTResponse.data[i].porcDpp);
+        local_list.add(double.parse(
+            getGestorPartidasQTResponse.data[i].cantDpp.toStringAsFixed(2)));
+        local_list.add(double.parse(
+            getGestorPartidasQTResponse.data[i].prontoPago.toStringAsFixed(2)));
         list_partidas.add(local_list);
 
         //print("Indice $i : ${list_partidas[i]}");
@@ -281,12 +314,13 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
         //print("Indice $i : ${list_partidas[i].length}");
       }
 
-      //print("Listas : ${list_partidas.length}"); */
+      //print(list_partidas);
+
+      //print("Listas : ${list_partidas.length}");
 
     } catch (e) {
       print(e);
     }
-
     setState(() {});
   }
 
@@ -324,6 +358,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
       print(e);
     }
   }
+
+  ///////////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -378,29 +414,6 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      /* Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 25, 0),
-                                        child: Container(
-                                          width: 45,
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility.primaryBg,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: globalUtility.primary,
-                                              width: 2,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.grid_view,
-                                              color: globalUtility.primary,
-                                              size: 28,
-                                            ),
-                                          ),
-                                        ),
-                                      ), */
                                       Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 0, 25, 0),
@@ -737,7 +750,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                         ),
                                       ),
-                                      /* Container(
+                                      Container(
                                         width: 150,
                                         height: 50,
                                         decoration: BoxDecoration(
@@ -778,7 +791,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             },
                                           ),
                                         ),
-                                      ), */
+                                      ),
                                       /*  Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -2028,6 +2041,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                           0),
                                                                   child:
                                                                       TextFormField(
+                                                                    initialValue:
+                                                                        selected_Val[
+                                                                            index],
                                                                     autofocus:
                                                                         true,
                                                                     obscureText:
@@ -2152,6 +2168,42 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                         .add("Registro SAP");
                                                     selected_Ope.add("=");
                                                     selected_Val.add("");
+                                                    setState(() {});
+                                                  },
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 15, 0),
+                                                child: InkWell(
+                                                  child: Container(
+                                                    width: 50,
+                                                    height: 50,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          globalUtility.primary,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.check,
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                          size: 24,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    popup_rise = false;
+                                                    GetPartidasPushBy__Filtro_Ava();
                                                     setState(() {});
                                                   },
                                                 ),
