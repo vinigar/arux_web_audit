@@ -7,10 +7,10 @@ import 'package:expandable/expandable.dart';
 
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
-import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
+import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/models/GET_Proveedores_QT.dart';
 import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
-import 'package:arux/models/Get_Pagos_QT.dart';
+import 'package:arux/models/get_pagos_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
 import 'package:arux/helpers/supabase/queries.dart';

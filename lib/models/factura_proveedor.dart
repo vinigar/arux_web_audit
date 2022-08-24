@@ -228,7 +228,7 @@ class FacturaProveedor {
         "descuento_porc_pp": descuentoPorcPp,
         "pronto_pago": prontoPago,
         "descuento_cant_pp": descuentoCantPp,
-        "id_pago_fk": idPagoFk == null ? null : idPagoFk,
+        "id_pago_fk": idPagoFk,
         "id_nc_sap_fk": idNcSapFk,
         "id_estatus_fk": idEstatusFk,
         "id_estado_pk": idEstadoPk,
@@ -239,9 +239,9 @@ class FacturaProveedor {
       };
 }
 
-enum NombreEstado { VIGENTE }
+enum NombreEstado { vigente }
 
-final nombreEstadoValues = EnumValues({"Vigente": NombreEstado.VIGENTE});
+final nombreEstadoValues = EnumValues({"Vigente": NombreEstado.vigente});
 
 class EnumValues<T> {
   Map<String, T> map;

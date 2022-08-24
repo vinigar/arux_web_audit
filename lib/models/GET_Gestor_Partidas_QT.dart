@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getGestorPartidasQt = getGestorPartidasQtFromMap(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetGestorPartidasQt getGestorPartidasQtFromMap(String str) =>

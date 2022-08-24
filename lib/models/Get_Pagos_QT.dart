@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getPagosQt = getPagosQtFromMap(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GetPagosQt getPagosQtFromMap(String str) =>

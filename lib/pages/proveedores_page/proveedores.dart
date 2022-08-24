@@ -5,8 +5,8 @@ import 'package:expandable/expandable.dart';
 
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
-import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Proveedores_QT.dart';
+import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
@@ -388,14 +388,7 @@ class _ProveedoresState extends State<Proveedores> {
         local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
 
         list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
       }
-
-      //print("Listas : ${list_proveedores.length}");
-
     } catch (e) {
       print(e);
     }
@@ -438,22 +431,13 @@ class _ProveedoresState extends State<Proveedores> {
         local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
 
         list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
       }
-
-      //print("Listas : ${list_proveedores.length}");
-
     } catch (e) {
       print(e);
     }
 
     setState(() {});
   }
-
-  ///////////////////////////////////////////////////////////////////////////////////
 
   Future<void> GetProveedoresBy__() async {
     try {
@@ -468,13 +452,7 @@ class _ProveedoresState extends State<Proveedores> {
           .range(0, count_f)
           .execute();
 
-      //print("-----Error: ${response.error}");
-
       response = jsonEncode(response);
-
-      // print("-----Parametro de Busqueda: $parametro_busqueda");
-      /* print("-----Response: ");
-      print(response.toString()); */
 
       GetProveedoresQt getProveedoresQTResponse =
           getProveedoresQtFromMap(response);
@@ -565,79 +543,6 @@ class _ProveedoresState extends State<Proveedores> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  /* Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MenuButton(
-                          icon: Icons.home_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.notifications_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.subtitles_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/gestor-partidas-push',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.podcasts,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.receipt_long_sharp,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.bar_chart_rounded,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/reporte-seguimiento-facturas',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                            icon: Icons.person_add_outlined,
-                            fillColor: globalUtility.primary,
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                '/proveedores',
-                              );
-                            }),
-                        MenuButton(
-                          icon: Icons.group_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/usuarios',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.power_settings_new_outlined,
-                          fillColor: Color(0xFFFF0003),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ), */
                   const SideMenuWidget(),
                   Expanded(
                     child: Padding(

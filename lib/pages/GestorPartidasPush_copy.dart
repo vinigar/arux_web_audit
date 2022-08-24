@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:arux/functions/money_format.dart';
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
-import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
+import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
 import 'package:data_table_2/data_table_2.dart';
