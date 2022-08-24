@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:arux/functions/date_format.dart';
-import 'package:arux/functions/money_format.dart';
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 
+import 'package:arux/functions/date_format.dart';
+import 'package:arux/functions/money_format.dart';
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/models/get_proveedores_qt.dart';
-import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
+import 'package:arux/models/get_sociedades_by_id_proveedor.dart';
 import 'package:arux/models/get_pagos_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';

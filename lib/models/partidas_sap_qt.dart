@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final partidasSapQt = partidasSapQtFromMap(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 PartidasSapQt partidasSapQtFromMap(String str) =>
