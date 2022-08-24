@@ -60,21 +60,28 @@ class _PageHeaderState extends State<PageHeader> {
             children: [
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 25, 0),
-                child: Container(
-                  width: 45,
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color: const Color(0XFF09A963),
-                    shape: BoxShape.circle,
-                    border: Border.all(
+                child: InkWell(
+                  onTap: () async {
+                    if (widget.headerName == 'Usuarios') {
+                      await Navigator.of(context).pushNamed('alta-usuario');
+                    }
+                  },
+                  child: Container(
+                    width: 45,
+                    height: 45,
+                    decoration: BoxDecoration(
                       color: const Color(0XFF09A963),
-                      width: 2,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: const Color(0XFF09A963),
+                        width: 2,
+                      ),
                     ),
-                  ),
-                  child: const Icon(
-                    Icons.file_download,
-                    color: Colors.white,
-                    size: 28,
+                    child: const Icon(
+                      Icons.person_add,
+                      color: Colors.white,
+                      size: 28,
+                    ),
                   ),
                 ),
               ),
