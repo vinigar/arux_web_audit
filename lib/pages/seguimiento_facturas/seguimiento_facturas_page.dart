@@ -1,17 +1,16 @@
 import 'dart:convert';
 
-import 'package:arux/helpers/supabase/queries.dart';
-import 'package:arux/pages/seguimiento_facturas/widgets/popup_nota_credito.dart';
 import 'package:flutter/material.dart';
 
 import 'package:arux/functions/date_format.dart';
+import 'package:arux/helpers/supabase/queries.dart';
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/models/get_seguimiento_facturas_qt.dart';
+import 'package:arux/pages/seguimiento_facturas/widgets/popup_nota_credito.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
-import 'package:intl/intl.dart';
 
 class SeguimientoDeFacturasPage extends StatefulWidget {
   const SeguimientoDeFacturasPage({Key? key}) : super(key: key);
@@ -36,24 +35,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   final fechaLimiteController = TextEditingController();
   final fechaPagoController = TextEditingController();
   final estatusController = TextEditingController();
+  final busquedaFiltroController = TextEditingController();
 
-  bool filtro_simple = false;
+  bool filtroSimple = false;
+  bool filtroAvanzado = false;
 
-  List<List<dynamic>> list_facturas = [];
+  List<List<dynamic>> facturas = [];
   String orden = "idddu";
   bool asc = true;
-  int count_i = 0;
-  int count_f = 19;
+  int countI = 0;
+  int countF = 19;
 
-  bool popup_rise = false;
+  bool popupRise = false;
   List<String?> selectedDDEnc = ["Registro SAP"];
-  List<String?> selectedDDEnc_transf = [""];
+  List<String?> selectedDDEncTransf = [""];
   List<String?> selectedDDOpe = ["="];
-  List<String?> parametro_filt = [""];
-  final controller_busqueda_filtro = TextEditingController();
-  bool filtro_avanzado = false;
-
-  ///////////////////////////////////////////////////////////////////////////////////
+  List<String?> parametroFilt = [""];
 
   @override
   void initState() {
@@ -67,7 +64,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
           .rpc('get_seguimiento_factura',
               params: {'busqueda': busquedaController.text})
           .order(orden, ascending: asc)
-          .range(0, count_f)
+          .range(0, countF)
           .execute();
 
       if (res.hasError) {
@@ -78,7 +75,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
       GetSeguimientoFacturasQt getSeguimientoFacturasQt =
           getSeguimientoFacturasQtFromMap(jsonEncode(res));
 
-      list_facturas = [];
+      facturas = [];
 
       for (var i = 0; i < getSeguimientoFacturasQt.data.length; i++) {
         List<dynamic> localList = [];
@@ -109,10 +106,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
         localList.add(getSeguimientoFacturasQt.data[i].estatus);
         localList.add(getSeguimientoFacturasQt.data[i].idPartidasPk);
 
-        list_facturas.add(localList);
-
-        print((list_facturas[i][7].difference(list_facturas[i][6])).inDays);
-        print((list_facturas[i][7].difference(DateTime.now())).inDays);
+        facturas.add(localList);
       }
     } catch (e) {
       print(e);
@@ -121,9 +115,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
     setState(() {});
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////
   //TODO: agregar pk a consulta
-  Future<void> GetFacturasBy_() async {
+  Future<void> getFacturasBy_() async {
     try {
       dynamic response = await supabase
           .rpc('get_gestor_partidas_push_by__', params: {
@@ -147,7 +140,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
       GetGestorPartidasQt getSeguimientoFacturasQt =
           getGestorPartidasQtFromMap(response);
 
-      list_facturas = [];
+      facturas = [];
 
       for (var i = 0; i < getSeguimientoFacturasQt.data.length; i++) {
         List<dynamic> localList = [];
@@ -163,7 +156,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
         localList.add("\$ ${getSeguimientoFacturasQt.data[i].cantDpp}");
         localList.add("\$ ${getSeguimientoFacturasQt.data[i].prontoPago}");
 
-        list_facturas.add(localList);
+        facturas.add(localList);
       }
     } catch (e) {
       print(e);
@@ -310,7 +303,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   style: globalUtility
                                                       .textoA(context),
                                                   onChanged: (value) async {
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -371,59 +364,46 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  InkWell(
-                                                    child: Container(
-                                                      width: 25,
-                                                      height: 23.5,
-                                                      decoration: BoxDecoration(
-                                                        color: globalUtility
-                                                            .primary,
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  0),
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  30),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  0),
-                                                        ),
-                                                      ),
-                                                      child: const Icon(
-                                                        Icons
-                                                            .arrow_drop_up_sharp,
-                                                        color: Colors.white,
-                                                        size: 18,
-                                                      ),
+                                              InkWell(
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 23.5,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        globalUtility.primary,
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(0),
+                                                      bottomRight:
+                                                          Radius.circular(0),
+                                                      topLeft:
+                                                          Radius.circular(30),
+                                                      topRight:
+                                                          Radius.circular(0),
                                                     ),
-                                                    onTap: () async {
-                                                      if (filtro_simple ==
-                                                              false ||
-                                                          filtro_avanzado ==
-                                                              false) {
-                                                        count_f++;
-                                                        await getFacturas();
-                                                      }
-                                                      setState(() {});
-                                                    },
                                                   ),
-                                                ],
+                                                  child: const Icon(
+                                                    Icons.arrow_drop_up_sharp,
+                                                    color: Colors.white,
+                                                    size: 18,
+                                                  ),
+                                                ),
+                                                onTap: () async {
+                                                  if (filtroSimple == false ||
+                                                      filtroAvanzado == false) {
+                                                    countF++;
+                                                    await getFacturas();
+                                                  }
+                                                  setState(() {});
+                                                },
                                               ),
                                               InkWell(
                                                 child: Container(
                                                   width: 25,
                                                   height: 23.5,
                                                   decoration: BoxDecoration(
-                                                    color: count_f == 0
+                                                    color: countF == 0
                                                         ? globalUtility
                                                             .secondary
                                                         : globalUtility.primary,
@@ -446,11 +426,10 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   ),
                                                 ),
                                                 onTap: () async {
-                                                  if (filtro_simple == false ||
-                                                      filtro_avanzado ==
-                                                          false) {
-                                                    if (count_f >= 1) {
-                                                      count_f--;
+                                                  if (filtroSimple == false ||
+                                                      filtroAvanzado == false) {
+                                                    if (countF >= 1) {
+                                                      countF--;
                                                       await getFacturas();
                                                       setState(() {});
                                                     }
@@ -491,11 +470,10 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           if (value
                                                                   .isNotEmpty ||
                                                               value != "0") {
-                                                            count_f = int.parse(
+                                                            countF = int.parse(
                                                                 value
                                                                     .toString());
-                                                            count_f =
-                                                                count_f - 1;
+                                                            countF = countF - 1;
                                                             await getFacturas();
                                                             setState(() {});
                                                           }
@@ -568,12 +546,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                 context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -610,7 +587,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -632,8 +609,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -661,12 +638,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                 context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -704,7 +680,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -726,8 +702,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -755,12 +731,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                 context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -797,7 +772,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -819,8 +794,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -848,12 +823,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                 context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -890,7 +864,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -912,8 +886,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -941,12 +915,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                 context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -983,7 +956,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1005,8 +978,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -1034,12 +1007,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                 context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -1078,7 +1050,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1100,8 +1072,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -1124,12 +1096,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -1168,7 +1139,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1190,8 +1161,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -1214,12 +1185,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -1258,7 +1228,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1280,8 +1250,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -1304,12 +1274,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -1347,7 +1316,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1369,8 +1338,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -1393,12 +1362,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             context),
                                                   ),
                                                   onTap: () async {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
+                                                      filtroSimple = false;
                                                       iddduController.clear();
                                                       proveedorController
                                                           .clear();
@@ -1435,7 +1403,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1457,8 +1425,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
                                                     }
@@ -1477,7 +1445,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                           ),
                                         ],
                                       ),
-                                      filtro_simple == true
+                                      filtroSimple == true
                                           ? Row(
                                               children: [
                                                 Expanded(
@@ -1514,7 +1482,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1555,7 +1523,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1596,7 +1564,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1637,7 +1605,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1681,7 +1649,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1725,7 +1693,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1766,7 +1734,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1807,7 +1775,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1851,7 +1819,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1895,7 +1863,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1924,9 +1892,9 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: list_facturas.length,
+                                  itemCount: facturas.length,
                                   itemBuilder: (context, index) {
-                                    final factura = list_facturas[index];
+                                    final factura = facturas[index];
                                     return Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
