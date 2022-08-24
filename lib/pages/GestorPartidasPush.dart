@@ -13,6 +13,7 @@ import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class GestorPartidasPush extends StatefulWidget {
   const GestorPartidasPush({Key? key}) : super(key: key);
@@ -329,7 +330,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
       for (var i = 0; i < list_carrito.length; i++) {
         dynamic response = await supabase
             .from('partidas_sap')
-            .update({'id_estatus_fk': 5}).match(
+            .update({'id_estatus_fk': 5, 'fecha_base' : DateTime.now().toString()}).match(
                 {'id_partidas_pk': '${list_carrito[i][0]}'}).execute();
 
         print("-----Error: ${response.error}");

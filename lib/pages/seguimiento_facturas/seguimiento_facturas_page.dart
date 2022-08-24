@@ -11,6 +11,7 @@ import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/models/get_seguimiento_facturas_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
+import 'package:intl/intl.dart';
 
 class SeguimientoDeFacturasPage extends StatefulWidget {
   const SeguimientoDeFacturasPage({Key? key}) : super(key: key);
@@ -104,14 +105,12 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
         if (getSeguimientoFacturasQt.data[i].fechaInicio == null) {
           localList.add("-");
         } else {
-          localList
-              .add(dateFormat(getSeguimientoFacturasQt.data[i].fechaInicio));
+          localList.add(getSeguimientoFacturasQt.data[i].fechaInicio);
         }
         if (getSeguimientoFacturasQt.data[i].fechaLimite == null) {
           localList.add("-");
         } else {
-          localList
-              .add(dateFormat(getSeguimientoFacturasQt.data[i].fechaLimite));
+          localList.add(getSeguimientoFacturasQt.data[i].fechaLimite);
         }
         if (getSeguimientoFacturasQt.data[i].fechaPago == null) {
           localList.add("-");
@@ -123,6 +122,9 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
         localList.add(getSeguimientoFacturasQt.data[i].idPartidasPk);
 
         list_facturas.add(localList);
+
+        print((list_facturas[i][7].difference(list_facturas[i][6])).inDays);
+        print((list_facturas[i][7].difference(DateTime.now())).inDays);
       }
     } catch (e) {
       print(e);
@@ -2115,23 +2117,37 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[6].toString(),
+                                                    dateFormat(factura[6]),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
                                                             context),
                                                   ),
                                                 ),
-                                                Icon(
-                                                  Icons.circle,
-                                                  color: factura[7] != "-" &&
-                                                          factura[6] != "-"
-                                                      ? Colors.green
-                                                      : Colors.green,
-                                                ),
+                                                Icon(Icons.circle,
+                                                    color: ((factura[7].difference(
+                                                                    DateTime
+                                                                        .now()))
+                                                                .inDays) >=
+                                                            ((factura[7].difference(
+                                                                        factura[
+                                                                            6]))
+                                                                    .inDays) /
+                                                                2
+                                                        ? Colors.green
+                                                        : ((factura[7].difference(
+                                                                        DateTime
+                                                                            .now()))
+                                                                    .inDays) >=
+                                                                ((factura[7].difference(
+                                                                            factura[6]))
+                                                                        .inDays) /
+                                                                    4
+                                                            ? Colors.yellow
+                                                            : Colors.red),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[7].toString(),
+                                                    dateFormat(factura[7]),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
