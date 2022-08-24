@@ -2127,7 +2127,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   color: factura[7] != "-" &&
                                                           factura[6] != "-"
                                                       ? Colors.green
-                                                      : Colors.green,
+                                                      : Colors.red,
                                                 ),
                                                 Expanded(
                                                   child: Text(

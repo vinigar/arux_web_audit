@@ -182,84 +182,6 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  /* Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MenuButton(
-                          icon: Icons.home_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.notifications_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.subtitles_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/gestor-partidas-push',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.podcasts,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.receipt_long_sharp,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/pagos',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.bar_chart_rounded,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/reporte-seguimiento-facturas',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                            icon: Icons.person_add_outlined,
-                            fillColor: globalUtility.primary,
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                '/proveedores',
-                              );
-                            }),
-                        MenuButton(
-                          icon: Icons.group_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/usuarios',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.power_settings_new_outlined,
-                          fillColor: Color(0xFFFF0003),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ), */
                   const SideMenuWidget(),
                   Expanded(
                     child: Padding(
@@ -299,29 +221,6 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      /* Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 25, 0),
-                                        child: Container(
-                                          width: 45,
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                            color: globalUtility.primaryBg,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: globalUtility.primary,
-                                              width: 2,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.grid_view,
-                                              color: globalUtility.primary,
-                                              size: 28,
-                                            ),
-                                          ),
-                                        ),
-                                      ), */
                                       Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 0, 25, 0),
