@@ -11,6 +11,7 @@ class CrudProveedores extends ChangeNotifier {
       .from('seguimiento_proveedor')
       .select()
       .eq('id_proveedor_fk', currentUser?.idProveedorFk ?? '')
+      .not('nombre_estatus', 'eq', 'Extraccion')
       .execute();
 
   //TODO: manejar errores

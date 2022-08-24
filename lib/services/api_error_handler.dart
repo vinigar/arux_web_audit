@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class ApiErrorHandler {
   static String translateErrorMsg(String message) {
     switch (message) {
@@ -12,5 +15,17 @@ class ApiErrorHandler {
       default:
         return 'Error al realizar petición';
     }
+  }
+
+  static Future<void> callToast(
+      [String msg = 'Error al realizar petición']) async {
+    await Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      webBgColor: "#e74c3c",
+      textColor: Colors.black,
+      timeInSecForIosWeb: 5,
+      webPosition: 'center',
+    );
   }
 }

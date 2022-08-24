@@ -50,9 +50,7 @@ class UserState extends ChangeNotifier {
   }
 
   Future<void> logout() async {
-    final res = await supabase.auth.signOut();
-    //TODO: handle errors
-    // if(res.statusCode);
+    await supabase.auth.signOut();
     currentUser = null;
     await NavigationService.removeTo('/');
   }

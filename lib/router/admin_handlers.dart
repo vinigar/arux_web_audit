@@ -59,7 +59,7 @@ class AdminHandlers {
   static Handler proveedores = Handler(handlerFunc: (context, params) {
     final VisualStateProvider visualState =
         Provider.of<VisualStateProvider>(context!);
-    visualState.setTapedOption(7);
+    visualState.setTapedOption(6);
     return const Proveedores();
   });
 

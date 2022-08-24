@@ -12,3 +12,4 @@ const String query_partidas =
 const String query_proveedores = "";
 const String query_registro_facturas = "";
 const String query_seguimiento_facturas = "";
+

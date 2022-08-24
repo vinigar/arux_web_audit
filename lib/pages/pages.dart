@@ -1,7 +1,7 @@
 export 'package:arux/pages/seg_proveedores_page/seg_proveedores_page.dart';
 export 'package:arux/pages/GestorPartidasPull.dart';
 export 'package:arux/pages/GestorPartidasPush.dart';
-export 'package:arux/pages/proveedores.dart';
+export 'package:arux/pages/proveedores_page/proveedores.dart';
 export 'package:arux/pages/ReporteSeguimientoDeFacturas.dart';
 export 'package:arux/pages/seguimiento_facturas/seguimiento_facturas_page.dart';
 export 'package:arux/pages/usuarios_page/usuarios_page.dart';

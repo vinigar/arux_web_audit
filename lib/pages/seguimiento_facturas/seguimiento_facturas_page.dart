@@ -5,13 +5,12 @@ import 'package:arux/pages/seguimiento_facturas/widgets/popup_nota_credito.dart'
 import 'package:flutter/material.dart';
 
 import 'package:arux/functions/date_format.dart';
-import 'package:arux/helpers/globalUtility.dart';
+import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
-import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
-import 'package:arux/models/GET_Seguimiento_Facturas_QT.dart';
+import 'package:arux/models/get_gestor_partidas_qt.dart';
+import 'package:arux/models/get_seguimiento_facturas_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SeguimientoDeFacturasPage extends StatefulWidget {
   const SeguimientoDeFacturasPage({Key? key}) : super(key: key);
@@ -23,6 +22,7 @@ class SeguimientoDeFacturasPage extends StatefulWidget {
 
 class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   GlobalUtility globalUtility = GlobalUtility();
+  final formKey = GlobalKey<FormState>();
 
   final controller_busqueda = TextEditingController();
   String parametro_busqueda = "";
@@ -2176,6 +2176,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                         return PopupNotaCredito(
                                                                           partidasSapId:
                                                                               factura[10],
+                                                                          formKey:
+                                                                              formKey,
                                                                         );
                                                                       });
                                                                   await getFacturas();

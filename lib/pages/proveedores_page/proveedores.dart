@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:arux/helpers/globalUtility.dart';
+import 'package:flutter/material.dart';
+import 'package:expandable/expandable.dart';
+
+import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
-import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
-import 'package:arux/models/GET_Proveedores_QT.dart';
+import 'package:arux/models/get_proveedores_qt.dart';
+import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
-import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
-import 'package:expandable/expandable.dart';
-import 'package:flutter/material.dart';
 
 class Proveedores extends StatefulWidget {
   const Proveedores({Key? key}) : super(key: key);
@@ -151,6 +151,296 @@ class _ProveedoresState extends State<Proveedores> {
 
   ///////////////////////////////////////////////////////////////////////////////////
 
+  Future<void> GetPartidasMenor() async {
+    try {
+      list_proveedores = [];
+
+      dynamic response = await supabase
+          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
+          .lt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
+          .order(orden, ascending: asc)
+          .execute();
+
+      print("-----Error: ${response.error}");
+
+      response = jsonEncode(response);
+
+      print("-----Parametro de Busqueda: $parametro_busqueda");
+      print("-----Response: ");
+      print(response.toString());
+
+      GetGestorPartidasQt getProveedoresQTResponse =
+          getGestorPartidasQtFromMap(response);
+
+      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
+        List<dynamic> local_list = [];
+
+        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
+        local_list.add(getProveedoresQTResponse.data[i].proveedor);
+        local_list.add(getProveedoresQTResponse.data[i].referencia);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
+        local_list.add(getProveedoresQTResponse.data[i].moneda);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
+        local_list.add(getProveedoresQTResponse.data[i].diasPago);
+        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
+        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
+
+        list_proveedores.add(local_list);
+
+        //print("Indice $i : ${list_proveedores[i]}");
+        //print("Indice $i : ${list_proveedores[i][1]}");
+        //print("Indice $i : ${list_proveedores[i].length}");
+      }
+
+      //print("Listas : ${list_proveedores.length}");
+
+    } catch (e) {
+      print(e);
+    }
+
+    setState(() {});
+  }
+
+  Future<void> GetPartidasMenorI() async {
+    try {
+      list_proveedores = [];
+      dynamic response = await supabase
+          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
+          .lte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
+          .order(orden, ascending: asc)
+          .execute();
+
+      print("-----Error: ${response.error}");
+
+      response = jsonEncode(response);
+
+      print("-----Parametro de Busqueda: $parametro_busqueda");
+      print("-----Response: ");
+      print(response.toString());
+
+      GetGestorPartidasQt getProveedoresQTResponse =
+          getGestorPartidasQtFromMap(response);
+
+      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
+        List<dynamic> local_list = [];
+
+        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
+        local_list.add(getProveedoresQTResponse.data[i].proveedor);
+        local_list.add(getProveedoresQTResponse.data[i].referencia);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
+        local_list.add(getProveedoresQTResponse.data[i].moneda);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
+        local_list.add(getProveedoresQTResponse.data[i].diasPago);
+        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
+        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
+
+        list_proveedores.add(local_list);
+
+        //print("Indice $i : ${list_proveedores[i]}");
+        //print("Indice $i : ${list_proveedores[i][1]}");
+        //print("Indice $i : ${list_proveedores[i].length}");
+      }
+
+      //print("Listas : ${list_proveedores.length}");
+
+    } catch (e) {
+      print(e);
+    }
+
+    setState(() {});
+  }
+
+  Future<void> GetPartidasIgual() async {
+    try {
+      list_proveedores = [];
+
+      dynamic response = await supabase
+          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
+          .match({'${selectedDDEnc_transf[0]}': '${parametro_filt[0]}'})
+          .order(orden, ascending: asc)
+          .execute();
+
+      print("-----Error: ${response.error}");
+
+      response = jsonEncode(response);
+
+      print("-----Parametro de Busqueda: $parametro_busqueda");
+      print("-----Response: ");
+      print(response.toString());
+
+      GetGestorPartidasQt getProveedoresQTResponse =
+          getGestorPartidasQtFromMap(response);
+
+      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
+        List<dynamic> local_list = [];
+
+        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
+        local_list.add(getProveedoresQTResponse.data[i].proveedor);
+        local_list.add(getProveedoresQTResponse.data[i].referencia);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
+        local_list.add(getProveedoresQTResponse.data[i].moneda);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
+        local_list.add(getProveedoresQTResponse.data[i].diasPago);
+        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
+        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
+
+        list_proveedores.add(local_list);
+
+        //print("Indice $i : ${list_proveedores[i]}");
+        //print("Indice $i : ${list_proveedores[i][1]}");
+        //print("Indice $i : ${list_proveedores[i].length}");
+      }
+
+      //print("Listas : ${list_proveedores.length}");
+
+    } catch (e) {
+      print(e);
+    }
+
+    setState(() {});
+  }
+
+  Future<void> GetPartidasMayor() async {
+    try {
+      list_proveedores = [];
+
+      dynamic response = await supabase
+          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
+          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
+          .order(orden, ascending: asc)
+          .execute();
+
+      print("-----Error: ${response.error}");
+
+      response = jsonEncode(response);
+
+      print("-----Parametro de Busqueda: $parametro_busqueda");
+      print("-----Response: ");
+      print(response.toString());
+
+      GetGestorPartidasQt getProveedoresQTResponse =
+          getGestorPartidasQtFromMap(response);
+
+      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
+        List<dynamic> local_list = [];
+
+        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
+        local_list.add(getProveedoresQTResponse.data[i].proveedor);
+        local_list.add(getProveedoresQTResponse.data[i].referencia);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
+        local_list.add(getProveedoresQTResponse.data[i].moneda);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
+        local_list.add(getProveedoresQTResponse.data[i].diasPago);
+        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
+        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
+
+        list_proveedores.add(local_list);
+
+        //print("Indice $i : ${list_proveedores[i]}");
+        //print("Indice $i : ${list_proveedores[i][1]}");
+        //print("Indice $i : ${list_proveedores[i].length}");
+      }
+
+      //print("Listas : ${list_proveedores.length}");
+
+    } catch (e) {
+      print(e);
+    }
+
+    setState(() {});
+  }
+
+  Future<void> GetPartidasMayorI() async {
+    try {
+      list_proveedores = [];
+
+      dynamic response = await supabase
+          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
+          .gte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
+          .order(orden, ascending: asc)
+          .execute();
+
+      print("-----Error: ${response.error}");
+
+      response = jsonEncode(response);
+
+      print("-----Parametro de Busqueda: $parametro_busqueda");
+      print("-----Response: ");
+      print(response.toString());
+
+      GetGestorPartidasQt getProveedoresQTResponse =
+          getGestorPartidasQtFromMap(response);
+
+      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
+        List<dynamic> local_list = [];
+
+        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
+        local_list.add(getProveedoresQTResponse.data[i].proveedor);
+        local_list.add(getProveedoresQTResponse.data[i].referencia);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
+        local_list.add(getProveedoresQTResponse.data[i].moneda);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
+        local_list.add(getProveedoresQTResponse.data[i].diasPago);
+        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
+        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
+
+        list_proveedores.add(local_list);
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    setState(() {});
+  }
+
+  Future<void> GetPartidasDif() async {
+    try {
+      list_proveedores = [];
+      dynamic response = await supabase
+          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
+          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
+          .order(orden, ascending: asc)
+          .execute();
+
+      print("-----Error: ${response.error}");
+
+      response = jsonEncode(response);
+
+      print("-----Parametro de Busqueda: $parametro_busqueda");
+      print("-----Response: ");
+      print(response.toString());
+
+      GetGestorPartidasQt getProveedoresQTResponse =
+          getGestorPartidasQtFromMap(response);
+
+      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
+        List<dynamic> local_list = [];
+
+        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
+        local_list.add(getProveedoresQTResponse.data[i].proveedor);
+        local_list.add(getProveedoresQTResponse.data[i].referencia);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
+        local_list.add(getProveedoresQTResponse.data[i].moneda);
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
+        local_list.add(getProveedoresQTResponse.data[i].diasPago);
+        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
+        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
+        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
+
+        list_proveedores.add(local_list);
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    setState(() {});
+  }
+
   Future<void> GetProveedoresBy__() async {
     try {
       dynamic response = await supabase
@@ -164,13 +454,7 @@ class _ProveedoresState extends State<Proveedores> {
           .range(0, count_f)
           .execute();
 
-      //print("-----Error: ${response.error}");
-
       response = jsonEncode(response);
-
-      // print("-----Parametro de Busqueda: $parametro_busqueda");
-      /* print("-----Response: ");
-      print(response.toString()); */
 
       GetProveedoresQt getProveedoresQTResponse =
           getProveedoresQtFromMap(response);
@@ -416,7 +700,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 //GetPartidasMayor();
                                                                 break;
                                                               case ">=":
-                                                               //GetPartidasMayorI();
+                                                                //GetPartidasMayorI();
                                                                 break;
                                                               case "!=":
                                                                 //etPartidasDif();
@@ -754,7 +1038,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                           //GetPartidasMayorI();
                                                           break;
                                                         case "!=":
-                                                         // GetPartidasDif();
+                                                          // GetPartidasDif();
                                                           break;
                                                       }
                                                     } else if (filtro_simple) {
@@ -937,7 +1221,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                           //GetPartidasIgual();
                                                           break;
                                                         case "<":
-                                                         // GetPartidasMenor();
+                                                          // GetPartidasMenor();
                                                           break;
                                                         case "<=":
                                                           //GetPartidasMenorI();

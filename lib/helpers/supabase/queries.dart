@@ -8,18 +8,21 @@ class SupabaseQueries {
   static Future<Usuario?> getCurrentUserData() async {
     final user = supabase.auth.currentUser;
     if (user == null) return null;
-    final res = await supabase
+
+    final PostgrestFilterBuilder query = supabase
         .from('perfil_usuario')
         .select(
             'nombre, apellidos, paises (id_pais_pk, nombre_pais, clave), roles (id_rol_pk, nombre_rol, permisos), telefono, id_proveedor_fk')
-        .eq('perfil_usuario_id', user.id)
-        .execute();
+        .eq('perfil_usuario_id', user.id);
+
+    final res = await query.execute();
+
     if (res.hasError) {
-      return null; //TODO: handle error (retry, send to login)
+      return null;
     } else if ((res.data as List).isEmpty) {
-      //usuario no tiene perfil
-      return null; //TODO: mandar a login
+      return null;
     }
+
     final userProfile = res.data[0];
     userProfile['id'] = user.id;
     userProfile['email'] = user.email!;
@@ -29,7 +32,7 @@ class SupabaseQueries {
     return usuario;
   }
 
-  static Future<void> insertNc(int partidaSapId, String folio) async {
+  static Future<bool> insertNc(int partidaSapId, String folio) async {
     var res = await supabase.from('nc_sap').insert(
       [
         {
@@ -40,9 +43,7 @@ class SupabaseQueries {
       returning: ReturningOption.minimal,
     ).execute();
 
-    if (res.hasError) {
-      return; //TODO: handle error
-    }
+    if (res.hasError) return false;
 
     //Update a NC Recibida
     res = await supabase
@@ -53,12 +54,12 @@ class SupabaseQueries {
         .eq('id_partidas_pk', partidaSapId)
         .execute();
 
-    if (res.hasError) {
-      return; //TODO: handle error
-    }
+    if (res.hasError) return false;
+
+    return true;
   }
 
-  static Future<void> completarFactura(int partidaSapId) async {
+  static Future<bool> completarFactura(int partidaSapId) async {
     //Update a Completado
     final res = await supabase
         .from('partidas_sap')
@@ -68,12 +69,11 @@ class SupabaseQueries {
         .eq('id_partidas_pk', partidaSapId)
         .execute();
 
-    if (res.hasError) {
-      return; //TODO: handle error
-    }
+    if (res.hasError) return false;
+    return true;
   }
 
-  static Future<void> actualizarEstatus(int partidaSapId, int idstatus) async {
+  static Future<bool> actualizarEstatus(int partidaSapId, int idstatus) async {
     //Update a Completado
     final res = await supabase
         .from('partidas_sap')
@@ -83,8 +83,7 @@ class SupabaseQueries {
         .eq('id_partidas_pk', partidaSapId)
         .execute();
 
-    if (res.hasError) {
-      return; //TODO: handle error
-    }
+    if (res.hasError) return false;
+    return true;
   }
 }
