@@ -1,7 +1,6 @@
 import 'package:arux/helpers/supabase/queries.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -292,14 +291,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (res.error != null) {
                               final msg = ApiErrorHandler.translateErrorMsg(
                                   res.error!.message);
-                              Fluttertoast.showToast(
-                                msg: msg,
-                                toastLength: Toast.LENGTH_SHORT,
-                                webBgColor: "#e74c3c",
-                                textColor: Colors.black,
-                                timeInSecForIosWeb: 5,
-                                webPosition: 'center',
-                              );
+                              await ApiErrorHandler.callToast(msg);
                               return;
                             }
 
@@ -312,12 +304,20 @@ class _LoginPageState extends State<LoginPage> {
                               await prefs.remove('email');
                               await prefs.remove('password');
                             }
-                            //TODO: agregar mensajes de error
-                            if (supabase.auth.currentUser == null) return;
+
+                            if (supabase.auth.currentUser == null) {
+                              await ApiErrorHandler.callToast();
+                              return;
+                            }
+
                             currentUser =
                                 await SupabaseQueries.getCurrentUserData();
 
-                            if (currentUser == null) return;
+                            if (currentUser == null) {
+                              await ApiErrorHandler.callToast();
+                              return;
+                            }
+
                             if (!mounted) return;
                             if (currentUser!.rol.nombreRol == 'Proveedor') {
                               visualState.setTapedOption(3);

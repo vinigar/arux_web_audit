@@ -1,5 +1,6 @@
 import 'package:arux/helpers/supabase/queries.dart';
 import 'package:arux/pages/widgets/custom_button.dart';
+import 'package:arux/services/api_error_handler.dart';
 import 'package:arux/theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -202,10 +203,15 @@ class _PopupNotaCreditoState extends State<PopupNotaCredito> {
                           if (!widget.formKey.currentState!.validate()) {
                             return;
                           }
-                          await SupabaseQueries.insertNc(
+
+                          final res = await SupabaseQueries.insertNc(
                             widget.partidasSapId,
                             ncFolioController.text,
                           );
+
+                          if (res == false) {
+                            ApiErrorHandler.callToast();
+                          }
 
                           if (!mounted) return;
                           Navigator.pop(context);
