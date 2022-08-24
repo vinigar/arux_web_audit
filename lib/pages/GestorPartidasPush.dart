@@ -1,15 +1,14 @@
 import 'dart:convert';
 
-import 'package:arux/helpers/constants.dart';
-import 'package:arux/functions/money_format.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:http/http.dart';
-import 'package:data_table_2/data_table_2.dart';
 
+import 'package:data_table_2/data_table_2.dart';
+import 'package:arux/helpers/constants.dart';
+import 'package:arux/functions/money_format.dart';
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
-
 import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
@@ -271,7 +270,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
       print("----Query: $query");
       dynamic response = await supabase
           .rpc('get_partidas_by_filtrado', params: {
-            'query': query_partidas + query,
+            'query': queryPartidas + query,
           })
           .order(orden, ascending: asc)
           .execute();

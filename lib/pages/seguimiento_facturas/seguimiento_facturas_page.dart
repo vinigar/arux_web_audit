@@ -24,29 +24,17 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   GlobalUtility globalUtility = GlobalUtility();
   final formKey = GlobalKey<FormState>();
 
-  final controller_busqueda = TextEditingController();
-  String parametro_busqueda = "";
-
-  final controller_idddu = TextEditingController();
-  String parametro_idddu = "";
-  final controller_proveedor = TextEditingController();
-  String parametro_proveedor = "";
-  final controller_factura = TextEditingController();
-  String parametro_factura = "";
-  final controller_esquema = TextEditingController();
-  String parametro_esquema = "";
-  final controller_moneda = TextEditingController();
-  String parametro_moneda = "";
-  final controller_fecha_doc = TextEditingController();
-  String parametro_fecha_doc = "";
-  final controller_fecha_inicio = TextEditingController();
-  String parametro_fecha_inicio = "";
-  final controller_fecha_limite = TextEditingController();
-  String parametro_fecha_limite = "";
-  final controller_fecha_pago = TextEditingController();
-  String parametro_fecha_pago = "";
-  final controller_estatus = TextEditingController();
-  String parametro_estatus = "";
+  final busquedaController = TextEditingController();
+  final iddduController = TextEditingController();
+  final proveedorController = TextEditingController();
+  final facturaController = TextEditingController();
+  final esquemaController = TextEditingController();
+  final monedaController = TextEditingController();
+  final fechaDocController = TextEditingController();
+  final fechaInicioController = TextEditingController();
+  final fechaLimiteController = TextEditingController();
+  final fechaPagoController = TextEditingController();
+  final estatusController = TextEditingController();
 
   bool filtro_simple = false;
 
@@ -76,7 +64,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
     try {
       final res = await supabase
           .rpc('get_seguimiento_factura',
-              params: {'busqueda': parametro_busqueda})
+              params: {'busqueda': busquedaController.text})
           .order(orden, ascending: asc)
           .range(0, count_f)
           .execute();
@@ -137,11 +125,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
     try {
       dynamic response = await supabase
           .rpc('get_gestor_partidas_push_by__', params: {
-            'idpartida': parametro_idddu,
-            'proveedor': parametro_proveedor,
-            'referencia': parametro_esquema,
-            'importe': parametro_fecha_doc,
-            'moneda': parametro_moneda
+            'idpartida': iddduController.text,
+            'proveedor': proveedorController.text,
+            'referencia': esquemaController.text,
+            'importe': fechaDocController.text,
+            'moneda': monedaController.text
           })
           .order(orden, ascending: asc)
           .execute();
@@ -295,7 +283,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 child: TextFormField(
                                                   controller:
-                                                      controller_busqueda,
+                                                      busquedaController,
                                                   autofocus: true,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
@@ -319,8 +307,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   ),
                                                   style: globalUtility
                                                       .textoA(context),
-                                                  onChanged: (value) {
-                                                    parametro_busqueda = value;
+                                                  onChanged: (value) async {
                                                     if (filtro_avanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
@@ -344,7 +331,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           break;
                                                       }
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -416,13 +403,13 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         size: 18,
                                                       ),
                                                     ),
-                                                    onTap: () {
+                                                    onTap: () async {
                                                       if (filtro_simple ==
                                                               false ||
                                                           filtro_avanzado ==
                                                               false) {
                                                         count_f++;
-                                                        getFacturas();
+                                                        await getFacturas();
                                                       }
                                                       setState(() {});
                                                     },
@@ -456,13 +443,13 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     size: 18,
                                                   ),
                                                 ),
-                                                onTap: () {
+                                                onTap: () async {
                                                   if (filtro_simple == false ||
                                                       filtro_avanzado ==
                                                           false) {
                                                     if (count_f >= 1) {
                                                       count_f--;
-                                                      getFacturas();
+                                                      await getFacturas();
                                                       setState(() {});
                                                     }
                                                   }
@@ -495,7 +482,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               border:
                                                                   InputBorder
                                                                       .none),
-                                                      onChanged: (value) {
+                                                      onChanged: (value) async {
                                                         try {
                                                           print(
                                                               "---Valor: ${value.toString()}");
@@ -507,7 +494,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                     .toString());
                                                             count_f =
                                                                 count_f - 1;
-                                                            getFacturas();
+                                                            await getFacturas();
                                                             setState(() {});
                                                           }
                                                         } catch (e) {
@@ -569,8 +556,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   child: Text(
                                                     "IDDDU",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_idddu
-                                                            .isNotEmpty
+                                                    style: iddduController
+                                                            .text.isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
                                                                 context)
@@ -578,28 +565,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             .encabezadoTablasOff(
                                                                 context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -618,7 +599,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               .primaryBg
                                                           : globalUtility
                                                               .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden != "idddu") {
                                                       orden = "idddu";
                                                       asc = true;
@@ -652,7 +633,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -668,8 +649,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   child: Text(
                                                     "Proveedor",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_proveedor
-                                                            .isNotEmpty
+                                                    style: proveedorController
+                                                            .text.isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
                                                                 context)
@@ -677,28 +658,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             .encabezadoTablasOff(
                                                                 context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -718,7 +693,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                   .primaryBg
                                                               : globalUtility
                                                                   .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden != "proveedor") {
                                                       orden = "proveedor";
                                                       asc = true;
@@ -752,7 +727,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -768,8 +743,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   child: Text(
                                                     "Factura",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_esquema
-                                                            .isNotEmpty
+                                                    style: esquemaController
+                                                            .text.isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
                                                                 context)
@@ -777,28 +752,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             .encabezadoTablasOff(
                                                                 context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -817,7 +786,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               .primaryBg
                                                           : globalUtility
                                                               .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden != "factura") {
                                                       orden = "factura";
                                                       asc = true;
@@ -851,7 +820,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -867,8 +836,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   child: Text(
                                                     "Esquema",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_idddu
-                                                            .isNotEmpty
+                                                    style: esquemaController
+                                                            .text.isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
                                                                 context)
@@ -876,28 +845,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             .encabezadoTablasOff(
                                                                 context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -916,7 +879,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               .primaryBg
                                                           : globalUtility
                                                               .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden != "esquema") {
                                                       orden = "esquema";
                                                       asc = true;
@@ -950,7 +913,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -966,8 +929,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   child: Text(
                                                     "Moneda",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_moneda
-                                                            .isNotEmpty
+                                                    style: monedaController
+                                                            .text.isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
                                                                 context)
@@ -975,28 +938,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             .encabezadoTablasOff(
                                                                 context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1015,7 +972,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               .primaryBg
                                                           : globalUtility
                                                               .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden != "moneda") {
                                                       orden = "moneda";
                                                       asc = true;
@@ -1049,7 +1006,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1065,8 +1022,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   child: Text(
                                                     "Fecha\nDocumento",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_fecha_doc
-                                                            .isNotEmpty
+                                                    style: fechaDocController
+                                                            .text.isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
                                                                 context)
@@ -1074,28 +1031,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             .encabezadoTablasOff(
                                                                 context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1115,7 +1066,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               .primaryBg
                                                           : globalUtility
                                                               .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden !=
                                                         "fecha_documento") {
                                                       orden = "fecha_documento";
@@ -1150,7 +1101,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1170,28 +1121,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         .encabezadoTablasOff(
                                                             context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1211,7 +1156,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               .primaryBg
                                                           : globalUtility
                                                               .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden !=
                                                         "fecha_inicio") {
                                                       orden = "fecha_inicio";
@@ -1246,7 +1191,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1266,28 +1211,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         .encabezadoTablasOff(
                                                             context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1307,7 +1246,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               .primaryBg
                                                           : globalUtility
                                                               .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden !=
                                                         "fecha_limite") {
                                                       orden = "fecha_limite";
@@ -1342,7 +1281,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1362,28 +1301,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         .encabezadoTablasOff(
                                                             context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1403,7 +1336,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                   .primaryBg
                                                               : globalUtility
                                                                   .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden != "fecha_pago") {
                                                       orden = "fecha_pago";
                                                       asc = true;
@@ -1437,7 +1370,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1457,28 +1390,22 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         .encabezadoTablasOff(
                                                             context),
                                                   ),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (filtro_simple ==
                                                         false) {
                                                       filtro_avanzado = false;
                                                       filtro_simple = true;
                                                     } else {
                                                       filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      iddduController.clear();
+                                                      proveedorController
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_esquema
+                                                      esquemaController.clear();
+                                                      fechaDocController
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_fecha_doc
-                                                          .clear();
-                                                      parametro_fecha_doc = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      monedaController.clear();
                                                     }
-                                                    getFacturas();
+                                                    await getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1497,7 +1424,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               .primaryBg
                                                           : globalUtility
                                                               .secondary),
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (orden != "estatus") {
                                                       orden = "estatus";
                                                       asc = true;
@@ -1531,7 +1458,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                     } else if (filtro_simple) {
                                                       GetFacturasBy_();
                                                     } else {
-                                                      getFacturas();
+                                                      await getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1578,16 +1505,13 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_idddu,
+                                                              iddduController,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_idddu =
-                                                                value
-                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -1622,16 +1546,13 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_proveedor,
+                                                              proveedorController,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_proveedor =
-                                                                value
-                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -1666,16 +1587,13 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_factura,
+                                                              facturaController,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_factura =
-                                                                value
-                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -1710,245 +1628,13 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_esquema,
+                                                              esquemaController,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_esquema =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .text,
-                                                          controller:
-                                                              controller_moneda,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_moneda =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          controller:
-                                                              controller_fecha_doc,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_fecha_doc =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          controller:
-                                                              controller_fecha_inicio,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_fecha_inicio =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          controller:
-                                                              controller_fecha_limite,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_fecha_limite =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          controller:
-                                                              controller_fecha_pago,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_fecha_pago =
-                                                                value
-                                                                    .toString();
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -1986,16 +1672,227 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               TextInputType
                                                                   .text,
                                                           controller:
-                                                              controller_estatus,
+                                                              monedaController,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_estatus =
-                                                                value
-                                                                    .toString();
+                                                            GetFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          controller:
+                                                              fechaDocController,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            GetFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          controller:
+                                                              fechaInicioController,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            GetFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          controller:
+                                                              fechaLimiteController,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            GetFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          controller:
+                                                              fechaPagoController,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            GetFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .text,
+                                                          controller:
+                                                              estatusController,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
                                                             GetFacturasBy_();
                                                           },
                                                         ),
@@ -2201,7 +2098,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       .completarFactura(
                                                                     factura[10],
                                                                   );
-                                                                  getFacturas();
+                                                                  await getFacturas();
                                                                 },
                                                                 child: Icon(
                                                                   Icons.check,
