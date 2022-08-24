@@ -8,7 +8,7 @@ import 'package:arux/functions/date_format.dart';
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/get_gestor_partidas_qt.dart';
-import 'package:arux/models/GET_Seguimiento_Facturas_QT.dart';
+import 'package:arux/models/get_seguimiento_facturas_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
 

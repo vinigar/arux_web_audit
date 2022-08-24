@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getSeguimientoFacturasQt = getSeguimientoFacturasQtFromMap(jsonString);
-
 import 'dart:convert';
 
 GetSeguimientoFacturasQt getSeguimientoFacturasQtFromMap(String str) =>

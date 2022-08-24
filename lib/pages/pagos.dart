@@ -8,7 +8,7 @@ import 'package:expandable/expandable.dart';
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/get_gestor_partidas_qt.dart';
-import 'package:arux/models/GET_Proveedores_QT.dart';
+import 'package:arux/models/get_proveedores_qt.dart';
 import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
 import 'package:arux/models/get_pagos_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
@@ -56,8 +56,6 @@ class _PagosState extends State<Pagos> {
   bool filtro_avanzado = false;
   bool filtro_simple = false;
 
-  ///////////////////////////////////////////////////////////////////////////////////
-
   @override
   void initState() {
     GetPagos();
@@ -74,10 +72,6 @@ class _PagosState extends State<Pagos> {
       print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
-
-      // print("-----Parametro de Busqueda: $parametro_busqueda");
-      /* print("-----Response: ");
-      print(response.toString()); */
 
       GetPagosQt getPagosQTResponse = getPagosQtFromMap(response);
 
@@ -104,9 +98,6 @@ class _PagosState extends State<Pagos> {
         local_list.add(getPagosQTResponse.data[i].total);
         list_Pagos.add(local_list);
       }
-
-      //print("Listas : ${list_Pagos.length}");
-
     } catch (e) {
       print(e);
     }
@@ -150,14 +141,7 @@ class _PagosState extends State<Pagos> {
         local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
 
         list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
       }
-
-      //print("Listas : ${list_Pagos.length}");
-
     } catch (e) {
       print(e);
     }
@@ -200,14 +184,7 @@ class _PagosState extends State<Pagos> {
         local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
 
         list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
       }
-
-      //print("Listas : ${list_Pagos.length}");
-
     } catch (e) {
       print(e);
     }
@@ -251,14 +228,7 @@ class _PagosState extends State<Pagos> {
         local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
 
         list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
       }
-
-      //print("Listas : ${list_Pagos.length}");
-
     } catch (e) {
       print(e);
     }
@@ -302,14 +272,7 @@ class _PagosState extends State<Pagos> {
         local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
 
         list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
       }
-
-      //print("Listas : ${list_Pagos.length}");
-
     } catch (e) {
       print(e);
     }
@@ -353,14 +316,7 @@ class _PagosState extends State<Pagos> {
         local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
 
         list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
       }
-
-      //print("Listas : ${list_Pagos.length}");
-
     } catch (e) {
       print(e);
     }
@@ -433,13 +389,7 @@ class _PagosState extends State<Pagos> {
           .range(0, count_f)
           .execute();
 
-      //print("-----Error: ${response.error}");
-
       response = jsonEncode(response);
-
-      // print("-----Parametro de Busqueda: $parametro_busqueda");
-      /* print("-----Response: ");
-      print(response.toString()); */
 
       GetProveedoresQt getPagosQTResponse = getProveedoresQtFromMap(response);
 
@@ -528,84 +478,6 @@ class _PagosState extends State<Pagos> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  /* Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MenuButton(
-                          icon: Icons.home_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.notifications_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.subtitles_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/gestor-partidas-push',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.podcasts,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {},
-                        ),
-                        MenuButton(
-                          icon: Icons.receipt_long_sharp,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/pagos',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.bar_chart_rounded,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/reporte-seguimiento-facturas',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                            icon: Icons.person_add_outlined,
-                            fillColor: globalUtility.primary,
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                '/Pagos',
-                              );
-                            }),
-                        MenuButton(
-                          icon: Icons.group_outlined,
-                          fillColor: globalUtility.primary,
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/usuarios',
-                            );
-                          },
-                        ),
-                        MenuButton(
-                          icon: Icons.power_settings_new_outlined,
-                          fillColor: Color(0xFFFF0003),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ), */
                   const SideMenuWidget(),
                   Expanded(
                     child: Padding(
@@ -649,29 +521,6 @@ class _PagosState extends State<Pagos> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        /* Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 25, 0),
-                                          child: Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              color: globalUtility.primaryBg,
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: globalUtility.primary,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.grid_view,
-                                                color: globalUtility.primary,
-                                                size: 28,
-                                              ),
-                                            ),
-                                          ),
-                                        ), */
                                         Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 25, 0),
