@@ -1,12 +1,12 @@
-import 'package:arux/helpers/globalUtility.dart';
-import 'package:arux/models/models.dart';
-import 'package:arux/pages/widgets/header/header.dart';
-import 'package:data_table_2/data_table_2.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart' as provider;
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'package:arux/helpers/global_utility.dart';
+import 'package:arux/models/models.dart';
+import 'package:arux/pages/widgets/header/header.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
 import 'package:arux/providers/providers.dart';

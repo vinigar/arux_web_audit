@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:arux/helpers/globalUtility.dart';
+import 'package:flutter/material.dart';
+import 'package:expandable/expandable.dart';
+
+import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/GET_Gestor_Partidas_QT.dart';
 import 'package:arux/models/GET_Proveedores_QT.dart';
 import 'package:arux/models/GET_Sociedades_By_ID_Proveedor.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
-import 'package:arux/pages/widgets/side_menu/widgets/menu_button.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
-import 'package:expandable/expandable.dart';
-import 'package:flutter/material.dart';
 
 class Proveedores extends StatefulWidget {
   const Proveedores({Key? key}) : super(key: key);

@@ -91,12 +91,12 @@ class GlobalUtility {
   }
 
   TextStyle textoError(BuildContext context) {
-    return TextStyle(
+    return const TextStyle(
         fontSize: 13, fontFamily: 'Gotham-Light', color: Colors.red);
   }
 
   TextStyle textoError2(BuildContext context) {
-    return TextStyle(
+    return const TextStyle(
         fontSize: 13, fontFamily: 'Gotham-Bold', color: Colors.red);
   }
 }
