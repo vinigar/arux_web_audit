@@ -26,6 +26,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   final formKey = GlobalKey<FormState>();
 
   final busquedaController = TextEditingController();
+  late final TextEditingController filasController;
   final iddduController = TextEditingController();
   final proveedorController = TextEditingController();
   final facturaController = TextEditingController();
@@ -45,7 +46,6 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   List<List<dynamic>> facturas = [];
   String orden = "idddu";
   bool asc = true;
-  int countI = 0;
   int countF = 19;
 
   bool popupRise = false;
@@ -57,6 +57,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   @override
   void initState() {
     getFacturas();
+    filasController = TextEditingController(text: countF.toString());
     super.initState();
   }
 
@@ -65,7 +66,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
         .rpc('get_seguimiento_factura',
             params: {'busqueda': busquedaController.text})
         .order(orden, ascending: asc)
-        .range(0, countF)
+        .range(0, countF - 1)
         .execute();
 
     if (res.hasError) {
@@ -130,8 +131,6 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
     setState(() {});
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,6 +143,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
             const TopMenuWidget(),
             Expanded(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SideMenuWidget(),
@@ -268,31 +268,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   style: globalUtility
                                                       .textoA(context),
                                                   onChanged: (value) async {
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else {
-                                                      await getFacturas();
-                                                    }
+                                                    await getFacturas();
                                                   },
                                                 ),
                                               ),
@@ -355,12 +331,10 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   ),
                                                 ),
                                                 onTap: () async {
-                                                  if (filtroSimple == false ||
-                                                      filtroAvanzado == false) {
-                                                    countF++;
-                                                    await getFacturas();
-                                                  }
-                                                  setState(() {});
+                                                  countF++;
+                                                  filasController.text =
+                                                      countF.toString();
+                                                  await getFacturas();
                                                 },
                                               ),
                                               InkWell(
@@ -391,13 +365,11 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   ),
                                                 ),
                                                 onTap: () async {
-                                                  if (filtroSimple == false ||
-                                                      filtroAvanzado == false) {
-                                                    if (countF >= 1) {
-                                                      countF--;
-                                                      await getFacturas();
-                                                      setState(() {});
-                                                    }
+                                                  if (countF >= 1) {
+                                                    countF--;
+                                                    filasController.text =
+                                                        countF.toString();
+                                                    await getFacturas();
                                                   }
                                                 },
                                               ),
@@ -420,30 +392,21 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                             .symmetric(
                                                         horizontal: 10),
                                                     child: TextFormField(
-                                                      initialValue: "20",
+                                                      controller:
+                                                          filasController,
                                                       style: globalUtility
                                                           .textoA(context),
                                                       decoration:
                                                           const InputDecoration(
-                                                              border:
-                                                                  InputBorder
-                                                                      .none),
+                                                        border:
+                                                            InputBorder.none,
+                                                      ),
                                                       onChanged: (value) async {
-                                                        try {
-                                                          print(
-                                                              "---Valor: ${value.toString()}");
-                                                          if (value
-                                                                  .isNotEmpty ||
-                                                              value != "0") {
-                                                            countF = int.parse(
-                                                                value
-                                                                    .toString());
-                                                            countF = countF - 1;
-                                                            await getFacturas();
-                                                            setState(() {});
-                                                          }
-                                                        } catch (e) {
-                                                          print("---Error: $e");
+                                                        if (value.isNotEmpty ||
+                                                            value != "0") {
+                                                          countF = int.parse(
+                                                              value.toString());
+                                                          await getFacturas();
                                                         }
                                                       },
                                                     ),
