@@ -12,7 +12,6 @@ import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class GestorPartidasPush extends StatefulWidget {
   const GestorPartidasPush({Key? key}) : super(key: key);
@@ -24,32 +23,32 @@ class GestorPartidasPush extends StatefulWidget {
 class _GestorPartidasPushState extends State<GestorPartidasPush> {
   GlobalUtility globalUtility = GlobalUtility();
 
-  final controller_busqueda = TextEditingController();
-  String parametro_busqueda = "";
+  final controllerBusqueda = TextEditingController();
+  String parametroBusqueda = "";
 
-  final controller_idpartida = TextEditingController();
-  String parametro_idpartida = "";
-  final controller_proveedor = TextEditingController();
-  String parametro_proveedor = "";
-  final controller_referencia = TextEditingController();
-  String parametro_referencia = "";
-  final controller_importe = TextEditingController();
-  String parametro_importe = "";
-  final controller_moneda = TextEditingController();
-  String parametro_moneda = "";
-  bool filtro_simple = false;
+  final controllerIdPartida = TextEditingController();
+  String parametroIdPartida = "";
+  final controllerProveedor = TextEditingController();
+  String parametroProveedor = "";
+  final controllerReferencia = TextEditingController();
+  String parametroReferencia = "";
+  final controllerImporte = TextEditingController();
+  String parametroImporte = "";
+  final controllerMoneda = TextEditingController();
+  String parametroMoneda = "";
+  bool filtroSimple = false;
 
-  List<List<dynamic>> list_partidas = [];
+  List<List<dynamic>> listPartidas = [];
 
   String orden = "id_partidas_pk";
   bool asc = true;
-  int count_i = 0;
-  int count_f = 5;
+  int countI = 0;
+  int countF = 5;
 
   List<String?> monedas = ["USD", "UYU"];
-  String moneda_selec = "USD";
+  String monedaSelec = "USD";
 
-  bool popup_rise = false;
+  bool popupRise = false;
   List<String?> listDDEnc = [
     "Registro SAP",
     "Proveedor",
@@ -64,136 +63,136 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
   List<String?> listDDOpe = ["=", ">", ">=", "<", "<=", "!="];
   List<String?> listDDCond = ["Y", "Ó"];
 
-  List<String> selected_Enc = ["Registro SAP"];
-  List<String> selected_Ope = ["="];
-  List<String> selected_Val = [""];
-  List<String> selected_Cond = [];
-  bool filtro_avanzado = false;
+  List<String> selectedEnc = ["Registro SAP"];
+  List<String> selectedOpe = ["="];
+  List<String> selectedVal = [""];
+  List<String> selectedCond = [];
+  bool filtroAvanzado = false;
   String query = "";
 
-  final controller_fondo_disp = TextEditingController();
-  double fondo_disponible = 0;
-  late int fondo_restante;
-  List<dynamic> list_carrito = [];
-  double suma_importe = 0;
-  double suma_pp = 0;
-  double suma_dpp = 0;
-  bool fondo_insuficiente_popup = false;
+  final controllerFondoDisp = TextEditingController();
+  double fondoDisponible = 0;
+  late int fondoRestante;
+  List<dynamic> listCarrito = [];
+  double sumaImporte = 0;
+  double sumaPp = 0;
+  double sumaDpp = 0;
+  bool fondoInsuficientePopup = false;
 
   ///////////////////////////////////////////////////////////////////////////////////
 
   @override
   void initState() {
-    GetPartidasPush();
+    getPartidasPush();
     super.initState();
   }
 
-  Future<void> GetPartidasPush() async {
+  Future<void> getPartidasPush() async {
     try {
       dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
+          .rpc('get_gestor_partidas', params: {'busqueda': parametroBusqueda})
           .order(orden, ascending: asc)
           .execute();
 
-      //print("-----Error: ${response.error}");
+      //// print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      /* print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString()); */
+      /* // print("-----Parametro de Busqueda: $parametro_busqueda");
+      // print("-----Response: ");
+      // print(response.toString()); */
 
-      GetGestorPartidasQt getGestorPartidasQTResponse =
+      GetGestorPartidasQt getGestorPartidasQtResponse =
           getGestorPartidasQtFromMap(response);
 
-      list_partidas = [];
+      listPartidas = [];
 
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
+      for (var i = 0; i < getGestorPartidasQtResponse.data.length; i++) {
+        List<dynamic> localList = [];
 
-        local_list.add(false);
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add(double.parse(
-            getGestorPartidasQTResponse.data[i].importe.toStringAsFixed(2)));
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add(getGestorPartidasQTResponse.data[i].importeUsd);
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add(getGestorPartidasQTResponse.data[i].porcDpp);
-        local_list.add(double.parse(
-            getGestorPartidasQTResponse.data[i].cantDpp.toStringAsFixed(2)));
-        local_list.add(double.parse(
-            getGestorPartidasQTResponse.data[i].prontoPago.toStringAsFixed(2)));
-        list_partidas.add(local_list);
+        localList.add(false);
+        localList.add(getGestorPartidasQtResponse.data[i].idPartidasPk);
+        localList.add(getGestorPartidasQtResponse.data[i].proveedor);
+        localList.add(getGestorPartidasQtResponse.data[i].referencia);
+        localList.add(double.parse(
+            getGestorPartidasQtResponse.data[i].importe.toStringAsFixed(2)));
+        localList.add(getGestorPartidasQtResponse.data[i].moneda);
+        localList.add(getGestorPartidasQtResponse.data[i].importeUsd);
+        localList.add(getGestorPartidasQtResponse.data[i].diasPago);
+        localList.add(getGestorPartidasQtResponse.data[i].porcDpp);
+        localList.add(double.parse(
+            getGestorPartidasQtResponse.data[i].cantDpp.toStringAsFixed(2)));
+        localList.add(double.parse(
+            getGestorPartidasQtResponse.data[i].prontoPago.toStringAsFixed(2)));
+        listPartidas.add(localList);
 
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
+        //// print("Indice $i : ${list_partidas[i]}");
+        //// print("Indice $i : ${list_partidas[i][1]}");
+        //// print("Indice $i : ${list_partidas[i].length}");
       }
 
-      //print("Listas : ${list_partidas.length}");
+      //// print("Listas : ${list_partidas.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
     setState(() {});
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  Future<void> GetPartidasPushBy__Filtro_Sim() async {
+  Future<void> getPartidasPushByFiltroSim() async {
     try {
       dynamic response = await supabase
           .rpc('get_gestor_partidas_push_by__', params: {
-            'idpartida': parametro_idpartida,
-            'proveedor': parametro_proveedor,
-            'referencia': parametro_referencia,
-            'importe': parametro_importe,
-            'moneda': parametro_moneda
+            'idpartida': parametroIdPartida,
+            'proveedor': parametroProveedor,
+            'referencia': parametroReferencia,
+            'importe': parametroImporte,
+            'moneda': parametroMoneda
           })
           .order(orden, ascending: asc)
           .execute();
 
-      print("-----Error: ${response.error}");
+      // print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      // print("-----Parametro de Busqueda: $parametro_busqueda");
-      /* print("-----Response: ");
-      print(response.toString()); */
+      // // print("-----Parametro de Busqueda: $parametro_busqueda");
+      /* // print("-----Response: ");
+      // print(response.toString()); */
 
-      GetGestorPartidasQt getGestorPartidasQTResponse =
+      GetGestorPartidasQt getGestorPartidasQtResponse =
           getGestorPartidasQtFromMap(response);
 
-      list_partidas = [];
+      listPartidas = [];
 
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
+      for (var i = 0; i < getGestorPartidasQtResponse.data.length; i++) {
+        List<dynamic> localList = [];
 
-        local_list.add(false);
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add(getGestorPartidasQTResponse.data[i].importe);
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
+        localList.add(false);
+        localList.add(getGestorPartidasQtResponse.data[i].idPartidasPk);
+        localList.add(getGestorPartidasQtResponse.data[i].proveedor);
+        localList.add(getGestorPartidasQtResponse.data[i].referencia);
+        localList.add(getGestorPartidasQtResponse.data[i].importe);
+        localList.add(getGestorPartidasQtResponse.data[i].moneda);
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].importeUsd}");
+        localList.add(getGestorPartidasQtResponse.data[i].diasPago);
+        localList.add("${getGestorPartidasQtResponse.data[i].porcDpp} %");
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].cantDpp}");
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].prontoPago}");
 
-        list_partidas.add(local_list);
+        listPartidas.add(localList);
 
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
+        //// print("Indice $i : ${list_partidas[i]}");
+        //// print("Indice $i : ${list_partidas[i][1]}");
+        //// print("Indice $i : ${list_partidas[i].length}");
       }
 
-      //print("Listas : ${list_partidas.length}");
+      //// print("Listas : ${list_partidas.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
@@ -201,74 +200,61 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  Future<void> GetPartidasPushBy__Filtro_Ava() async {
+  // ignore: non_constant_identifier_names
+  Future<void> getPartidasPushBy__FiltroAva() async {
     try {
       query = "";
-      print(selected_Val.length);
-      for (var i = 0; i < selected_Val.length; i++) {
-        String _local_enc = "";
-        String _local_val = "";
-        String _local_cond = "";
-        switch (selected_Enc[i]) {
+
+      for (var i = 0; i < selectedVal.length; i++) {
+        String localEnc = "";
+        String localVal = "";
+        String localCond = "";
+        switch (selectedEnc[i]) {
           case "Registro SAP":
-            _local_enc = "id_partidas_pk";
-            _local_val = selected_Val[i];
+            localEnc = "id_partidas_pk";
+            localVal = selectedVal[i];
             break;
           case "Proveedor":
-            _local_enc = "proveedores.sociedad";
-            _local_val = "'${selected_Val[i]}'";
+            localEnc = "proveedores.sociedad";
+            localVal = "'${selectedVal[i]}'";
             break;
           case "Referencia":
-            _local_enc = "partidas_sap.no_doc_partida";
-            _local_val = "'${selected_Val[i]}'";
+            localEnc = "partidas_sap.no_doc_partida";
+            localVal = "'${selectedVal[i]}'";
             break;
           case "Importe Factura":
-            _local_enc = "partidas_sap.importe_ml";
-            _local_val = selected_Val[i];
+            localEnc = "partidas_sap.importe_ml";
+            localVal = selectedVal[i];
             break;
           case "Moneda":
-            _local_enc = "partidas_sap.ml";
-            _local_val = "'${selected_Val[i]}'";
+            localEnc = "partidas_sap.ml";
+            localVal = "'${selectedVal[i]}'";
             break;
           case "Dias para aplicar pago":
-            _local_enc = "partidas_sap.dias_pago";
-            _local_val = selected_Val[i];
+            localEnc = "partidas_sap.dias_pago";
+            localVal = selectedVal[i];
             break;
           case "%DPP":
-            _local_enc = "partidas_sap.descuento_porc_pp";
-            _local_val = selected_Val[i];
+            localEnc = "partidas_sap.descuento_porc_pp";
+            localVal = selectedVal[i];
             break;
           case "\$DPP":
-            _local_enc = "partidas_sap.descuento_cant_pp";
-            _local_val = selected_Val[i];
+            localEnc = "partidas_sap.descuento_cant_pp";
+            localVal = selectedVal[i];
             break;
           case "\$ Pronto Pago":
-            _local_enc = "partidas_sap.pronto_pago";
-            _local_val = selected_Val[i];
+            localEnc = "partidas_sap.pronto_pago";
+            localVal = selectedVal[i];
             break;
         }
-        if (i == selected_Val.length - 1) {
-          query = (query +
-                  " " +
-                  _local_enc +
-                  " " +
-                  selected_Ope[i] +
-                  " " +
-                  _local_val)
-              .toString();
+        if (i == selectedVal.length - 1) {
+          query = ("$query $localEnc ${selectedOpe[i]} $localVal").toString();
         } else {
-          query = (query +
-                  " " +
-                  _local_enc +
-                  " " +
-                  selected_Ope[i] +
-                  " " +
-                  _local_val +
-                  " AND")
-              .toString();
+          query =
+              ("$query $localEnc ${selectedOpe[i]} $localVal AND").toString();
         }
       }
-      print("----Query: $query");
+      //// print("----Query: $query");
       dynamic response = await supabase
           .rpc('get_partidas_by_filtrado', params: {
             'query': queryPartidas + query,
@@ -276,84 +262,86 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
           .order(orden, ascending: asc)
           .execute();
 
-      print("-----Error: ${response.error}");
+      // print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      /* print("-----Response: ");
-      print(response.toString()); */
+      /* // print("-----Response: ");
+      // print(response.toString()); */
 
-      GetGestorPartidasQt getGestorPartidasQTResponse =
+      GetGestorPartidasQt getGestorPartidasQtResponse =
           getGestorPartidasQtFromMap(response);
 
-      list_partidas = [];
+      listPartidas = [];
 
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
+      for (var i = 0; i < getGestorPartidasQtResponse.data.length; i++) {
+        List<dynamic> localList = [];
 
-        local_list.add(false);
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add(double.parse(
-            getGestorPartidasQTResponse.data[i].importe.toStringAsFixed(2)));
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add(getGestorPartidasQTResponse.data[i].importeUsd);
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add(getGestorPartidasQTResponse.data[i].porcDpp);
-        local_list.add(double.parse(
-            getGestorPartidasQTResponse.data[i].cantDpp.toStringAsFixed(2)));
-        local_list.add(double.parse(
-            getGestorPartidasQTResponse.data[i].prontoPago.toStringAsFixed(2)));
-        list_partidas.add(local_list);
+        localList.add(false);
+        localList.add(getGestorPartidasQtResponse.data[i].idPartidasPk);
+        localList.add(getGestorPartidasQtResponse.data[i].proveedor);
+        localList.add(getGestorPartidasQtResponse.data[i].referencia);
+        localList.add(double.parse(
+            getGestorPartidasQtResponse.data[i].importe.toStringAsFixed(2)));
+        localList.add(getGestorPartidasQtResponse.data[i].moneda);
+        localList.add(getGestorPartidasQtResponse.data[i].importeUsd);
+        localList.add(getGestorPartidasQtResponse.data[i].diasPago);
+        localList.add(getGestorPartidasQtResponse.data[i].porcDpp);
+        localList.add(double.parse(
+            getGestorPartidasQtResponse.data[i].cantDpp.toStringAsFixed(2)));
+        localList.add(double.parse(
+            getGestorPartidasQtResponse.data[i].prontoPago.toStringAsFixed(2)));
+        listPartidas.add(localList);
 
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
+        //// print("Indice $i : ${list_partidas[i]}");
+        //// print("Indice $i : ${list_partidas[i][1]}");
+        //// print("Indice $i : ${list_partidas[i].length}");
       }
 
-      //print(list_partidas);
+      //// print(list_partidas);
 
-      //print("Listas : ${list_partidas.length}");
+      //// print("Listas : ${list_partidas.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
     setState(() {});
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  Future<void> UpdatePartidas_Solicitadas() async {
+  Future<void> updatePartidasSolicitadas() async {
     try {
-      for (var i = 0; i < list_carrito.length; i++) {
-        dynamic response = await supabase
-            .from('partidas_sap')
-            .update({'id_estatus_fk': 5, 'fecha_base' : DateTime.now().toString()}).match(
-                {'id_partidas_pk': '${list_carrito[i][0]}'}).execute();
+      for (var i = 0; i < listCarrito.length; i++) {
+        dynamic response = await supabase.from('partidas_sap').update({
+          'id_estatus_fk': 5,
+          'fecha_base': DateTime.now().toString()
+        }).match({'id_partidas_pk': '${listCarrito[i][0]}'}).execute();
 
-        print("-----Error: ${response.error}");
-        /* print("-----Response: ${response.toString()}");
-        print('Update realizado'); */
+        // print("-----Error: ${response.error}");
+        /* // print("-----Response: ${response.toString()}");
+        // print('Update realizado'); */
 
       }
       var postresponse = await post(
           Uri.parse('https://arux.cbluna-dev.com/arux/api'),
           body: json.encode({"action": "Ejecutar_Partidas"}));
-/* 
-      print("-----PostResponseCode: " + postresponse.statusCode.toString());
-      print("-----PostResponseBody: " + postresponse.body); */
+
+      /* // print("-----PostResponseCode: " + postresponse.statusCode.toString());
+      // print("-----PostResponseBody: " + postresponse.body); */
 
       const snackbarComplete = SnackBar(
         content: Text('Proceso Realizado con exito'),
       );
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackbarComplete);
+      // ignore: use_build_context_synchronously
       Navigator.pushNamed(
         context,
         '/gestor-partidas-push',
       );
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
@@ -439,21 +427,21 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             ),
                                           ),
                                           onTap: () {
-                                            if (list_carrito.isNotEmpty &&
-                                                (fondo_disponible - suma_pp) >=
+                                            if (listCarrito.isNotEmpty &&
+                                                (fondoDisponible - sumaPp) >=
                                                     0) {
-                                              UpdatePartidas_Solicitadas();
-                                            } else if (list_carrito.isEmpty) {
+                                              updatePartidasSolicitadas();
+                                            } else if (listCarrito.isEmpty) {
                                               const snackbarVacio = SnackBar(
                                                 content: Text(
                                                     'Debe de seleccion por lo menos una partida para realizar este proceso'),
                                               );
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(snackbarVacio);
-                                            } else if ((fondo_disponible -
-                                                    suma_pp) <
+                                            } else if ((fondoDisponible -
+                                                    sumaPp) <
                                                 0) {
-                                              fondo_insuficiente_popup = false;
+                                              fondoInsuficientePopup = false;
                                               setState(() {});
                                               /* const snackbarNegativo =
                                                   SnackBar(
@@ -505,7 +493,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     ),
                                                     child: TextFormField(
                                                       controller:
-                                                          controller_busqueda,
+                                                          controllerBusqueda,
                                                       autofocus: true,
                                                       obscureText: false,
                                                       decoration:
@@ -533,11 +521,11 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                       style: globalUtility
                                                           .textoA(context),
                                                       onChanged: (value) {
-                                                        parametro_busqueda =
+                                                        parametroBusqueda =
                                                             value;
-                                                        if (filtro_avanzado) {
+                                                        if (filtroAvanzado) {
                                                         } else {
-                                                          GetPartidasPush();
+                                                          getPartidasPush();
                                                         }
                                                       },
                                                     ),
@@ -610,12 +598,12 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                           ),
                                                         ),
                                                         onTap: () {
-                                                          if (filtro_simple ==
+                                                          if (filtroSimple ==
                                                                   false ||
-                                                              filtro_avanzado ==
+                                                              filtroAvanzado ==
                                                                   false) {
-                                                            count_f++;
-                                                            GetPartidasPush();
+                                                            countF++;
+                                                            getPartidasPush();
                                                           }
                                                           setState(() {});
                                                         },
@@ -632,7 +620,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                           height: 23.5,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: count_f == 0
+                                                            color: countF == 0
                                                                 ? globalUtility
                                                                     .secondary
                                                                 : globalUtility
@@ -660,13 +648,13 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                           ),
                                                         ),
                                                         onTap: () {
-                                                          if (filtro_simple ==
+                                                          if (filtroSimple ==
                                                                   false ||
-                                                              filtro_avanzado ==
+                                                              filtroAvanzado ==
                                                                   false) {
-                                                            if (count_f >= 1) {
-                                                              count_f--;
-                                                              GetPartidasPush();
+                                                            if (countF >= 1) {
+                                                              countF--;
+                                                              getPartidasPush();
                                                               setState(() {});
                                                             }
                                                           }
@@ -715,25 +703,24 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                               onChanged:
                                                                   (value) {
                                                                 try {
-                                                                  print(
-                                                                      "---Valor: ${value.toString()}");
+                                                                  /* // print(
+                                                                      "---Valor: ${value.toString()}"); */
                                                                   if (value
                                                                           .isNotEmpty ||
                                                                       value !=
                                                                           "0") {
-                                                                    count_f = int
+                                                                    countF = int
                                                                         .parse(value
                                                                             .toString());
-                                                                    count_f =
-                                                                        count_f -
+                                                                    countF =
+                                                                        countF -
                                                                             1;
-                                                                    GetPartidasPush();
+                                                                    getPartidasPush();
                                                                     setState(
                                                                         () {});
                                                                   }
                                                                 } catch (e) {
-                                                                  print(
-                                                                      "---Error: $e");
+                                                                  /* // print("---Error: $e"); */
                                                                 }
                                                               },
                                                             ),
@@ -784,7 +771,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               ),
                                             ),
                                             onTap: () {
-                                              popup_rise = true;
+                                              popupRise = true;
                                               setState(() {});
                                             },
                                           ),
@@ -1064,7 +1051,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                             height: 50,
                                                             child: TextField(
                                                               controller:
-                                                                  controller_fondo_disp,
+                                                                  controllerFondoDisp,
                                                               keyboardType:
                                                                   TextInputType
                                                                       .number,
@@ -1082,7 +1069,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                               ),
                                                               onChanged:
                                                                   (value) {
-                                                                fondo_disponible =
+                                                                fondoDisponible =
                                                                     double.parse(
                                                                         value);
                                                                 setState(() {});
@@ -1127,7 +1114,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                   ))
                                                               .toList(),
                                                           onChanged: (item) {
-                                                            moneda_selec =
+                                                            monedaSelec =
                                                                 item.toString();
                                                             setState(() =>
                                                                 monedas[0] =
@@ -1160,9 +1147,9 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                       .fromSTEB(
                                                                   0, 10, 0, 0),
                                                           child: Text(
-                                                            '\$ ${moneyFormat(fondo_disponible - suma_pp)}',
-                                                            style: (fondo_disponible -
-                                                                        suma_pp) <
+                                                            '\$ ${moneyFormat(fondoDisponible - sumaPp)}',
+                                                            style: (fondoDisponible -
+                                                                        sumaPp) <
                                                                     0
                                                                 ? globalUtility
                                                                     .textoError2(
@@ -1249,7 +1236,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                         0,
                                                                         0),
                                                                 child: Text(
-                                                                  '\$ ${moneyFormat(suma_importe - suma_dpp)}',
+                                                                  '\$ ${moneyFormat(sumaImporte - sumaDpp)}',
                                                                   style: globalUtility
                                                                       .textoA(
                                                                           context),
@@ -1282,7 +1269,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                               context)),
                                                                 ),
                                                                 Text(
-                                                                  '\$ ${moneyFormat(suma_importe)}',
+                                                                  '\$ ${moneyFormat(sumaImporte)}',
                                                                   style: globalUtility
                                                                       .textoA(
                                                                           context),
@@ -1312,7 +1299,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                               context)),
                                                                 ),
                                                                 Text(
-                                                                  '\$ ${moneyFormat(suma_dpp)}',
+                                                                  '\$ ${moneyFormat(sumaDpp)}',
                                                                   style: globalUtility
                                                                       .textoA(
                                                                           context),
@@ -1334,7 +1321,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                   ],
                                 ),
                               ),
-                              list_partidas.isEmpty
+                              listPartidas.isEmpty
                                   ? const CircularProgressIndicator()
                                   : Flexible(
                                       child: DataTable2(
@@ -1345,74 +1332,63 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                         onSelectAll: (value) {
                                           final isCheck =
                                               value != null && value;
-                                          List<dynamic> _temp_list = [];
+                                          List<dynamic> tempList = [];
                                           if (isCheck) {
-                                            for (var i = count_i;
-                                                i < list_partidas.length;
+                                            for (var i = countI;
+                                                i < listPartidas.length;
                                                 i++) {
-                                              list_partidas[i][0] = true;
-                                              _temp_list
-                                                  .add(list_partidas[i][1]);
-                                              _temp_list
-                                                  .add(list_partidas[i][2]);
-                                              _temp_list
-                                                  .add(list_partidas[i][3]);
-                                              _temp_list
-                                                  .add(list_partidas[i][4]);
-                                              _temp_list
-                                                  .add(list_partidas[i][5]);
-                                              _temp_list
-                                                  .add(list_partidas[i][6]);
-                                              _temp_list
-                                                  .add(list_partidas[i][7]);
-                                              _temp_list
-                                                  .add(list_partidas[i][8]);
-                                              _temp_list
-                                                  .add(list_partidas[i][9]);
-                                              _temp_list
-                                                  .add(list_partidas[i][10]);
-                                              list_carrito.removeWhere((item) {
+                                              listPartidas[i][0] = true;
+                                              tempList.add(listPartidas[i][1]);
+                                              tempList.add(listPartidas[i][2]);
+                                              tempList.add(listPartidas[i][3]);
+                                              tempList.add(listPartidas[i][4]);
+                                              tempList.add(listPartidas[i][5]);
+                                              tempList.add(listPartidas[i][6]);
+                                              tempList.add(listPartidas[i][7]);
+                                              tempList.add(listPartidas[i][8]);
+                                              tempList.add(listPartidas[i][9]);
+                                              tempList.add(listPartidas[i][10]);
+                                              listCarrito.removeWhere((item) {
                                                 return item[1].toString() ==
-                                                        _temp_list[1]
+                                                        tempList[1]
                                                             .toString() &&
                                                     item[2].toString() ==
-                                                        _temp_list[2]
-                                                            .toString();
+                                                        tempList[2].toString();
                                               });
-                                              list_carrito.add(_temp_list);
-                                              _temp_list = [];
+                                              listCarrito.add(tempList);
+                                              tempList = [];
                                             }
                                           } else {
-                                            for (var i = count_i;
-                                                i < list_partidas.length;
+                                            for (var i = countI;
+                                                i < listPartidas.length;
                                                 i++) {
-                                              list_partidas[i][0] = false;
-                                              list_carrito.removeWhere((item) {
+                                              listPartidas[i][0] = false;
+                                              listCarrito.removeWhere((item) {
                                                 return item[0].toString() ==
-                                                    list_partidas[i][1]
+                                                    listPartidas[i][1]
                                                         .toString();
                                               });
                                             }
-                                            _temp_list.clear();
+                                            tempList.clear();
                                           }
-                                          if (list_carrito.isNotEmpty) {
-                                            suma_importe = 0;
-                                            suma_dpp = 0;
-                                            suma_pp = 0;
+                                          if (listCarrito.isNotEmpty) {
+                                            sumaImporte = 0;
+                                            sumaDpp = 0;
+                                            sumaPp = 0;
                                             for (var i = 0;
-                                                i < list_carrito.length;
+                                                i < listCarrito.length;
                                                 i++) {
-                                              suma_importe = suma_importe +
-                                                  list_carrito[i][5];
-                                              suma_dpp =
-                                                  suma_dpp + list_carrito[i][8];
-                                              suma_pp =
-                                                  suma_pp + list_carrito[i][9];
+                                              sumaImporte = sumaImporte +
+                                                  listCarrito[i][5];
+                                              sumaDpp =
+                                                  sumaDpp + listCarrito[i][8];
+                                              sumaPp =
+                                                  sumaPp + listCarrito[i][9];
                                             }
                                           } else {
-                                            suma_importe = 0;
-                                            suma_dpp = 0;
-                                            suma_pp = 0;
+                                            sumaImporte = 0;
+                                            sumaDpp = 0;
+                                            sumaPp = 0;
                                           }
                                           setState(() {});
                                         },
@@ -1475,7 +1451,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                             size: ColumnSize.M,
                                             numeric: true,
                                             label: Text(
-                                              '\$ Importe\n$moneda_selec',
+                                              '\$ Importe\n$monedaSelec',
                                               textAlign: TextAlign.center,
                                               style: globalUtility
                                                   .encabezadoTablasOffAlt(
@@ -1528,95 +1504,94 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           ),
                                         ],
                                         rows: List<DataRow>.generate(
-                                          list_partidas.length,
+                                          listPartidas.length,
                                           (index) => DataRow(
                                             selected:
-                                                list_partidas[index + count_i]
-                                                    [0],
+                                                listPartidas[index + countI][0],
                                             onSelectChanged: (value) =>
                                                 setState(
                                               () {
                                                 final isCheck =
                                                     value != null && value;
-                                                final List<dynamic> _temp_list =
+                                                final List<dynamic> tempList =
                                                     [];
 
                                                 if (isCheck) {
-                                                  list_partidas[index + count_i]
+                                                  listPartidas[index + countI]
                                                       [0] = true;
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][1]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][2]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][3]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][4]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][5]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][6]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][7]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][8]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][9]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][10]);
-                                                  list_carrito.add(_temp_list);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][1]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][2]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][3]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][4]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][5]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][6]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][7]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][8]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][9]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][10]);
+                                                  listCarrito.add(tempList);
                                                 } else {
-                                                  list_partidas[index + count_i]
+                                                  listPartidas[index + countI]
                                                       [0] = false;
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][1]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][2]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][3]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][4]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][5]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][6]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][7]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][8]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][9]);
-                                                  _temp_list.add(list_partidas[
-                                                      index + count_i][10]);
-                                                  list_carrito
+                                                  tempList.add(listPartidas[
+                                                      index + countI][1]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][2]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][3]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][4]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][5]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][6]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][7]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][8]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][9]);
+                                                  tempList.add(listPartidas[
+                                                      index + countI][10]);
+                                                  listCarrito
                                                       .removeWhere((item) {
                                                     return item[1].toString() ==
-                                                            _temp_list[1]
+                                                            tempList[1]
                                                                 .toString() &&
                                                         item[2].toString() ==
-                                                            _temp_list[2]
+                                                            tempList[2]
                                                                 .toString();
                                                   });
                                                 }
-                                                suma_importe = 0;
-                                                suma_dpp = 0;
-                                                suma_pp = 0;
+                                                sumaImporte = 0;
+                                                sumaDpp = 0;
+                                                sumaPp = 0;
                                                 for (var i = 0;
-                                                    i < list_carrito.length;
+                                                    i < listCarrito.length;
                                                     i++) {
-                                                  suma_importe = suma_importe +
-                                                      list_carrito[i][5];
-                                                  suma_dpp = suma_dpp +
-                                                      list_carrito[i][8];
-                                                  suma_pp = suma_pp +
-                                                      list_carrito[i][9];
+                                                  sumaImporte = sumaImporte +
+                                                      listCarrito[i][5];
+                                                  sumaDpp = sumaDpp +
+                                                      listCarrito[i][8];
+                                                  sumaPp = sumaPp +
+                                                      listCarrito[i][9];
                                                 }
                                               },
                                             ),
                                             cells: [
                                               DataCell(
                                                 Text(
-                                                  list_partidas[index + count_i]
+                                                  listPartidas[index + countI]
                                                           [1]
                                                       .toString(),
                                                   style: globalUtility
@@ -1625,7 +1600,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               ),
                                               DataCell(
                                                 Text(
-                                                  list_partidas[index + count_i]
+                                                  listPartidas[index + countI]
                                                           [2]
                                                       .toString(),
                                                   style: globalUtility
@@ -1635,8 +1610,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               DataCell(
                                                 Center(
                                                   child: Text(
-                                                    list_partidas[
-                                                            index + count_i][3]
+                                                    listPartidas[index + countI]
+                                                            [3]
                                                         .toString(),
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1646,7 +1621,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               ),
                                               DataCell(
                                                 Text(
-                                                  '\$ ${moneyFormat(list_partidas[index + count_i][4])}',
+                                                  '\$ ${moneyFormat(listPartidas[index + countI][4])}',
                                                   style: globalUtility
                                                       .contenidoTablas(context),
                                                 ),
@@ -1654,8 +1629,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               DataCell(
                                                 Center(
                                                   child: Text(
-                                                    list_partidas[
-                                                            index + count_i][5]
+                                                    listPartidas[index + countI]
+                                                            [5]
                                                         .toString(),
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1665,14 +1640,14 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               ),
                                               DataCell(
                                                 Text(
-                                                  '\$ ${moneyFormat(list_partidas[index + count_i][6])}',
+                                                  '\$ ${moneyFormat(listPartidas[index + countI][6])}',
                                                   style: globalUtility
                                                       .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(
                                                 Text(
-                                                  list_partidas[index + count_i]
+                                                  listPartidas[index + countI]
                                                           [7]
                                                       .toString(),
                                                   style: globalUtility
@@ -1681,21 +1656,21 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               ),
                                               DataCell(
                                                 Text(
-                                                  '${list_partidas[index + count_i][8]} %',
+                                                  '${listPartidas[index + countI][8]} %',
                                                   style: globalUtility
                                                       .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(
                                                 Text(
-                                                  '\$ ${moneyFormat(list_partidas[index + count_i][9])}',
+                                                  '\$ ${moneyFormat(listPartidas[index + countI][9])}',
                                                   style: globalUtility
                                                       .contenidoTablas(context),
                                                 ),
                                               ),
                                               DataCell(
                                                 Text(
-                                                  '\$ ${moneyFormat(list_partidas[index + count_i][10])}',
+                                                  '\$ ${moneyFormat(listPartidas[index + countI][10])}',
                                                   style: globalUtility
                                                       .contenidoTablas(context),
                                                 ),
@@ -1717,7 +1692,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                 ),
               ],
             ),
-            popup_rise
+            popupRise
                 ? Stack(
                     children: [
                       InkWell(
@@ -1725,7 +1700,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                           color: globalUtility.popubBgFade,
                         ),
                         onTap: () {
-                          popup_rise = false;
+                          popupRise = false;
                           setState(() {});
                         },
                       ),
@@ -1848,7 +1823,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                           padding: EdgeInsets.zero,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
-                                          itemCount: selected_Enc.length,
+                                          itemCount: selectedEnc.length,
                                           itemBuilder: (context, index) {
                                             return Padding(
                                               padding:
@@ -1899,7 +1874,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                           child: DropdownButton<
                                                               String>(
                                                             isExpanded: true,
-                                                            value: selected_Enc[
+                                                            value: selectedEnc[
                                                                 index],
                                                             items: <String>[
                                                               "Registro SAP",
@@ -1922,7 +1897,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                     ))
                                                                 .toList(),
                                                             onChanged: (item) {
-                                                              selected_Enc[
+                                                              selectedEnc[
                                                                       index] =
                                                                   item.toString();
                                                               setState(() {});
@@ -1962,7 +1937,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                           child: DropdownButton<
                                                               String>(
                                                             isExpanded: true,
-                                                            value: selected_Ope[
+                                                            value: selectedOpe[
                                                                 index],
                                                             items: <String>[
                                                               "=",
@@ -1982,10 +1957,10 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                     ))
                                                                 .toList(),
                                                             onChanged: (item) {
-                                                              selected_Ope[
+                                                              selectedOpe[
                                                                       index] =
                                                                   item.toString();
-                                                              print(index);
+                                                              // print(index);
                                                               setState(() {});
                                                             },
                                                           ),
@@ -2040,7 +2015,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                   child:
                                                                       TextFormField(
                                                                     initialValue:
-                                                                        selected_Val[
+                                                                        selectedVal[
                                                                             index],
                                                                     autofocus:
                                                                         true,
@@ -2093,7 +2068,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                             context),
                                                                     onChanged:
                                                                         (value) {
-                                                                      selected_Val[
+                                                                      selectedVal[
                                                                               index] =
                                                                           value;
                                                                     },
@@ -2162,10 +2137,10 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     ),
                                                   ),
                                                   onTap: () {
-                                                    selected_Enc
+                                                    selectedEnc
                                                         .add("Registro SAP");
-                                                    selected_Ope.add("=");
-                                                    selected_Val.add("");
+                                                    selectedOpe.add("=");
+                                                    selectedVal.add("");
                                                     setState(() {});
                                                   },
                                                 ),
@@ -2200,8 +2175,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     ),
                                                   ),
                                                   onTap: () {
-                                                    popup_rise = false;
-                                                    GetPartidasPushBy__Filtro_Ava();
+                                                    popupRise = false;
+                                                    getPartidasPushBy__FiltroAva();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -2221,8 +2196,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                     ],
                   )
                 : const SizedBox(),
-            (fondo_disponible - suma_pp) < 0 &&
-                    fondo_insuficiente_popup == false
+            (fondoDisponible - sumaPp) < 0 && fondoInsuficientePopup == false
                 ? Stack(
                     children: [
                       Container(
@@ -2321,8 +2295,8 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
-                                                      children: [
-                                                        const Padding(
+                                                      children: const [
+                                                        Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(0,
@@ -2371,7 +2345,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                                 .fromSTEB(
                                                             0, 0, 10, 20),
                                                     child: AutoSizeText(
-                                                      'Para cubir el pago de las facturas seleccionadas es necesario un fondo adicional \nde \$ ${moneyFormat((fondo_disponible - suma_pp) * -1)}',
+                                                      'Para cubir el pago de las facturas seleccionadas es necesario un fondo adicional \nde \$ ${moneyFormat((fondoDisponible - sumaPp) * -1)}',
                                                       maxLines: 2,
                                                       style: globalUtility
                                                           .label(context),
@@ -2396,7 +2370,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    '\$ ${moneyFormat(fondo_disponible + ((fondo_disponible - suma_pp) * -1))}',
+                                                    '\$ ${moneyFormat(fondoDisponible + ((fondoDisponible - sumaPp) * -1))}',
                                                     style: globalUtility
                                                         .textoA2(context),
                                                   ),
@@ -2468,7 +2442,7 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                                 ),
                                               ),
                                               onTap: () {
-                                                fondo_insuficiente_popup = true;
+                                                fondoInsuficientePopup = true;
                                                 setState(() {});
                                               },
                                             ),
@@ -2496,14 +2470,14 @@ class _GestorPartidasPushState extends State<GestorPartidasPush> {
                                               ),
                                             ),
                                             onTap: () {
-                                              controller_fondo_disp.text =
-                                                  (fondo_disponible +
-                                                          ((fondo_disponible -
-                                                                  suma_pp) *
+                                              controllerFondoDisp.text =
+                                                  (fondoDisponible +
+                                                          ((fondoDisponible -
+                                                                  sumaPp) *
                                                               -1))
                                                       .toString();
-                                              fondo_disponible = double.parse(
-                                                  controller_fondo_disp.text);
+                                              fondoDisponible = double.parse(
+                                                  controllerFondoDisp.text);
                                               setState(() {});
                                             },
                                           ),

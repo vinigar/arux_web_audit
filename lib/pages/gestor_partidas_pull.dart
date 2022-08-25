@@ -18,91 +18,91 @@ class GestorPartidasPull extends StatefulWidget {
 class _GestorPartidasPullState extends State<GestorPartidasPull> {
   GlobalUtility globalUtility = GlobalUtility();
 
-  final controller_busqueda = TextEditingController();
-  String parametro_busqueda = "";
+  final controllerbusqueda = TextEditingController();
+  String parametrobusqueda = "";
 
-  final controller_idpartida = TextEditingController();
-  String parametro_idpartida = "";
-  final controller_proveedor = TextEditingController();
-  String parametro_proveedor = "";
-  final controller_referencia = TextEditingController();
-  String parametro_referencia = "";
-  final controller_importe = TextEditingController();
-  String parametro_importe = "";
-  final controller_moneda = TextEditingController();
-  String parametro_moneda = "";
+  final controllerIdPartida = TextEditingController();
+  String parametroIdPartida = "";
+  final controllerProveedor = TextEditingController();
+  String parametroProveedor = "";
+  final controllerReferencia = TextEditingController();
+  String parametroReferencia = "";
+  final controllerImporte = TextEditingController();
+  String parametroImporte = "";
+  final controllerMoneda = TextEditingController();
+  String parametroMoneda = "";
 
-  List<List<dynamic>> list_partidas = [];
+  List<List<dynamic>> listPartidas = [];
   String orden = "id_partidas_pk";
   bool asc = true;
-  int count_i = 0;
-  int count_f = 19;
+  int countI = 0;
+  int countF = 19;
 
-  bool popup_rise = false;
+  bool popupRise = false;
   List<String?> selectedDDEnc = ["Registro SAP"];
-  List<String?> selectedDDEnc_transf = [""];
+  List<String?> selectedDDEnctransf = [""];
   List<String?> selectedDDOpe = ["="];
-  List<String?> parametro_filt = [""];
-  final controller_busqueda_filtro = TextEditingController();
+  List<String?> parametroFilt = [""];
+  final controllerbusquedafiltro = TextEditingController();
 
-  bool filtro_avanzado = false;
-  bool filtro_simple = false;
+  bool filtroAvanzado = false;
+  bool filtroSimple = false;
 
   ///////////////////////////////////////////////////////////////////////////////////
 
   @override
   void initState() {
-    GetPartidas();
+    getPartidas();
     super.initState();
   }
 
-  Future<void> GetPartidas() async {
+  Future<void> getPartidas() async {
     try {
       dynamic response = await supabase
           .rpc('get_gestor_partidas_pull',
-              params: {'busqueda': parametro_busqueda})
+              params: {'busqueda': parametrobusqueda})
           .order(orden, ascending: asc)
-          .range(0, count_f)
+          .range(0, countF)
           .execute();
 
-      //print("-----Error: ${response.error}");
+      //// print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      /* print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString()); */
+      /* // print("-----Parametro de Busqueda: $parametrobusqueda");
+      // print("-----Response: ");
+      // print(response.toString()); */
 
-      GetGestorPartidasQt getGestorPartidasQTResponse =
+      GetGestorPartidasQt getGestorPartidasQtResponse =
           getGestorPartidasQtFromMap(response);
 
-      list_partidas = [];
+      listPartidas = [];
 
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
+      for (var i = 0; i < getGestorPartidasQtResponse.data.length; i++) {
+        List<dynamic> localList = [];
 
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importe}");
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
+        localList.add(getGestorPartidasQtResponse.data[i].idPartidasPk);
+        localList.add(getGestorPartidasQtResponse.data[i].proveedor);
+        localList.add(getGestorPartidasQtResponse.data[i].referencia);
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].importe}");
+        localList.add(getGestorPartidasQtResponse.data[i].moneda);
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].importeUsd}");
+        localList.add(getGestorPartidasQtResponse.data[i].diasPago);
+        localList.add("${getGestorPartidasQtResponse.data[i].porcDpp} %");
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].cantDpp}");
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].prontoPago}");
 
-        list_partidas.add(local_list);
+        listPartidas.add(localList);
 
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
+        //// print("Indice $i : ${listPartidas[i]}");
+        //// print("Indice $i : ${listPartidas[i][1]}");
+        //// print("Indice $i : ${listPartidas[i].length}");
       }
 
-      //print("Listas : ${list_partidas.length}");
+      //// print("Listas : ${listPartidas.length}");
 
     } catch (e) {
-      print(e);
+      //// print(e);
     }
 
     setState(() {});
@@ -110,57 +110,58 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  Future<void> GetPartidasBy__() async {
+  // ignore: non_constant_identifier_names
+  Future<void> getPartidasBy__() async {
     try {
       dynamic response = await supabase
           .rpc('get_gestor_partidas_pull_by__', params: {
-            'idpartida': parametro_idpartida,
-            'proveedor': parametro_proveedor,
-            'referencia': parametro_referencia,
-            'importe': parametro_importe,
-            'moneda': parametro_moneda
+            'idpartida': parametroIdPartida,
+            'proveedor': parametroProveedor,
+            'referencia': parametroReferencia,
+            'importe': parametroImporte,
+            'moneda': parametroMoneda
           })
           .order(orden, ascending: asc)
           .execute();
 
-      //print("-----Error: ${response.error}");
+      //// print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      /* print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString()); */
+      /* // print("-----Parametro de Busqueda: $parametrobusqueda");
+      // print("-----Response: ");
+      // print(response.toString()); */
 
-      GetGestorPartidasQt getGestorPartidasQTResponse =
+      GetGestorPartidasQt getGestorPartidasQtResponse =
           getGestorPartidasQtFromMap(response);
 
-      list_partidas = [];
+      listPartidas = [];
 
-      for (var i = 0; i < getGestorPartidasQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
+      for (var i = 0; i < getGestorPartidasQtResponse.data.length; i++) {
+        List<dynamic> localList = [];
 
-        local_list.add(getGestorPartidasQTResponse.data[i].idPartidasPk);
-        local_list.add(getGestorPartidasQTResponse.data[i].proveedor);
-        local_list.add(getGestorPartidasQTResponse.data[i].referencia);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importe}");
-        local_list.add(getGestorPartidasQTResponse.data[i].moneda);
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].importeUsd}");
-        local_list.add(getGestorPartidasQTResponse.data[i].diasPago);
-        local_list.add("${getGestorPartidasQTResponse.data[i].porcDpp} %");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getGestorPartidasQTResponse.data[i].prontoPago}");
+        localList.add(getGestorPartidasQtResponse.data[i].idPartidasPk);
+        localList.add(getGestorPartidasQtResponse.data[i].proveedor);
+        localList.add(getGestorPartidasQtResponse.data[i].referencia);
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].importe}");
+        localList.add(getGestorPartidasQtResponse.data[i].moneda);
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].importeUsd}");
+        localList.add(getGestorPartidasQtResponse.data[i].diasPago);
+        localList.add("${getGestorPartidasQtResponse.data[i].porcDpp} %");
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].cantDpp}");
+        localList.add("\$ ${getGestorPartidasQtResponse.data[i].prontoPago}");
 
-        list_partidas.add(local_list);
+        listPartidas.add(localList);
 
-        //print("Indice $i : ${list_partidas[i]}");
-        //print("Indice $i : ${list_partidas[i][1]}");
-        //print("Indice $i : ${list_partidas[i].length}");
+        //// print("Indice $i : ${listPartidas[i]}");
+        //// print("Indice $i : ${listPartidas[i][1]}");
+        //// print("Indice $i : ${listPartidas[i].length}");
       }
 
-      //print("Listas : ${list_partidas.length}");
+      //// print("Listas : ${listPartidas.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
@@ -282,7 +283,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                     ),
                                                     child: TextFormField(
                                                       controller:
-                                                          controller_busqueda,
+                                                          controllerbusqueda,
                                                       autofocus: true,
                                                       obscureText: false,
                                                       decoration:
@@ -310,9 +311,9 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                       style: globalUtility
                                                           .textoA(context),
                                                       onChanged: (value) {
-                                                        parametro_busqueda =
+                                                        parametrobusqueda =
                                                             value;
-                                                        if (filtro_avanzado) {
+                                                        if (filtroAvanzado) {
                                                           switch (selectedDDOpe[
                                                               0]) {
                                                             case "=":
@@ -335,7 +336,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                               break;
                                                           }
                                                         } else {
-                                                          GetPartidas();
+                                                          getPartidas();
                                                         }
                                                       },
                                                     ),
@@ -408,12 +409,12 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ),
                                                         ),
                                                         onTap: () {
-                                                          if (filtro_simple ==
+                                                          if (filtroSimple ==
                                                                   false ||
-                                                              filtro_avanzado ==
+                                                              filtroAvanzado ==
                                                                   false) {
-                                                            count_f++;
-                                                            GetPartidas();
+                                                            countF++;
+                                                            getPartidas();
                                                           }
                                                           setState(() {});
                                                         },
@@ -430,7 +431,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           height: 23.5,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: count_f == 0
+                                                            color: countF == 0
                                                                 ? globalUtility
                                                                     .secondary
                                                                 : globalUtility
@@ -458,13 +459,13 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ),
                                                         ),
                                                         onTap: () {
-                                                          if (filtro_simple ==
+                                                          if (filtroSimple ==
                                                                   false ||
-                                                              filtro_avanzado ==
+                                                              filtroAvanzado ==
                                                                   false) {
-                                                            if (count_f >= 1) {
-                                                              count_f--;
-                                                              GetPartidas();
+                                                            if (countF >= 1) {
+                                                              countF--;
+                                                              getPartidas();
                                                               setState(() {});
                                                             }
                                                           }
@@ -513,25 +514,23 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                               onChanged:
                                                                   (value) {
                                                                 try {
-                                                                  print(
-                                                                      "---Valor: ${value.toString()}");
+                                                                  // print("---Valor: ${value.toString()}");
                                                                   if (value
                                                                           .isNotEmpty ||
                                                                       value !=
                                                                           "0") {
-                                                                    count_f = int
+                                                                    countF = int
                                                                         .parse(value
                                                                             .toString());
-                                                                    count_f =
-                                                                        count_f -
+                                                                    countF =
+                                                                        countF -
                                                                             1;
-                                                                    GetPartidas();
+                                                                    getPartidas();
                                                                     setState(
                                                                         () {});
                                                                   }
                                                                 } catch (e) {
-                                                                  print(
-                                                                      "---Error: $e");
+                                                                  // print( "---Error: $e");
                                                                 }
                                                               },
                                                             ),
@@ -856,7 +855,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                   child: Text(
                                                     "Registro\nSAP",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_idpartida
+                                                    style: parametroIdPartida
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -866,28 +865,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -917,7 +914,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -939,10 +936,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -958,7 +955,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                   child: Text(
                                                     "Proveedor",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_proveedor
+                                                    style: parametroProveedor
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -968,28 +965,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1018,7 +1013,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1040,10 +1035,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1059,7 +1054,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                   child: Text(
                                                     "Referencia",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_referencia
+                                                    style: parametroReferencia
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1069,28 +1064,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1119,7 +1112,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1141,10 +1134,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1160,7 +1153,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                   child: Text(
                                                     "Importe\nFactura",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_importe
+                                                    style: parametroImporte
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1170,28 +1163,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1219,7 +1210,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1241,10 +1232,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1260,7 +1251,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                   child: Text(
                                                     "Moneda",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_moneda
+                                                    style: parametroMoneda
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1270,28 +1261,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1319,7 +1308,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1341,10 +1330,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1365,28 +1354,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1414,7 +1401,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1436,10 +1423,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1460,28 +1447,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1510,7 +1495,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1532,10 +1517,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1556,28 +1541,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1605,7 +1588,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1627,10 +1610,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1651,28 +1634,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1700,7 +1681,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1722,10 +1703,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1746,28 +1727,26 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idpartida
+                                                      filtroSimple = false;
+                                                      controllerIdPartida
                                                           .clear();
-                                                      parametro_idpartida = "";
-                                                      controller_proveedor
+                                                      parametroIdPartida = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_referencia
+                                                      parametroProveedor = "";
+                                                      controllerReferencia
                                                           .clear();
-                                                      parametro_referencia = "";
-                                                      controller_importe
-                                                          .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroReferencia = "";
+                                                      controllerImporte.clear();
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetPartidas();
+                                                    getPartidas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1797,7 +1776,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1819,10 +1798,10 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPartidasBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPartidasBy__();
                                                     } else {
-                                                      GetPartidas();
+                                                      getPartidas();
                                                     }
                                                   },
                                                 ),
@@ -1831,7 +1810,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                           ),
                                         ],
                                       ),
-                                      filtro_simple == true
+                                      filtroSimple == true
                                           ? Row(
                                               children: [
                                                 const Expanded(
@@ -1863,17 +1842,17 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_idpartida,
+                                                              controllerIdPartida,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_idpartida =
+                                                            parametroIdPartida =
                                                                 value
                                                                     .toString();
-                                                            GetPartidasBy__();
+                                                            getPartidasBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1907,17 +1886,17 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_proveedor,
+                                                              controllerProveedor,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_proveedor =
+                                                            parametroProveedor =
                                                                 value
                                                                     .toString();
-                                                            GetPartidasBy__();
+                                                            getPartidasBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1951,17 +1930,17 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_referencia,
+                                                              controllerReferencia,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_referencia =
+                                                            parametroReferencia =
                                                                 value
                                                                     .toString();
-                                                            GetPartidasBy__();
+                                                            getPartidasBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1998,17 +1977,17 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                               TextInputType
                                                                   .number,
                                                           controller:
-                                                              controller_importe,
+                                                              controllerImporte,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_importe =
+                                                            parametroImporte =
                                                                 value
                                                                     .toString();
-                                                            GetPartidasBy__();
+                                                            getPartidasBy__();
                                                           },
                                                         ),
                                                       ),
@@ -2045,17 +2024,17 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                               TextInputType
                                                                   .text,
                                                           controller:
-                                                              controller_moneda,
+                                                              controllerMoneda,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_moneda =
+                                                            parametroMoneda =
                                                                 value
                                                                     .toString();
-                                                            GetPartidasBy__();
+                                                            getPartidasBy__();
                                                           },
                                                         ),
                                                       ),
@@ -2092,7 +2071,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: list_partidas.length,
+                                  itemCount: listPartidas.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding:
@@ -2136,7 +2115,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][0]
+                                                    listPartidas[index][0]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2146,7 +2125,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][1]
+                                                    listPartidas[index][1]
                                                         .toString(),
                                                     textAlign: TextAlign.start,
                                                     style: globalUtility
@@ -2156,7 +2135,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][2]
+                                                    listPartidas[index][2]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2166,7 +2145,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][3]
+                                                    listPartidas[index][3]
                                                         .toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
@@ -2176,7 +2155,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][4]
+                                                    listPartidas[index][4]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2186,7 +2165,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][5]
+                                                    listPartidas[index][5]
                                                         .toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
@@ -2196,7 +2175,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][6]
+                                                    listPartidas[index][6]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2206,7 +2185,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][7]
+                                                    listPartidas[index][7]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2216,7 +2195,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][8]
+                                                    listPartidas[index][8]
                                                         .toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
@@ -2226,7 +2205,7 @@ class _GestorPartidasPullState extends State<GestorPartidasPull> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_partidas[index][9]
+                                                    listPartidas[index][9]
                                                         .toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility

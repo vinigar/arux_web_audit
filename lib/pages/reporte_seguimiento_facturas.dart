@@ -21,115 +21,115 @@ class _ReporteSeguimientoDeFacturasState
     extends State<ReporteSeguimientoDeFacturas> {
   GlobalUtility globalUtility = GlobalUtility();
 
-  final controller_busqueda = TextEditingController();
-  String parametro_busqueda = "";
+  final controllerBusqueda = TextEditingController();
+  String parametroBusqueda = "";
 
-  final controller_idddu = TextEditingController();
-  String parametro_idddu = "";
-  final controller_proveedor = TextEditingController();
-  String parametro_proveedor = "";
-  final controller_registro_sap = TextEditingController();
-  String parametro_registro_sap = "";
-  final controller_factura = TextEditingController();
-  String parametro_factura = "";
-  final controller_importe = TextEditingController();
-  String parametro_importe = "";
-  final controller_moneda = TextEditingController();
-  String parametro_moneda = "";
-  final controller_nc_sap = TextEditingController();
-  String parametro_nc_sap = "";
-  final controller_importe_nc = TextEditingController();
-  String parametro_importe_nc = "";
-  final controller_doc_pago = TextEditingController();
-  String parametro_doc_pago = "";
-  final controller_estatus = TextEditingController();
-  String parametro_estatus = "";
-  bool filtro_simple = false;
+  final controllerIdddu = TextEditingController();
+  String parametroIdddu = "";
+  final controllerProveedor = TextEditingController();
+  String parametroProveedor = "";
+  final controllerRegistroSap = TextEditingController();
+  String parametroRegistroSap = "";
+  final controllerFactura = TextEditingController();
+  String parametroFactura = "";
+  final controllerImporte = TextEditingController();
+  String parametroImporte = "";
+  final controllerMoneda = TextEditingController();
+  String parametroMoneda = "";
+  final controllerNcSap = TextEditingController();
+  String parametroNcSap = "";
+  final controllerImporteNc = TextEditingController();
+  String parametroImporteNc = "";
+  final controllerDocPago = TextEditingController();
+  String parametroDocPago = "";
+  final controllerEstatus = TextEditingController();
+  String parametroEstatus = "";
+  bool filtroSimple = false;
 
-  List<List<dynamic>> list_facturas = [];
+  List<List<dynamic>> listFacturas = [];
   String orden = "idddu";
   bool asc = true;
-  int count_i = 0;
-  int count_f = 19;
+  int countI = 0;
+  int countF = 19;
 
-  bool popup_rise = false;
+  bool popupRise = false;
   List<String?> selectedDDEnc = ["Registro SAP"];
-  List<String?> selectedDDEnc_transf = [""];
+  List<String?> selectedDDEncTransf = [""];
   List<String?> selectedDDOpe = ["="];
-  List<String?> parametro_filt = [""];
-  final controller_busqueda_filtro = TextEditingController();
-  bool filtro_avanzado = false;
+  List<String?> parametroFilt = [""];
+  final controllerBusquedaFiltro = TextEditingController();
+  bool filtroAvanzado = false;
 
   ///////////////////////////////////////////////////////////////////////////////////
 
   @override
   void initState() {
-    GetFacturas();
+    getFacturas();
     super.initState();
   }
 
-  Future<void> GetFacturas() async {
+  Future<void> getFacturas() async {
     try {
       dynamic response = await supabase
           .rpc('get_reporte_seguimiento_factura',
-              params: {'busqueda': parametro_busqueda})
+              params: {'busqueda': parametroBusqueda})
           .order(orden, ascending: asc)
-          .range(0, count_f)
+          .range(0, countF)
           .execute();
 
-      print("-----Error: ${response.error}");
+      // print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      // print("-----Parametro de Busqueda: $parametro_busqueda");
-      /* print("-----Response: ");
-      print(response.toString()); */
+      // // print("-----Parametro de Busqueda: $parametro_busqueda");
+      /* // print("-----Response: ");
+      // print(response.toString()); */
 
       GetReporteSeguimientoFacturasQt getReporteSeguimientoFacturasQt =
           getReporteSeguimientoFacturasQtFromMap(response);
 
-      list_facturas = [];
+      listFacturas = [];
 
       for (var i = 0; i < getReporteSeguimientoFacturasQt.data.length; i++) {
-        List<dynamic> local_list = [];
+        List<dynamic> localList = [];
 
-        local_list.add(getReporteSeguimientoFacturasQt.data[i].idProveedor);
-        local_list.add(getReporteSeguimientoFacturasQt.data[i].idddu);
-        local_list.add(getReporteSeguimientoFacturasQt.data[i].proveedor);
-        local_list.add(getReporteSeguimientoFacturasQt.data[i].idPartida);
-        local_list.add(getReporteSeguimientoFacturasQt.data[i].factura);
-        local_list.add("\$ ${getReporteSeguimientoFacturasQt.data[i].importe}");
-        local_list.add(getReporteSeguimientoFacturasQt.data[i].moneda);
+        localList.add(getReporteSeguimientoFacturasQt.data[i].idProveedor);
+        localList.add(getReporteSeguimientoFacturasQt.data[i].idddu);
+        localList.add(getReporteSeguimientoFacturasQt.data[i].proveedor);
+        localList.add(getReporteSeguimientoFacturasQt.data[i].idPartida);
+        localList.add(getReporteSeguimientoFacturasQt.data[i].factura);
+        localList.add("\$ ${getReporteSeguimientoFacturasQt.data[i].importe}");
+        localList.add(getReporteSeguimientoFacturasQt.data[i].moneda);
         if (getReporteSeguimientoFacturasQt.data[i].ncSap == null) {
-          local_list.add("-");
+          localList.add("-");
         } else {
-          local_list.add(getReporteSeguimientoFacturasQt.data[i].ncSap);
+          localList.add(getReporteSeguimientoFacturasQt.data[i].ncSap);
         }
         if (getReporteSeguimientoFacturasQt.data[i].ncSap == null) {
-          local_list.add("-");
+          localList.add("-");
         } else {
-          local_list
+          localList
               .add("\$ ${getReporteSeguimientoFacturasQt.data[i].importeNc}");
         }
         if (getReporteSeguimientoFacturasQt.data[i].ncSap == null) {
-          local_list.add("-");
+          localList.add("-");
         } else {
-          local_list.add(getReporteSeguimientoFacturasQt.data[i].docPagoSap);
+          localList.add(getReporteSeguimientoFacturasQt.data[i].docPagoSap);
         }
 
-        local_list.add(getReporteSeguimientoFacturasQt.data[i].estatus);
+        localList.add(getReporteSeguimientoFacturasQt.data[i].estatus);
 
-        list_facturas.add(local_list);
+        listFacturas.add(localList);
 
-        //print("Indice $i : ${list_facturas[i]}");
-        //print("Indice $i : ${list_facturas[i][1]}");
-        //print("Indice $i : ${list_facturas[i].length}");
+        //// print("Indice $i : ${list_facturas[i]}");
+        //// print("Indice $i : ${list_facturas[i][1]}");
+        //// print("Indice $i : ${list_facturas[i].length}");
       }
 
-      //print("Listas : ${list_facturas.length}");
+      //// print("Listas : ${list_facturas.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
@@ -137,31 +137,31 @@ class _ReporteSeguimientoDeFacturasState
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  Future<void> GetFacturasBy_() async {
+  Future<void> getFacturasBy_() async {
     try {
       dynamic response = await supabase
           .rpc('get_gestor_partidas_push_by__', params: {
-            'idpartida': parametro_idddu,
-            'proveedor': parametro_proveedor,
-            'referencia': parametro_registro_sap,
-            'importe': parametro_importe,
-            'moneda': parametro_moneda
+            'idpartida': parametroIdddu,
+            'proveedor': parametroProveedor,
+            'referencia': parametroRegistroSap,
+            'importe': parametroImporte,
+            'moneda': parametroMoneda
           })
           .order(orden, ascending: asc)
           .execute();
 
-      print("-----Error: ${response.error}");
+      // print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      // print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
+      // // print("-----Parametro de Busqueda: $parametro_busqueda");
+      // print("-----Response: ");
+      // print(response.toString());
 
       GetGestorPartidasQt getReporteSeguimientoFacturasQt =
           getGestorPartidasQtFromMap(response);
 
-      list_facturas = [];
+      listFacturas = [];
 
       for (var i = 0; i < getReporteSeguimientoFacturasQt.data.length; i++) {
         List<dynamic> local_list = [];
@@ -179,17 +179,17 @@ class _ReporteSeguimientoDeFacturasState
         local_list
             .add("\$ ${getReporteSeguimientoFacturasQt.data[i].prontoPago}");
 
-        list_facturas.add(local_list);
+        listFacturas.add(local_list);
 
-        //print("Indice $i : ${list_facturas[i]}");
-        //print("Indice $i : ${list_facturas[i][1]}");
-        //print("Indice $i : ${list_facturas[i].length}");
+        //// print("Indice $i : ${list_facturas[i]}");
+        //// print("Indice $i : ${list_facturas[i][1]}");
+        //// print("Indice $i : ${list_facturas[i].length}");
       }
 
-      //print("Listas : ${list_facturas.length}");
+      //// print("Listas : ${list_facturas.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
@@ -413,7 +413,7 @@ class _ReporteSeguimientoDeFacturasState
                                                       ),
                                                       child: TextFormField(
                                                         controller:
-                                                            controller_busqueda,
+                                                            controllerBusqueda,
                                                         autofocus: true,
                                                         obscureText: false,
                                                         decoration:
@@ -443,9 +443,9 @@ class _ReporteSeguimientoDeFacturasState
                                                         style: globalUtility
                                                             .textoA(context),
                                                         onChanged: (value) {
-                                                          parametro_busqueda =
+                                                          parametroBusqueda =
                                                               value;
-                                                          if (filtro_avanzado) {
+                                                          if (filtroAvanzado) {
                                                             switch (
                                                                 selectedDDOpe[
                                                                     0]) {
@@ -469,7 +469,7 @@ class _ReporteSeguimientoDeFacturasState
                                                                 break;
                                                             }
                                                           } else {
-                                                            GetFacturas();
+                                                            getFacturas();
                                                           }
                                                         },
                                                       ),
@@ -548,12 +548,12 @@ class _ReporteSeguimientoDeFacturasState
                                                             ),
                                                           ),
                                                           onTap: () {
-                                                            if (filtro_simple ==
+                                                            if (filtroSimple ==
                                                                     false ||
-                                                                filtro_avanzado ==
+                                                                filtroAvanzado ==
                                                                     false) {
-                                                              count_f++;
-                                                              GetFacturas();
+                                                              countF++;
+                                                              getFacturas();
                                                             }
                                                             setState(() {});
                                                           },
@@ -570,7 +570,7 @@ class _ReporteSeguimientoDeFacturasState
                                                             height: 23.5,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: count_f ==
+                                                              color: countF ==
                                                                       0
                                                                   ? globalUtility
                                                                       .secondary
@@ -603,14 +603,14 @@ class _ReporteSeguimientoDeFacturasState
                                                             ),
                                                           ),
                                                           onTap: () {
-                                                            if (filtro_simple ==
+                                                            if (filtroSimple ==
                                                                     false ||
-                                                                filtro_avanzado ==
+                                                                filtroAvanzado ==
                                                                     false) {
-                                                              if (count_f >=
+                                                              if (countF >=
                                                                   1) {
-                                                                count_f--;
-                                                                GetFacturas();
+                                                                countF--;
+                                                                getFacturas();
                                                                 setState(() {});
                                                               }
                                                             }
@@ -659,25 +659,23 @@ class _ReporteSeguimientoDeFacturasState
                                                                 onChanged:
                                                                     (value) {
                                                                   try {
-                                                                    print(
-                                                                        "---Valor: ${value.toString()}");
+                                                                    // print("---Valor: ${value.toString()}");
                                                                     if (value
                                                                             .isNotEmpty ||
                                                                         value !=
                                                                             "0") {
-                                                                      count_f =
+                                                                      countF =
                                                                           int.parse(
                                                                               value.toString());
-                                                                      count_f =
-                                                                          count_f -
+                                                                      countF =
+                                                                          countF -
                                                                               1;
-                                                                      GetFacturas();
+                                                                      getFacturas();
                                                                       setState(
                                                                           () {});
                                                                     }
                                                                   } catch (e) {
-                                                                    print(
-                                                                        "---Error: $e");
+                                                                    // print("---Error: $e");
                                                                   }
                                                                 },
                                                               ),
@@ -785,7 +783,7 @@ class _ReporteSeguimientoDeFacturasState
                                                   child: Text(
                                                     "IDDDU",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_idddu
+                                                    style: parametroIdddu
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -795,28 +793,28 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -844,7 +842,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -866,10 +864,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -885,7 +883,7 @@ class _ReporteSeguimientoDeFacturasState
                                                   child: Text(
                                                     "Proveedor",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_proveedor
+                                                    style: parametroProveedor
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -895,28 +893,28 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -945,7 +943,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -967,10 +965,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -986,7 +984,7 @@ class _ReporteSeguimientoDeFacturasState
                                                   child: Text(
                                                     "Registro\nSAP",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_idddu
+                                                    style: parametroIdddu
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -996,28 +994,28 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1046,7 +1044,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1068,10 +1066,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1087,7 +1085,7 @@ class _ReporteSeguimientoDeFacturasState
                                                   child: Text(
                                                     "Factura",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_registro_sap
+                                                    style: parametroRegistroSap
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1097,28 +1095,28 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1146,7 +1144,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1168,10 +1166,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1187,7 +1185,7 @@ class _ReporteSeguimientoDeFacturasState
                                                   child: Text(
                                                     "Importe\nFactura",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_importe
+                                                    style: parametroImporte
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1197,28 +1195,28 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1246,7 +1244,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1268,10 +1266,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1287,7 +1285,7 @@ class _ReporteSeguimientoDeFacturasState
                                                   child: Text(
                                                     "Moneda",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_moneda
+                                                    style: parametroMoneda
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1297,28 +1295,28 @@ class _ReporteSeguimientoDeFacturasState
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1346,7 +1344,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1368,10 +1366,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1392,28 +1390,28 @@ class _ReporteSeguimientoDeFacturasState
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1441,7 +1439,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1463,10 +1461,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1487,28 +1485,28 @@ class _ReporteSeguimientoDeFacturasState
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1537,7 +1535,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1559,10 +1557,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1583,28 +1581,28 @@ class _ReporteSeguimientoDeFacturasState
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1634,7 +1632,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1656,10 +1654,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1680,28 +1678,28 @@ class _ReporteSeguimientoDeFacturasState
                                                             context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_idddu.clear();
-                                                      parametro_idddu = "";
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerIdddu.clear();
+                                                      parametroIdddu = "";
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_registro_sap
+                                                      parametroProveedor = "";
+                                                      controllerRegistroSap
                                                           .clear();
-                                                      parametro_registro_sap =
+                                                      parametroRegistroSap =
                                                           "";
-                                                      controller_importe
+                                                      controllerImporte
                                                           .clear();
-                                                      parametro_importe = "";
-                                                      controller_moneda.clear();
-                                                      parametro_moneda = "";
+                                                      parametroImporte = "";
+                                                      controllerMoneda.clear();
+                                                      parametroMoneda = "";
                                                     }
-                                                    GetFacturas();
+                                                    getFacturas();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1729,7 +1727,7 @@ class _ReporteSeguimientoDeFacturasState
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1751,10 +1749,10 @@ class _ReporteSeguimientoDeFacturasState
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetFacturasBy_();
+                                                    } else if (filtroSimple) {
+                                                      getFacturasBy_();
                                                     } else {
-                                                      GetFacturas();
+                                                      getFacturas();
                                                     }
                                                   },
                                                 ),
@@ -1763,7 +1761,7 @@ class _ReporteSeguimientoDeFacturasState
                                           ),
                                         ],
                                       ),
-                                      filtro_simple == true
+                                      filtroSimple == true
                                           ? Row(
                                               children: [
                                                 Expanded(
@@ -1793,17 +1791,17 @@ class _ReporteSeguimientoDeFacturasState
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_idddu,
+                                                              controllerIdddu,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_idddu =
+                                                            parametroIdddu =
                                                                 value
                                                                     .toString();
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1837,17 +1835,17 @@ class _ReporteSeguimientoDeFacturasState
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_proveedor,
+                                                              controllerProveedor,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_proveedor =
+                                                            parametroProveedor =
                                                                 value
                                                                     .toString();
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -1881,243 +1879,17 @@ class _ReporteSeguimientoDeFacturasState
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_registro_sap,
+                                                              controllerRegistroSap,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_registro_sap =
+                                                            parametroRegistroSap =
                                                                 value
                                                                     .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          controller:
-                                                              controller_importe,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_importe =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .text,
-                                                          controller:
-                                                              controller_moneda,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_moneda =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          controller:
-                                                              controller_moneda,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_moneda =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          controller:
-                                                              controller_nc_sap,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_nc_sap =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Container(
-                                                      height: 30,
-                                                      width: 85,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color: globalUtility
-                                                              .primaryBg,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 9,
-                                                          horizontal: 5,
-                                                        ),
-                                                        child: TextField(
-                                                          controller:
-                                                              controller_importe_nc,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none),
-                                                          onChanged: (value) {
-                                                            parametro_importe_nc =
-                                                                value
-                                                                    .toString();
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -2154,17 +1926,17 @@ class _ReporteSeguimientoDeFacturasState
                                                               TextInputType
                                                                   .number,
                                                           controller:
-                                                              controller_doc_pago,
+                                                              controllerImporte,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_doc_pago =
+                                                            parametroImporte =
                                                                 value
                                                                     .toString();
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -2201,17 +1973,243 @@ class _ReporteSeguimientoDeFacturasState
                                                               TextInputType
                                                                   .text,
                                                           controller:
-                                                              controller_estatus,
+                                                              controllerMoneda,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_estatus =
+                                                            parametroMoneda =
                                                                 value
                                                                     .toString();
-                                                            GetFacturasBy_();
+                                                            getFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          controller:
+                                                              controllerMoneda,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametroMoneda =
+                                                                value
+                                                                    .toString();
+                                                            getFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          controller:
+                                                              controllerNcSap,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametroNcSap =
+                                                                value
+                                                                    .toString();
+                                                            getFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          controller:
+                                                              controllerImporteNc,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametroImporteNc =
+                                                                value
+                                                                    .toString();
+                                                            getFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          controller:
+                                                              controllerDocPago,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametroDocPago =
+                                                                value
+                                                                    .toString();
+                                                            getFacturasBy_();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 85,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color: globalUtility
+                                                              .primaryBg,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 9,
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: TextField(
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .text,
+                                                          controller:
+                                                              controllerEstatus,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                          onChanged: (value) {
+                                                            parametroEstatus =
+                                                                value
+                                                                    .toString();
+                                                            getFacturasBy_();
                                                           },
                                                         ),
                                                       ),
@@ -2238,7 +2236,7 @@ class _ReporteSeguimientoDeFacturasState
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: list_facturas.length,
+                                  itemCount: listFacturas.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding:
@@ -2273,7 +2271,7 @@ class _ReporteSeguimientoDeFacturasState
                                               children: [
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][1]
+                                                    listFacturas[index][1]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2283,7 +2281,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][2]
+                                                    listFacturas[index][2]
                                                         .toString(),
                                                     textAlign: TextAlign.start,
                                                     style: globalUtility
@@ -2293,7 +2291,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][3]
+                                                    listFacturas[index][3]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2303,7 +2301,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][4]
+                                                    listFacturas[index][4]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2313,7 +2311,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][5]
+                                                    listFacturas[index][5]
                                                         .toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
@@ -2323,7 +2321,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][6]
+                                                    listFacturas[index][6]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2333,7 +2331,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][7]
+                                                    listFacturas[index][7]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2343,7 +2341,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][8]
+                                                    listFacturas[index][8]
                                                         .toString(),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
@@ -2353,7 +2351,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][9]
+                                                    listFacturas[index][9]
                                                         .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
@@ -2363,7 +2361,7 @@ class _ReporteSeguimientoDeFacturasState
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    list_facturas[index][10]
+                                                    listFacturas[index][10]
                                                         .toString(),
                                                     textAlign: TextAlign.start,
                                                     style: globalUtility

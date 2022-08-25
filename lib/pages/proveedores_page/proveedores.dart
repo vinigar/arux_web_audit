@@ -6,7 +6,6 @@ import 'package:expandable/expandable.dart';
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/get_proveedores_qt.dart';
-import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/models/get_sociedades_by_id_proveedor.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
@@ -21,75 +20,75 @@ class Proveedores extends StatefulWidget {
 class _ProveedoresState extends State<Proveedores> {
   GlobalUtility globalUtility = GlobalUtility();
 
-  final controller_busqueda = TextEditingController();
-  String parametro_busqueda = "";
+  final controllerBusqueda = TextEditingController();
+  String parametroBusqueda = "";
 
-  final controller_proveedor = TextEditingController();
-  String parametro_proveedor = "";
-  final controller_cuenta_sap = TextEditingController();
-  String parametro_cuenta_sap = "";
-  final controller_esquema = TextEditingController();
-  String parametro_esquema = "";
-  final controller_estado = TextEditingController();
-  String parametro_estado = "";
+  final controllerProveedor = TextEditingController();
+  String parametroProveedor = "";
+  final controllerCuentaSap = TextEditingController();
+  String parametroCuentaSap = "";
+  final controllerEsquema = TextEditingController();
+  String parametroEsquema = "";
+  final controllerEstado = TextEditingController();
+  String parametroEstado = "";
 
-  List<List<dynamic>> list_proveedores = [];
+  List<List<dynamic>> listProveedores = [];
   String orden = "proveedor";
   String orden_2 = "sociedad";
   bool asc = true;
   bool asc_2 = true;
-  final controller_count = TextEditingController();
-  int count_i = 0;
-  int count_f = 19;
+  final controllerCount = TextEditingController();
+  int countI = 0;
+  int countF = 19;
 
-  bool popup_rise = false;
+  bool popupRise = false;
   List<String?> selectedDDEnc = ["Registro SAP"];
-  List<String?> selectedDDEnc_transf = [""];
+  List<String?> selectedDDEncTransf = [""];
   List<String?> selectedDDOpe = ["="];
-  List<String?> parametro_filt = [""];
-  final controller_busqueda_filtro = TextEditingController();
+  List<String?> parametroFilt = [""];
+  final controllerBusquedaFiltro = TextEditingController();
 
-  bool filtro_avanzado = false;
-  bool filtro_simple = false;
+  bool filtroAvanzado = false;
+  bool filtroSimple = false;
 
   ///////////////////////////////////////////////////////////////////////////////////
 
   @override
   void initState() {
-    GetProveedores();
+    getProveedores();
     super.initState();
   }
 
-  Future<void> GetProveedores() async {
+  Future<void> getProveedores() async {
     try {
       dynamic response = await supabase
-          .rpc('get_proveedores', params: {'busqueda': parametro_busqueda})
+          .rpc('get_proveedores', params: {'busqueda': parametroBusqueda})
           .order(orden, ascending: asc)
-          .range(0, count_f)
+          .range(0, countF)
           .execute();
 
-      //print("-----Error: ${response.error}");
+      //// print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      // print("-----Parametro de Busqueda: $parametro_busqueda");
-      /* print("-----Response: ");
-      print(response.toString()); */
+      // // print("-----Parametro de Busqueda: $parametro_busqueda");
+      /* // print("-----Response: ");
+      // print(response.toString()); */
 
       GetProveedoresQt getProveedoresQTResponse =
           getProveedoresQtFromMap(response);
 
-      list_proveedores = [];
+      listProveedores = [];
 
       for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-        List<dynamic> local_list_2 = [];
+        List<dynamic> localList = [];
+        List<dynamic> localList_2 = [];
 
-        local_list.add(getProveedoresQTResponse.data[i].idProveedor);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].cuentaSap);
-        local_list.add(getProveedoresQTResponse.data[i].esquema);
-        local_list.add(getProveedoresQTResponse.data[i].estado);
+        localList.add(getProveedoresQTResponse.data[i].idProveedor);
+        localList.add(getProveedoresQTResponse.data[i].proveedor);
+        localList.add(getProveedoresQTResponse.data[i].cuentaSap);
+        localList.add(getProveedoresQTResponse.data[i].esquema);
+        localList.add(getProveedoresQTResponse.data[i].estado);
 
         dynamic response = await supabase
             .rpc('get_sociedades_by_id_proveedor', params: {
@@ -98,52 +97,52 @@ class _ProveedoresState extends State<Proveedores> {
             .order(orden_2, ascending: asc_2)
             .execute();
 
-        //print("-----Error: ${response.error}");
+        //// print("-----Error: ${response.error}");
 
         response = jsonEncode(response);
 
-        /* print("-----Response: ");
-        print(response.toString()); */
+        /* // print("-----Response: ");
+        // print(response.toString()); */
 
         GetSociedadesByIdProveedorQt getSociedadesByIdProveedorQt =
             getSociedadesByIdProveedorQtFromMap(response);
 
         for (var j = 0; j < getSociedadesByIdProveedorQt.data.length; j++) {
-          List<dynamic> local_list_3 = [];
+          List<dynamic> localList_3 = [];
 
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].idsociedad);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].categoria);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].cuenta);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].sociedad);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].telefono);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].contacto);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].diasPago);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].tipo);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].idproveedor);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].idsociedad);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].categoria);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].cuenta);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].sociedad);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].telefono);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].contacto);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].diasPago);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].tipo);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].idproveedor);
 
-          local_list_2.add(local_list_3);
+          localList_2.add(localList_3);
         }
 
-        if (local_list_2.isNotEmpty) {
-          local_list.add(local_list_2);
+        if (localList_2.isNotEmpty) {
+          localList.add(localList_2);
         } else {
-          local_list.add("Proveedor Sin Sociedad");
+          localList.add("Proveedor Sin Sociedad");
         }
 
-        list_proveedores.add(local_list);
+        listProveedores.add(localList);
 
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Longitud $i : ${list_proveedores[i].length}");
-        //print("Proveedor $i : ${list_proveedores[i][1]}");
-        //print("Sociedades $i : ${list_proveedores[i][5]}");
-        //print("Sociedad 0 $i : ${list_proveedores[i][5][0]}");
-        //print("idSociedad $i : ${list_proveedores[i][5][0][0]}");
+        //// print("Indice $i : ${list_proveedores[i]}");
+        //// print("Longitud $i : ${list_proveedores[i].length}");
+        //// print("Proveedor $i : ${list_proveedores[i][1]}");
+        //// print("Sociedades $i : ${list_proveedores[i][5]}");
+        //// print("Sociedad 0 $i : ${list_proveedores[i][5][0]}");
+        //// print("idSociedad $i : ${list_proveedores[i][5][0][0]}");
       }
 
-      //print("Listas : ${list_proveedores.length}");
+      //// print("Listas : ${list_proveedores.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
@@ -151,307 +150,18 @@ class _ProveedoresState extends State<Proveedores> {
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  Future<void> GetPartidasMenor() async {
-    try {
-      list_proveedores = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMenorI() async {
-    try {
-      list_proveedores = [];
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasIgual() async {
-    try {
-      list_proveedores = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .match({'${selectedDDEnc_transf[0]}': '${parametro_filt[0]}'})
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayor() async {
-    try {
-      list_proveedores = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Indice $i : ${list_proveedores[i][1]}");
-        //print("Indice $i : ${list_proveedores[i].length}");
-      }
-
-      //print("Listas : ${list_proveedores.length}");
-
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayorI() async {
-    try {
-      list_proveedores = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasDif() async {
-    try {
-      list_proveedores = [];
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getProveedoresQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getProveedoresQTResponse.data[i].idPartidasPk);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].referencia);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importe}");
-        local_list.add(getProveedoresQTResponse.data[i].moneda);
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].importeUsd}");
-        local_list.add(getProveedoresQTResponse.data[i].diasPago);
-        local_list.add("${getProveedoresQTResponse.data[i].porcDpp} %");
-        local_list.add("${getProveedoresQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getProveedoresQTResponse.data[i].prontoPago}");
-
-        list_proveedores.add(local_list);
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetProveedoresBy__() async {
+  // ignore: non_constant_identifier_names
+  Future<void> getProveedoresBy__() async {
     try {
       dynamic response = await supabase
           .rpc('get_proveedores_by__', params: {
-            'proveedor': parametro_proveedor,
-            'cuenta_sap': parametro_cuenta_sap,
-            'esquema': parametro_esquema,
-            'estado': parametro_estado
+            'proveedor': parametroProveedor,
+            'cuenta_sap': parametroCuentaSap,
+            'esquema': parametroEsquema,
+            'estado': parametroEstado
           })
           .order(orden, ascending: asc)
-          .range(0, count_f)
+          .range(0, countF)
           .execute();
 
       response = jsonEncode(response);
@@ -459,17 +169,17 @@ class _ProveedoresState extends State<Proveedores> {
       GetProveedoresQt getProveedoresQTResponse =
           getProveedoresQtFromMap(response);
 
-      list_proveedores = [];
+      listProveedores = [];
 
       for (var i = 0; i < getProveedoresQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-        List<dynamic> local_list_2 = [];
+        List<dynamic> localList = [];
+        List<dynamic> localList_2 = [];
 
-        local_list.add(getProveedoresQTResponse.data[i].idProveedor);
-        local_list.add(getProveedoresQTResponse.data[i].proveedor);
-        local_list.add(getProveedoresQTResponse.data[i].cuentaSap);
-        local_list.add(getProveedoresQTResponse.data[i].esquema);
-        local_list.add(getProveedoresQTResponse.data[i].estado);
+        localList.add(getProveedoresQTResponse.data[i].idProveedor);
+        localList.add(getProveedoresQTResponse.data[i].proveedor);
+        localList.add(getProveedoresQTResponse.data[i].cuentaSap);
+        localList.add(getProveedoresQTResponse.data[i].esquema);
+        localList.add(getProveedoresQTResponse.data[i].estado);
 
         dynamic response = await supabase
             .rpc('get_sociedades_by_id_proveedor', params: {
@@ -478,52 +188,52 @@ class _ProveedoresState extends State<Proveedores> {
             .order(orden_2, ascending: asc_2)
             .execute();
 
-        print("-----Error: ${response.error}");
+        // print("-----Error: ${response.error}");
 
         response = jsonEncode(response);
 
-        /* print("-----Response: ");
-        print(response.toString()); */
+        /* // print("-----Response: ");
+        // print(response.toString()); */
 
         GetSociedadesByIdProveedorQt getSociedadesByIdProveedorQt =
             getSociedadesByIdProveedorQtFromMap(response);
 
         for (var j = 0; j < getSociedadesByIdProveedorQt.data.length; j++) {
-          List<dynamic> local_list_3 = [];
+          List<dynamic> localList_3 = [];
 
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].idsociedad);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].categoria);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].cuenta);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].sociedad);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].telefono);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].contacto);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].diasPago);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].tipo);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].idproveedor);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].idsociedad);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].categoria);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].cuenta);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].sociedad);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].telefono);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].contacto);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].diasPago);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].tipo);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].idproveedor);
 
-          local_list_2.add(local_list_3);
+          localList_2.add(localList_3);
         }
 
-        if (local_list_2.isNotEmpty) {
-          local_list.add(local_list_2);
+        if (localList_2.isNotEmpty) {
+          localList.add(localList_2);
         } else {
-          local_list.add("Proveedor Sin Sociedad");
+          localList.add("Proveedor Sin Sociedad");
         }
 
-        list_proveedores.add(local_list);
+        listProveedores.add(localList);
 
-        //print("Indice $i : ${list_proveedores[i]}");
-        //print("Longitud $i : ${list_proveedores[i].length}");
-        //print("Proveedor $i : ${list_proveedores[i][1]}");
-        //print("Sociedades $i : ${list_proveedores[i][5]}");
-        //print("Sociedad 0 $i : ${list_proveedores[i][5][0]}");
-        //print("idSociedad $i : ${list_proveedores[i][5][0][0]}");
+        //// print("Indice $i : ${list_proveedores[i]}");
+        //// print("Longitud $i : ${list_proveedores[i].length}");
+        //// print("Proveedor $i : ${list_proveedores[i][1]}");
+        //// print("Sociedades $i : ${list_proveedores[i][5]}");
+        //// print("Sociedad 0 $i : ${list_proveedores[i][5][0]}");
+        //// print("idSociedad $i : ${list_proveedores[i][5][0][0]}");
       }
 
-      //print("Listas : ${list_proveedores.length}");
+      //// print("Listas : ${list_proveedores.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
@@ -651,7 +361,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                       ),
                                                       child: TextFormField(
                                                         controller:
-                                                            controller_busqueda,
+                                                            controllerBusqueda,
                                                         autofocus: true,
                                                         obscureText: false,
                                                         decoration:
@@ -681,9 +391,9 @@ class _ProveedoresState extends State<Proveedores> {
                                                         style: globalUtility
                                                             .textoA(context),
                                                         onChanged: (value) {
-                                                          parametro_busqueda =
+                                                          parametroBusqueda =
                                                               value;
-                                                          if (filtro_avanzado) {
+                                                          if (filtroAvanzado) {
                                                             switch (
                                                                 selectedDDOpe[
                                                                     0]) {
@@ -707,7 +417,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 break;
                                                             }
                                                           } else {
-                                                            GetProveedores();
+                                                            getProveedores();
                                                           }
                                                         },
                                                       ),
@@ -777,12 +487,12 @@ class _ProveedoresState extends State<Proveedores> {
                                                           ),
                                                         ),
                                                         onTap: () {
-                                                          if (filtro_simple ==
+                                                          if (filtroSimple ==
                                                                   false ||
-                                                              filtro_avanzado ==
+                                                              filtroAvanzado ==
                                                                   false) {
-                                                            count_f++;
-                                                            GetProveedores();
+                                                            countF++;
+                                                            getProveedores();
                                                           }
                                                           setState(() {});
                                                         },
@@ -799,7 +509,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                           height: 23.5,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: count_f == 0
+                                                            color: countF == 0
                                                                 ? globalUtility
                                                                     .secondary
                                                                 : globalUtility
@@ -827,13 +537,13 @@ class _ProveedoresState extends State<Proveedores> {
                                                           ),
                                                         ),
                                                         onTap: () {
-                                                          if (filtro_simple ==
+                                                          if (filtroSimple ==
                                                                   false ||
-                                                              filtro_avanzado ==
+                                                              filtroAvanzado ==
                                                                   false) {
-                                                            if (count_f >= 1) {
-                                                              count_f--;
-                                                              GetProveedores();
+                                                            if (countF >= 1) {
+                                                              countF--;
+                                                              getProveedores();
                                                               setState(() {});
                                                             }
                                                           }
@@ -882,25 +592,23 @@ class _ProveedoresState extends State<Proveedores> {
                                                               onChanged:
                                                                   (value) {
                                                                 try {
-                                                                  print(
-                                                                      "---Valor: ${value.toString()}");
+                                                                  // print("---Valor: ${value.toString()}");
                                                                   if (value
                                                                           .isNotEmpty ||
                                                                       value !=
                                                                           "0") {
-                                                                    count_f = int
+                                                                    countF = int
                                                                         .parse(value
                                                                             .toString());
-                                                                    count_f =
-                                                                        count_f -
+                                                                    countF =
+                                                                        countF -
                                                                             1;
-                                                                    GetProveedores();
+                                                                    getProveedores();
                                                                     setState(
                                                                         () {});
                                                                   }
                                                                 } catch (e) {
-                                                                  print(
-                                                                      "---Error: $e");
+                                                                  // print("---Error: $e");
                                                                 }
                                                               },
                                                             ),
@@ -962,7 +670,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                   child: Text(
                                                     "Proveedor",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_proveedor
+                                                    style: parametroProveedor
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -972,25 +680,25 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
+                                                      parametroProveedor = "";
+                                                      controllerCuentaSap
                                                           .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
+                                                      parametroCuentaSap = "";
+                                                      controllerEsquema
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
+                                                      parametroEsquema = "";
+                                                      controllerEstado.clear();
+                                                      parametroEstado = "";
                                                     }
-                                                    GetProveedores();
+                                                    getProveedores();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1019,7 +727,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1041,10 +749,10 @@ class _ProveedoresState extends State<Proveedores> {
                                                           // GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetProveedoresBy__();
+                                                    } else if (filtroSimple) {
+                                                      getProveedoresBy__();
                                                     } else {
-                                                      GetProveedores();
+                                                      getProveedores();
                                                     }
                                                   },
                                                 ),
@@ -1060,7 +768,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                   child: Text(
                                                     "Código\nAcreedor",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_cuenta_sap
+                                                    style: parametroCuentaSap
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1070,25 +778,25 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
+                                                      parametroProveedor = "";
+                                                      controllerCuentaSap
                                                           .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
+                                                      parametroCuentaSap = "";
+                                                      controllerEsquema
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
+                                                      parametroEsquema = "";
+                                                      controllerEstado.clear();
+                                                      parametroEstado = "";
                                                     }
-                                                    GetProveedores();
+                                                    getProveedores();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1117,7 +825,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1139,10 +847,10 @@ class _ProveedoresState extends State<Proveedores> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetProveedoresBy__();
+                                                    } else if (filtroSimple) {
+                                                      getProveedoresBy__();
                                                     } else {
-                                                      GetProveedores();
+                                                      getProveedores();
                                                     }
                                                   },
                                                 ),
@@ -1158,7 +866,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                   child: Text(
                                                     "Esquema",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_esquema
+                                                    style: parametroEsquema
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1168,25 +876,25 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
+                                                      parametroProveedor = "";
+                                                      controllerCuentaSap
                                                           .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
+                                                      parametroCuentaSap = "";
+                                                      controllerEsquema
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
+                                                      parametroEsquema = "";
+                                                      controllerEstado.clear();
+                                                      parametroEstado = "";
                                                     }
-                                                    GetProveedores();
+                                                    getProveedores();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1214,7 +922,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1236,10 +944,10 @@ class _ProveedoresState extends State<Proveedores> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetProveedoresBy__();
+                                                    } else if (filtroSimple) {
+                                                      getProveedoresBy__();
                                                     } else {
-                                                      GetProveedores();
+                                                      getProveedores();
                                                     }
                                                   },
                                                 ),
@@ -1255,7 +963,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                   child: Text(
                                                     "Estado",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_estado
+                                                    style: parametroEstado
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1265,25 +973,25 @@ class _ProveedoresState extends State<Proveedores> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
+                                                    if (filtroSimple ==
                                                         false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
+                                                      parametroProveedor = "";
+                                                      controllerCuentaSap
                                                           .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
+                                                      parametroCuentaSap = "";
+                                                      controllerEsquema
                                                           .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
+                                                      parametroEsquema = "";
+                                                      controllerEstado.clear();
+                                                      parametroEstado = "";
                                                     }
-                                                    GetProveedores();
+                                                    getProveedores();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1311,7 +1019,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1333,10 +1041,10 @@ class _ProveedoresState extends State<Proveedores> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetProveedoresBy__();
+                                                    } else if (filtroSimple) {
+                                                      getProveedoresBy__();
                                                     } else {
-                                                      GetProveedores();
+                                                      getProveedores();
                                                     }
                                                   },
                                                 ),
@@ -1367,7 +1075,7 @@ class _ProveedoresState extends State<Proveedores> {
                                           ),
                                         ],
                                       ),
-                                      filtro_simple == true
+                                      filtroSimple == true
                                           ? Row(
                                               children: [
                                                 Expanded(
@@ -1397,17 +1105,17 @@ class _ProveedoresState extends State<Proveedores> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_proveedor,
+                                                              controllerProveedor,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_proveedor =
+                                                            parametroProveedor =
                                                                 value
                                                                     .toString();
-                                                            GetProveedoresBy__();
+                                                            getProveedoresBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1441,17 +1149,17 @@ class _ProveedoresState extends State<Proveedores> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_cuenta_sap,
+                                                              controllerCuentaSap,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_cuenta_sap =
+                                                            parametroCuentaSap =
                                                                 value
                                                                     .toString();
-                                                            GetProveedoresBy__();
+                                                            getProveedoresBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1485,17 +1193,17 @@ class _ProveedoresState extends State<Proveedores> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_esquema,
+                                                              controllerEsquema,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_esquema =
+                                                            parametroEsquema =
                                                                 value
                                                                     .toString();
-                                                            GetProveedoresBy__();
+                                                            getProveedoresBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1532,17 +1240,17 @@ class _ProveedoresState extends State<Proveedores> {
                                                               TextInputType
                                                                   .number,
                                                           controller:
-                                                              controller_estado,
+                                                              controllerEstado,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_estado =
+                                                            parametroEstado =
                                                                 value
                                                                     .toString();
-                                                            GetProveedoresBy__();
+                                                            getProveedoresBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1573,9 +1281,8 @@ class _ProveedoresState extends State<Proveedores> {
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: list_proveedores.length,
+                                  itemCount: listProveedores.length,
                                   itemBuilder: (context, index) {
-                                    bool expanded = false;
                                     return Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
@@ -1614,7 +1321,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      list_proveedores[index][1]
+                                                      listProveedores[index][1]
                                                           .toString(),
                                                       textAlign:
                                                           TextAlign.start,
@@ -1626,7 +1333,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                   Expanded(
                                                     child: Center(
                                                       child: Text(
-                                                        list_proveedores[index]
+                                                        listProveedores[index]
                                                                 [2]
                                                             .toString(),
                                                         textAlign:
@@ -1640,7 +1347,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                   Expanded(
                                                     child: Center(
                                                       child: Text(
-                                                        list_proveedores[index]
+                                                        listProveedores[index]
                                                                 [3]
                                                             .toString(),
                                                         textAlign:
@@ -1654,7 +1361,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                   Expanded(
                                                     child: Center(
                                                       child: Text(
-                                                        list_proveedores[index]
+                                                        listProveedores[index]
                                                                 [4]
                                                             .toString(),
                                                         textAlign:
@@ -1870,7 +1577,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
                                                 itemCount:
-                                                    list_proveedores[index][5]
+                                                    listProveedores[index][5]
                                                         .length,
                                                 itemBuilder: (context, index2) {
                                                   return Padding(
@@ -1919,7 +1626,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               Expanded(
                                                                 child: Center(
                                                                   child: Text(
-                                                                    list_proveedores[index][5]
+                                                                    listProveedores[index][5]
                                                                             [
                                                                             index2][1]
                                                                         .toString(),
@@ -1935,7 +1642,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               Expanded(
                                                                 child: Center(
                                                                   child: Text(
-                                                                    list_proveedores[index][5]
+                                                                    listProveedores[index][5]
                                                                             [
                                                                             index2][2]
                                                                         .toString(),
@@ -1950,7 +1657,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               ),
                                                               Expanded(
                                                                 child: Text(
-                                                                  list_proveedores[index]
+                                                                  listProveedores[index]
                                                                               [
                                                                               5]
                                                                           [
@@ -1966,7 +1673,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               ),
                                                               Expanded(
                                                                 child: Text(
-                                                                  list_proveedores[index]
+                                                                  listProveedores[index]
                                                                               [
                                                                               5]
                                                                           [
@@ -1982,7 +1689,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               ),
                                                               Expanded(
                                                                 child: Text(
-                                                                  list_proveedores[index]
+                                                                  listProveedores[index]
                                                                               [
                                                                               5]
                                                                           [
@@ -1999,7 +1706,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               Expanded(
                                                                 child: Center(
                                                                   child: Text(
-                                                                    list_proveedores[index][5]
+                                                                    listProveedores[index][5]
                                                                             [
                                                                             index2][6]
                                                                         .toString(),
@@ -2015,7 +1722,7 @@ class _ProveedoresState extends State<Proveedores> {
                                                               Expanded(
                                                                 child: Center(
                                                                   child: Text(
-                                                                    list_proveedores[index][5]
+                                                                    listProveedores[index][5]
                                                                             [
                                                                             index2][7]
                                                                         .toString(),

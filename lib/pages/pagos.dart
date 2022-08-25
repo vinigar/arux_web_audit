@@ -25,351 +25,125 @@ class Pagos extends StatefulWidget {
 class _PagosState extends State<Pagos> {
   GlobalUtility globalUtility = GlobalUtility();
 
-  final controller_busqueda = TextEditingController();
-  String parametro_busqueda = "";
+  final controllerBusqueda = TextEditingController();
+  String parametroBusqueda = "";
 
-  final controller_proveedor = TextEditingController();
-  String parametro_proveedor = "";
-  final controller_cuenta_sap = TextEditingController();
-  String parametro_cuenta_sap = "";
-  final controller_esquema = TextEditingController();
-  String parametro_esquema = "";
-  final controller_estado = TextEditingController();
-  String parametro_estado = "";
+  final controllerProveedor = TextEditingController();
+  String parametroProveedor = "";
+  final controllerCuentaSap = TextEditingController();
+  String parametroCuentaSap = "";
+  final controllerEsquema = TextEditingController();
+  String parametroEsquema = "";
+  final controllerEstado = TextEditingController();
+  String parametroEstado = "";
 
-  List<List<dynamic>> list_Pagos = [];
+  List<List<dynamic>> listPagos = [];
   String orden = "fecha_extraccion";
   String orden_2 = "sociedad";
   bool asc = true;
   bool asc_2 = true;
-  final controller_count = TextEditingController();
-  int count_i = 0;
-  int count_f = 19;
+  final controllerCount = TextEditingController();
+  int countI = 0;
+  int countF = 19;
 
-  bool popup_rise = false;
+  bool popupRise = false;
   List<String?> selectedDDEnc = ["Registro SAP"];
-  List<String?> selectedDDEnc_transf = [""];
+  List<String?> selectedDDEncTransf = [""];
   List<String?> selectedDDOpe = ["="];
-  List<String?> parametro_filt = [""];
-  final controller_busqueda_filtro = TextEditingController();
+  List<String?> parametroFilt = [""];
+  final controllerBusquedaFiltro = TextEditingController();
 
-  bool filtro_avanzado = false;
-  bool filtro_simple = false;
+  bool filtroAvanzado = false;
+  bool filtroSimple = false;
 
   @override
   void initState() {
-    GetPagos();
+    getPagos();
     super.initState();
   }
 
-  Future<void> GetPagos() async {
+  Future<void> getPagos() async {
     try {
       dynamic response = await supabase
-          .rpc('get_pagos', params: {'busqueda': parametro_busqueda})
+          .rpc('get_pagos', params: {'busqueda': parametroBusqueda})
           .order(orden, ascending: asc)
           .execute();
 
-      print("-----Error: ${response.error}");
+      // print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
       GetPagosQt getPagosQTResponse = getPagosQtFromMap(response);
 
-      list_Pagos = [];
+      listPagos = [];
 
       for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
+        List<dynamic> localList = [];
 
-        local_list.add(dateFormat(getPagosQTResponse.data[i].fechaExtraccion));
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add(getPagosQTResponse.data[i].esquema);
-        local_list.add(getPagosQTResponse.data[i].estatus);
-        local_list.add(getPagosQTResponse.data[i].acreedor);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].idPartida);
-        local_list.add(getPagosQTResponse.data[i].noDocPartida);
-        local_list.add(getPagosQTResponse.data[i].referenciaPartida);
-        local_list.add(getPagosQTResponse.data[i].importePartida);
-        local_list.add(getPagosQTResponse.data[i].idNc);
-        local_list.add(getPagosQTResponse.data[i].noDocNc);
-        local_list.add(getPagosQTResponse.data[i].referenciaNc);
-        local_list.add(getPagosQTResponse.data[i].descuentoProveedor);
-        local_list.add(getPagosQTResponse.data[i].dpp);
-        local_list.add(getPagosQTResponse.data[i].total);
-        list_Pagos.add(local_list);
+        localList.add(dateFormat(getPagosQTResponse.data[i].fechaExtraccion));
+        localList.add(getPagosQTResponse.data[i].moneda);
+        localList.add(getPagosQTResponse.data[i].esquema);
+        localList.add(getPagosQTResponse.data[i].estatus);
+        localList.add(getPagosQTResponse.data[i].acreedor);
+        localList.add(getPagosQTResponse.data[i].proveedor);
+        localList.add(getPagosQTResponse.data[i].idPartida);
+        localList.add(getPagosQTResponse.data[i].noDocPartida);
+        localList.add(getPagosQTResponse.data[i].referenciaPartida);
+        localList.add(getPagosQTResponse.data[i].importePartida);
+        localList.add(getPagosQTResponse.data[i].idNc);
+        localList.add(getPagosQTResponse.data[i].noDocNc);
+        localList.add(getPagosQTResponse.data[i].referenciaNc);
+        localList.add(getPagosQTResponse.data[i].descuentoProveedor);
+        localList.add(getPagosQTResponse.data[i].dpp);
+        localList.add(getPagosQTResponse.data[i].total);
+        listPagos.add(localList);
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
   }
 
-
-  Future<void> GetPartidasMenor() async {
+  Future<void> getPartidasMenor() async {
     try {
-      list_Pagos = [];
+      listPagos = [];
 
       dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
+          .rpc('get_gestor_partidas', params: {'busqueda': parametroBusqueda})
+          .lt('${selectedDDEncTransf[0]}', '${parametroFilt[0]}')
           .order(orden, ascending: asc)
           .execute();
 
-      print("-----Error: ${response.error}");
+      // print("-----Error: ${response.error}");
 
       response = jsonEncode(response);
 
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
+      // print("-----Parametro de Busqueda: $parametroBusqueda");
+      // print("-----Response: ");
+      // print(response.toString());
 
       GetGestorPartidasQt getPagosQTResponse =
           getGestorPartidasQtFromMap(response);
 
       for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
+        List<dynamic> localList = [];
 
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
+        localList.add(getPagosQTResponse.data[i].idPartidasPk);
+        localList.add(getPagosQTResponse.data[i].proveedor);
+        localList.add(getPagosQTResponse.data[i].referencia);
+        localList.add("\$ ${getPagosQTResponse.data[i].importe}");
+        localList.add(getPagosQTResponse.data[i].moneda);
+        localList.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
+        localList.add(getPagosQTResponse.data[i].diasPago);
+        localList.add("${getPagosQTResponse.data[i].porcDpp} %");
+        localList.add("${getPagosQTResponse.data[i].cantDpp}");
+        localList.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
 
-        list_Pagos.add(local_list);
+        listPagos.add(localList);
       }
     } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMenorI() async {
-    try {
-      list_Pagos = [];
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .lte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasIgual() async {
-    try {
-      list_Pagos = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .match({'${selectedDDEnc_transf[0]}': '${parametro_filt[0]}'})
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayor() async {
-    try {
-      list_Pagos = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasMayorI() async {
-    try {
-      list_Pagos = [];
-
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gte('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    setState(() {});
-  }
-
-  Future<void> GetPartidasDif() async {
-    try {
-      list_Pagos = [];
-      dynamic response = await supabase
-          .rpc('get_gestor_partidas', params: {'busqueda': parametro_busqueda})
-          .gt('${selectedDDEnc_transf[0]}', '${parametro_filt[0]}')
-          .order(orden, ascending: asc)
-          .execute();
-
-      print("-----Error: ${response.error}");
-
-      response = jsonEncode(response);
-
-      print("-----Parametro de Busqueda: $parametro_busqueda");
-      print("-----Response: ");
-      print(response.toString());
-
-      GetGestorPartidasQt getPagosQTResponse =
-          getGestorPartidasQtFromMap(response);
-
-      for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-
-        local_list.add(getPagosQTResponse.data[i].idPartidasPk);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].referencia);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importe}");
-        local_list.add(getPagosQTResponse.data[i].moneda);
-        local_list.add("\$ ${getPagosQTResponse.data[i].importeUsd}");
-        local_list.add(getPagosQTResponse.data[i].diasPago);
-        local_list.add("${getPagosQTResponse.data[i].porcDpp} %");
-        local_list.add("${getPagosQTResponse.data[i].cantDpp}");
-        local_list.add("\$ ${getPagosQTResponse.data[i].prontoPago}");
-
-        list_Pagos.add(local_list);
-
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Indice $i : ${list_Pagos[i][1]}");
-        //print("Indice $i : ${list_Pagos[i].length}");
-      }
-
-      //print("Listas : ${list_Pagos.length}");
-
-    } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
@@ -377,34 +151,35 @@ class _PagosState extends State<Pagos> {
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  Future<void> GetPagosBy__() async {
+  // ignore: non_constant_identifier_names
+  Future<void> getPagosBy__() async {
     try {
       dynamic response = await supabase
           .rpc('get_Pagos_by__', params: {
-            'proveedor': parametro_proveedor,
-            'cuenta_sap': parametro_cuenta_sap,
-            'esquema': parametro_esquema,
-            'estado': parametro_estado
+            'proveedor': parametroProveedor,
+            'cuenta_sap': parametroCuentaSap,
+            'esquema': parametroEsquema,
+            'estado': parametroEstado
           })
           .order(orden, ascending: asc)
-          .range(0, count_f)
+          .range(0, countF)
           .execute();
 
       response = jsonEncode(response);
 
       GetProveedoresQt getPagosQTResponse = getProveedoresQtFromMap(response);
 
-      list_Pagos = [];
+      listPagos = [];
 
       for (var i = 0; i < getPagosQTResponse.data.length; i++) {
-        List<dynamic> local_list = [];
-        List<dynamic> local_list_2 = [];
+        List<dynamic> localList = [];
+        List<dynamic> localList_2 = [];
 
-        local_list.add(getPagosQTResponse.data[i].idProveedor);
-        local_list.add(getPagosQTResponse.data[i].proveedor);
-        local_list.add(getPagosQTResponse.data[i].cuentaSap);
-        local_list.add(getPagosQTResponse.data[i].esquema);
-        local_list.add(getPagosQTResponse.data[i].estado);
+        localList.add(getPagosQTResponse.data[i].idProveedor);
+        localList.add(getPagosQTResponse.data[i].proveedor);
+        localList.add(getPagosQTResponse.data[i].cuentaSap);
+        localList.add(getPagosQTResponse.data[i].esquema);
+        localList.add(getPagosQTResponse.data[i].estado);
 
         dynamic response = await supabase
             .rpc('get_sociedades_by_id_proveedor',
@@ -412,52 +187,52 @@ class _PagosState extends State<Pagos> {
             .order(orden_2, ascending: asc_2)
             .execute();
 
-        print("-----Error: ${response.error}");
+        // print("-----Error: ${response.error}");
 
         response = jsonEncode(response);
 
-        /* print("-----Response: ");
-        print(response.toString()); */
+        /* // print("-----Response: ");
+        // print(response.toString()); */
 
         GetSociedadesByIdProveedorQt getSociedadesByIdProveedorQt =
             getSociedadesByIdProveedorQtFromMap(response);
 
         for (var j = 0; j < getSociedadesByIdProveedorQt.data.length; j++) {
-          List<dynamic> local_list_3 = [];
+          List<dynamic> localList_3 = [];
 
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].idsociedad);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].categoria);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].cuenta);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].sociedad);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].telefono);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].contacto);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].diasPago);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].tipo);
-          local_list_3.add(getSociedadesByIdProveedorQt.data[j].idproveedor);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].idsociedad);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].categoria);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].cuenta);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].sociedad);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].telefono);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].contacto);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].diasPago);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].tipo);
+          localList_3.add(getSociedadesByIdProveedorQt.data[j].idproveedor);
 
-          local_list_2.add(local_list_3);
+          localList_2.add(localList_3);
         }
 
-        if (local_list_2.isNotEmpty) {
-          local_list.add(local_list_2);
+        if (localList_2.isNotEmpty) {
+          localList.add(localList_2);
         } else {
-          local_list.add("Proveedor Sin Sociedad");
+          localList.add("Proveedor Sin Sociedad");
         }
 
-        list_Pagos.add(local_list);
+        listPagos.add(localList);
 
-        //print("Indice $i : ${list_Pagos[i]}");
-        //print("Longitud $i : ${list_Pagos[i].length}");
-        //print("Proveedor $i : ${list_Pagos[i][1]}");
-        //print("Sociedades $i : ${list_Pagos[i][5]}");
-        //print("Sociedad 0 $i : ${list_Pagos[i][5][0]}");
-        //print("idSociedad $i : ${list_Pagos[i][5][0][0]}");
+        //// print("Indice $i : ${list_Pagos[i]}");
+        //// print("Longitud $i : ${list_Pagos[i].length}");
+        //// print("Proveedor $i : ${list_Pagos[i][1]}");
+        //// print("Sociedades $i : ${list_Pagos[i][5]}");
+        //// print("Sociedad 0 $i : ${list_Pagos[i][5][0]}");
+        //// print("idSociedad $i : ${list_Pagos[i][5][0][0]}");
       }
 
-      //print("Listas : ${list_Pagos.length}");
+      //// print("Listas : ${list_Pagos.length}");
 
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     setState(() {});
@@ -585,7 +360,7 @@ class _PagosState extends State<Pagos> {
                                                       ),
                                                       child: TextFormField(
                                                         controller:
-                                                            controller_busqueda,
+                                                            controllerBusqueda,
                                                         autofocus: true,
                                                         obscureText: false,
                                                         decoration:
@@ -615,9 +390,9 @@ class _PagosState extends State<Pagos> {
                                                         style: globalUtility
                                                             .textoA(context),
                                                         onChanged: (value) {
-                                                          parametro_busqueda =
+                                                          parametroBusqueda =
                                                               value;
-                                                          if (filtro_avanzado) {
+                                                          if (filtroAvanzado) {
                                                             switch (
                                                                 selectedDDOpe[
                                                                     0]) {
@@ -641,7 +416,7 @@ class _PagosState extends State<Pagos> {
                                                                 break;
                                                             }
                                                           } else {
-                                                            GetPagos();
+                                                            getPagos();
                                                           }
                                                         },
                                                       ),
@@ -711,12 +486,12 @@ class _PagosState extends State<Pagos> {
                                                           ),
                                                         ),
                                                         onTap: () {
-                                                          if (filtro_simple ==
+                                                          if (filtroSimple ==
                                                                   false ||
-                                                              filtro_avanzado ==
+                                                              filtroAvanzado ==
                                                                   false) {
-                                                            count_f++;
-                                                            GetPagos();
+                                                            countF++;
+                                                            getPagos();
                                                           }
                                                           setState(() {});
                                                         },
@@ -733,7 +508,7 @@ class _PagosState extends State<Pagos> {
                                                           height: 23.5,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: count_f == 0
+                                                            color: countF == 0
                                                                 ? globalUtility
                                                                     .secondary
                                                                 : globalUtility
@@ -761,13 +536,13 @@ class _PagosState extends State<Pagos> {
                                                           ),
                                                         ),
                                                         onTap: () {
-                                                          if (filtro_simple ==
+                                                          if (filtroSimple ==
                                                                   false ||
-                                                              filtro_avanzado ==
+                                                              filtroAvanzado ==
                                                                   false) {
-                                                            if (count_f >= 1) {
-                                                              count_f--;
-                                                              GetPagos();
+                                                            if (countF >= 1) {
+                                                              countF--;
+                                                              getPagos();
                                                               setState(() {});
                                                             }
                                                           }
@@ -816,25 +591,23 @@ class _PagosState extends State<Pagos> {
                                                               onChanged:
                                                                   (value) {
                                                                 try {
-                                                                  print(
-                                                                      "---Valor: ${value.toString()}");
+                                                                  // print("---Valor: ${value.toString()}");
                                                                   if (value
                                                                           .isNotEmpty ||
                                                                       value !=
                                                                           "0") {
-                                                                    count_f = int
+                                                                    countF = int
                                                                         .parse(value
                                                                             .toString());
-                                                                    count_f =
-                                                                        count_f -
+                                                                    countF =
+                                                                        countF -
                                                                             1;
-                                                                    GetPagos();
+                                                                    getPagos();
                                                                     setState(
                                                                         () {});
                                                                   }
                                                                 } catch (e) {
-                                                                  print(
-                                                                      "---Error: $e");
+                                                                  // print("---Error: $e");
                                                                 }
                                                               },
                                                             ),
@@ -896,7 +669,7 @@ class _PagosState extends State<Pagos> {
                                                   child: Text(
                                                     "Fecha de Extración",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_proveedor
+                                                    style: parametroProveedor
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -906,25 +679,23 @@ class _PagosState extends State<Pagos> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
+                                                      parametroProveedor = "";
+                                                      controllerCuentaSap
                                                           .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
-                                                          .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
+                                                      parametroCuentaSap = "";
+                                                      controllerEsquema.clear();
+                                                      parametroEsquema = "";
+                                                      controllerEstado.clear();
+                                                      parametroEstado = "";
                                                     }
-                                                    GetPagos();
+                                                    getPagos();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -953,7 +724,7 @@ class _PagosState extends State<Pagos> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -975,10 +746,10 @@ class _PagosState extends State<Pagos> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPagosBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPagosBy__();
                                                     } else {
-                                                      GetPagos();
+                                                      getPagos();
                                                     }
                                                   },
                                                 ),
@@ -994,7 +765,7 @@ class _PagosState extends State<Pagos> {
                                                   child: Text(
                                                     "Esquema",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_cuenta_sap
+                                                    style: parametroCuentaSap
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1004,25 +775,23 @@ class _PagosState extends State<Pagos> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
+                                                      parametroProveedor = "";
+                                                      controllerCuentaSap
                                                           .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
-                                                          .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
+                                                      parametroCuentaSap = "";
+                                                      controllerEsquema.clear();
+                                                      parametroEsquema = "";
+                                                      controllerEstado.clear();
+                                                      parametroEstado = "";
                                                     }
-                                                    GetPagos();
+                                                    getPagos();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1051,7 +820,7 @@ class _PagosState extends State<Pagos> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1073,10 +842,10 @@ class _PagosState extends State<Pagos> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPagosBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPagosBy__();
                                                     } else {
-                                                      GetPagos();
+                                                      getPagos();
                                                     }
                                                   },
                                                 ),
@@ -1092,7 +861,7 @@ class _PagosState extends State<Pagos> {
                                                   child: Text(
                                                     "Moneda",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_esquema
+                                                    style: parametroEsquema
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1102,25 +871,23 @@ class _PagosState extends State<Pagos> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
+                                                      parametroProveedor = "";
+                                                      controllerCuentaSap
                                                           .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
-                                                          .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
+                                                      parametroCuentaSap = "";
+                                                      controllerEsquema.clear();
+                                                      parametroEsquema = "";
+                                                      controllerEstado.clear();
+                                                      parametroEstado = "";
                                                     }
-                                                    GetPagos();
+                                                    getPagos();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1148,7 +915,7 @@ class _PagosState extends State<Pagos> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1170,10 +937,10 @@ class _PagosState extends State<Pagos> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPagosBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPagosBy__();
                                                     } else {
-                                                      GetPagos();
+                                                      getPagos();
                                                     }
                                                   },
                                                 ),
@@ -1189,7 +956,7 @@ class _PagosState extends State<Pagos> {
                                                   child: Text(
                                                     "Estátus",
                                                     textAlign: TextAlign.center,
-                                                    style: parametro_estado
+                                                    style: parametroEstado
                                                             .isNotEmpty
                                                         ? globalUtility
                                                             .encabezadoTablasOn(
@@ -1199,25 +966,23 @@ class _PagosState extends State<Pagos> {
                                                                 context),
                                                   ),
                                                   onTap: () {
-                                                    if (filtro_simple ==
-                                                        false) {
-                                                      filtro_avanzado = false;
-                                                      filtro_simple = true;
+                                                    if (filtroSimple == false) {
+                                                      filtroAvanzado = false;
+                                                      filtroSimple = true;
                                                     } else {
-                                                      filtro_simple = false;
-                                                      controller_proveedor
+                                                      filtroSimple = false;
+                                                      controllerProveedor
                                                           .clear();
-                                                      parametro_proveedor = "";
-                                                      controller_cuenta_sap
+                                                      parametroProveedor = "";
+                                                      controllerCuentaSap
                                                           .clear();
-                                                      parametro_cuenta_sap = "";
-                                                      controller_esquema
-                                                          .clear();
-                                                      parametro_esquema = "";
-                                                      controller_estado.clear();
-                                                      parametro_estado = "";
+                                                      parametroCuentaSap = "";
+                                                      controllerEsquema.clear();
+                                                      parametroEsquema = "";
+                                                      controllerEstado.clear();
+                                                      parametroEstado = "";
                                                     }
-                                                    GetPagos();
+                                                    getPagos();
                                                     setState(() {});
                                                   },
                                                 ),
@@ -1245,7 +1010,7 @@ class _PagosState extends State<Pagos> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtro_avanzado) {
+                                                    if (filtroAvanzado) {
                                                       switch (
                                                           selectedDDOpe[0]) {
                                                         case "=":
@@ -1267,10 +1032,10 @@ class _PagosState extends State<Pagos> {
                                                           //GetPartidasDif();
                                                           break;
                                                       }
-                                                    } else if (filtro_simple) {
-                                                      GetPagosBy__();
+                                                    } else if (filtroSimple) {
+                                                      getPagosBy__();
                                                     } else {
-                                                      GetPagos();
+                                                      getPagos();
                                                     }
                                                   },
                                                 ),
@@ -1279,7 +1044,7 @@ class _PagosState extends State<Pagos> {
                                           ),
                                         ],
                                       ),
-                                      filtro_simple == true
+                                      filtroSimple == true
                                           ? Row(
                                               children: [
                                                 Expanded(
@@ -1309,17 +1074,17 @@ class _PagosState extends State<Pagos> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_proveedor,
+                                                              controllerProveedor,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_proveedor =
+                                                            parametroProveedor =
                                                                 value
                                                                     .toString();
-                                                            GetPagosBy__();
+                                                            getPagosBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1353,17 +1118,17 @@ class _PagosState extends State<Pagos> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_cuenta_sap,
+                                                              controllerCuentaSap,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_cuenta_sap =
+                                                            parametroCuentaSap =
                                                                 value
                                                                     .toString();
-                                                            GetPagosBy__();
+                                                            getPagosBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1397,17 +1162,17 @@ class _PagosState extends State<Pagos> {
                                                         ),
                                                         child: TextField(
                                                           controller:
-                                                              controller_esquema,
+                                                              controllerEsquema,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_esquema =
+                                                            parametroEsquema =
                                                                 value
                                                                     .toString();
-                                                            GetPagosBy__();
+                                                            getPagosBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1444,17 +1209,17 @@ class _PagosState extends State<Pagos> {
                                                               TextInputType
                                                                   .number,
                                                           controller:
-                                                              controller_estado,
+                                                              controllerEstado,
                                                           decoration:
                                                               const InputDecoration(
                                                                   border:
                                                                       InputBorder
                                                                           .none),
                                                           onChanged: (value) {
-                                                            parametro_estado =
+                                                            parametroEstado =
                                                                 value
                                                                     .toString();
-                                                            GetPagosBy__();
+                                                            getPagosBy__();
                                                           },
                                                         ),
                                                       ),
@@ -1481,9 +1246,8 @@ class _PagosState extends State<Pagos> {
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: list_Pagos.length,
+                                  itemCount: listPagos.length,
                                   itemBuilder: (context, index) {
-                                    bool expanded = false;
                                     return Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
@@ -1523,7 +1287,7 @@ class _PagosState extends State<Pagos> {
                                                 children: [
                                                   Expanded(
                                                     child: Center(
-                                                      child: list_Pagos[index]
+                                                      child: listPagos[index]
                                                                   [0] ==
                                                               null
                                                           ? Text(
@@ -1536,7 +1300,7 @@ class _PagosState extends State<Pagos> {
                                                                       context),
                                                             )
                                                           : Text(
-                                                              list_Pagos[index]
+                                                              listPagos[index]
                                                                       [0]
                                                                   .toString(),
                                                               textAlign:
@@ -1550,7 +1314,7 @@ class _PagosState extends State<Pagos> {
                                                   ),
                                                   Expanded(
                                                     child: Center(
-                                                      child: list_Pagos[index]
+                                                      child: listPagos[index]
                                                                   [2] ==
                                                               null
                                                           ? Text(
@@ -1563,7 +1327,7 @@ class _PagosState extends State<Pagos> {
                                                                       context),
                                                             )
                                                           : Text(
-                                                              list_Pagos[index]
+                                                              listPagos[index]
                                                                       [2]
                                                                   .toString(),
                                                               textAlign:
@@ -1577,7 +1341,7 @@ class _PagosState extends State<Pagos> {
                                                   ),
                                                   Expanded(
                                                     child: Center(
-                                                      child: list_Pagos[index]
+                                                      child: listPagos[index]
                                                                   [1] ==
                                                               null
                                                           ? Text(
@@ -1590,7 +1354,7 @@ class _PagosState extends State<Pagos> {
                                                                       context),
                                                             )
                                                           : Text(
-                                                              list_Pagos[index]
+                                                              listPagos[index]
                                                                       [1]
                                                                   .toString(),
                                                               textAlign:
@@ -1604,7 +1368,7 @@ class _PagosState extends State<Pagos> {
                                                   ),
                                                   Expanded(
                                                     child: Center(
-                                                      child: list_Pagos[index]
+                                                      child: listPagos[index]
                                                                   [3] ==
                                                               null
                                                           ? Text(
@@ -1617,7 +1381,7 @@ class _PagosState extends State<Pagos> {
                                                                       context),
                                                             )
                                                           : Text(
-                                                              list_Pagos[index]
+                                                              listPagos[index]
                                                                       [3]
                                                                   .toString(),
                                                               textAlign:
@@ -1877,7 +1641,7 @@ class _PagosState extends State<Pagos> {
                                                             children: [
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               8] ==
                                                                           null
@@ -1889,7 +1653,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][8]
+                                                                          listPagos[index][8]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.center,
@@ -1900,7 +1664,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               4] ==
                                                                           null
@@ -1912,7 +1676,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][4]
+                                                                          listPagos[index][4]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.center,
@@ -1923,7 +1687,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               5] ==
                                                                           null
@@ -1935,7 +1699,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][5]
+                                                                          listPagos[index][5]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.start,
@@ -1945,7 +1709,7 @@ class _PagosState extends State<Pagos> {
                                                                 ),
                                                               ),
                                                               Expanded(
-                                                                child: list_Pagos[index]
+                                                                child: listPagos[index]
                                                                             [
                                                                             7] ==
                                                                         null
@@ -1957,7 +1721,7 @@ class _PagosState extends State<Pagos> {
                                                                             .contenidoTablas(context),
                                                                       )
                                                                     : Text(
-                                                                        list_Pagos[index][7]
+                                                                        listPagos[index][7]
                                                                             .toString(),
                                                                         textAlign:
                                                                             TextAlign.center,
@@ -1967,7 +1731,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               9] ==
                                                                           null
@@ -1979,7 +1743,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          '\$ ${moneyFormat(list_Pagos[index][9])}',
+                                                                          '\$ ${moneyFormat(listPagos[index][9])}',
                                                                           textAlign:
                                                                               TextAlign.end,
                                                                           style:
@@ -1989,7 +1753,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               1] ==
                                                                           null
@@ -2001,7 +1765,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][1]
+                                                                          listPagos[index][1]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.center,
@@ -2012,7 +1776,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                   child: Center(
-                                                                child: list_Pagos[index]
+                                                                child: listPagos[index]
                                                                             [
                                                                             3] ==
                                                                         null
@@ -2024,7 +1788,7 @@ class _PagosState extends State<Pagos> {
                                                                             .contenidoTablas(context),
                                                                       )
                                                                     : Text(
-                                                                        list_Pagos[index][3]
+                                                                        listPagos[index][3]
                                                                             .toString(),
                                                                         textAlign:
                                                                             TextAlign.start,
@@ -2083,7 +1847,7 @@ class _PagosState extends State<Pagos> {
                                                             children: [
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               12] ==
                                                                           null
@@ -2095,7 +1859,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][12]
+                                                                          listPagos[index][12]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.center,
@@ -2106,7 +1870,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               4] ==
                                                                           null
@@ -2118,7 +1882,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][4]
+                                                                          listPagos[index][4]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.center,
@@ -2129,7 +1893,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               5] ==
                                                                           null
@@ -2141,7 +1905,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][5]
+                                                                          listPagos[index][5]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.start,
@@ -2151,7 +1915,7 @@ class _PagosState extends State<Pagos> {
                                                                 ),
                                                               ),
                                                               Expanded(
-                                                                child: list_Pagos[index]
+                                                                child: listPagos[index]
                                                                             [
                                                                             11] ==
                                                                         null
@@ -2163,7 +1927,7 @@ class _PagosState extends State<Pagos> {
                                                                             .contenidoTablas(context),
                                                                       )
                                                                     : Text(
-                                                                        list_Pagos[index][11]
+                                                                        listPagos[index][11]
                                                                             .toString(),
                                                                         textAlign:
                                                                             TextAlign.center,
@@ -2173,7 +1937,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               14] ==
                                                                           null
@@ -2185,7 +1949,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          '\$ ${moneyFormat(list_Pagos[index][14])}',
+                                                                          '\$ ${moneyFormat(listPagos[index][14])}',
                                                                           textAlign:
                                                                               TextAlign.end,
                                                                           style:
@@ -2195,7 +1959,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               1] ==
                                                                           null
@@ -2207,7 +1971,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][1]
+                                                                          listPagos[index][1]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.start,
@@ -2218,7 +1982,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                   child: Center(
-                                                                child: list_Pagos[index]
+                                                                child: listPagos[index]
                                                                             [
                                                                             3] ==
                                                                         null
@@ -2230,7 +1994,7 @@ class _PagosState extends State<Pagos> {
                                                                             .contenidoTablas(context),
                                                                       )
                                                                     : Text(
-                                                                        list_Pagos[index][3]
+                                                                        listPagos[index][3]
                                                                             .toString(),
                                                                         textAlign:
                                                                             TextAlign.start,
@@ -2322,7 +2086,7 @@ class _PagosState extends State<Pagos> {
                                                                   onPressed:
                                                                       () async {
                                                                     SupabaseQueries.actualizarEstatus(
-                                                                        list_Pagos[index]
+                                                                        listPagos[index]
                                                                             [6],
                                                                         2);
 
@@ -2343,7 +2107,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               15] ==
                                                                           null
@@ -2355,7 +2119,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          '\$ ${moneyFormat(list_Pagos[index][15])}',
+                                                                          '\$ ${moneyFormat(listPagos[index][15])}',
                                                                           textAlign:
                                                                               TextAlign.end,
                                                                           style:
@@ -2365,7 +2129,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               1] ==
                                                                           null
@@ -2377,7 +2141,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][1]
+                                                                          listPagos[index][1]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.start,
@@ -2388,7 +2152,7 @@ class _PagosState extends State<Pagos> {
                                                               ),
                                                               Expanded(
                                                                 child: Center(
-                                                                  child: list_Pagos[index]
+                                                                  child: listPagos[index]
                                                                               [
                                                                               3] ==
                                                                           null
@@ -2400,7 +2164,7 @@ class _PagosState extends State<Pagos> {
                                                                               globalUtility.contenidoTablas(context),
                                                                         )
                                                                       : Text(
-                                                                          list_Pagos[index][3]
+                                                                          listPagos[index][3]
                                                                               .toString(),
                                                                           textAlign:
                                                                               TextAlign.start,
