@@ -7,10 +7,11 @@ import 'package:arux/helpers/supabase/queries.dart';
 import 'package:arux/helpers/global_utility.dart';
 import 'package:arux/helpers/globals.dart';
 import 'package:arux/models/get_gestor_partidas_qt.dart';
-import 'package:arux/models/get_seguimiento_facturas_qt.dart';
 import 'package:arux/pages/seguimiento_facturas/widgets/popup_nota_credito.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
+
+import '../../models/GET_Seguimiento_Facturas_QT.dart';
 
 class SeguimientoDeFacturasPage extends StatefulWidget {
   const SeguimientoDeFacturasPage({Key? key}) : super(key: key);
@@ -72,6 +73,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
         return;
       }
 
+      //print(jsonEncode(res).toString());
+
       GetSeguimientoFacturasQt getSeguimientoFacturasQt =
           getSeguimientoFacturasQtFromMap(jsonEncode(res));
 
@@ -105,6 +108,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
 
         localList.add(getSeguimientoFacturasQt.data[i].estatus);
         localList.add(getSeguimientoFacturasQt.data[i].idPartidasPk);
+        localList.add(getSeguimientoFacturasQt.data[i].semaforo);
 
         facturas.add(localList);
       }
@@ -1990,26 +1994,13 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   ),
                                                 ),
                                                 Icon(Icons.circle,
-                                                    color: ((factura[7].difference(
-                                                                    DateTime
-                                                                        .now()))
-                                                                .inDays) >=
-                                                            ((factura[7].difference(
-                                                                        factura[
-                                                                            6]))
-                                                                    .inDays) /
-                                                                2
-                                                        ? Colors.green
-                                                        : ((factura[7].difference(
-                                                                        DateTime
-                                                                            .now()))
-                                                                    .inDays) >=
-                                                                ((factura[7].difference(
-                                                                            factura[6]))
-                                                                        .inDays) /
-                                                                    4
-                                                            ? Colors.yellow
-                                                            : Colors.red),
+                                                    color:
+                                                        factura[11] == "VERDE"
+                                                            ? Colors.green
+                                                            : factura[11] ==
+                                                                    "AMARILLO"
+                                                                ? Colors.yellow
+                                                                : Colors.red),
                                                 Expanded(
                                                   child: Text(
                                                     dateFormat(factura[7]),
