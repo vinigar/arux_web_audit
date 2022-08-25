@@ -1,9 +1,15 @@
+import 'package:arux/models/seguimiento_facturas.dart';
 import 'package:arux/pages/widgets/custom_button.dart';
 import 'package:arux/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class DetalleFacturaPopup extends StatelessWidget {
-  const DetalleFacturaPopup({Key? key}) : super(key: key);
+  const DetalleFacturaPopup({
+    Key? key,
+    required this.factura,
+  }) : super(key: key);
+
+  final SeguimientoFacturas factura;
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +73,12 @@ class DetalleFacturaPopup extends StatelessWidget {
                               child: Text(
                                 'Detalle de Factura',
                                 style: AppTheme.of(context).title1.override(
-                                      fontFamily: 'Gotham',
-                                      color: AppTheme.of(context)
-                                          .secondaryBackground,
-                                      fontSize: 35,
-                                      useGoogleFonts: false,
-                                    ),
+                                    fontFamily: 'Gotham',
+                                    color: AppTheme.of(context)
+                                        .secondaryBackground,
+                                    fontSize: 35,
+                                    useGoogleFonts: false,
+                                    fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -107,27 +113,69 @@ class DetalleFacturaPopup extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 10, 20),
-                              child: Text(
-                                'Detalle de la factura F-2324 por',
-                                style: AppTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Gotham',
-                                      color: AppTheme.of(context).textosVerdes,
-                                      fontSize: 20,
-                                      useGoogleFonts: false,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: 'Detalle de la factura ',
+                                  style: AppTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Gotham',
+                                        color:
+                                            AppTheme.of(context).textosVerdes,
+                                        fontSize: 20,
+                                        useGoogleFonts: false,
+                                      ),
+                                  children: [
+                                    TextSpan(
+                                      text: factura.factura,
+                                      style: AppTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Gotham-Bold',
+                                            color: AppTheme.of(context)
+                                                .textosVerdes,
+                                            fontSize: 20,
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 10, 20),
-                              child: Text(
-                                '-1,261,662.00 USD',
-                                style: AppTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Gotham',
-                                      color: AppTheme.of(context).textosVerdes,
-                                      fontSize: 20,
-                                      useGoogleFonts: false,
+                                    TextSpan(
+                                      text: ' por ',
+                                      style: AppTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Gotham',
+                                            color: AppTheme.of(context)
+                                                .textosVerdes,
+                                            fontSize: 20,
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
+                                    TextSpan(
+                                      text: '-1,261,662.00',
+                                      style: AppTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Gotham-Bold',
+                                            color: AppTheme.of(context)
+                                                .textosVerdes,
+                                            fontSize: 20,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${factura.moneda}',
+                                      style: AppTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Gotham',
+                                            color: AppTheme.of(context)
+                                                .textosVerdes,
+                                            fontSize: 20,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -161,7 +209,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                         style: AppTheme.of(context)
                                             .bodyText1
                                             .override(
-                                              fontFamily: 'Gotham',
+                                              fontFamily: 'Gotham-Bold',
                                               color: AppTheme.of(context)
                                                   .textosVerdes,
                                               useGoogleFonts: false,
@@ -175,7 +223,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                           style: AppTheme.of(context)
                                               .bodyText1
                                               .override(
-                                                fontFamily: 'Gotham',
+                                                fontFamily: 'Gotham-Regular',
                                                 color: AppTheme.of(context)
                                                     .textoAlternativo,
                                                 fontWeight: FontWeight.w300,
@@ -197,7 +245,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                           style: AppTheme.of(context)
                                               .bodyText1
                                               .override(
-                                                fontFamily: 'Gotham',
+                                                fontFamily: 'Gotham-Bold',
                                                 color: AppTheme.of(context)
                                                     .textosVerdes,
                                                 useGoogleFonts: false,
@@ -211,7 +259,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                             style: AppTheme.of(context)
                                                 .bodyText1
                                                 .override(
-                                                  fontFamily: 'Gotham',
+                                                  fontFamily: 'Gotham-Regular',
                                                   color: AppTheme.of(context)
                                                       .textoAlternativo,
                                                   fontWeight: FontWeight.w300,
@@ -234,7 +282,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                           style: AppTheme.of(context)
                                               .bodyText1
                                               .override(
-                                                fontFamily: 'Gotham',
+                                                fontFamily: 'Gotham-Bold',
                                                 color: AppTheme.of(context)
                                                     .textosVerdes,
                                                 useGoogleFonts: false,
@@ -248,7 +296,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                             style: AppTheme.of(context)
                                                 .bodyText1
                                                 .override(
-                                                  fontFamily: 'Gotham',
+                                                  fontFamily: 'Gotham-Regular',
                                                   color: AppTheme.of(context)
                                                       .textoAlternativo,
                                                   fontWeight: FontWeight.w300,
@@ -281,7 +329,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                             style: AppTheme.of(context)
                                                 .bodyText1
                                                 .override(
-                                                  fontFamily: 'Gotham',
+                                                  fontFamily: 'Gotham-Bold',
                                                   color: AppTheme.of(context)
                                                       .textosVerdes,
                                                   useGoogleFonts: false,
@@ -295,7 +343,8 @@ class DetalleFacturaPopup extends StatelessWidget {
                                               style: AppTheme.of(context)
                                                   .bodyText1
                                                   .override(
-                                                    fontFamily: 'Gotham',
+                                                    fontFamily:
+                                                        'Gotham-Regular',
                                                     color: AppTheme.of(context)
                                                         .textoAlternativo,
                                                     fontWeight: FontWeight.w300,
@@ -314,7 +363,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                           style: AppTheme.of(context)
                                               .bodyText1
                                               .override(
-                                                fontFamily: 'Gotham',
+                                                fontFamily: 'Gotham-Bold',
                                                 color: AppTheme.of(context)
                                                     .textosVerdes,
                                                 useGoogleFonts: false,
@@ -328,7 +377,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                             style: AppTheme.of(context)
                                                 .bodyText1
                                                 .override(
-                                                  fontFamily: 'Gotham',
+                                                  fontFamily: 'Gotham-Regular',
                                                   color: AppTheme.of(context)
                                                       .textoAlternativo,
                                                   fontWeight: FontWeight.w300,
@@ -350,7 +399,7 @@ class DetalleFacturaPopup extends StatelessWidget {
                                             style: AppTheme.of(context)
                                                 .bodyText1
                                                 .override(
-                                                  fontFamily: 'Gotham',
+                                                  fontFamily: 'Gotham-Bold',
                                                   color: AppTheme.of(context)
                                                       .textosVerdes,
                                                   useGoogleFonts: false,
@@ -360,11 +409,12 @@ class DetalleFacturaPopup extends StatelessWidget {
                                             padding: const EdgeInsetsDirectional
                                                 .fromSTEB(5, 0, 0, 0),
                                             child: Text(
-                                              'USD',
+                                              factura.moneda,
                                               style: AppTheme.of(context)
                                                   .bodyText1
                                                   .override(
-                                                    fontFamily: 'Gotham',
+                                                    fontFamily:
+                                                        'Gotham-Regular',
                                                     color: AppTheme.of(context)
                                                         .textoAlternativo,
                                                     fontWeight: FontWeight.w300,

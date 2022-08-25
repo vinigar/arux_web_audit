@@ -19,9 +19,8 @@ class CrudProveedores extends ChangeNotifier {
     final PostgrestResponse<dynamic> res = await seguimientoProveedoresQuery;
     if (res.hasError) {
       print(res.error);
+      return null;
     }
-
-    print(res.data);
 
     final List<FacturaProveedor> facturasProveedor = (res.data as List<dynamic>)
         .map((facturaProveedor) =>

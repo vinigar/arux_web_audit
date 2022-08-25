@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:arux/models/get_seguimiento_facturas_qt.dart';
-import 'package:arux/pages/seguimiento_facturas/widgets/detalle_factura_popup.dart';
 import 'package:flutter/material.dart';
 
+import 'package:arux/models/seguimiento_facturas.dart';
+import 'package:arux/pages/seguimiento_facturas/widgets/detalle_factura_popup.dart';
 import 'package:arux/functions/date_format.dart';
 import 'package:arux/helpers/supabase/queries.dart';
 import 'package:arux/helpers/global_utility.dart';
@@ -41,6 +41,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   bool filtroSimple = false;
   bool filtroAvanzado = false;
 
+  List<SeguimientoFacturas> seguimientoFacturas = [];
   List<List<dynamic>> facturas = [];
   String orden = "idddu";
   bool asc = true;
@@ -60,59 +61,21 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
   }
 
   Future<void> getFacturas() async {
-    try {
-      final res = await supabase
-          .rpc('get_seguimiento_factura',
-              params: {'busqueda': busquedaController.text})
-          .order(orden, ascending: asc)
-          .range(0, countF)
-          .execute();
+    final res = await supabase
+        .rpc('get_seguimiento_factura',
+            params: {'busqueda': busquedaController.text})
+        .order(orden, ascending: asc)
+        .range(0, countF)
+        .execute();
 
-      if (res.hasError) {
-        print("-----Error: ${res.error}");
-        return;
-      }
-
-      GetSeguimientoFacturasQt getSeguimientoFacturasQt =
-          getSeguimientoFacturasQtFromMap(jsonEncode(res));
-
-      facturas = [];
-
-      for (var i = 0; i < getSeguimientoFacturasQt.data.length; i++) {
-        List<dynamic> localList = [];
-
-        localList.add(getSeguimientoFacturasQt.data[i].idddu);
-        localList.add(getSeguimientoFacturasQt.data[i].proveedor);
-        localList.add(getSeguimientoFacturasQt.data[i].factura);
-        localList.add(getSeguimientoFacturasQt.data[i].esquema);
-        localList.add(getSeguimientoFacturasQt.data[i].moneda);
-        localList
-            .add(dateFormat(getSeguimientoFacturasQt.data[i].fechaDocumento));
-        if (getSeguimientoFacturasQt.data[i].fechaInicio == null) {
-          localList.add("-");
-        } else {
-          localList.add(getSeguimientoFacturasQt.data[i].fechaInicio);
-        }
-        if (getSeguimientoFacturasQt.data[i].fechaLimite == null) {
-          localList.add("-");
-        } else {
-          localList.add(getSeguimientoFacturasQt.data[i].fechaLimite);
-        }
-        if (getSeguimientoFacturasQt.data[i].fechaPago == null) {
-          localList.add("-");
-        } else {
-          localList.add(dateFormat(getSeguimientoFacturasQt.data[i].fechaPago));
-        }
-
-        localList.add(getSeguimientoFacturasQt.data[i].estatus);
-        localList.add(getSeguimientoFacturasQt.data[i].idPartidasPk);
-        localList.add(getSeguimientoFacturasQt.data[i].semaforo);
-
-        facturas.add(localList);
-      }
-    } catch (e) {
-      print(e);
+    if (res.hasError) {
+      print("-----Error: ${res.error}");
+      return;
     }
+
+    seguimientoFacturas = (res.data as List<dynamic>)
+        .map((factura) => SeguimientoFacturas.fromJson(jsonEncode(factura)))
+        .toList();
 
     setState(() {});
   }
@@ -1894,9 +1857,9 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: facturas.length,
+                                  itemCount: seguimientoFacturas.length,
                                   itemBuilder: (context, index) {
-                                    final factura = facturas[index];
+                                    final factura = seguimientoFacturas[index];
                                     return Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
@@ -1930,7 +1893,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                               children: [
                                                 Expanded(
                                                   child: Text(
-                                                    factura[0].toString(),
+                                                    factura.idddu,
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1939,7 +1902,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[1].toString(),
+                                                    factura.proveedor,
                                                     textAlign: TextAlign.start,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1948,7 +1911,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[2].toString(),
+                                                    factura.factura,
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1957,7 +1920,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[3].toString(),
+                                                    factura.esquema,
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1966,7 +1929,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[4].toString(),
+                                                    factura.moneda,
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1975,7 +1938,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[5].toString(),
+                                                    dateFormat(
+                                                        factura.fechaDocumento),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1984,7 +1948,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    dateFormat(factura[6]),
+                                                    dateFormat(
+                                                        factura.fechaInicio),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -1992,16 +1957,17 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   ),
                                                 ),
                                                 Icon(Icons.circle,
-                                                    color:
-                                                        factura[11] == "VERDE"
-                                                            ? Colors.green
-                                                            : factura[11] ==
-                                                                    "AMARILLO"
-                                                                ? Colors.yellow
-                                                                : Colors.red),
+                                                    color: factura.semaforo ==
+                                                            "VERDE"
+                                                        ? Colors.green
+                                                        : factura.semaforo ==
+                                                                "AMARILLO"
+                                                            ? Colors.yellow
+                                                            : Colors.red),
                                                 Expanded(
                                                   child: Text(
-                                                    dateFormat(factura[7]),
+                                                    dateFormat(
+                                                        factura.fechaLimite),
                                                     textAlign: TextAlign.center,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2010,7 +1976,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[8].toString(),
+                                                    dateFormat(
+                                                        factura.fechaPago),
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2019,7 +1986,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    factura[9].toString(),
+                                                    factura.estatus,
                                                     textAlign: TextAlign.end,
                                                     style: globalUtility
                                                         .contenidoTablas(
@@ -2032,7 +1999,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
-                                                      factura[9] ==
+                                                      factura.estatus ==
                                                               'NC Pendiente'
                                                           ? Padding(
                                                               padding:
@@ -2051,7 +2018,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                             (context) {
                                                                           return FolioNotaCreditoPopup(
                                                                             partidasSapId:
-                                                                                factura[10],
+                                                                                factura.idPartidasPk,
                                                                             formKey:
                                                                                 formKey,
                                                                           );
@@ -2069,7 +2036,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                               ),
                                                             )
                                                           : Container(),
-                                                      factura[9] == 'Pagado'
+                                                      factura.estatus ==
+                                                              'Pagado'
                                                           ? Padding(
                                                               padding:
                                                                   const EdgeInsets
@@ -2082,8 +2050,8 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       () async {
                                                                     await SupabaseQueries
                                                                         .completarFactura(
-                                                                      factura[
-                                                                          10],
+                                                                      factura
+                                                                          .idPartidasPk,
                                                                     );
                                                                     await getFacturas();
                                                                   },
@@ -2111,7 +2079,10 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                                       context,
                                                                   builder:
                                                                       (context) {
-                                                                    return const DetalleFacturaPopup();
+                                                                    return DetalleFacturaPopup(
+                                                                      factura:
+                                                                          factura,
+                                                                    );
                                                                   });
                                                             },
                                                             child: Icon(
