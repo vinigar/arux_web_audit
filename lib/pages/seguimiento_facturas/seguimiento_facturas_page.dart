@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:arux/models/get_seguimiento_facturas_qt.dart';
+import 'package:arux/pages/seguimiento_facturas/widgets/detalle_factura_popup.dart';
 import 'package:flutter/material.dart';
 
 import 'package:arux/functions/date_format.dart';
@@ -10,8 +12,6 @@ import 'package:arux/models/get_gestor_partidas_qt.dart';
 import 'package:arux/pages/seguimiento_facturas/widgets/popup_nota_credito.dart';
 import 'package:arux/pages/widgets/side_menu/side_menu.dart';
 import 'package:arux/pages/widgets/top_menu/top_menu.dart';
-
-import '../../models/GET_Seguimiento_Facturas_QT.dart';
 
 class SeguimientoDeFacturasPage extends StatefulWidget {
   const SeguimientoDeFacturasPage({Key? key}) : super(key: key);
@@ -72,8 +72,6 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
         print("-----Error: ${res.error}");
         return;
       }
-
-      //print(jsonEncode(res).toString());
 
       GetSeguimientoFacturasQt getSeguimientoFacturasQt =
           getSeguimientoFacturasQtFromMap(jsonEncode(res));
@@ -2032,66 +2030,97 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceEvenly,
+                                                            .center,
                                                     children: [
                                                       factura[9] ==
                                                               'NC Pendiente'
-                                                          ? Material(
-                                                              child: InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  await showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (context) {
-                                                                        return PopupNotaCredito(
-                                                                          partidasSapId:
-                                                                              factura[10],
-                                                                          formKey:
-                                                                              formKey,
-                                                                        );
-                                                                      });
-                                                                  await getFacturas();
-                                                                },
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .description,
-                                                                  color: globalUtility
-                                                                      .secondary,
-                                                                  size: 30,
+                                                          ? Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                horizontal: 5,
+                                                              ),
+                                                              child: Material(
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    await showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (context) {
+                                                                          return FolioNotaCreditoPopup(
+                                                                            partidasSapId:
+                                                                                factura[10],
+                                                                            formKey:
+                                                                                formKey,
+                                                                          );
+                                                                        });
+                                                                    await getFacturas();
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .description,
+                                                                    color: globalUtility
+                                                                        .secondary,
+                                                                    size: 30,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             )
                                                           : Container(),
                                                       factura[9] == 'Pagado'
-                                                          ? Material(
-                                                              child: InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  await SupabaseQueries
-                                                                      .completarFactura(
-                                                                    factura[10],
-                                                                  );
-                                                                  await getFacturas();
-                                                                },
-                                                                child: Icon(
-                                                                  Icons.check,
-                                                                  color: globalUtility
-                                                                      .secondary,
-                                                                  size: 30,
+                                                          ? Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                horizontal: 5,
+                                                              ),
+                                                              child: Material(
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    await SupabaseQueries
+                                                                        .completarFactura(
+                                                                      factura[
+                                                                          10],
+                                                                    );
+                                                                    await getFacturas();
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons.check,
+                                                                    color: globalUtility
+                                                                        .secondary,
+                                                                    size: 30,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             )
                                                           : Container(),
-                                                      Material(
-                                                        child: InkWell(
-                                                          onTap: () {},
-                                                          child: Icon(
-                                                            Icons.visibility,
-                                                            color: globalUtility
-                                                                .secondary,
-                                                            size: 30,
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          horizontal: 5,
+                                                        ),
+                                                        child: Material(
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              await showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return const DetalleFacturaPopup();
+                                                                  });
+                                                            },
+                                                            child: Icon(
+                                                              Icons.visibility,
+                                                              color:
+                                                                  globalUtility
+                                                                      .secondary,
+                                                              size: 30,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
