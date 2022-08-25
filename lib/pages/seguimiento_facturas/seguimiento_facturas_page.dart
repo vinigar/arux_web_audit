@@ -515,29 +515,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -608,29 +586,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -700,29 +656,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -792,29 +726,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -884,29 +796,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -978,29 +868,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -1067,29 +935,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -1156,29 +1002,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -1244,29 +1068,7 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                           ? asc = false
                                                           : asc = true;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
@@ -1327,33 +1129,9 @@ class _SeguimientoDeFacturasPageState extends State<SeguimientoDeFacturasPage> {
                                                       orden = "estatus";
                                                       asc = true;
                                                     } else {
-                                                      asc == true
-                                                          ? asc = false
-                                                          : asc = true;
+                                                      asc = !asc;
                                                     }
-                                                    if (filtroAvanzado) {
-                                                      switch (
-                                                          selectedDDOpe[0]) {
-                                                        case "=":
-                                                          //GetPartidasIgual();
-                                                          break;
-                                                        case "<":
-                                                          //GetPartidasMenor();
-                                                          break;
-                                                        case "<=":
-                                                          //GetPartidasMenorI();
-                                                          break;
-                                                        case ">":
-                                                          //GetPartidasMayor();
-                                                          break;
-                                                        case ">=":
-                                                          //GetPartidasMayorI();
-                                                          break;
-                                                        case "!=":
-                                                          //GetPartidasDif();
-                                                          break;
-                                                      }
-                                                    } else if (filtroSimple) {
+                                                    if (filtroSimple) {
                                                       getFacturasBy_();
                                                     } else {
                                                       await getFacturas();
